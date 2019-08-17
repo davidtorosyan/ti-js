@@ -9,7 +9,7 @@
     // Save the previous value of the `_` variable.
     var previousLib = root.tilib;
 
-    // Create a safe reference to the lib object for use below.
+    // Create a safe reference to the tilib object for use below.
     var tilib = function (obj) {
         if (obj instanceof tilib) return obj;
         if (!(this instanceof tilib)) return new tilib(obj);

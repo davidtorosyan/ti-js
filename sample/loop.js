@@ -1,8 +1,11 @@
 // included in tilib
 
-var func_disp = x => console.log(x);
+var tilib = () => {}
 
-var lib_run = lines => 
+tilib.core = () => {}
+tilib.runtime = () => {}
+
+tilib.core.run = lines => 
 {
     for (let i = 0; i < lines.length; i++) 
     {
@@ -14,42 +17,50 @@ var lib_run = lines =>
     }
 }
 
+tilib.core.new_mem = () => (
+    {
+        vars: 
+        {
+            X: 0,
+            B: 0,
+            Y: 0,
+        },
+    }
+);
+
+tilib.runtime.Disp = x => console.log(x);
+
 // output of tipiler would be a file called loop.ti.js
 
-var loop_ti_js = () => 
+var loop_ti_js = (mem = tilib.core.new_mem()) => 
 {
-    let var_x =
-        var_b =
-        var_y =
-        0;
-
-    lib_run([
-        () => { var_x = 1; },
-        () => { var_b = 1; },
-        () => { var_y = 1; },
+    tilib.core.run([
+        () => { mem.vars.X = 1; },
+        () => { mem.vars.B = 1; },
+        () => { mem.vars.Y = 1; },
         () =>
         { 
-            if (var_y > 2)
+            if (mem.vars.Y > 2)
             {
                 return 6;
             }
         },
-        () => { var_x = var_x + 1; },
+        () => { mem.vars.X = mem.vars.X + 1; },
         () => 
         { 
-            var_y = var_y + 1;
+            mem.vars.Y = mem.vars.Y + 1;
             return 3;
         },
         () => 
         { 
-            if (!(var_b == 1))
+            if (!(mem.vars.B == 1))
             {
                 return 9;
             }
         },
-        () => { var_b = 2; },
+        () => { mem.vars.B = 2; },
         () => { return 4; },
-        () => { func_disp(var_x); },
+        () => { tilib.runtime.Disp(mem.vars.X); },
     ]);
 }
 

@@ -9,7 +9,7 @@
     // Save the previous value of the `_` variable.
     var previousLib = root.tipiler;
 
-    // Create a safe reference to the lib object for use below.
+    // Create a safe reference to the tipiler object for use below.
     var tipiler = function (obj) {
         if (obj instanceof tipiler) return obj;
         if (!(this instanceof tipiler)) return new tipiler(obj);
