@@ -4,17 +4,12 @@ var func_disp = x => console.log(x);
 
 var lib_run = lines => 
 {
-    var i = 0;
-    while (i < lines.length)
+    for (let i = 0; i < lines.length; i++) 
     {
-        var ret = lines[i]();
+        let ret = lines[i]();
         if (ret !== undefined)
         {
-            i = ret;
-        }
-        else
-        {
-            i++;
+            i = ret - 1;
         }
     }
 }
@@ -23,12 +18,12 @@ var lib_run = lines =>
 
 var loop_ti_js = () => 
 {
-    var var_x =
-    var_b =
-    var_y =
-    0
+    let var_x =
+        var_b =
+        var_y =
+        0;
 
-    return [
+    lib_run([
         () => { var_x = 1; },
         () => { var_b = 1; },
         () => { var_y = 1; },
@@ -55,9 +50,9 @@ var loop_ti_js = () =>
         () => { var_b = 2; },
         () => { return 4; },
         () => { func_disp(var_x); },
-    ]
+    ]);
 }
 
-// using the library
+// calling the function
 
-lib_run(loop_ti_js());
+loop_ti_js();
