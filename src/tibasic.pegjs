@@ -71,6 +71,8 @@ Start
     = Statement
 
 // ----- Components -----
+Comment
+    = .*
 
 Location
     = [A-Z]
@@ -148,6 +150,10 @@ IfStatement
     = "If " test:TestExpression 
     { return buildType("IfStatement", "condition", buildFunc(test, true)) };
 
+Comments
+    = '"' cmt:Comment
+    { return buildType("Comments","label", quote(cmt)) };
+
 Statement
     = Assignment
     / Goto
@@ -157,3 +163,4 @@ Statement
     / Display
     / ForLoop
     / IfStatement
+    / Comments
