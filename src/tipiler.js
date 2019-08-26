@@ -31,159 +31,152 @@
     // Current version.
     tipiler.VERSION = '0.0.0';
 
-    let grammar = `
+    // ----- modules -----
+
+    tipiler.parser = () => {};
+    tipiler.fetcher = () => {};
+
+    // ----- private -----
+
+    let grammar = undefined;
+    let parser = undefined;
+
+    let downloadGrammar = (callback) =>
     {
-        var lib = "tilib.";
-
-        var lib_runtime = lib + "runtime.";
-        var lib_num = lib_runtime + "num";
-        var lib_add = lib_runtime + "add";
-        var lib_testEquals = lib_runtime + "testEquals";
-        var lib_testLessEquals = lib_runtime + "testLessEquals";
-        var lib_disp = lib_runtime + "disp";
-
-        var mem = "mem.";
-        var lib_vars = mem + "vars.";
-
-        var startFunc = "() => { ";
-        var endFunc = " }";
-        var startFuncReturn = startFunc + "return ";
-
-        function buildBinaryExpression(head, tail) 
+        tipiler.fetcher.download("../src/tibasic.pegjs", (result) => 
         {
-            return tail.reduce(
-                (result, element) => element[0] + "(" + result + ", " + element[1] + ")",
-                head);
-        }
-
-        function extractList(list, index) 
-        {
-            return list.map(function(element) { return element[index]; });
-        }
-
-        function buildList(head, tail, index) 
-        {
-            return [head].concat(extractList(tail, index));
-        }
-
-        function buildStringList(head, tail, index) 
-        {
-            return "[\\n" + buildList(head, tail, index).join(",\\n") + "\\n]";
-        }
-
-        function optionalList(value) 
-        {
-            return value !== null ? value : [];
-        }
+            grammar = result;
+            callback();
+        });
     }
 
-    Start
-        = Program
+    function quote(str)
+    {
+        return "'" + str + "'";
+    }
 
-    LineTerminator
-        = [\\n\\r\\u2028\\u2029]
+    let buildList = (lines) => 
+    {
+        return "[\n  " + lines.join(",\n  ") + "\n]";
+    }
+
+    // ----- fetcher -----
+
+    tipiler.fetcher.download = (url, callback) => 
+    {
+        let request = new XMLHttpRequest();
+        request.open("GET", url, true);
     
-    LineTerminatorSequence "end of line"
-        = "\\n"
-        / "\\r\\n"
-        / "\\r"
-        / "\\u2028"
-        / "\\u2029"
+        request.onload = () =>  
+        {
+            if (request.status >= 200 && request.status < 400) 
+            {
+                callback(request.response);
+            } 
+            else 
+            {
+                throw "Failed to download: " + request.statusText
+            }
+        };
+    
+        request.onerror = () =>
+        {
+            throw "Failed to download."
+        };
+    
+        request.send();
+    };
 
-    Variable
-        = name:[A-Z]
-        { return lib_vars + name }
+    // ----- parser -----
 
-    Integer
-        = digits:[0-9]+ { return lib_num + "('" + digits.join("") + "')"; }
+    tipiler.parser.ready = (callback) => 
+    {
+        if (grammar === undefined)
+        {
+            downloadGrammar(callback);
+        }
+        else
+        {
+            callback();
+        }    
+    }
 
-    Factor
-        = Integer
-        / Variable
+    tipiler.parser.parse = (source, options = {}) => 
+    {
+        // ----- initialize -----
 
-    AdditiveOperator
-        = "+" { return lib_add; }
+        if (parser === undefined)
+        {
+            if (grammar === undefined)
+            {
+                throw "Error: tipiler not ready"
+            }
 
-    AdditiveExpression
-        = head:Factor 
-        tail:(AdditiveOperator Factor)* 
-        { return buildBinaryExpression(head, tail); }
+            parser = peg.generate(grammar);
+        }
 
-    TestOperator
-        = "=" { return lib_testEquals; }
+        let outputAsProgram = false;
+        switch (options.output)
+        {
+            case "program":
+            case undefined:
+                outputAsProgram = true;
+                break;
+            case "source":
+                break;
+            default:
+                throw `Unrecognized option for output: ${options.output}`;
+        }
 
-    TestExpression
-        = head:AdditiveExpression 
-        tail:(TestOperator AdditiveExpression)* 
-        { return buildBinaryExpression(head, tail); }
+        let name = options.name;
+        let includeSource = options.includeSource;
 
-    ValueExpression
-        = TestExpression
+        if (includeSource !== undefined && name === undefined)
+        {
+            throw "Cannot include source without specifying name"
+        }
 
-    Assignment
-        = left:ValueExpression "->" right:Variable 
-        { return startFunc + right + " = " + left + ";" + endFunc; }
+        // ----- parse -----
 
-    Display
-        = "Disp " val:ValueExpression
-        { return startFunc + lib_disp + "(" + val + ");" + endFunc; }
+        let sourceLines = source.split(/\r?\n/);
+        let parsedLines = sourceLines.map(s => 
+        {
+            try 
+            {
+                return parser.parse(s);
+            }
+            catch (error)
+            {
+                if (error.name === "SyntaxError")
+                {
+                    return "{ type: 'SyntaxError' }";
+                }
 
-    IfStatement
-        = "If " test:TestExpression 
-        { return "{ type: 'IfStatement', condition: " + startFuncReturn + test + endFunc + "}" }
+                throw error;
+            }
+        })
 
-    ForLoop
-        = "For(" variable:Variable "," start:ValueExpression "," end:ValueExpression "," step:ValueExpression ")"? 
-        { return "{ type: 'ForLoop', " + 
-            "init: " + startFunc + variable + " = " + start + ";" + endFunc + ", " +
-            "condition: " + startFuncReturn + lib_testLessEquals + "(" + variable + ", " + end + ");" + endFunc + ", " + 
-            "step: " + startFunc + variable + " = " + lib_add + "(" + variable + ", " + step + ");" + endFunc + 
-            " }" }
+        let lines = buildList(parsedLines);
 
-    Location
-        = [A-Z]
+        if (name !== undefined)
+        {
+            lines = `tilib.core.prgmNew('${name}', ${lines}`;
 
-    Goto
-        = "Goto " location:Location 
-        { return "{ type: 'GotoStatement', label: '" + location  + "'}" }
+            if (includeSource)
+            {
+                lines += `, ${buildList(sourceLines.map(s => quote(s)))}`;
+            }
 
-    Label
-        = "Lbl " location:Location
-        { return "{ type: 'LabelStatement', label: '" + location  + "'}" }
+            lines += ")";
+        }
 
-    End
-        = "End"
-        { return "{ type: 'EndStatement' }" }
+        if (outputAsProgram)
+        {
+            lines = eval(lines);
+        }
 
-    Then
-        = "Then"
-        { return "{ type: 'ThenStatement' }" }
-
-    Statement
-        = Assignment
-        / Goto
-        / Label
-        / End
-        / Then
-        / Display
-        / ForLoop
-        / IfStatement
-
-    SourceElement
-        = Statement
-
-    SourceElements
-        = head:SourceElement 
-        tail:(LineTerminatorSequence SourceElement)* 
-        { return buildStringList(head, tail, 1); }
-
-    Program
-        = SourceElements?
-    `;
-
-    parser = peg.generate(grammar);
-
-    tipiler.parse = source => parser.parse(source);
+        return lines;
+    }
 
     // AMD registration happens at the end for compatibility with AMD loaders
     // that may not enforce next-turn semantics on modules. Even though general

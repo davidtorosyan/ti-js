@@ -31,8 +31,26 @@
     // Current version.
     tilib.VERSION = '0.0.0';
 
+    // ----- modules -----
+
     tilib.core = () => {};
     tilib.runtime = () => {};
+
+    // ----- private -----
+
+    let default_mem = undefined;
+
+    let get_mem = () => 
+    {
+        if (default_mem === undefined)
+        {
+            default_mem = tilib.core.new_mem();
+        }
+
+        return default_mem;
+    }
+
+    // ----- core -----
 
     tilib.core.new_mem = () => (
         {
@@ -42,14 +60,54 @@
                 B: 0,
                 Y: 0,
             },
+            prgms: [],
         }
     );
 
     tilib.core.isTruthy = x => !!x;
 
+    tilib.core.prgmNew = (name, program, source=[]) => 
+    {
+        get_mem().prgms.push(
+        {
+            name: name,
+            program: program,
+            source: source,
+        });
+    }
+
+    tilib.core.prgmExec = name => 
+    {
+        let found = get_mem().prgms.find(e => e.name === name);
+
+        if (found === undefined)
+        {
+            throw "ERR:UNDEFINED";
+        }
+
+        tilib.core.run(found.program, { source: found.source });
+    }
+
     tilib.core.run = (lines, options = {}) => 
     {
-        mem = tilib.core.new_mem();
+        // ----- initialize environment -----
+
+        let mem = tilib.core.new_mem();
+
+        let debug = options.debug === true;
+
+        let sourceLines = [];
+        if (options.source !== undefined)
+        {
+            if (Array.isArray(options.source))
+            {
+                sourceLines = options.source;
+            }
+            else
+            {
+                sourceLines = options.source.split(/\r?\n/);
+            }
+        }
 
         let searchLabel = undefined;
         let ifResult = undefined;
@@ -60,15 +118,23 @@
 
         let stack = [];
 
+        let errorMessage = (type, i) =>
+        {
+            return `ERR:${type} on line ${i}: ${sourceLines[i] || ""}`
+        };
+
         for (let i = 0; i < lines.length; i++) 
         {
-            if (options.debug === true)
+            // ----- initialize line -----
+
+            if (debug)
             {
-                console.log(`Executing line: ${i}, \t\
-searchLabel: ${searchLabel}, \t\
-ifResult: ${ifResult}, \t\
-scanForEndBalance: ${scanForEndBalance}, \t\
-stack: ${stack}`);
+                console.log(`Line: ${i}, \t\
+searchLabel: ${searchLabel || ""}, \t\
+ifResult: ${ifResult || ""}, \t\
+scanForEndBalance: ${scanForEndBalance || ""}, \t\
+stack: ${stack || ""} \t\
+source: ${sourceLines[i] || ""}`);
             }
 
             linesRun++;
@@ -81,24 +147,17 @@ stack: ${stack}`);
             let line = lines[i];
             let type = line.type;
 
+            // ----- scan for end -----
+
             if (scanForEndBalance !== undefined)
             {
-                switch (type)
+                if (type === "ForLoop" || type === "ThenStatement")
                 {
-                    case "ForLoop":
-                    case "ThenStatement":
-                        scanForEndBalance++;
-                        break;
-                    case "EndStatement":
-                        scanForEndBalance--;
-                        break;
-                    case "IfStatement":
-                    case "GotoStatement":
-                    case "LabelStatement":
-                    case undefined:
-                        break;
-                    default:
-                        throw `Unknown type on line ${i}`;
+                    scanForEndBalance++;
+                }
+                else if (type === "EndStatement")
+                {
+                    scanForEndBalance--;
                 }
 
                 if (scanForEndBalance === 0)
@@ -109,6 +168,8 @@ stack: ${stack}`);
                 continue;
             }
 
+            // ----- search for label -----
+
             if (searchLabel !== undefined)
             {
                 if (type === "LabelStatement" && line.label == searchLabel)
@@ -118,6 +179,8 @@ stack: ${stack}`);
 
                 continue;
             }
+
+            // ----- check if result -----
 
             if (ifResult !== undefined)
             {
@@ -137,14 +200,17 @@ stack: ${stack}`);
                     {
                         scanForEndBalance = 1;
                     }
+                    
                     continue;
                 }
             }
 
+            // ----- normal execution -----
+
             switch (type)
             {
                 case "IfStatement":
-                    ifResult = tilib.core.isTruthy(line.condition());
+                    ifResult = tilib.core.isTruthy(line.condition(mem));
                     break;
                 case "GotoStatement":
                     searchLabel = line.label;
@@ -155,37 +221,33 @@ stack: ${stack}`);
                 case "EndStatement":
                     if (stack.length === 0)
                     {
-                        throw `ERR:SYNTAX on line ${i}`
+                        throw errorMessage("SYNTAX", i);
                     }
                     let source = stack.pop();
                     let sourceLine = lines[source];
-                    switch (sourceLine.type)
+                    if (sourceLine.type === "ForLoop")
                     {
-                        case "ForLoop":
-                            sourceLine.step();
-                            if (sourceLine.condition())
-                            {
-                                stack.push(source);
-                                i = source;
-                            }
-                            break;
-                        case "ThenStatement":
-                            break;
-                        case "EndStatement":
-                        case "IfStatement":
-                        case "GotoStatement":
-                        case "LabelStatement":
-                        case undefined:
-                            throw `Impossible end source on line ${i}`;    
-                        default:
-                            throw `Unknown type on line ${i}`;    
+                        sourceLine.step(mem);
+                        if (sourceLine.condition(mem))
+                        {
+                            stack.push(source);
+                            i = source;
+                        }
+                    }
+                    else if (sourceLine.type === "ThenStatement")
+                    {
+                        // empty
+                    }
+                    else 
+                    {
+                        throw `Impossible end source on line ${i}`;    
                     }
                     break;
                 case "ThenStatement":
-                    throw `ERR:SYNTAX on line ${i}`
+                    throw errorMessage("SYNTAX", i);
                 case "ForLoop":
-                    line.init();
-                    if (tilib.core.isTruthy(line.condition()))
+                    line.init(mem);
+                    if (tilib.core.isTruthy(line.condition(mem)))
                     {
                         stack.push(i);
                     }
@@ -194,14 +256,19 @@ stack: ${stack}`);
                         scanForEndBalance = 1;
                     }
                     break;
-                case undefined:
-                    line();
+                case "SyntaxError":
+                    throw errorMessage("SYNTAX", i);
+                case "Assignment":
+                case "IoStatement":
+                    line.statement(mem);
                     break;
                 default:
                     throw `Unknown type on line ${i}`;
             }
         }
     }
+
+    // ----- runtime -----
 
     tilib.runtime.num = x => parseInt(x, 10);
     tilib.runtime.add = (x, y) => x + y;

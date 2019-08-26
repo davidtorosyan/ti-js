@@ -1,69 +1,30 @@
-// included in tilib
+// Produced by tipiler
+// ==================
 
-var tilib = () => {}
-
-tilib.core = () => {}
-tilib.runtime = () => {}
-
-tilib.core.run = lines => 
-{
-    for (let i = 0; i < lines.length; i++) 
-    {
-        let ret = lines[i]();
-        if (ret !== undefined)
-        {
-            i = ret - 1;
-        }
-    }
-}
-
-tilib.core.new_mem = () => (
-    {
-        vars: 
-        {
-            X: 0,
-            B: 0,
-            Y: 0,
-        },
-    }
-);
-
-tilib.runtime.Disp = x => console.log(x);
-
-// output of tipiler would be a file called loop.ti.js
-
-var loop_ti_js = (mem = tilib.core.new_mem()) => 
-{
-    tilib.core.run([
-        () => { mem.vars.X = 1; },
-        () => { mem.vars.B = 1; },
-        () => { mem.vars.Y = 1; },
-        () =>
-        { 
-            if (mem.vars.Y > 2)
-            {
-                return 6;
-            }
-        },
-        () => { mem.vars.X = mem.vars.X + 1; },
-        () => 
-        { 
-            mem.vars.Y = mem.vars.Y + 1;
-            return 3;
-        },
-        () => 
-        { 
-            if (!(mem.vars.B == 1))
-            {
-                return 9;
-            }
-        },
-        () => { mem.vars.B = 2; },
-        () => { return 4; },
-        () => { tilib.runtime.Disp(mem.vars.X); },
-    ]);
-}
-
-// calling the function
-
-loop_ti_js();
+tilib.core.prgmNew('loop', [
+    { type: 'Assignment', statement: (mem) => { mem.vars.X = tilib.runtime.num('1') } },
+    { type: 'Assignment', statement: (mem) => { mem.vars.B = tilib.runtime.num('1') } },
+    { type: 'ForLoop', init: (mem) => { mem.vars.Y = tilib.runtime.num('1') }, condition: (mem) => { return tilib.runtime.testLessEquals(mem.vars.Y, tilib.runtime.num('2')) }, step: (mem) => { mem.vars.Y = tilib.runtime.add(mem.vars.Y, tilib.runtime.num('1')) } },
+    { type: 'LabelStatement', label: 'A' },
+    { type: 'Assignment', statement: (mem) => { mem.vars.X = tilib.runtime.add(mem.vars.X, tilib.runtime.num('1')) } },
+    { type: 'EndStatement' },
+    { type: 'IfStatement', condition: (mem) => { return tilib.runtime.testEquals(mem.vars.B, tilib.runtime.num('1')) } },
+    { type: 'ThenStatement' },
+    { type: 'Assignment', statement: (mem) => { mem.vars.B = tilib.runtime.num('2') } },
+    { type: 'GotoStatement', label: 'A' },
+    { type: 'EndStatement' },
+    { type: 'IoStatement', statement: (mem) => { tilib.runtime.disp(mem.vars.X) } }
+  ], [
+    '1->X',
+    '1->B',
+    'For(Y,1,2,1)',
+    'Lbl A',
+    'X+1->X',
+    'End',
+    'If B=1',
+    'Then',
+    '2->B',
+    'Goto A',
+    'End',
+    'Disp X'
+  ])
