@@ -2,13 +2,43 @@
 <html>
     <head>
         <title>ti-js</title>
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <!-- <script src="loop.js"></script> -->
+        <div>
+            <h1>ti-js playground</h1>
+            <div class="playground">
+                <div>
+                    <label for="source">Source</label>
+                    <textarea id="source" autofocus rows="15" cols="20"></textarea>
+                </div>
+                <div>
+                    <label for="transpiled">Transpiled</label>
+                    <textarea id="transpiled" readonly rows="15" cols="100"></textarea>
+                </div>
+                <div>
+                    <label for="output">Output</label>
+                    <textarea id="output" readonly rows="5" cols="30"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- tipiler depends on peg -->
         <script src="../vendor/peg-0.10.0.js"></script>
         <script src="../src/tipiler.js"></script>
+
+        <!-- loop depends on tilib -->
         <script src="../src/tilib.js"></script>
         <script src="loop.js"></script>
+
+        <!-- example usage in javascript -->
         <script src="parse.js"></script>
+
+        <!-- playground depends on jquery -->
+        <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+        <script src="playground.js"></script>
     </body>
 </html>

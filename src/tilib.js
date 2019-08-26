@@ -29,7 +29,7 @@
     }
 
     // Current version.
-    tilib.VERSION = '0.0.0';
+    tilib.VERSION = '0.1.0';
 
     // ----- modules -----
 
