@@ -71,8 +71,6 @@ Start
     = Statement
 
 // ----- Components -----
-Comment
-    = .*
 
 Location
     = [A-Z]
@@ -151,8 +149,8 @@ IfStatement
     { return buildType("IfStatement", "condition", buildFunc(test, true)) };
 
 Comments
-    = '"' cmt:Comment
-    { return buildType("Comments","label", quote(cmt)) };
+    = '"' cmt:(.*)
+    { return buildType("Comments", "label", quote(cmt)) };
 
 Statement
     = Assignment
