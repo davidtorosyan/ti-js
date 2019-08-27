@@ -217,7 +217,7 @@ source: ${sourceLines[i] || ""}`);
                     i = -1;
                     break;
                 case "LabelStatement":
-                case "Comments":
+                case "NO-OP":
                     break;
                 case "EndStatement":
                     if (stack.length === 0)

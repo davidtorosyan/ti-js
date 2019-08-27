@@ -70,10 +70,39 @@
 Start
     = Statement
 
+// ----- Lexical Grammar -----
+
+SourceCharacter
+  = .
+
+WhiteSpace "whitespace"
+  = "\t"
+  / "\v"
+  / "\f"
+  / " "
+  / "\u00A0"
+  / "\uFEFF"
+
+LineTerminator
+  = [\n\r\u2028\u2029]
+
+LineTerminatorSequence "end of line"
+  = "\n"
+  / "\r\n"
+  / "\r"
+  / "\u2028"
+  / "\u2029"
+
+Comment "comment"
+  = SingleLineComment
+
+SingleLineComment
+  = '"'(SourceCharacter)*
+
 // ----- Components -----
 
-Location
-    = [A-Z]
+LabelCode
+    = [A-Z0-9][A-Z0-9]?
 
 Variable
     = name:[A-Z]
@@ -114,12 +143,12 @@ Assignment
     { return buildType("Assignment", "statement", buildFunc(right + " = " + left)) };
 
 Goto
-    = "Goto " location:Location 
-    { return buildType("GotoStatement", "label", quote(location)) };
+    = "Goto " location:LabelCode 
+    { return buildType("GotoStatement", "label", quote(location.join(""))) };
 
 Label
-    = "Lbl " location:Location
-    { return buildType("LabelStatement", "label", quote(location)) };
+    = "Lbl " location:LabelCode
+    { return buildType("LabelStatement", "label", quote(location.join(""))) };
 
 End
     = "End"
@@ -148,9 +177,9 @@ IfStatement
     = "If " test:TestExpression 
     { return buildType("IfStatement", "condition", buildFunc(test, true)) };
 
-Comments
-    = '"' cmt:(.*)
-    { return buildType("Comments", "label", quote(cmt)) };
+__
+  = (WhiteSpace / LineTerminatorSequence / Comment)*
+  { return buildType("NO-OP") }
 
 Statement
     = Assignment
@@ -161,4 +190,4 @@ Statement
     / Display
     / ForLoop
     / IfStatement
-    / Comments
+	/ __
