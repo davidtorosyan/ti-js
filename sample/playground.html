@@ -9,6 +9,16 @@
             <h1>ti-js playground</h1>
             <div class="playground">
                 <div>
+                    <label for="options">Options</label>
+                    <div id="options">
+                        <label for="debug">Debug</label>
+                        <input id="debug" type="checkbox"></input>
+
+                        <label for="persist">Persist</label>
+                        <input id="persist" type="checkbox"></input>
+                    </div>
+                </div>
+                <div>
                     <label for="source">Source</label>
                     <textarea id="source" autofocus rows="15" cols="20"></textarea>
                 </div>
@@ -29,10 +39,10 @@
 
         <!-- loop depends on tilib -->
         <script src="../src/tilib.js"></script>
-        <script src="loop.js"></script>
+        <!-- <script src="loop.8xp.js"></script> -->
 
         <!-- example usage in javascript -->
-        <script src="parse.js"></script>
+        <!-- <script src="parse.js"></script> -->
 
         <!-- playground depends on jquery -->
         <script

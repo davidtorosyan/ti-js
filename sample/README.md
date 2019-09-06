@@ -4,4 +4,4 @@ There's [loop.8xp.txt](loop.8xp.txt), a sample program written in TI-Basic, and 
 
 In [parse.js](parse.js) you can see how that conversion might happen.
 
-In [test.html](test.html) and [playground.js](playground.js) you can see an interactive transpiler and program output.
+In [playground.html](playground.html) and [playground.js](playground.js) you can see an interactive transpiler and program output.

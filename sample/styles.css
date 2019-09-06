@@ -1,5 +1,9 @@
 body {
     background-color: #FBFAF7;
+
+    font-family: Segoe UI;
+    font-weight: normal;
+    font-size: 16px;
 }
 
 .playground > div {
@@ -9,10 +13,19 @@ body {
 .playground > div > label {
     display: block;
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
 textarea {
     white-space: pre;
     overflow-wrap: normal;
     overflow-x: scroll;
+}
+
+#options > label {
+    color: black;
+}
+
+#options > input {
+    margin-right: 20px;
 }
