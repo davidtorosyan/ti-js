@@ -115,6 +115,11 @@
             parser = peg.generate(grammar);
         }
 
+        if (source === undefined)
+        {
+            throw "Undefined source!"
+        }
+
         let outputAsProgram = false;
         switch (options.output)
         {

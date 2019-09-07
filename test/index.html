@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <head>
+        <title>ti-js</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div>
+            <h1>ti-js tests</h1>
+            <div>
+                <table id="testTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Input</th>
+                            <th>Expected</th>
+                            <th>Output</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <script src="../vendor/peg-0.10.0.js"></script>
+        <script src="../src/tipiler.js"></script>
+        <script src="../src/tilib.js"></script>
+
+        <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+              crossorigin="anonymous"></script>
+        
+        <script src="testCases.js"></script>
+        <script src="runTests.js"></script>
+    </body>
+</html>

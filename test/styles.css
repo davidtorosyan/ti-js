@@ -1,0 +1,21 @@
+body {
+    background-color: #FBFAF7;
+
+    font-family: Segoe UI;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+textarea {
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: auto;
+}
+
+#options > label {
+    color: black;
+}
+
+#options > input {
+    margin-right: 20px;
+}
