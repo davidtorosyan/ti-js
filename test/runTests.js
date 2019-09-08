@@ -60,6 +60,33 @@ function initTests()
 
 function configureTranspiler()
 {
+    let $overall = $("#overall");
+    let $failed = $("#failed");
+    let $running = $("#running");
+
+    let updateCount = () =>
+    {
+        let $testCases = $("[data-type=testCases]");
+        let $allTests = $testCases.find("[data-type=result]");
+        let $successTests = $allTests.filter("[data-result=success]");
+        let $failedTests = $allTests.filter("[data-result=failure]");
+
+        let allCount = $allTests.length;
+        let successCount = $successTests.length;
+        let failedCount = $failedTests.length;
+        let runningCount = allCount - (successCount + failedCount);
+
+        $overall.text(`${successCount}/${allCount}`);
+        $failed.text(failedCount);
+        $running.text(runningCount);
+
+        $overall.toggleClass("success", successCount === allCount);
+        $failed.toggleClass("failed", failed > 0);
+        $running.toggleClass("running", runningCount > 0);
+    };
+
+    updateCount();
+
     let trimLastNewline = (text) => 
     {
         if (text.length > 0)
@@ -90,6 +117,7 @@ function configureTranspiler()
         tilib.runtime.disp = x => appendToOutput(x.value);
 
         $result.text("Transpiling");
+        $result.removeAttr("data-result");
 
         let source = $input.val();
         let transpiled = tipiler.parser.parse(source, { output: "source" });
@@ -109,8 +137,18 @@ function configureTranspiler()
         }
 
         let output = trimLastNewline($output.val());
-        result = output === $expected.val() ? "Success" : "Failure";
-        $result.text(result);
+        if (output === $expected.val())
+        {
+            $result.text("Success");
+            $result.attr("data-result", "success");
+        }
+        else
+        {
+            $result.text("Failure");
+            $result.attr("data-result", "failure");
+        }
+
+        updateCount();
     };
 
     tipiler.parser.ready(() => 

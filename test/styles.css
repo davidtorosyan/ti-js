@@ -19,3 +19,43 @@ textarea {
 #options > input {
     margin-right: 20px;
 }
+
+[data-type=result] {
+    background-color: yellow;
+}
+
+[data-type=result][data-result=success] {
+    background-color: limegreen;
+} 
+
+[data-type=result][data-result=failure] {
+    background-color: orangered;
+} 
+
+thead {
+    text-align: left;
+}
+
+#testSummary {
+    margin: 20px;
+}
+
+#testTable {
+    margin: 20px;
+}
+
+#testSummary label {
+    font-weight: bold;
+}
+
+#testSummary span.success {
+    background-color: limegreen;
+}
+
+#testSummary span.failed {
+    background-color: orangered;
+}
+
+#testSummary span.running {
+    background-color: yellow;
+}
