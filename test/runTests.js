@@ -3,6 +3,7 @@
 $(() => 
 {
     initTests();
+    initButtons();
     configureTranspiler();
 });
 
@@ -30,32 +31,55 @@ function initTests()
         let $row = $("<tr>");
         $row.attr("data-type", "testCase");
 
+        let $result = $("<span>");
+        $result.attr("data-type", "result");
+        $row.append($("<td>").append($result));
+
+        let $name = $("<span>");
+        $name.attr("data-type", "name");
+        $name.text(testCase.name);
+        $row.append($("<td>").append($name));
+
         let $input = $("<textarea>");
         $input.attr("data-type", "input");
         $input.val(trimLastLine(testCase.input));
+        $row.append($("<td>").append($input));
 
         let $expected = $("<textarea>");
         $expected.attr("data-type", "expected");
         $expected.attr("readonly", true);
         $expected.val(trimLastLine(testCase.expected));
+        $row.append($("<td>").append($expected));
 
         let $output = $("<textarea>");
         $output.attr("data-type", "output");
         $output.attr("readonly", true);
-
-        let $result = $("<span>");
-        $result.attr("data-type", "result");
-
-        $row.append($("<td>").append(document.createTextNode(testCase.name)));
-        $row.append($("<td>").append($input));
-        $row.append($("<td>").append($expected));
         $row.append($("<td>").append($output));
-        $row.append($("<td>").append($result));
-
+        
         $tbody.append($row)
     });
 
+    $tbody.on(
+        "click", 
+        "[data-type=result], [data-type=name]", 
+        e => $(e.currentTarget).parents("[data-type=testCase]").toggleClass("collapse"));
+
     $("#testTable").append($tbody);
+}
+
+function initButtons()
+{
+    let $testCases = $("[data-type=testCase]");
+
+    $("#collapseAll").on("click", () => $testCases
+        .toggleClass("collapse", true));
+
+    $("#expandAll").on("click", () => $testCases
+        .toggleClass("collapse", false));
+
+    $("#collapseSuccessful").on("click", () => $testCases
+        .has("[data-result=success]")
+        .toggleClass("collapse", true));
 }
 
 function configureTranspiler()
@@ -64,10 +88,11 @@ function configureTranspiler()
     let $failed = $("#failed");
     let $running = $("#running");
 
+    let $testCases = $("[data-type=testCases]");
+    let $allTests = $testCases.find("[data-type=result]");
+
     let updateCount = () =>
     {
-        let $testCases = $("[data-type=testCases]");
-        let $allTests = $testCases.find("[data-type=result]");
         let $successTests = $allTests.filter("[data-result=success]");
         let $failedTests = $allTests.filter("[data-result=failure]");
 

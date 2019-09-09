@@ -59,3 +59,7 @@ thead {
 #testSummary span.running {
     background-color: yellow;
 }
+
+[data-type=testCase].collapse textarea {
+    display: None;
+}
