@@ -35,6 +35,7 @@
 
     tilib.core = () => {};
     tilib.runtime = () => {};
+    tilib.io = () => {};
 
     // ----- private -----
 
@@ -54,6 +55,7 @@
 
     tilib.core.new_value = (num) => (
         {
+            type: "numeric",
             value: num,
         }
     );
@@ -437,7 +439,14 @@ source: ${sourceLines[i] || ""}`);
     tilib.runtime.add   = (x, y) => tilib.core.new_value(x.value + y.value);
     tilib.runtime.minus = (x, y) => tilib.core.new_value(x.value - y.value);
 
-    tilib.runtime.disp = x => console.log(x);
+    tilib.runtime.disp = x => {
+        let str = x.value.toString();
+        if (x.type === "numeric" && str.startsWith("0."))
+        {
+            str = str.substring(1);
+        }
+        tilib.io.output(str);
+    };
 
     tilib.runtime.testEquals        = (x, y) => tilib.core.new_value(x.value === y.value ? 1 : 0);
     tilib.runtime.testNotEquals     = (x, y) => tilib.core.new_value(x.value !== y.value ? 1 : 0);
@@ -445,6 +454,10 @@ source: ${sourceLines[i] || ""}`);
     tilib.runtime.testGreaterEquals = (x, y) => tilib.core.new_value(x.value >=  y.value ? 1 : 0);
     tilib.runtime.testLess          = (x, y) => tilib.core.new_value(x.value <   y.value ? 1 : 0);
     tilib.runtime.testLessEquals    = (x, y) => tilib.core.new_value(x.value <=  y.value ? 1 : 0);
+
+    // ----- io -----
+
+    tilib.io.output = x => console.log(x);
 
     // AMD registration happens at the end for compatibility with AMD loaders
     // that may not enforce next-turn semantics on modules. Even though general

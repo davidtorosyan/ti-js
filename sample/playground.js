@@ -38,7 +38,7 @@ function configureTranspiler()
 
     let appendToOutput = x => $output.val($output.val() + x + "\n");
 
-    tilib.runtime.disp = x => appendToOutput(x.value);
+    tilib.io.output = appendToOutput;
 
     let transpile = () => {
         let source = $source.val();

@@ -454,5 +454,14 @@ let tiJsTests =
             1
             `,
         },
+        {
+            name: "LeadingZero",
+            input:`\
+            Disp .1
+            `,
+            expected: `\
+            .1
+            `,
+        },
     ]
 };

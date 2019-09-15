@@ -141,7 +141,7 @@ function configureTranspiler()
         $result = $testCase.find("[data-type=result]");
 
         let appendToOutput = x => $output.val($output.val() + x + "\n");
-        tilib.runtime.disp = x => appendToOutput(x.value);
+        tilib.io.output = appendToOutput;
 
         $result.text("Transpiling");
         $result.removeAttr("data-result");
