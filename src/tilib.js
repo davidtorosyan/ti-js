@@ -54,7 +54,7 @@
 
     tilib.core.new_value = (num) => (
         {
-            value: num | 0,
+            value: num,
         }
     );
 
@@ -64,9 +64,33 @@
         {
             vars: 
             {
-                X: tilib.core.new_var(),
+                A: tilib.core.new_var(),
                 B: tilib.core.new_var(),
+                C: tilib.core.new_var(),
+                D: tilib.core.new_var(),
+                E: tilib.core.new_var(),
+                F: tilib.core.new_var(),
+                G: tilib.core.new_var(),
+                H: tilib.core.new_var(),
+                I: tilib.core.new_var(),
+                J: tilib.core.new_var(),
+                K: tilib.core.new_var(),
+                L: tilib.core.new_var(),
+                M: tilib.core.new_var(),
+                N: tilib.core.new_var(),
+                O: tilib.core.new_var(),
+                P: tilib.core.new_var(),
+                Q: tilib.core.new_var(),
+                R: tilib.core.new_var(),
+                S: tilib.core.new_var(),
+                T: tilib.core.new_var(),
+                U: tilib.core.new_var(),
+                V: tilib.core.new_var(),
+                W: tilib.core.new_var(),
+                X: tilib.core.new_var(),
                 Y: tilib.core.new_var(),
+                Z: tilib.core.new_var(),
+                THETA: tilib.core.new_var(),
             },
             ans: tilib.core.new_var(),
             prgms: [],
@@ -388,7 +412,22 @@ source: ${sourceLines[i] || ""}`);
 
     tilib.runtime.assign = (variable, value) => variable.value = value.value;
 
-    tilib.runtime.num = x => tilib.core.new_value(parseInt(x, 10));
+    tilib.runtime.num = (integer, fraction, exponent) => {
+        let str = "";
+        if (integer !== undefined)
+        {
+            str += integer;
+        }
+        if (fraction !== undefined)
+        {
+            str += "." + fraction;
+        }
+        if (exponent !== undefined)
+        {
+            str += "e" + exponent;
+        }
+        return tilib.core.new_value(parseFloat(str));
+    };
 
     tilib.runtime.negative = x => tilib.core.new_value(-1 * x.value);
 
@@ -400,12 +439,12 @@ source: ${sourceLines[i] || ""}`);
 
     tilib.runtime.disp = x => console.log(x);
 
-    tilib.runtime.testEquals        = (x, y) => tilib.core.new_value(x.value === y.value);
-    tilib.runtime.testNotEquals     = (x, y) => tilib.core.new_value(x.value !== y.value);
-    tilib.runtime.testGreater       = (x, y) => tilib.core.new_value(x.value >   y.value);
-    tilib.runtime.testGreaterEquals = (x, y) => tilib.core.new_value(x.value >=  y.value);
-    tilib.runtime.testLess          = (x, y) => tilib.core.new_value(x.value <   y.value);
-    tilib.runtime.testLessEquals    = (x, y) => tilib.core.new_value(x.value <=  y.value);
+    tilib.runtime.testEquals        = (x, y) => tilib.core.new_value(x.value === y.value ? 1 : 0);
+    tilib.runtime.testNotEquals     = (x, y) => tilib.core.new_value(x.value !== y.value ? 1 : 0);
+    tilib.runtime.testGreater       = (x, y) => tilib.core.new_value(x.value >   y.value ? 1 : 0);
+    tilib.runtime.testGreaterEquals = (x, y) => tilib.core.new_value(x.value >=  y.value ? 1 : 0);
+    tilib.runtime.testLess          = (x, y) => tilib.core.new_value(x.value <   y.value ? 1 : 0);
+    tilib.runtime.testLessEquals    = (x, y) => tilib.core.new_value(x.value <=  y.value ? 1 : 0);
 
     // AMD registration happens at the end for compatibility with AMD loaders
     // that may not enforce next-turn semantics on modules. Even though general

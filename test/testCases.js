@@ -419,5 +419,40 @@ let tiJsTests =
             5
             `,
         },
+        {
+            name: "Numeric",
+            input:`\
+            Disp 1
+            Disp 1.0
+            Disp 1.2
+            Disp 1.2&E3
+            Disp 0.1&E2
+            Disp .1&E2
+            Disp 1&E2
+            Disp 1.&E2
+            Disp 100&E-2
+            `,
+            expected: `\
+            1
+            1
+            1.2
+            1200
+            10
+            10
+            100
+            100
+            1
+            `,
+        },
+        {
+            name: "Theta",
+            input:`\
+            1->&theta
+            Disp &theta
+            `,
+            expected: `\
+            1
+            `,
+        },
     ]
 };

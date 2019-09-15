@@ -33,7 +33,18 @@
 
     function quote(str)
     {
-        return "'" + str + "'";
+        if (str === undefined || str === null)
+        {
+            return "''";
+        }
+        else if (Array.isArray(str))
+        {
+            return "'" + str.join("") + "'";
+        }
+        else
+        {
+            return "'" + str + "'";
+        }
     }
 
     function paren(...args)
@@ -94,12 +105,32 @@ Location
     { return text(); }
 
 Variable
-    = name:[A-Z]
-    { return mem_vars + name; }
+    = name:[A-Z] { return mem_vars + name; }
+    / "&theta" { return mem_vars + "THETA"; }
 
-Integer
-    = digits:[0-9]+ 
-    { return lib_num + paren(quote(digits.join(""))); }
+NumericLiteral
+    = integer:Digit+ "." fraction:Digit* exponent:ExponentPart? { 
+        return lib_num + paren(quote(integer), quote(fraction), quote(exponent)); 
+    }
+    / "." fraction:Digit* exponent:ExponentPart? { 
+        return lib_num + paren(quote(), quote(fraction), quote(exponent)); 
+    }
+    / integer:Digit+ exponent:ExponentPart? { 
+        return lib_num + paren(quote(integer), quote(), quote(exponent)); 
+    }
+
+Digit
+    = [0-9]
+
+ExponentPart
+  = ExponentIndicator exponent:SignedInteger
+  { return exponent; }
+
+ExponentIndicator
+    = "&E"
+
+SignedInteger
+  = [+-]? Digit+
 
 StringLiteral
     = '"' chars:[^"]* '"'? 
@@ -112,13 +143,16 @@ Answer
 OptionalEndParen
     = ")"?
 
-// ----- Expressions -----
-
-PrimaryExpression
-    = Integer
+Literal
+    = NumericLiteral
     / Answer
     / Variable
     / StringLiteral
+
+// ----- Expressions -----
+
+PrimaryExpression
+    = Literal
     / "(" expression:ValueExpression ")" { return expression; }
 
 UnaryOperator
