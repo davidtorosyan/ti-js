@@ -6,14 +6,18 @@
     var lib_runtime = lib + "runtime.";
 
     // runtime functions
-    var lib_assign         = lib_runtime + "assign";
-    var lib_num            = lib_runtime + "num";
-    var lib_add            = lib_runtime + "add";
-    var lib_minus          = lib_runtime + "minus";
-    var lib_testEquals     = lib_runtime + "testEquals";
-    var lib_testLessEquals = lib_runtime + "testLessEquals";
-    var lib_disp           = lib_runtime + "disp";
-    var lib_num_one        = lib_num + "('1')";
+    var lib_assign            = lib_runtime + "assign";
+    var lib_num               = lib_runtime + "num";
+    var lib_add               = lib_runtime + "add";
+    var lib_minus             = lib_runtime + "minus";
+    var lib_testEquals        = lib_runtime + "testEquals";
+    var lib_testNotEquals     = lib_runtime + "testNotEquals";
+    var lib_testGreater       = lib_runtime + "testGreater";
+    var lib_testGreaterEquals = lib_runtime + "testGreaterEquals";
+    var lib_testLess          = lib_runtime + "testLess";
+    var lib_testLessEquals    = lib_runtime + "testLessEquals";
+    var lib_disp              = lib_runtime + "disp";
+    var lib_num_one           = lib_num + "('1')";
 
     // memory
     var mem         = "mem";
@@ -114,8 +118,8 @@ Factor
     / StringLiteral
 
 AdditiveOperator
-    = "+" 
-    { return lib_add; }
+    = "+" { return lib_add; }
+    / "-" { return lib_minus; }
 
 AdditiveExpression
     = head:Factor 
@@ -123,8 +127,12 @@ AdditiveExpression
     { return buildBinaryExpression(head, tail); }
 
 TestOperator
-    = "=" 
-    { return lib_testEquals; }
+    = "="  { return lib_testEquals; }
+    / "!=" { return lib_testNotEquals; }
+    / ">=" { return lib_testGreaterEquals; }
+    / ">"  { return lib_testGreater; }
+    / "<=" { return lib_testLessEquals; }
+    / "<"  { return lib_testLess; }
 
 TestExpression
     = head:AdditiveExpression 

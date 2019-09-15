@@ -228,29 +228,66 @@ let tiJsTests =
             `,
         },
         {
-            name: "Add",
+            name: "Additive",
             input:`\
             Disp 2+4
+            Disp 6-4
             `,
             expected: `\
             6
+            2
             `,
         },
         {
-            name: "EqualsFalse",
+            name: "Equality",
             input:`\
+            Disp 2=2
             Disp 2=3
+            Disp 2!=3
+            Disp 2!=2
             `,
             expected: `\
+            1
+            0
+            1
             0
             `,
         },
         {
-            name: "EqualsTrue",
+            name: "Greater",
             input:`\
-            Disp 2=2
+            Disp 2>1
+            Disp 2>2
+            Disp 2>3
+            Disp 2>=1
+            Disp 2>=2
+            Disp 2>=3
             `,
             expected: `\
+            1
+            0
+            0
+            1
+            1
+            0
+            `,
+        },
+        {
+            name: "Less",
+            input:`\
+            Disp 2<1
+            Disp 2<2
+            Disp 2<3
+            Disp 2<=1
+            Disp 2<=2
+            Disp 2<=3
+            `,
+            expected: `\
+            0
+            0
+            1
+            0
+            1
             1
             `,
         },
