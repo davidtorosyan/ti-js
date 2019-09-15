@@ -340,5 +340,84 @@ let tiJsTests =
             -3
             `,
         },
+        {
+            name: "RepeatFalse",
+            input:`\
+            Repeat 0
+            Disp 1
+            End
+            `,
+            expected: `\
+            1
+            `,
+        },
+        {
+            name: "RepeatOnce",
+            input:`\
+            1->X
+            Repeat X=1
+            Disp 1
+            2->X
+            End
+            `,
+            expected: `\
+            1
+            `,
+        },
+        {
+            name: "WhileFalse",
+            input:`\
+            While 0
+            Disp 1
+            End
+            Disp 2
+            `,
+            expected: `\
+            2
+            `,
+        },
+        {
+            name: "WhileOnce",
+            input:`\
+            1->X
+            While X=1
+            Disp 1
+            2->X
+            End
+            `,
+            expected: `\
+            1
+            `,
+        },
+        {
+            name: "Increment",
+            input:`\
+            5->X
+            IS>(X,6)
+            Disp 1
+            IS>(X,6)
+            Disp 2
+            Disp X
+            `,
+            expected: `\
+            1
+            7
+            `,
+        },
+        {
+            name: "Decrement",
+            input:`\
+            7->X
+            DS<(X,6)
+            Disp 1
+            DS<(X,6)
+            Disp 2
+            Disp X
+            `,
+            expected: `\
+            1
+            5
+            `,
+        },
     ]
 };

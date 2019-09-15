@@ -236,12 +236,12 @@ IncrementSkip
     };
 
 DecrementSkip
-    = "DS>(" variable:Variable "," end:ValueExpression OptionalEndParen
+    = "DS<(" variable:Variable "," end:ValueExpression OptionalEndParen
     { 
         return buildType(
             "DecrementSkip", 
             "decrement", buildFunc(lib_assign + paren(variable, lib_minus + paren(variable, lib_num_one))),
-            "condition", buildFunc(lib_testLessEquals + paren(variable, end), true),
+            "condition", buildFunc(lib_testGreaterEquals + paren(variable, end), true),
         )
     };
 

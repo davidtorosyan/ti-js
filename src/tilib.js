@@ -120,6 +120,7 @@
 
         let searchLabel = undefined;
         let ifResult = undefined;
+        let incrementDecrementResult = undefined;
 
         let maximumLines = 50;
         let linesRun = 0;
@@ -248,6 +249,19 @@ source: ${sourceLines[i] || ""}`);
                 }
             }
 
+             // ----- check incrementDecrementResult -----
+            
+             if (incrementDecrementResult !== undefined)
+             {
+                 let incrementDecrementResultFalse = incrementDecrementResult !== true;
+                 incrementDecrementResult = undefined;
+
+                 if (incrementDecrementResultFalse)
+                 {
+                     continue;
+                 }
+             }
+
             // ----- normal execution -----
 
             switch (type)
@@ -282,9 +296,15 @@ source: ${sourceLines[i] || ""}`);
                     }
                     break;
                 case "WhileLoop":
-                    throw unimplemented(type, i);
+                    blockStack.push(i);
+                    if (!tilib.core.isTruthy(line.condition(mem)))
+                    {
+                        falsyStackHeight = blockStack.length;
+                    }
+                    break;
                 case "RepeatLoop":
-                    throw unimplemented(type, i);
+                    blockStack.push(i);
+                    break;
                 case "EndStatement":
                     if (blockStack.length === 0)
                     {
@@ -292,9 +312,15 @@ source: ${sourceLines[i] || ""}`);
                     }
                     let source = blockStack.pop();
                     let sourceLine = lines[source];
-                    if (sourceLine.type === "ForLoop")
+                    if (sourceLine.type === "ForLoop" ||
+                        sourceLine.type === "WhileLoop" ||
+                        sourceLine.type === "RepeatLoop")
                     {
-                        sourceLine.step(mem);
+                        if (sourceLine.type === "ForLoop")
+                        {
+                            sourceLine.step(mem);
+                        }
+
                         if (tilib.core.isTruthy(sourceLine.condition(mem)))
                         {
                             blockStack.push(source);
@@ -319,10 +345,15 @@ source: ${sourceLines[i] || ""}`);
                     searchLabel = line.label;
                     i = -1;
                     break;
+                // TODO increment and decrement have an interaction with DelVar
                 case "IncrementSkip":
-                    throw unimplemented(type, i);
+                    line.increment(mem);
+                    incrementDecrementResult = tilib.core.isTruthy(line.condition(mem));
+                    break;
                 case "DecrementSkip":
-                    throw unimplemented(type, i);
+                    line.decrement(mem);
+                    incrementDecrementResult = tilib.core.isTruthy(line.condition(mem));
+                    break;
                 // ----- other -----
                 case "Assignment":
                     line.statement(mem);
