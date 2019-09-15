@@ -359,7 +359,12 @@ source: ${sourceLines[i] || ""}`);
 
     tilib.runtime.num = x => tilib.core.new_value(parseInt(x, 10));
 
-    tilib.runtime.add =   (x, y) => tilib.core.new_value(x.value + y.value);
+    tilib.runtime.negative = x => tilib.core.new_value(-1 * x.value);
+
+    tilib.runtime.multiply = (x, y) => tilib.core.new_value(x.value * y.value);
+    tilib.runtime.divide   = (x, y) => tilib.core.new_value(x.value / y.value);
+
+    tilib.runtime.add   = (x, y) => tilib.core.new_value(x.value + y.value);
     tilib.runtime.minus = (x, y) => tilib.core.new_value(x.value - y.value);
 
     tilib.runtime.disp = x => console.log(x);

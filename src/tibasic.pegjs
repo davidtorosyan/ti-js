@@ -8,8 +8,15 @@
     // runtime functions
     var lib_assign            = lib_runtime + "assign";
     var lib_num               = lib_runtime + "num";
+    
+    var lib_negative          = lib_runtime + "negative";
+
+    var lib_multiply          = lib_runtime + "multiply";
+    var lib_divide            = lib_runtime + "divide";
+
     var lib_add               = lib_runtime + "add";
     var lib_minus             = lib_runtime + "minus";
+
     var lib_testEquals        = lib_runtime + "testEquals";
     var lib_testNotEquals     = lib_runtime + "testNotEquals";
     var lib_testGreater       = lib_runtime + "testGreater";
@@ -106,24 +113,38 @@ OptionalEndParen
     = ")"?
 
 // ----- Expressions -----
-// TODO:
-// * Finish Additive and Test
-// * Unary
-// * Multiplication
 
-Factor
+PrimaryExpression
     = Integer
     / Answer
     / Variable
     / StringLiteral
+    / "(" expression:ValueExpression ")" { return expression; }
+
+UnaryOperator
+    = "-" { return lib_negative; }
+
+UnaryExpression
+    = PrimaryExpression 
+    / operator:UnaryOperator exp:UnaryExpression
+    { return operator + paren(exp); }
+
+MultiplicativeOperator
+    = "*" { return lib_multiply; }
+    / "/" { return lib_divide; }
+
+MultiplicativeExpression
+    = head:UnaryExpression 
+    tail:(MultiplicativeOperator UnaryExpression)* 
+    { return buildBinaryExpression(head, tail); }
 
 AdditiveOperator
     = "+" { return lib_add; }
     / "-" { return lib_minus; }
 
 AdditiveExpression
-    = head:Factor 
-    tail:(AdditiveOperator Factor)* 
+    = head:MultiplicativeExpression 
+    tail:(AdditiveOperator MultiplicativeExpression)* 
     { return buildBinaryExpression(head, tail); }
 
 TestOperator

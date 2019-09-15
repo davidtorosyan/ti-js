@@ -228,6 +228,28 @@ let tiJsTests =
             `,
         },
         {
+            name: "Unary",
+            input:`\
+            Disp -1
+            Disp --1
+            `,
+            expected: `\
+            -1
+            1
+            `,
+        },
+        {
+            name: "Multiplicative",
+            input:`\
+            Disp 2*3
+            Disp 6/2
+            `,
+            expected: `\
+            6
+            3
+            `,
+        },
+        {
             name: "Additive",
             input:`\
             Disp 2+4
@@ -289,6 +311,33 @@ let tiJsTests =
             0
             1
             1
+            `,
+        },
+        {
+            name: "Parenthesis",
+            input:`\
+            Disp (2)
+            `,
+            expected: `\
+            2
+            `,
+        },
+        {
+            name: "OrderOfOperations",
+            input:`\
+            Disp -0+3*2-1
+            `,
+            expected: `\
+            5
+            `,
+        },
+        {
+            name: "OrderOfParenthesis",
+            input:`\
+            Disp -(0+3)*(2-1)
+            `,
+            expected: `\
+            -3
             `,
         },
     ]
