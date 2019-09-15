@@ -9,18 +9,20 @@ $(() =>
 
 function initTests() 
 {
-    let trimLastLine = (text) => 
+    let trimInput = (text) => 
     {
-        let lastNewline = text.lastIndexOf("\n");
-        if (lastNewline > 0) 
+        let indent = tiJsTests.options.indent;
+
+        if (text.indexOf("\n") === -1)
         {
-            lastLine = text.substring(lastNewline);
-            if (lastLine.trim().length === 0)
-            {
-                text = text.substring(0, lastNewline);
-            }
+            return text;
         }
-        return text;
+
+        return text
+            .split("\n")
+            .filter((line, index, array) => index != array.length - 1)
+            .map(line => line.substring(indent))
+            .join("\n");
     }
 
     let $tbody = $("<tbody>");
@@ -42,13 +44,13 @@ function initTests()
 
         let $input = $("<textarea>");
         $input.attr("data-type", "input");
-        $input.val(trimLastLine(testCase.input));
+        $input.val(trimInput(testCase.input));
         $row.append($("<td>").append($input));
 
         let $expected = $("<textarea>");
         $expected.attr("data-type", "expected");
         $expected.attr("readonly", true);
-        $expected.val(trimLastLine(testCase.expected));
+        $expected.val(trimInput(testCase.expected));
         $row.append($("<td>").append($expected));
 
         let $output = $("<textarea>");
@@ -106,7 +108,7 @@ function configureTranspiler()
         $running.text(runningCount);
 
         $overall.toggleClass("success", successCount === allCount);
-        $failed.toggleClass("failed", failed > 0);
+        $failed.toggleClass("failed", failedCount > 0);
         $running.toggleClass("running", runningCount > 0);
     };
 

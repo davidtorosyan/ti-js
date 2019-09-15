@@ -73,7 +73,7 @@
         }
     );
 
-    tilib.core.isTruthy = x => !!x;
+    tilib.core.isTruthy = x => x.value !== 0;
 
     tilib.core.prgmNew = (name, program, source=[]) => 
     {
@@ -295,7 +295,7 @@ source: ${sourceLines[i] || ""}`);
                     if (sourceLine.type === "ForLoop")
                     {
                         sourceLine.step(mem);
-                        if (sourceLine.condition(mem))
+                        if (tilib.core.isTruthy(sourceLine.condition(mem)))
                         {
                             blockStack.push(source);
                             i = source;
@@ -363,9 +363,9 @@ source: ${sourceLines[i] || ""}`);
 
     tilib.runtime.disp = x => console.log(x);
 
-    tilib.runtime.testEquals = (x, y) => x.value === y.value;
+    tilib.runtime.testEquals = (x, y) => tilib.core.new_value(x.value === y.value ? 1 : 0);
 
-    tilib.runtime.testLessEquals = (x, y) => x.value <= y.value;
+    tilib.runtime.testLessEquals = (x, y) => tilib.core.new_value(x.value <= y.value ? 1 : 0);
 
     // AMD registration happens at the end for compatibility with AMD loaders
     // that may not enforce next-turn semantics on modules. Even though general
