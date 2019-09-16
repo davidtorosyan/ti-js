@@ -8,6 +8,7 @@
     // runtime functions
     var lib_assign            = lib_runtime + "assign";
     var lib_num               = lib_runtime + "num";
+    var lib_str               = lib_runtime + "str";
     
     var lib_negative          = lib_runtime + "negative";
 
@@ -134,7 +135,7 @@ SignedInteger
 
 StringLiteral
     = '"' chars:[^"]* '"'? 
-    { return quote(chars.join("")); }
+    { return lib_str + paren(quote(chars)); }
 
 Answer
     = "Ans"

@@ -5,8 +5,8 @@ let PERSIST_SETTING = "persist";
 let SOURCE_SETTING  = "source";
 
 let DEFAULT_SETTINGS = {
-    DEBUG_SETTING: false,
-    PERSIST_DEFAULT: false,
+    [DEBUG_SETTING]: false,
+    [PERSIST_SETTING]: false,
 }
 
 // ----- On ready -----

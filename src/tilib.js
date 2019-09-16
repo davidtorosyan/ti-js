@@ -53,9 +53,9 @@
 
     // ----- core -----
 
-    tilib.core.new_value = (num) => (
+    tilib.core.new_value = (num, type="numeric") => (
         {
-            type: "numeric",
+            type: type,
             value: num,
         }
     );
@@ -124,6 +124,18 @@
     }
 
     tilib.core.run = (lines, options = {}) => 
+    {
+        try
+        {
+            tilib.core.runInternal(lines, options);
+        }
+        catch (ex)
+        {
+            console.log(ex);
+        }
+    }
+
+    tilib.core.runInternal = (lines, options = {}) => 
     {
         // ----- initialize environment -----
 
@@ -412,6 +424,15 @@ source: ${sourceLines[i] || ""}`);
 
     // ----- runtime -----
 
+    tilib.runtime.disp = x => {
+        let str = x.value.toString();
+        if (x.type === "numeric" && str.startsWith("0."))
+        {
+            str = str.substring(1);
+        }
+        tilib.io.output(str);
+    };
+
     tilib.runtime.assign = (variable, value) => variable.value = value.value;
 
     tilib.runtime.num = (integer, fraction, exponent) => {
@@ -431,33 +452,46 @@ source: ${sourceLines[i] || ""}`);
         return tilib.core.new_value(parseFloat(str));
     };
 
-    tilib.runtime.negative = x => tilib.core.new_value(-1 * x.value);
+    tilib.runtime.str = x => { return tilib.core.new_value(x, "string"); }
 
-    tilib.runtime.multiply = (x, y) => tilib.core.new_value(x.value * y.value);
-    tilib.runtime.divide   = (x, y) => tilib.core.new_value(x.value / y.value);
-
-    tilib.runtime.add   = (x, y) => tilib.core.new_value(x.value + y.value);
-    tilib.runtime.minus = (x, y) => tilib.core.new_value(x.value - y.value);
-
-    tilib.runtime.disp = x => {
-        let str = x.value.toString();
-        if (x.type === "numeric" && str.startsWith("0."))
+    let unaryOperation = (operation, supportedTypes=["numeric"]) => 
+        (x) => 
         {
-            str = str.substring(1);
-        }
-        tilib.io.output(str);
-    };
+            if (!supportedTypes.includes(x.type)) throw "ERR:DATA TYPE";
+            return tilib.core.new_value(operation(x.value), x.type)
+        };
 
-    tilib.runtime.testEquals        = (x, y) => tilib.core.new_value(x.value === y.value ? 1 : 0);
-    tilib.runtime.testNotEquals     = (x, y) => tilib.core.new_value(x.value !== y.value ? 1 : 0);
-    tilib.runtime.testGreater       = (x, y) => tilib.core.new_value(x.value >   y.value ? 1 : 0);
-    tilib.runtime.testGreaterEquals = (x, y) => tilib.core.new_value(x.value >=  y.value ? 1 : 0);
-    tilib.runtime.testLess          = (x, y) => tilib.core.new_value(x.value <   y.value ? 1 : 0);
-    tilib.runtime.testLessEquals    = (x, y) => tilib.core.new_value(x.value <=  y.value ? 1 : 0);
+    tilib.runtime.negative = unaryOperation(x => -1 * x);
+
+    let binaryOperation = (operation, supportedTypes=["numeric"]) => 
+        (x, y) => 
+        {
+            if (x.type !== y.type || !supportedTypes.includes(x.type)) throw "ERR:DATA TYPE";
+            return tilib.core.new_value(operation(x.value, y.value), x.type)
+        };
+
+    tilib.runtime.multiply = binaryOperation((x, y) => x * y)
+    tilib.runtime.divide   = binaryOperation((x, y) => x / y)
+    tilib.runtime.add      = binaryOperation((x, y) => x + y, ["numeric", "string"])
+    tilib.runtime.minus    = binaryOperation((x, y) => x - y)
+
+    let testOperation = (operation, supportedTypes=["numeric"]) => 
+        binaryOperation((x, y) => operation(x, y) ? 1 : 0, supportedTypes);
+
+    tilib.runtime.testEquals        = testOperation((x, y) => x === y, ["numeric", "string"]);
+    tilib.runtime.testNotEquals     = testOperation((x, y) => x !== y, ["numeric", "string"]);
+    tilib.runtime.testGreater       = testOperation((x, y) => x >   y);
+    tilib.runtime.testGreaterEquals = testOperation((x, y) => x >=  y);
+    tilib.runtime.testLess          = testOperation((x, y) => x <   y);
+    tilib.runtime.testLessEquals    = testOperation((x, y) => x <=  y);
 
     // ----- io -----
 
     tilib.io.output = x => console.log(x);
+
+    tilib.io.error = x => console.log(x);
+
+    tilib.io.libError = x => console.log(x);
 
     // AMD registration happens at the end for compatibility with AMD loaders
     // that may not enforce next-turn semantics on modules. Even though general

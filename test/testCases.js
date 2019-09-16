@@ -110,9 +110,7 @@ let tiJsTests =
             End
             Disp 3
             `,
-            expected: `\
-            3
-            `,
+            expected: `3`,
         },
         {
             name: "IfTrueElse",
@@ -181,9 +179,7 @@ let tiJsTests =
             End
             Disp 2
             `,
-            expected: `\
-            2
-            `,
+            expected: `2`,
         },
         {
             name: "NestedFalseFor",
@@ -197,9 +193,7 @@ let tiJsTests =
             End
             Disp 2
             `,
-            expected: `\
-            2
-            `,
+            expected: `2`,
         },
         {
             name: "GotoSkip",
@@ -209,9 +203,7 @@ let tiJsTests =
             Lbl A
             Disp 2
             `,
-            expected: `\
-            2
-            `,
+            expected: `2`,
         },
         {
             name: "GotoBlock",
@@ -223,9 +215,7 @@ let tiJsTests =
             Lbl A
             Disp 1
             `,
-            expected: `\
-            1
-            `,
+            expected: `1`,
         },
         {
             name: "Unary",
@@ -315,30 +305,18 @@ let tiJsTests =
         },
         {
             name: "Parenthesis",
-            input:`\
-            Disp (2)
-            `,
-            expected: `\
-            2
-            `,
+            input:`Disp (2)`,
+            expected: `2`,
         },
         {
             name: "OrderOfOperations",
-            input:`\
-            Disp -0+3*2-1
-            `,
-            expected: `\
-            5
-            `,
+            input:`Disp -0+3*2-1`,
+            expected: `5`,
         },
         {
             name: "OrderOfParenthesis",
-            input:`\
-            Disp -(0+3)*(2-1)
-            `,
-            expected: `\
-            -3
-            `,
+            input:`Disp -(0+3)*(2-1)`,
+            expected: `-3`,
         },
         {
             name: "RepeatFalse",
@@ -347,9 +325,7 @@ let tiJsTests =
             Disp 1
             End
             `,
-            expected: `\
-            1
-            `,
+            expected: `1`,
         },
         {
             name: "RepeatOnce",
@@ -360,9 +336,7 @@ let tiJsTests =
             2->X
             End
             `,
-            expected: `\
-            1
-            `,
+            expected: `1`,
         },
         {
             name: "WhileFalse",
@@ -372,9 +346,7 @@ let tiJsTests =
             End
             Disp 2
             `,
-            expected: `\
-            2
-            `,
+            expected: `2`,
         },
         {
             name: "WhileOnce",
@@ -385,9 +357,7 @@ let tiJsTests =
             2->X
             End
             `,
-            expected: `\
-            1
-            `,
+            expected: `1`,
         },
         {
             name: "Increment",
@@ -450,18 +420,32 @@ let tiJsTests =
             1->&theta
             Disp &theta
             `,
+            expected: `1`,
+        },
+        {
+            name: "LeadingZero",
+            input:`Disp .1`,
+            expected: `.1`,
+        },
+        {
+            name: "StringOperations",
+            input:`\
+            Disp "foo"
+            Disp "foo"+"bar"
+            Disp "foo"="bar"
+            Disp "foo"!="bar"
+            `,
             expected: `\
+            foo
+            foobar
+            0
             1
             `,
         },
         {
-            name: "LeadingZero",
-            input:`\
-            Disp .1
-            `,
-            expected: `\
-            .1
-            `,
+            name: "StringNumberAdd",
+            input:`Disp "foo"+1`,
+            expected: `ERR:DATA TYPE`,
         },
     ]
 };

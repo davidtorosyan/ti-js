@@ -1,3 +1,11 @@
+// ----- Constants -----
+
+let TOGGLECLASS_SETTING = "toggleclass";
+
+let DEFAULT_SETTINGS = {
+    [TOGGLECLASS_SETTING]: {},
+}
+
 // ----- On ready -----
 
 $(() => 
@@ -5,7 +13,51 @@ $(() =>
     initTests();
     initButtons();
     configureTranspiler();
+    restoreToggleClass();
 });
+
+(function( $ ){
+    $.fn.persistToggleClass = function(className, state) {
+        $(this).toggleClass(className, state);
+
+        let map = getFromStorage(TOGGLECLASS_SETTING);
+
+        this.each(function() {
+            let id = $(this).attr("id");
+            if (id !== undefined)
+            {
+                map[id] = {
+                    className: className,
+                    state: $(this).hasClass(className),
+                };
+            }
+        });
+
+        saveToStorage(TOGGLECLASS_SETTING, map);
+        
+        return this;
+    };
+})(jQuery);
+
+function restoreToggleClass()
+{
+    let map = getFromStorage(TOGGLECLASS_SETTING);
+
+    Object.keys(map).forEach(key => {
+        let $elem = $("#"+key);
+        if ($elem.length > 0)
+        {
+            let value = map[key];
+            $elem.toggleClass(value.className, value.state);
+        }
+        else
+        {
+            delete map[key];
+        }
+    });
+
+    saveToStorage(TOGGLECLASS_SETTING, map);
+}
 
 function initTests() 
 {
@@ -28,10 +80,17 @@ function initTests()
     let $tbody = $("<tbody>");
     $tbody.attr("data-type", "testCases");
 
+    let testNameMap = {};
+
     tiJsTests.testCases.forEach(testCase => 
     {
+        let sanitizedName = testCase.name.replace(" ", "").toLowerCase();
+        testNameMap[sanitizedName] = (testNameMap[sanitizedName] || 0) + 1;
+        let id = `test_${sanitizedName}_${testNameMap[sanitizedName]}`;
+
         let $row = $("<tr>");
         $row.attr("data-type", "testCase");
+        $row.attr("id", id);
 
         let $result = $("<span>");
         $result.attr("data-type", "result");
@@ -64,7 +123,7 @@ function initTests()
     $tbody.on(
         "click", 
         "[data-type=result], [data-type=name]", 
-        e => $(e.currentTarget).parents("[data-type=testCase]").toggleClass("collapse"));
+        e => $(e.currentTarget).parents("[data-type=testCase]").persistToggleClass("collapse"));
 
     $("#testTable").append($tbody);
 }
@@ -74,14 +133,14 @@ function initButtons()
     let $testCases = $("[data-type=testCase]");
 
     $("#collapseAll").on("click", () => $testCases
-        .toggleClass("collapse", true));
+        .persistToggleClass("collapse", true));
 
     $("#expandAll").on("click", () => $testCases
-        .toggleClass("collapse", false));
+        .persistToggleClass("collapse", false));
 
     $("#collapseSuccessful").on("click", () => $testCases
         .has("[data-result=success]")
-        .toggleClass("collapse", true));
+        .persistToggleClass("collapse", true));
 }
 
 function configureTranspiler()
@@ -183,4 +242,17 @@ function configureTranspiler()
         $("[data-type=testCases]").on("input selectionchange propertychange", "[data-type=input]", e => transpile($(e.currentTarget)));
         $("[data-type=testCases] [data-type=input]").each((i, input) => transpile($(input)));
     });
+}
+
+// ----- Helpers -----
+
+function getFromStorage(name) 
+{
+    let value = JSON.parse(localStorage.getItem(name));
+    return value === null ? DEFAULT_SETTINGS[name] : value;
+}
+
+function saveToStorage(name, value) 
+{
+    localStorage.setItem(name, JSON.stringify(value));
 }
