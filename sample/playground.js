@@ -36,9 +36,7 @@ function configureTranspiler()
     let $output = $("#output");
     let $debug = $("#debug");
 
-    let appendToOutput = x => $output.val($output.val() + x + "\n");
-
-    tilib.io.output = appendToOutput;
+    tilib.io.updateVal($output);
 
     let transpile = () => {
         let source = $source.val();
@@ -47,14 +45,7 @@ function configureTranspiler()
 
         $output.val("");
         let lines = eval(transpiled);
-        try
-        {
-            tilib.core.run(lines, { source: source, debug: getFromStorage(DEBUG_SETTING) })
-        }
-        catch(error)
-        {
-            appendToOutput(error);
-        }
+        tilib.core.run(lines, { source: source, debug: getFromStorage(DEBUG_SETTING) })
     };
 
     tipiler.parser.ready(() => 

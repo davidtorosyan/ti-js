@@ -53,6 +53,13 @@
 
     // ----- core -----
 
+    tilib.core.error = (type, code) => (
+        {
+            type: type,
+            code: code,
+        }
+    );
+
     tilib.core.new_value = (num, type="numeric") => (
         {
             type: type,
@@ -117,25 +124,13 @@
 
         if (found === undefined)
         {
-            throw "ERR:UNDEFINED";
+            tilib.core.error("UNDEFINED");
         }
 
         tilib.core.run(found.program, { source: found.source });
     }
 
     tilib.core.run = (lines, options = {}) => 
-    {
-        try
-        {
-            tilib.core.runInternal(lines, options);
-        }
-        catch (ex)
-        {
-            console.log(ex);
-        }
-    }
-
-    tilib.core.runInternal = (lines, options = {}) => 
     {
         // ----- initialize environment -----
 
@@ -167,245 +162,231 @@
         let falsyStackHeight = undefined;
         let falsyBlockPreviousIf = undefined;
 
-        let addLineInfo = (message, i) =>
-        {
-            let result = message;
-
-            if (i !== undefined)
-            {
-                result += ` on line ${i}`
-
-                if (sourceLines.length > 0)
-                {
-                    result += `: ${sourceLines[i]}`
-                }
-            }
-
-            return result;
-        };
-
-        let errorMessage = (type, i) =>
-        {
-            return addLineInfo(`ERR:${type}`, i);
-        };
-
-        let unimplemented = (type, i) =>
-        {
-            return addLineInfo(`Unimplemented type '${type}'`, i);
-        };
-
         for (let i = 0; i < lines.length; i++) 
         {
-            // ----- initialize line -----
-
-            if (debug)
+            try
             {
-                console.log(`Line: ${i}, \t\
+                // ----- initialize line -----
+
+                if (debug)
+                {
+                    console.log(`Line: ${i}, \t\
 searchLabel: ${searchLabel || ""}, \t\
 ifResult: ${ifResult || ""}, \t\
 blockStack: ${blockStack || ""} \t\
 falsyStackHeight: ${falsyStackHeight || ""}, \t\
 falsyBlockPreviousIf: ${falsyBlockPreviousIf || ""}, \t\
 source: ${sourceLines[i] || ""}`);
-            }
+                }
 
-            linesRun++;
+                linesRun++;
 
-            if (linesRun >= maximumLines)
-            {
-                throw "Maximum lines hit!";
-            }
-
-            let line = lines[i];
-            let type = line.type;
-
-            // ----- scan for end -----
-
-            if (falsyStackHeight !== undefined)
-            {
-                let lastBlockIndex = blockStack[blockStack.length-1];
-                let lastBlock = lines[lastBlockIndex];
-                
-                if (type === "EndStatement" ||
-                   (type === "ElseStatement" && lastBlock.type === "ThenStatement"))
+                if (linesRun >= maximumLines)
                 {
-                    blockStack.pop();
+                    throw tilib.core.error("lib", "maxlines");
+                }
 
-                    if (blockStack.length < falsyStackHeight)
+                let line = lines[i];
+                let type = line.type;
+
+                // ----- scan for end -----
+
+                if (falsyStackHeight !== undefined)
+                {
+                    let lastBlockIndex = blockStack[blockStack.length-1];
+                    let lastBlock = lines[lastBlockIndex];
+                    
+                    if (type === "EndStatement" ||
+                    (type === "ElseStatement" && lastBlock.type === "ThenStatement"))
                     {
-                        falsyStackHeight = undefined;
+                        blockStack.pop();
+
+                        if (blockStack.length < falsyStackHeight)
+                        {
+                            falsyStackHeight = undefined;
+                        }
                     }
+                    
+                    if (type === "ForLoop" ||
+                    (type === "ThenStatement" && falsyBlockPreviousIf === true) ||
+                    (type === "ElseStatement" && lastBlock.type === "ThenStatement"))
+                    {
+                        blockStack.push(i);
+                    }
+
+                    falsyBlockPreviousIf = type === "IfStatement";
+                    continue;
                 }
+
+                falsyBlockPreviousIf = undefined;
+
+                // ----- search for label -----
+
+                if (searchLabel !== undefined)
+                {
+                    if (type === "LabelStatement" && line.label == searchLabel)
+                    {
+                        searchLabel = undefined;
+                    }
+
+                    continue;
+                }
+
+                // ----- check if result -----
                 
-                if (type === "ForLoop" ||
-                   (type === "ThenStatement" && falsyBlockPreviousIf === true) ||
-                   (type === "ElseStatement" && lastBlock.type === "ThenStatement"))
+                if (ifResult !== undefined)
                 {
-                    blockStack.push(i);
-                }
+                    let ifResultFalse = ifResult !== true;
+                    ifResult = undefined;
 
-                falsyBlockPreviousIf = type === "IfStatement";
-                continue;
-            }
+                    if (type === "ThenStatement")
+                    {
+                        blockStack.push(i);
 
-            falsyBlockPreviousIf = undefined;
+                        if (ifResultFalse)
+                        {
+                            falsyStackHeight = blockStack.length;
+                        }
 
-            // ----- search for label -----
-
-            if (searchLabel !== undefined)
-            {
-                if (type === "LabelStatement" && line.label == searchLabel)
-                {
-                    searchLabel = undefined;
-                }
-
-                continue;
-            }
-
-            // ----- check if result -----
-            
-            if (ifResult !== undefined)
-            {
-                let ifResultFalse = ifResult !== true;
-                ifResult = undefined;
-
-                if (type === "ThenStatement")
-                {
-                    blockStack.push(i);
+                        continue;
+                    }
 
                     if (ifResultFalse)
                     {
-                        falsyStackHeight = blockStack.length;
+                        continue;
                     }
-
-                    continue;
                 }
 
-                if (ifResultFalse)
+                // ----- check incrementDecrementResult -----
+                
+                if (incrementDecrementResult !== undefined)
                 {
-                    continue;
+                    let incrementDecrementResultFalse = incrementDecrementResult !== true;
+                    incrementDecrementResult = undefined;
+
+                    if (incrementDecrementResultFalse)
+                    {
+                        continue;
+                    }
+                }
+
+                // ----- normal execution -----
+
+                switch (type)
+                {
+                    // ----- CtlStatement -----
+                    case "IfStatement":
+                        ifResult = tilib.core.isTruthy(line.condition(mem));
+                        break;
+                    case "ThenStatement":
+                        throw tilib.core.error("ti", "SYNTAX");
+                    case "ElseStatement":
+                        if (blockStack.length === 0)
+                        {
+                            throw tilib.core.error("ti", "SYNTAX");
+                        }
+                        if (lines[blockStack.pop()].type === "ThenStatement")
+                        {
+                            blockStack.push(i);
+                            falsyStackHeight = blockStack.length;
+                        }
+                        else 
+                        {
+                            throw tilib.core.error("ti", "SYNTAX");
+                        }
+                        break;
+                    case "ForLoop":
+                        line.init(mem);
+                        blockStack.push(i);
+                        if (!tilib.core.isTruthy(line.condition(mem)))
+                        {
+                            falsyStackHeight = blockStack.length;
+                        }
+                        break;
+                    case "WhileLoop":
+                        blockStack.push(i);
+                        if (!tilib.core.isTruthy(line.condition(mem)))
+                        {
+                            falsyStackHeight = blockStack.length;
+                        }
+                        break;
+                    case "RepeatLoop":
+                        blockStack.push(i);
+                        break;
+                    case "EndStatement":
+                        if (blockStack.length === 0)
+                        {
+                            throw tilib.core.error("ti", "SYNTAX");
+                        }
+                        let source = blockStack.pop();
+                        let sourceLine = lines[source];
+                        if (sourceLine.type === "ForLoop" ||
+                            sourceLine.type === "WhileLoop" ||
+                            sourceLine.type === "RepeatLoop")
+                        {
+                            if (sourceLine.type === "ForLoop")
+                            {
+                                sourceLine.step(mem);
+                            }
+
+                            if (tilib.core.isTruthy(sourceLine.condition(mem)))
+                            {
+                                blockStack.push(source);
+                                i = source;
+                            }
+                        }
+                        else if (sourceLine.type === "ThenStatement" || 
+                                sourceLine.type === "ElseStatement")
+                        {
+                            // empty
+                        }
+                        else 
+                        {
+                            throw tilib.core.error("lib", `impossibleEndFrom'${sourceLine.type}`);
+                        }
+                        break;
+                    case "PauseStatement":
+                        throw tilib.core.error("lib", "unimplemented");
+                    case "LabelStatement":
+                        break;
+                    case "GotoStatement":
+                        searchLabel = line.label;
+                        i = -1;
+                        break;
+                    // TODO increment and decrement have an interaction with DelVar
+                    case "IncrementSkip":
+                        line.increment(mem);
+                        incrementDecrementResult = tilib.core.isTruthy(line.condition(mem));
+                        break;
+                    case "DecrementSkip":
+                        line.decrement(mem);
+                        incrementDecrementResult = tilib.core.isTruthy(line.condition(mem));
+                        break;
+                    // ----- other -----
+                    case "Assignment":
+                        line.statement(mem);
+                        break;
+                    case "IoStatement":
+                        line.statement(mem);
+                        break;
+                    case "ValueStatement":
+                        mem.ans = line.statement(mem);
+                        break;
+                    case "SyntaxError":
+                        throw tilib.core.error("ti", "SYNTAX");
+                    default:
+                        throw tilib.core.error("lib", "unexpected");
                 }
             }
-
-             // ----- check incrementDecrementResult -----
-            
-             if (incrementDecrementResult !== undefined)
-             {
-                 let incrementDecrementResultFalse = incrementDecrementResult !== true;
-                 incrementDecrementResult = undefined;
-
-                 if (incrementDecrementResultFalse)
-                 {
-                     continue;
-                 }
-             }
-
-            // ----- normal execution -----
-
-            switch (type)
+            catch (ex)
             {
-                // ----- CtlStatement -----
-                case "IfStatement":
-                    ifResult = tilib.core.isTruthy(line.condition(mem));
-                    break;
-                case "ThenStatement":
-                    throw errorMessage("SYNTAX", i);
-                case "ElseStatement":
-                    if (blockStack.length === 0)
-                    {
-                        throw errorMessage("SYNTAX", i);
-                    }
-                    if (lines[blockStack.pop()].type === "ThenStatement")
-                    {
-                        blockStack.push(i);
-                        falsyStackHeight = blockStack.length;
-                    }
-                    else 
-                    {
-                        throw errorMessage("SYNTAX", i);
-                    }
-                    break;
-                case "ForLoop":
-                    line.init(mem);
-                    blockStack.push(i);
-                    if (!tilib.core.isTruthy(line.condition(mem)))
-                    {
-                        falsyStackHeight = blockStack.length;
-                    }
-                    break;
-                case "WhileLoop":
-                    blockStack.push(i);
-                    if (!tilib.core.isTruthy(line.condition(mem)))
-                    {
-                        falsyStackHeight = blockStack.length;
-                    }
-                    break;
-                case "RepeatLoop":
-                    blockStack.push(i);
-                    break;
-                case "EndStatement":
-                    if (blockStack.length === 0)
-                    {
-                        throw errorMessage("SYNTAX", i);
-                    }
-                    let source = blockStack.pop();
-                    let sourceLine = lines[source];
-                    if (sourceLine.type === "ForLoop" ||
-                        sourceLine.type === "WhileLoop" ||
-                        sourceLine.type === "RepeatLoop")
-                    {
-                        if (sourceLine.type === "ForLoop")
-                        {
-                            sourceLine.step(mem);
-                        }
+                ex.source = {
+                    index: i,
+                    line: sourceLines === undefined ? undefined : sourceLines[i]
+                };
 
-                        if (tilib.core.isTruthy(sourceLine.condition(mem)))
-                        {
-                            blockStack.push(source);
-                            i = source;
-                        }
-                    }
-                    else if (sourceLine.type === "ThenStatement" || 
-                             sourceLine.type === "ElseStatement")
-                    {
-                        // empty
-                    }
-                    else 
-                    {
-                        throw addLineInfo(`Impossible end source '${sourceLine.type}'`, source);
-                    }
-                    break;
-                case "PauseStatement":
-                    throw unimplemented(type, i);
-                case "LabelStatement":
-                    break;
-                case "GotoStatement":
-                    searchLabel = line.label;
-                    i = -1;
-                    break;
-                // TODO increment and decrement have an interaction with DelVar
-                case "IncrementSkip":
-                    line.increment(mem);
-                    incrementDecrementResult = tilib.core.isTruthy(line.condition(mem));
-                    break;
-                case "DecrementSkip":
-                    line.decrement(mem);
-                    incrementDecrementResult = tilib.core.isTruthy(line.condition(mem));
-                    break;
-                // ----- other -----
-                case "Assignment":
-                    line.statement(mem);
-                    break;
-                case "IoStatement":
-                    line.statement(mem);
-                    break;
-                case "ValueStatement":
-                    mem.ans = line.statement(mem);
-                    break;
-                case "SyntaxError":
-                    throw errorMessage("SYNTAX", i);
-                default:
-                    throw addLineInfo(`Unexpected type '${type}'`, i);
+                tilib.io.error(ex);
+                return;
             }
         }
 
@@ -413,7 +394,7 @@ source: ${sourceLines[i] || ""}`);
 
         if (searchLabel !== undefined)
         {
-            throw errorMessage("LABEL");
+            throw tilib.core.error("ti", "LABEL");
         }
 
         if (debug)
@@ -430,7 +411,7 @@ source: ${sourceLines[i] || ""}`);
         {
             str = str.substring(1);
         }
-        tilib.io.output(str);
+        tilib.io.stdout(str);
     };
 
     tilib.runtime.assign = (variable, value) => variable.value = value.value;
@@ -457,7 +438,8 @@ source: ${sourceLines[i] || ""}`);
     let unaryOperation = (operation, supportedTypes=["numeric"]) => 
         (x) => 
         {
-            if (!supportedTypes.includes(x.type)) throw "ERR:DATA TYPE";
+            if (!supportedTypes.includes(x.type)) 
+                throw tilib.core.error("ti", "DATA TYPE");
             return tilib.core.new_value(operation(x.value), x.type)
         };
 
@@ -466,7 +448,8 @@ source: ${sourceLines[i] || ""}`);
     let binaryOperation = (operation, supportedTypes=["numeric"]) => 
         (x, y) => 
         {
-            if (x.type !== y.type || !supportedTypes.includes(x.type)) throw "ERR:DATA TYPE";
+            if (x.type !== y.type || !supportedTypes.includes(x.type)) 
+                throw tilib.core.error("ti", "DATA TYPE");
             return tilib.core.new_value(operation(x.value, y.value), x.type)
         };
 
@@ -487,11 +470,65 @@ source: ${sourceLines[i] || ""}`);
 
     // ----- io -----
 
-    tilib.io.output = x => console.log(x);
+    tilib.io.error = ex => {
+        if (ex.type === "ti")
+        {
+            tilib.io.stderr(`ERR:${ex.code}`, ex.source)
+        }
+        else if (ex.type == "lib")
+        {
+            tilib.io.liberr(`Error: ${ex.code}`, ex.source)
+        }
+    };
 
-    tilib.io.error = x => console.log(x);
+    tilib.io.reset = () =>
+    {
+        tilib.io.stdout = x => console.log(x);
+        tilib.io.stderr = (x, source) => console.log(x);
+        tilib.io.liberr = (x, source) => console.log(x);
+    };
+    tilib.io.reset();
 
-    tilib.io.libError = x => console.log(x);
+    tilib.io.updateVal = (elem, options = {}) =>
+    {
+        let parseOption = (option, defaultValue) =>
+        {
+            return option === undefined ? defaultValue : option === true;
+        };
+
+        let includeErrors = parseOption(options.includeErrors, true);
+        let includeLineNumbers = parseOption(options.includeLineNumbers, true);
+        let includeSource = parseOption(options.includeSource, true);
+        let includeLibErrors = parseOption(options.includeLibErrors, true);
+
+        let appendToOutput = x => elem.val(elem.val() + x + "\n");
+        let appendToError = (x, source) => {
+            let result = x;
+            if (source !== undefined)
+            {
+                if (source.index !== undefined && includeLineNumbers)
+                {
+                    result += ` on line ${source.index}`;
+                }
+
+                if (source.line !== undefined && includeSource)
+                {
+                    result += ` :${source.line}`;
+                }
+            }
+            appendToOutput(result);
+        };
+
+        tilib.io.stdout = appendToOutput;
+        if (includeErrors)
+        {
+            tilib.io.stderr = appendToError;
+        }
+        if (includeLibErrors)
+        {
+            tilib.io.liberr = appendToError;
+        }
+    };
 
     // AMD registration happens at the end for compatibility with AMD loaders
     // that may not enforce next-turn semantics on modules. Even though general

@@ -199,8 +199,7 @@ function configureTranspiler()
         $output = $testCase.find("[data-type=output]");
         $result = $testCase.find("[data-type=result]");
 
-        let appendToOutput = x => $output.val($output.val() + x + "\n");
-        tilib.io.output = appendToOutput;
+        tilib.io.updateVal($output, {includeLineNumbers: false, includeSource: false});
 
         $result.text("Transpiling");
         $result.removeAttr("data-result");
