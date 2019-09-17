@@ -447,5 +447,31 @@ let tiJsTests =
             input:`Disp "foo"+1`,
             expected: `ERR:DATA TYPE`,
         },
+        {
+            name: "NestedFalseRepeat",
+            input:`\
+            If 0
+            Then
+            Repeat 0
+            End
+            Disp 1
+            End
+            Disp 2
+            `,
+            expected: `2`,
+        },
+        {
+            name: "NestedFalseWhile",
+            input:`\
+            If 0
+            Then
+            While 0
+            End
+            Disp 1
+            End
+            Disp 2
+            `,
+            expected: `2`,
+        },
     ]
 };

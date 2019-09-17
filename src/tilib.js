@@ -208,6 +208,8 @@ source: ${sourceLines[i] || ""}`);
                     }
                     
                     if (type === "ForLoop" ||
+                    type === "RepeatLoop" ||
+                    type === "WhileLoop" ||
                     (type === "ThenStatement" && falsyBlockPreviousIf === true) ||
                     (type === "ElseStatement" && lastBlock.type === "ThenStatement"))
                     {
