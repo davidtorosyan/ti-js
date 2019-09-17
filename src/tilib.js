@@ -416,7 +416,24 @@ source: ${sourceLines[i] || ""}`);
         tilib.io.stdout(str);
     };
 
-    tilib.runtime.assign = (variable, value) => variable.value = value.value;
+    tilib.runtime.assign = (variable, value) => {
+        if (variable.type === value.type)
+        {
+            variable.value = value.value;
+        }
+        else if (variable.type === "numeric")
+        {
+            // do nothing
+        }
+        else if (variable.type === "string")
+        {
+            throw tilib.core.error("ti", "DATA TYPE");
+        }
+        else
+        {
+            throw tilib.core.error("lib", "UnknownVariableType");
+        }
+    }
 
     tilib.runtime.num = (integer, fraction, exponent) => {
         let str = "";

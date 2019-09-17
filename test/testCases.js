@@ -473,5 +473,14 @@ let tiJsTests =
             `,
             expected: `2`,
         },
+        {
+            name: "NoStoreString",
+            input:`\
+            1->X
+            "A"->X
+            Disp X
+            `,
+            expected: `1`,
+        },
     ]
 };
