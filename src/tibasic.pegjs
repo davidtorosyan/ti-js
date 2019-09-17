@@ -27,10 +27,12 @@
 
     var lib_num_one           = lib_num + "('1')";
 
-    // memory
-    var mem         = "mem";
+    // bus
+    var bus         = "bus";
+    var mem         = bus + ".mem";
     var mem_vars    = mem + ".vars.";
     var mem_ans     = mem + ".ans";
+    var io          = bus + ".io";
 
     function quote(str)
     {
@@ -55,7 +57,7 @@
 
     function buildFunc(str, shouldReturn=false)
     {
-        return "(" + mem + ") => { " + (shouldReturn ? "return " : "") + str + " }";
+        return "(" + bus + ") => { " + (shouldReturn ? "return " : "") + str + " }";
     }
 
     function buildType(name, ...args)
@@ -341,11 +343,11 @@ CtlStatement
 
 Prompt
     = "Prompt " variable:Variable
-    { return buildType("IoStatement", "statement", buildFunc(lib_prompt + paren(variable))) };
+    { return buildType("IoStatement", "statement", buildFunc(lib_prompt + paren(io, variable))) };
 
 Display
     = "Disp " val:ValueExpression
-    { return buildType("IoStatement", "statement", buildFunc(lib_disp + paren(val))) };
+    { return buildType("IoStatement", "statement", buildFunc(lib_disp + paren(io, val))) };
 
 IoStatement
     // = Input

@@ -36,7 +36,7 @@ function configureTranspiler()
     let $output = $("#output");
     let $debug = $("#debug");
 
-    tilib.io.updateVal($output);
+    let io = tilib.io.val_io($output);
 
     let transpile = () => {
         let source = $source.val();
@@ -45,7 +45,7 @@ function configureTranspiler()
 
         $output.val("");
         let lines = eval(transpiled);
-        tilib.core.run(lines, { source: source, debug: getFromStorage(DEBUG_SETTING) })
+        tilib.core.run(lines, { source: source, debug: getFromStorage(DEBUG_SETTING), io: io })
     };
 
     tipiler.parser.ready(() => 

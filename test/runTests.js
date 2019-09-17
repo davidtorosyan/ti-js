@@ -194,12 +194,12 @@ function configureTranspiler()
             throw "Missing input!";
         }
 
-        $testCase = $input.parents("[data-type=testCase]");
-        $expected = $testCase.find("[data-type=expected]");
-        $output = $testCase.find("[data-type=output]");
-        $result = $testCase.find("[data-type=result]");
+        let $testCase = $input.parents("[data-type=testCase]");
+        let $expected = $testCase.find("[data-type=expected]");
+        let $output = $testCase.find("[data-type=output]");
+        let $result = $testCase.find("[data-type=result]");
 
-        tilib.io.updateVal($output, {includeLineNumbers: false, includeSource: false});
+        let io = tilib.io.val_io($output, {includeLineNumbers: false, includeSource: false});
 
         $result.text("Transpiling");
         $result.removeAttr("data-result");
@@ -212,28 +212,28 @@ function configureTranspiler()
 
         $result.text("Running");
 
-        try
-        {
-            tilib.core.run(lines, { source: source, debug: false })
-        }
-        catch(error)
-        {
-            appendToOutput(error);
-        }
+        let callback = () => {
+            let output = trimLastNewline($output.val());
+            if (output === $expected.val())
+            {
+                $result.text("Success");
+                $result.attr("data-result", "success");
+            }
+            else
+            {
+                $result.text("Failure");
+                $result.attr("data-result", "failure");
+            }
+    
+            updateCount();
+        };
 
-        let output = trimLastNewline($output.val());
-        if (output === $expected.val())
-        {
-            $result.text("Success");
-            $result.attr("data-result", "success");
-        }
-        else
-        {
-            $result.text("Failure");
-            $result.attr("data-result", "failure");
-        }
-
-        updateCount();
+        tilib.core.run(lines, { 
+            source: source, 
+            debug: false, 
+            io: io, 
+            callback: callback 
+        });
     };
 
     tipiler.parser.ready(() => 

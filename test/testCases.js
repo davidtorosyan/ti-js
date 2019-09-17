@@ -482,5 +482,22 @@ let tiJsTests =
             `,
             expected: `1`,
         },
+        {
+            name: "GoBack",
+            input:`\
+            1->X
+            Lbl A
+            Disp X
+            1+X->X
+            If X<3
+            Goto A
+            Disp 9
+            `,
+            expected: `\
+            1
+            2
+            9
+            `,
+        },
     ]
 };
