@@ -11,20 +11,20 @@
     var lib_str               = lib_runtime + "str";
     
     var lib_negative          = lib_runtime + "negative";
-
     var lib_multiply          = lib_runtime + "multiply";
     var lib_divide            = lib_runtime + "divide";
-
     var lib_add               = lib_runtime + "add";
     var lib_minus             = lib_runtime + "minus";
-
     var lib_testEquals        = lib_runtime + "testEquals";
     var lib_testNotEquals     = lib_runtime + "testNotEquals";
     var lib_testGreater       = lib_runtime + "testGreater";
     var lib_testGreaterEquals = lib_runtime + "testGreaterEquals";
     var lib_testLess          = lib_runtime + "testLess";
     var lib_testLessEquals    = lib_runtime + "testLessEquals";
+
+    var lib_prompt            = lib_runtime + "prompt";
     var lib_disp              = lib_runtime + "disp";
+
     var lib_num_one           = lib_num + "('1')";
 
     // memory
@@ -339,9 +339,27 @@ CtlStatement
 // TODO:
 // * Input
 
+Prompt
+    = "Prompt " variable:Variable
+    { return buildType("IoStatement", "statement", buildFunc(lib_prompt + paren(variable))) };
+
 Display
     = "Disp " val:ValueExpression
     { return buildType("IoStatement", "statement", buildFunc(lib_disp + paren(val))) };
+
+IoStatement
+    // = Input
+    = Prompt
+    / Display
+    // / DispGraph
+    // / DispTable
+    // / Output(
+    // / getKey
+    // / ClrHome
+    // / ClrTable
+    // / GetCalc(
+    // / Get(
+    // / Send(
 
 // ----- Statement -----
 // TODO:
@@ -350,5 +368,5 @@ Display
 Statement
     = Assignment
     / CtlStatement
-    / Display
+    / IoStatement
     / ValueStatement

@@ -67,39 +67,43 @@
         }
     );
 
-    tilib.core.new_var = () => tilib.core.new_value(0);
+    tilib.core.new_var = (name) => {
+        let val = tilib.core.new_value(0);
+        val.name = name;
+        return val;
+    };
 
     tilib.core.new_mem = () => (
         {
             vars: 
             {
-                A: tilib.core.new_var(),
-                B: tilib.core.new_var(),
-                C: tilib.core.new_var(),
-                D: tilib.core.new_var(),
-                E: tilib.core.new_var(),
-                F: tilib.core.new_var(),
-                G: tilib.core.new_var(),
-                H: tilib.core.new_var(),
-                I: tilib.core.new_var(),
-                J: tilib.core.new_var(),
-                K: tilib.core.new_var(),
-                L: tilib.core.new_var(),
-                M: tilib.core.new_var(),
-                N: tilib.core.new_var(),
-                O: tilib.core.new_var(),
-                P: tilib.core.new_var(),
-                Q: tilib.core.new_var(),
-                R: tilib.core.new_var(),
-                S: tilib.core.new_var(),
-                T: tilib.core.new_var(),
-                U: tilib.core.new_var(),
-                V: tilib.core.new_var(),
-                W: tilib.core.new_var(),
-                X: tilib.core.new_var(),
-                Y: tilib.core.new_var(),
-                Z: tilib.core.new_var(),
-                THETA: tilib.core.new_var(),
+                A: tilib.core.new_var("A"),
+                B: tilib.core.new_var("B"),
+                C: tilib.core.new_var("C"),
+                D: tilib.core.new_var("D"),
+                E: tilib.core.new_var("E"),
+                F: tilib.core.new_var("F"),
+                G: tilib.core.new_var("G"),
+                H: tilib.core.new_var("H"),
+                I: tilib.core.new_var("I"),
+                J: tilib.core.new_var("J"),
+                K: tilib.core.new_var("K"),
+                L: tilib.core.new_var("L"),
+                M: tilib.core.new_var("M"),
+                N: tilib.core.new_var("N"),
+                O: tilib.core.new_var("O"),
+                P: tilib.core.new_var("P"),
+                Q: tilib.core.new_var("Q"),
+                R: tilib.core.new_var("R"),
+                S: tilib.core.new_var("S"),
+                T: tilib.core.new_var("T"),
+                U: tilib.core.new_var("U"),
+                V: tilib.core.new_var("V"),
+                W: tilib.core.new_var("W"),
+                X: tilib.core.new_var("X"),
+                Y: tilib.core.new_var("Y"),
+                Z: tilib.core.new_var("Z"),
+                THETA: tilib.core.new_var("θ"),
             },
             ans: tilib.core.new_var(),
             prgms: [],
@@ -414,6 +418,10 @@ source: ${sourceLines[i] || ""}`);
             str = str.substring(1);
         }
         tilib.io.stdout(str);
+    };
+
+    tilib.runtime.prompt = x => {
+        tilib.io.stdout(`${x.name}=?`);
     };
 
     tilib.runtime.assign = (variable, value) => {
