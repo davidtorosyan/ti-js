@@ -38,14 +38,21 @@ function configureTranspiler()
 
     let io = tilib.io.val_io($output);
 
+    let program = undefined;
+
     let transpile = () => {
+        if (program !== undefined && program.isActive())
+        {
+            program.stop();
+        }
+
         let source = $source.val();
         let transpiled = tipiler.parser.parse(source, { output: "source" })
         $transpiled.val(transpiled);
 
         $output.val("");
         let lines = eval(transpiled);
-        tilib.core.run(lines, { source: source, debug: getFromStorage(DEBUG_SETTING), io: io })
+        program = tilib.core.run(lines, { source: source, debug: getFromStorage(DEBUG_SETTING), io: io });
     };
 
     tipiler.parser.ready(() => 

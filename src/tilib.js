@@ -326,9 +326,17 @@
 
             callback: options.callback,
             frequencyMs: frequencyMs,
+
+            status: "pending",
         };
 
-        tilib.daemon.setTinyInterval(() => tilib.core.runLoop(state), state.frequencyMs);
+        let taskId = tilib.daemon.setTinyInterval(() => tilib.core.runLoop(state), state.frequencyMs);
+
+        return {
+            getStatus: () => state.status,
+            isActive: () => state.status === "pending" || state.status === "running",
+            stop: () => tilib.daemon.clearTinyInterval(taskId)
+        };
     }
 
     tilib.core.runLoop = (state) => 
@@ -337,10 +345,13 @@
 
         try
         {
+            state.status = "running";
             result = tilib.core.runLine(state);
         }
         catch (ex)
         {
+            state.status = "faulted";
+
             if (ex.type === undefined)
             {
                 throw ex;
@@ -360,6 +371,11 @@
 
         if (result === tilib.daemon.DONE)
         {
+            if (state.status !== "faulted")
+            {
+                state.status = "done";
+            }
+
             if (state.callback !== undefined)
             {
                 state.callback();
