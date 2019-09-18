@@ -36,6 +36,7 @@
     tilib.core = () => {};
     tilib.runtime = () => {};
     tilib.io = () => {};
+    tilib.daemon = () => {};
 
     // ----- private -----
 
@@ -50,6 +51,145 @@
 
         return default_mem;
     }
+
+    // for daemon
+    let messageName = "tiny-timeout-message";
+    let exceptionName = "tiny-timeout-exception";
+    let minimumDelay =  0.001; // 1 microsecond
+    let tasks = {};
+    let exceptions = [];
+    let running = false;
+    let nextTaskId = 0;
+    let maxExceptions = 1000;
+
+    let daemonCreateTask = (func, delay, runOnce) =>
+    {
+        let taskId = nextTaskId++;
+
+        tasks[taskId] = {
+            func: func,
+            delay: Math.max(delay, minimumDelay),
+            lastRun: undefined,
+            runOnce: runOnce,
+            stopOnException: true,
+        };
+
+        if (running === false)
+        {
+            running = true;
+            window.postMessage(messageName, "*");
+        }
+
+        return taskId;
+    };
+
+    let daemonDeleteTask = taskId => 
+    {
+        delete tasks[taskId];
+    };
+
+    let daemonHandleMessage = event => 
+    {
+        if (!(event.source == window && event.data == messageName))
+        {
+            return;
+        }
+
+        event.stopPropagation();
+
+        let time = performance.now();
+        let taskIds = Object.keys(tasks);
+
+        if (taskIds.length === 0)
+        {
+            running = false;
+            return;
+        }
+
+        taskIds.forEach(taskId => 
+        {
+            let task = tasks[taskId];
+
+            let runs = 0;
+            if (task.lastRun === undefined || task.runOnce)
+            {
+                runs = 1;
+            }
+            else
+            {
+                let timeSinceRun = time - task.lastRun;
+                runs = Math.floor(timeSinceRun / task.delay);
+            }
+
+            if (runs > 0)
+            {
+                task.lastRun = time;
+            }
+
+            for (let i = 0; i < runs; i++)
+            {
+                let result;
+
+                try
+                {
+                    result = task.func();
+                }
+                catch (ex)
+                {
+                    result = tilib.daemon.FAULTED;
+
+                    if (exceptions.length < maxExceptions)
+                    {
+                        exceptions.push(ex);
+                        window.postMessage(exceptionName, "*");
+                    }
+                }
+
+                if (result === tilib.daemon.DONE 
+                    || task.runOnce
+                    || (task.stopOnException && result === tilib.daemon.FAULTED))
+                {
+                    delete tasks[taskId];
+                    break;
+                }
+
+                if (result === tilib.daemon.YIELD)
+                {
+                    break;
+                }
+            }
+        });
+
+        window.postMessage(messageName, "*");
+    };
+
+    let daemonHandleException = event => 
+    {
+        if (!(event.source == window && event.data == exceptionName))
+        {
+            return;
+        }
+
+        if (exceptions.length > 0)
+        {
+            throw exceptions.pop();
+        }
+    }
+
+    window.addEventListener("message", daemonHandleMessage, true);
+    window.addEventListener("message", daemonHandleException, true);
+
+    // ----- daemon -----
+
+    tilib.daemon.setTinyInterval = (func, delay) => daemonCreateTask(func, delay);
+    tilib.daemon.clearTinyInterval = tinyIntervalID => daemonDeleteTask(tinyIntervalID);
+
+    tilib.daemon.setTinyTimeout = (func, delay) => daemonCreateTask(func, delay, true);
+    tilib.daemon.clearTinyTimeout = tinyTimeoutID => daemonDeleteTask(tinyTimeoutID);
+
+    tilib.daemon.YIELD = "yield";
+    tilib.daemon.DONE = "done";
+    tilib.daemon.FAULTED = "faulted";
 
     // ----- core -----
 
@@ -188,16 +328,16 @@
             frequencyMs: frequencyMs,
         };
 
-        tilib.core.runLoop(state);
+        tilib.daemon.setTinyInterval(() => tilib.core.runLoop(state), state.frequencyMs);
     }
 
     tilib.core.runLoop = (state) => 
     {
-        let done = false;
+        let result;
 
         try
         {
-            done = tilib.core.runLine(state);
+            result = tilib.core.runLine(state);
         }
         catch (ex)
         {
@@ -210,26 +350,27 @@
             {
                 ex.source = {
                     index: state.i,
-                    line: state.sourceLines === undefined ? undefined : state.sourceLines[state.i]
+                    line: state.sourceLines === undefined ? undefined : state.sourceLines[state.i],
                 };
             }
 
             tilib.io.error(state.bus.io, ex);
-            done = true;
+            result = tilib.daemon.DONE;
         }
 
-        if (done === true)
+        if (result === tilib.daemon.DONE)
         {
             if (state.callback !== undefined)
             {
                 state.callback();
             }
-            return;
+        }
+        else
+        {
+            state.i += 1;
         }
 
-        // note: setTimeout is too slow, replace with window.postMessage
-        state.i += 1;
-        setTimeout(() => tilib.core.runLoop(state), state.frequencyMs);
+        return result;
     }
 
     tilib.core.runLine = (state) => 
@@ -257,7 +398,7 @@ source: ${state.sourceLines[state.i] || ""}`);
                 console.log(state.bus.mem);
             }
 
-            return true;
+            return tilib.daemon.DONE;
         }
 
         state.linesRun++;
