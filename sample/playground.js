@@ -3,10 +3,12 @@
 let DEBUG_SETTING   = "debug";
 let PERSIST_SETTING = "persist";
 let SOURCE_SETTING  = "source";
+let FREQUENCY_SETTING  = "frequency";
 
 let DEFAULT_SETTINGS = {
     [DEBUG_SETTING]: false,
     [PERSIST_SETTING]: false,
+    [FREQUENCY_SETTING]: 1,
 }
 
 // ----- On ready -----
@@ -21,6 +23,7 @@ function initInput()
 {
     bindCheckbox($("#debug"), DEBUG_SETTING);
     bindCheckbox($("#persist"), PERSIST_SETTING);
+    bindNumber($("#frequency"), FREQUENCY_SETTING);
 
     bindTextarea(
         $("#source"), 
@@ -35,6 +38,10 @@ function configureTranspiler()
     let $transpiled = $("#transpiled");
     let $output = $("#output");
     let $debug = $("#debug");
+    let $daemonStatus = $("#daemonStatus");
+
+    tilib.daemon.addEventListener("start", () => $daemonStatus.attr("data-status", "running"));
+    tilib.daemon.addEventListener("stop", () => $daemonStatus.removeAttr("data-status"));
 
     let io = tilib.io.val_io($output);
 
@@ -52,13 +59,19 @@ function configureTranspiler()
 
         $output.val("");
         let lines = eval(transpiled);
-        program = tilib.core.run(lines, { source: source, debug: getFromStorage(DEBUG_SETTING), io: io });
+        program = tilib.core.run(lines, { 
+            source: source, 
+            debug: getFromStorage(DEBUG_SETTING), 
+            io: io,
+            frequencyMs: getFromStorage(FREQUENCY_SETTING) });
     };
 
     tipiler.parser.ready(() => 
     {
         $source.on("input selectionchange propertychange", transpile);
-        $debug.on("change", transpile);
+        // $debug.on("change", transpile);
+        $("#run").on("click", transpile);
+
         transpile();
     });
 }
@@ -94,6 +107,12 @@ function bindCheckbox($checkBox, name)
 {
     $checkBox.prop("checked", getFromStorage(name));
     $checkBox.on("change", () => saveToStorage(name, $checkBox.is(":checked")) );
+}
+
+function bindNumber($number, name)
+{
+    $number.prop("value", getFromStorage(name));
+    $number.on("change", () => saveToStorage(name, parseFloat($number.val())) );
 }
 
 function getFromStorage(name) 

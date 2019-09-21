@@ -29,3 +29,44 @@ textarea {
 #options > input {
     margin-right: 20px;
 }
+
+/* Control */
+
+#run {
+    position: absolute;
+    margin-left: 10px;
+}
+
+/* Status */
+
+.status {
+    height: 22px;
+    width: 22px;
+}
+
+.status > circle {
+    stroke: black;
+    stroke-width: 1;
+    r: 10;
+    fill: gray;
+    cx: 11;
+    cy: 11;
+}
+
+.status > circle[data-status=running] {
+    fill: limegreen;
+} 
+
+/* Table */
+
+thead {
+    text-align: left;
+}
+
+tbody {
+    vertical-align: top;
+}
+
+td {
+    padding-right: 15px;
+}

@@ -62,6 +62,14 @@
     let nextTaskId = 0;
     let maxExceptions = 1000;
 
+    let daemonEventTarget = document.createTextNode(null);
+
+    let daemonEvent = (name) =>
+    {
+        let event = new Event(name);
+        daemonEventTarget.dispatchEvent(event);
+    };
+
     let daemonCreateTask = (func, delay, runOnce) =>
     {
         let taskId = nextTaskId++;
@@ -77,6 +85,7 @@
         if (running === false)
         {
             running = true;
+            daemonEvent("start");
             window.postMessage(messageName, "*");
         }
 
@@ -103,6 +112,7 @@
         if (taskIds.length === 0)
         {
             running = false;
+            daemonEvent("stop");
             return;
         }
 
@@ -190,6 +200,10 @@
     tilib.daemon.YIELD = "yield";
     tilib.daemon.DONE = "done";
     tilib.daemon.FAULTED = "faulted";
+
+    tilib.daemon.addEventListener = daemonEventTarget.addEventListener.bind(daemonEventTarget);
+    tilib.daemon.removeEventListener = daemonEventTarget.removeEventListener.bind(daemonEventTarget);
+    tilib.daemon.dispatchEvent = daemonEventTarget.dispatchEvent.bind(daemonEventTarget);
 
     // ----- core -----
 
