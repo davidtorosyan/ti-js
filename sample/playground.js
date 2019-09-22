@@ -37,13 +37,14 @@ function configureTranspiler()
     let $source = $("#source");
     let $transpiled = $("#transpiled");
     let $output = $("#output");
-    let $debug = $("#debug");
+    let $input = $("#input");
     let $daemonStatus = $("#daemonStatus");
 
     tilib.daemon.addEventListener("start", () => $daemonStatus.attr("data-status", "running"));
+    tilib.daemon.addEventListener("suspend", () => $daemonStatus.attr("data-status", "suspended"));
     tilib.daemon.addEventListener("stop", () => $daemonStatus.removeAttr("data-status"));
 
-    let io = tilib.io.val_io($output);
+    let io = tilib.io.val_io($output, { input: $input });
 
     let program = undefined;
 
@@ -69,7 +70,6 @@ function configureTranspiler()
     tipiler.parser.ready(() => 
     {
         $source.on("input selectionchange propertychange", transpile);
-        // $debug.on("change", transpile);
         $("#run").on("click", transpile);
 
         transpile();

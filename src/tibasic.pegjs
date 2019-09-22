@@ -33,6 +33,7 @@
     var mem_vars    = mem + ".vars.";
     var mem_ans     = mem + ".ans";
     var io          = bus + ".io";
+    var ctl         = bus + ".ctl";
 
     function quote(str)
     {
@@ -343,7 +344,7 @@ CtlStatement
 
 Prompt
     = "Prompt " variable:Variable
-    { return buildType("IoStatement", "statement", buildFunc(lib_prompt + paren(io, variable))) };
+    { return buildType("IoStatement", "statement", buildFunc(lib_prompt + paren(io, ctl, variable)), "action", quote("suspend")) };
 
 Display
     = "Disp " val:ValueExpression

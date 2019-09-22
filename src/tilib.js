@@ -70,6 +70,16 @@
         daemonEventTarget.dispatchEvent(event);
     };
 
+    let daemonStartIfNeeded = () =>
+    {
+        if (running === false)
+        {
+            running = true;
+            daemonEvent("start");
+            window.postMessage(messageName, "*");
+        }
+    };
+
     let daemonCreateTask = (func, delay, runOnce) =>
     {
         let taskId = nextTaskId++;
@@ -80,16 +90,22 @@
             lastRun: undefined,
             runOnce: runOnce,
             stopOnException: true,
+            suspended: false,
         };
 
-        if (running === false)
-        {
-            running = true;
-            daemonEvent("start");
-            window.postMessage(messageName, "*");
-        }
-
+        daemonStartIfNeeded();
         return taskId;
+    };
+
+    let daemonResumeTask = taskId => 
+    {
+        if (!(taskId in tasks))
+        {
+            console.log(tasks);
+            throw `Error resuming: task '${taskId}' not found`;
+        }
+        tasks[taskId].suspended = false;
+        daemonStartIfNeeded();
     };
 
     let daemonDeleteTask = taskId => 
@@ -108,27 +124,32 @@
 
         let time = performance.now();
         let taskIds = Object.keys(tasks);
-
-        if (taskIds.length === 0)
-        {
-            running = false;
-            daemonEvent("stop");
-            return;
-        }
+        let runningTaskCount = 0;
+        let suspendedTaskCount = 0;
 
         taskIds.forEach(taskId => 
         {
             let task = tasks[taskId];
 
-            let runs = 0;
-            if (task.lastRun === undefined || task.runOnce)
+            let runs;
+            if (task.suspended === true)
             {
-                runs = 1;
+                runs = 0;
+                suspendedTaskCount += 1;
             }
             else
             {
-                let timeSinceRun = time - task.lastRun;
-                runs = Math.floor(timeSinceRun / task.delay);
+                runningTaskCount += 1;
+
+                if (task.lastRun === undefined || task.runOnce)
+                {
+                    runs = 1;
+                }
+                else
+                {
+                    let timeSinceRun = time - task.lastRun;
+                    runs = Math.floor(timeSinceRun / task.delay);
+                }
             }
 
             if (runs > 0)
@@ -159,7 +180,16 @@
                     || task.runOnce
                     || (task.stopOnException && result === tilib.daemon.FAULTED))
                 {
-                    delete tasks[taskId];
+                    daemonDeleteTask(taskId);
+                    runningTaskCount -= 1;
+                    break;
+                }
+
+                if (result === tilib.daemon.SUSPEND)
+                {
+                    task.suspended = true;
+                    runningTaskCount -= 1;
+                    suspendedTaskCount += 1;
                     break;
                 }
 
@@ -170,7 +200,22 @@
             }
         });
 
-        window.postMessage(messageName, "*");
+        if (runningTaskCount === 0)
+        {
+            running = false;
+            if (suspendedTaskCount > 0)
+            {
+                daemonEvent("suspend");
+            }
+            else
+            {
+                daemonEvent("stop");
+            }
+        }
+        else
+        {
+            window.postMessage(messageName, "*");
+        }
     };
 
     let daemonHandleException = event => 
@@ -193,6 +238,7 @@
 
     tilib.daemon.setTinyInterval = (func, delay) => daemonCreateTask(func, delay);
     tilib.daemon.clearTinyInterval = tinyIntervalID => daemonDeleteTask(tinyIntervalID);
+    tilib.daemon.resumeTinyInterval = tinyIntervalID => daemonResumeTask(tinyIntervalID);
 
     tilib.daemon.setTinyTimeout = (func, delay) => daemonCreateTask(func, delay, true);
     tilib.daemon.clearTinyTimeout = tinyTimeoutID => daemonDeleteTask(tinyTimeoutID);
@@ -200,6 +246,7 @@
     tilib.daemon.YIELD = "yield";
     tilib.daemon.DONE = "done";
     tilib.daemon.FAULTED = "faulted";
+    tilib.daemon.SUSPEND = "suspend";
 
     tilib.daemon.addEventListener = daemonEventTarget.addEventListener.bind(daemonEventTarget);
     tilib.daemon.removeEventListener = daemonEventTarget.removeEventListener.bind(daemonEventTarget);
@@ -207,10 +254,11 @@
 
     // ----- core -----
 
-    tilib.core.error = (type, code) => (
+    tilib.core.error = (type, code, hideSource=false) => (
         {
             type: type,
             code: code,
+            hideSource: hideSource,
         }
     );
 
@@ -319,6 +367,10 @@
             bus: {
                 mem: tilib.core.new_mem(),
                 io: io,
+                ctl: {
+                    resume: undefined,
+                    callback: undefined,
+                },
             },
 
             debug: options.debug === true,
@@ -345,6 +397,10 @@
         };
 
         let taskId = tilib.daemon.setTinyInterval(() => tilib.core.runLoop(state), state.frequencyMs);
+        state.bus.ctl.resume = (callback) => {
+            state.bus.ctl.callback = callback;
+            tilib.daemon.resumeTinyInterval(taskId);
+        };
 
         return {
             getStatus: () => state.status,
@@ -371,7 +427,7 @@
                 throw ex;
             }
 
-            if (state.i < state.lines.length)
+            if (state.i < state.lines.length && ex.hideSource !== true)
             {
                 ex.source = {
                     index: state.i,
@@ -392,7 +448,7 @@
 
             if (state.callback !== undefined)
             {
-                state.callback();
+                setTimeout(state.callback, 0);
             }
         }
         else
@@ -429,6 +485,12 @@ source: ${state.sourceLines[state.i] || ""}`);
             }
 
             return tilib.daemon.DONE;
+        }
+
+        if (state.bus.ctl.callback !== undefined)
+        {
+            state.bus.ctl.callback();
+            state.bus.ctl.callback = undefined;
         }
 
         state.linesRun++;
@@ -622,6 +684,10 @@ source: ${state.sourceLines[state.i] || ""}`);
                 break;
             case "IoStatement":
                 line.statement(state.bus);
+                if (line.action === "suspend")
+                {
+                    return tilib.daemon.SUSPEND;
+                }
                 break;
             case "ValueStatement":
                 state.bus.mem.ans = line.statement(state.bus);
@@ -644,8 +710,18 @@ source: ${state.sourceLines[state.i] || ""}`);
         io.stdout(str);
     };
 
-    tilib.runtime.prompt = (io, x) => {
-        io.stdout(`${x.name}=?`);
+    tilib.runtime.prompt = (io, ctl, x) => {
+        io.stdout(`${x.name}=?`, false);
+        io.onStdin(input => ctl.resume(() => {
+            if (input === null || input === undefined || input === "")
+            {
+                io.stdout("");
+                throw tilib.core.error("ti", "SYNTAX", true);
+            }
+
+            io.stdout(input);
+            tilib.runtime.assign(x, tilib.runtime.num(input));
+        }));
     };
 
     tilib.runtime.assign = (variable, value) => {
@@ -736,6 +812,7 @@ source: ${state.sourceLines[state.i] || ""}`);
         stdout: x => console.log(x),
         stderr: (x, source) => console.log(x),
         liberr: (x, source) => console.log(x),
+        onStdin: callback => setTimeout(() => callback(prompt("Input?")), 100),
     };
 
     tilib.io.val_io = (elem, options = {}) =>
@@ -749,8 +826,17 @@ source: ${state.sourceLines[state.i] || ""}`);
         let includeLineNumbers = parseOption(options.includeLineNumbers, true);
         let includeSource = parseOption(options.includeSource, true);
         let includeLibErrors = parseOption(options.includeLibErrors, true);
+        let input = options.input;
 
-        let appendToOutput = x => elem.val(elem.val() + x + "\n");
+        let appendToOutput = (x, newline=true) => setTimeout(() => {
+            let result = elem.val() + x;
+            if (newline)
+            {
+                result += "\n";
+            }
+            elem.val(result);
+        }, 0);
+        
         let appendToError = (x, source) => {
             let result = x;
             if (source !== undefined)
@@ -768,11 +854,28 @@ source: ${state.sourceLines[state.i] || ""}`);
             appendToOutput(result);
         };
 
+        let enterkey = 13;
+
+        let onStdin = callback => {
+            setTimeout(() => input.val(""), 0);
+            input.on("keypress", e => 
+            {
+                if (e.keyCode === enterkey) 
+                {
+                    input.off("keypress");
+                    let result = input.val();
+                    setTimeout(() => input.val(""), 0);
+                    callback(result);
+                }
+            });
+        };
+    
         return {
             stdout: appendToOutput,
             stderr: includeErrors ? appendToError : tilib.io.default_io.stderr,
             liberr: includeLibErrors ? appendToError : tilib.io.default_io.stderr,
-        }
+            onStdin: input !== undefined ? onStdin : tilib.io.default_io.onStdin,
+        };
     };
 
     // AMD registration happens at the end for compatibility with AMD loaders

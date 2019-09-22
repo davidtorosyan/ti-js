@@ -57,6 +57,10 @@ textarea {
     fill: limegreen;
 } 
 
+.status > circle[data-status=suspended] {
+    fill: yellow;
+} 
+
 /* Table */
 
 thead {
