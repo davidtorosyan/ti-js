@@ -2,7 +2,7 @@
 // ==================
 
 {
-    var lib         = "tilib.";
+    var lib         = "ti.";
     var lib_runtime = lib + "runtime.";
 
     // runtime functions

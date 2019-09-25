@@ -21,26 +21,26 @@ Rather, the two goals are:
 
 ## Setup
 
-To setup the transpiler, import it and its dependencies:
+To build, use node.
 
-```html
-<script src="peg-0.10.0.js"></script>
-<script src="tipiler.js"></script>
+```sh
+npm install
+npm run build
 ```
 
-To setup the runtime, import it:
+To setup the library for use in the browser, import it:
 
 ```html
-<script src="tilib.js"></script>
+<script src="dist/ti.js"></script>
 ```
 
 ## Usage
 
-To convert TI-Basic to JavaScript, use `tipiler.parser`:
+To convert TI-Basic to JavaScript, use `ti.parser`:
 
 ```js
 let source = "1->X"
-let transpiled = tipiler.parser.parse(source, options={ output: "source" });
+let transpiled = ti.parser.parse(source, options={ output: "source" });
 console.log(transpiled);
 /*
     output:
@@ -58,16 +58,16 @@ output | `"program"` | if set to `"program"`, the method will return transpiled 
 name | `undefined` | if set, the generated code will be wrapped in `tilib.core.prgmNew`, so it could later be run with `tilib.core.prgmExec` and the given name
 includeSource | `false` | if `true`, will embed the original source in the output. Only valid if `name` is set
 
-To run the transpiled code, use `tilib.core.run` or `tilib.core.prgmExec`:
+To run the transpiled code, use `ti.core.run` or `ti.core.prgmExec`:
 
 ```js
 let source = "Disp 4"
 let transpiled = tipiler.parser.parse(source);
-tilib.core.run(transpiled)
+ti.core.run(transpiled)
 // output: 4
 
-tipiler.parser.parse(source, options={ name: "assign" });
-tilib.core.prgmExec("assign");
+ti.parser.parse(source, options={ name: "assign" });
+ti.core.prgmExec("assign");
 // output: 4
 ```
 

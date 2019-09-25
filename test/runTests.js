@@ -1,257 +1,234 @@
+/* global ti, $, jQuery, tiJsTests */
+
 // ----- Constants -----
 
-let TOGGLECLASS_SETTING = "toggleclass";
+const TOGGLECLASS_SETTING = 'toggleclass'
 
-let DEFAULT_SETTINGS = {
-    [TOGGLECLASS_SETTING]: {},
+const DEFAULT_SETTINGS = {
+  [TOGGLECLASS_SETTING]: {}
 }
 
 // ----- On ready -----
 
-$(() => 
-{
-    initTests();
-    initButtons();
-    configureTranspiler();
-    restoreToggleClass();
+$(() => {
+  initTests()
+  initButtons()
+  configureTranspiler()
+  restoreToggleClass()
 });
 
-(function( $ ){
-    $.fn.persistToggleClass = function(className, state) {
-        $(this).toggleClass(className, state);
+(function ($) {
+  $.fn.persistToggleClass = function (className, state) {
+    $(this).toggleClass(className, state)
 
-        let map = getFromStorage(TOGGLECLASS_SETTING);
+    const map = getFromStorage(TOGGLECLASS_SETTING)
 
-        this.each(function() {
-            let id = $(this).attr("id");
-            if (id !== undefined)
-            {
-                map[id] = {
-                    className: className,
-                    state: $(this).hasClass(className),
-                };
-            }
-        });
-
-        saveToStorage(TOGGLECLASS_SETTING, map);
-        
-        return this;
-    };
-})(jQuery);
-
-function restoreToggleClass()
-{
-    let map = getFromStorage(TOGGLECLASS_SETTING);
-
-    Object.keys(map).forEach(key => {
-        let $elem = $("#"+key);
-        if ($elem.length > 0)
-        {
-            let value = map[key];
-            $elem.toggleClass(value.className, value.state);
+    this.each(function () {
+      const id = $(this).attr('id')
+      if (id !== undefined) {
+        map[id] = {
+          className: className,
+          state: $(this).hasClass(className)
         }
-        else
-        {
-            delete map[key];
-        }
-    });
+      }
+    })
 
-    saveToStorage(TOGGLECLASS_SETTING, map);
+    saveToStorage(TOGGLECLASS_SETTING, map)
+
+    return this
+  }
+})(jQuery)
+
+function restoreToggleClass () {
+  const map = getFromStorage(TOGGLECLASS_SETTING)
+
+  Object.keys(map).forEach(key => {
+    const $elem = $('#' + key)
+    if ($elem.length > 0) {
+      const value = map[key]
+      $elem.toggleClass(value.className, value.state)
+    } else {
+      delete map[key]
+    }
+  })
+
+  saveToStorage(TOGGLECLASS_SETTING, map)
 }
 
-function initTests() 
-{
-    let trimInput = (text) => 
-    {
-        let indent = tiJsTests.options.indent;
+function initTests () {
+  const trimInput = (text) => {
+    const indent = tiJsTests.options.indent
 
-        if (text.indexOf("\n") === -1)
-        {
-            return text;
-        }
-
-        return text
-            .split("\n")
-            .filter((line, index, array) => index != array.length - 1)
-            .map(line => line.substring(indent))
-            .join("\n");
+    if (text.indexOf('\n') === -1) {
+      return text
     }
 
-    let $tbody = $("<tbody>");
-    $tbody.attr("data-type", "testCases");
+    return text
+      .split('\n')
+      .filter((line, index, array) => index !== array.length - 1)
+      .map(line => line.substring(indent))
+      .join('\n')
+  }
 
-    let testNameMap = {};
+  const $tbody = $('<tbody>')
+  $tbody.attr('data-type', 'testCases')
 
-    tiJsTests.testCases.forEach(testCase => 
-    {
-        let sanitizedName = testCase.name.replace(" ", "").toLowerCase();
-        testNameMap[sanitizedName] = (testNameMap[sanitizedName] || 0) + 1;
-        let id = `test_${sanitizedName}_${testNameMap[sanitizedName]}`;
+  const testNameMap = {}
 
-        let $row = $("<tr>");
-        $row.attr("data-type", "testCase");
-        $row.attr("id", id);
+  tiJsTests.testCases.forEach(testCase => {
+    const sanitizedName = testCase.name.replace(' ', '').toLowerCase()
+    testNameMap[sanitizedName] = (testNameMap[sanitizedName] || 0) + 1
+    const id = `test_${sanitizedName}_${testNameMap[sanitizedName]}`
 
-        let $result = $("<span>");
-        $result.attr("data-type", "result");
-        $row.append($("<td>").append($result));
+    const $row = $('<tr>')
+    $row.attr('data-type', 'testCase')
+    $row.attr('id', id)
 
-        let $name = $("<span>");
-        $name.attr("data-type", "name");
-        $name.text(testCase.name);
-        $row.append($("<td>").append($name));
+    const $result = $('<span>')
+    $result.attr('data-type', 'result')
+    $row.append($('<td>').append($result))
 
-        let $input = $("<textarea>");
-        $input.attr("data-type", "input");
-        $input.val(trimInput(testCase.input));
-        $row.append($("<td>").append($input));
+    const $name = $('<span>')
+    $name.attr('data-type', 'name')
+    $name.text(testCase.name)
+    $row.append($('<td>').append($name))
 
-        let $expected = $("<textarea>");
-        $expected.attr("data-type", "expected");
-        $expected.attr("readonly", true);
-        $expected.val(trimInput(testCase.expected));
-        $row.append($("<td>").append($expected));
+    const $input = $('<textarea>')
+    $input.attr('data-type', 'input')
+    $input.val(trimInput(testCase.input))
+    $row.append($('<td>').append($input))
 
-        let $output = $("<textarea>");
-        $output.attr("data-type", "output");
-        $output.attr("readonly", true);
-        $row.append($("<td>").append($output));
-        
-        $tbody.append($row)
-    });
+    const $expected = $('<textarea>')
+    $expected.attr('data-type', 'expected')
+    $expected.attr('readonly', true)
+    $expected.val(trimInput(testCase.expected))
+    $row.append($('<td>').append($expected))
 
-    $tbody.on(
-        "click", 
-        "[data-type=result], [data-type=name]", 
-        e => $(e.currentTarget).parents("[data-type=testCase]").persistToggleClass("collapse"));
+    const $output = $('<textarea>')
+    $output.attr('data-type', 'output')
+    $output.attr('readonly', true)
+    $row.append($('<td>').append($output))
 
-    $("#testTable").append($tbody);
+    $tbody.append($row)
+  })
+
+  $tbody.on(
+    'click',
+    '[data-type=result], [data-type=name]',
+    e => $(e.currentTarget).parents('[data-type=testCase]').persistToggleClass('collapse'))
+
+  $('#testTable').append($tbody)
 }
 
-function initButtons()
-{
-    let $testCases = $("[data-type=testCase]");
+function initButtons () {
+  const $testCases = $('[data-type=testCase]')
 
-    $("#collapseAll").on("click", () => $testCases
-        .persistToggleClass("collapse", true));
+  $('#collapseAll').on('click', () => $testCases
+    .persistToggleClass('collapse', true))
 
-    $("#expandAll").on("click", () => $testCases
-        .persistToggleClass("collapse", false));
+  $('#expandAll').on('click', () => $testCases
+    .persistToggleClass('collapse', false))
 
-    $("#collapseSuccessful").on("click", () => $testCases
-        .has("[data-result=success]")
-        .persistToggleClass("collapse", true));
+  $('#collapseSuccessful').on('click', () => $testCases
+    .has('[data-result=success]')
+    .persistToggleClass('collapse', true))
 }
 
-function configureTranspiler()
-{
-    let $overall = $("#overall");
-    let $failed = $("#failed");
-    let $running = $("#running");
+function configureTranspiler () {
+  const $overall = $('#overall')
+  const $failed = $('#failed')
+  const $running = $('#running')
 
-    let $testCases = $("[data-type=testCases]");
-    let $allTests = $testCases.find("[data-type=result]");
+  const $testCases = $('[data-type=testCases]')
+  const $allTests = $testCases.find('[data-type=result]')
 
-    let updateCount = () =>
-    {
-        let $successTests = $allTests.filter("[data-result=success]");
-        let $failedTests = $allTests.filter("[data-result=failure]");
+  const updateCount = () => {
+    const $successTests = $allTests.filter('[data-result=success]')
+    const $failedTests = $allTests.filter('[data-result=failure]')
 
-        let allCount = $allTests.length;
-        let successCount = $successTests.length;
-        let failedCount = $failedTests.length;
-        let runningCount = allCount - (successCount + failedCount);
+    const allCount = $allTests.length
+    const successCount = $successTests.length
+    const failedCount = $failedTests.length
+    const runningCount = allCount - (successCount + failedCount)
 
-        $overall.text(`${successCount}/${allCount}`);
-        $failed.text(failedCount);
-        $running.text(runningCount);
+    $overall.text(`${successCount}/${allCount}`)
+    $failed.text(failedCount)
+    $running.text(runningCount)
 
-        $overall.toggleClass("success", successCount === allCount);
-        $failed.toggleClass("failed", failedCount > 0);
-        $running.toggleClass("running", runningCount > 0);
-    };
+    $overall.toggleClass('success', successCount === allCount)
+    $failed.toggleClass('failed', failedCount > 0)
+    $running.toggleClass('running', runningCount > 0)
+  }
 
-    updateCount();
+  updateCount()
 
-    let trimLastNewline = (text) => 
-    {
-        if (text.length > 0)
-        {
-            let lastCharacter = text[text.length-1];
-            if (lastCharacter === "\n")
-            {
-                text = text.substring(0, text.length - 1);
-            }
-        }
+  const trimLastNewline = (text) => {
+    if (text.length > 0) {
+      const lastCharacter = text[text.length - 1]
+      if (lastCharacter === '\n') {
+        text = text.substring(0, text.length - 1)
+      }
+    }
 
-        return text;
-    };
+    return text
+  }
 
-    let transpile = ($input) => {
+  const transpile = ($input) => {
+    if ($input.length === 0) {
+      throw new Error('Missing input!')
+    }
 
-        if ($input.length === 0)
-        {
-            throw "Missing input!";
-        }
+    const $testCase = $input.parents('[data-type=testCase]')
+    const $expected = $testCase.find('[data-type=expected]')
+    const $output = $testCase.find('[data-type=output]')
+    const $result = $testCase.find('[data-type=result]')
 
-        let $testCase = $input.parents("[data-type=testCase]");
-        let $expected = $testCase.find("[data-type=expected]");
-        let $output = $testCase.find("[data-type=output]");
-        let $result = $testCase.find("[data-type=result]");
+    const io = ti.io.val_io($output, { includeLineNumbers: false, includeSource: false })
 
-        let io = tilib.io.val_io($output, {includeLineNumbers: false, includeSource: false});
+    $result.text('Transpiling')
+    $result.removeAttr('data-result')
 
-        $result.text("Transpiling");
-        $result.removeAttr("data-result");
+    const source = $input.val()
+    const transpiled = ti.parser.parse(source, { output: 'source' })
 
-        let source = $input.val();
-        let transpiled = tipiler.parser.parse(source, { output: "source" });
+    $output.val('')
+    // eslint-disable-next-line no-eval
+    const lines = eval(transpiled)
 
-        $output.val("");
-        let lines = eval(transpiled);
+    $result.text('Running')
 
-        $result.text("Running");
+    const callback = () => {
+      const output = trimLastNewline($output.val())
+      if (output === $expected.val()) {
+        $result.text('Success')
+        $result.attr('data-result', 'success')
+      } else {
+        $result.text('Failure')
+        $result.attr('data-result', 'failure')
+      }
 
-        let callback = () => {
-            let output = trimLastNewline($output.val());
-            if (output === $expected.val())
-            {
-                $result.text("Success");
-                $result.attr("data-result", "success");
-            }
-            else
-            {
-                $result.text("Failure");
-                $result.attr("data-result", "failure");
-            }
-    
-            updateCount();
-        };
+      updateCount()
+    }
 
-        tilib.core.run(lines, { 
-            source: source, 
-            debug: false, 
-            io: io, 
-            callback: callback 
-        });
-    };
+    ti.core.run(lines, {
+      source: source,
+      debug: false,
+      io: io,
+      callback: callback
+    })
+  }
 
-    tipiler.parser.ready(() => 
-    {
-        $("[data-type=testCases]").on("input selectionchange propertychange", "[data-type=input]", e => transpile($(e.currentTarget)));
-        $("[data-type=testCases] [data-type=input]").each((i, input) => transpile($(input)));
-    });
+  $('[data-type=testCases]').on('input selectionchange propertychange', '[data-type=input]', e => transpile($(e.currentTarget)))
+  $('[data-type=testCases] [data-type=input]').each((i, input) => transpile($(input)))
 }
 
 // ----- Helpers -----
 
-function getFromStorage(name) 
-{
-    let value = JSON.parse(localStorage.getItem(name));
-    return value === null ? DEFAULT_SETTINGS[name] : value;
+function getFromStorage (name) {
+  const value = JSON.parse(localStorage.getItem(name))
+  return value === null ? DEFAULT_SETTINGS[name] : value
 }
 
-function saveToStorage(name, value) 
-{
-    localStorage.setItem(name, JSON.stringify(value));
+function saveToStorage (name, value) {
+  localStorage.setItem(name, JSON.stringify(value))
 }

@@ -1,0 +1,38 @@
+{
+  "name": "ti-js",
+  "version": "1.0.0",
+  "description": "- [Introduction](#introduction)\r - [Setup](#setup)\r - [Usage](#usage)\r - [License](#license)",
+  "private": true,
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "lint": "eslint --ignore-path .gitignore --ignore-path .eslintignore ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidtorosyan/ti-js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidtorosyan/ti-js/issues"
+  },
+  "homepage": "https://github.com/davidtorosyan/ti-js#readme",
+  "devDependencies": {
+    "eslint": "^6.4.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "pegjs": "^0.10.0",
+    "raw-loader": "^3.1.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
+  },
+  "dependencies": {}
+}

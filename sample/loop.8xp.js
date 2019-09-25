@@ -1,19 +1,21 @@
-// Produced by tipiler
+// Produced by ti.js
 // ==================
 
-tilib.core.prgmNew('loop', [
-    { type: 'Assignment', statement: (mem) => { mem.vars.X = tilib.runtime.num('1') } },
-    { type: 'Assignment', statement: (mem) => { mem.vars.B = tilib.runtime.num('1') } },
-    { type: 'ForLoop', init: (mem) => { mem.vars.Y = tilib.runtime.num('1') }, condition: (mem) => { return tilib.runtime.testLessEquals(mem.vars.Y, tilib.runtime.num('2')) }, step: (mem) => { mem.vars.Y = tilib.runtime.add(mem.vars.Y, tilib.runtime.num('1')) } },
+ti.core.prgmNew('loop', [
+  [
+    { type: 'Assignment', statement: (bus) => { ti.runtime.assign(bus.mem.vars.X, ti.runtime.num('1', '', '')) } },
+    { type: 'Assignment', statement: (bus) => { ti.runtime.assign(bus.mem.vars.B, ti.runtime.num('1', '', '')) } },
+    { type: 'ForLoop', init: (bus) => { ti.runtime.assign(bus.mem.vars.Y, ti.runtime.num('1', '', '')) }, condition: (bus) => { return ti.runtime.testLessEquals(bus.mem.vars.Y, ti.runtime.num('2', '', '')) }, step: (bus) => { ti.runtime.assign(bus.mem.vars.Y, ti.runtime.add(bus.mem.vars.Y, ti.runtime.num('1', '', ''))) } },
     { type: 'LabelStatement', label: 'A' },
-    { type: 'Assignment', statement: (mem) => { mem.vars.X = tilib.runtime.add(mem.vars.X, tilib.runtime.num('1')) } },
+    { type: 'Assignment', statement: (bus) => { ti.runtime.assign(bus.mem.vars.X, ti.runtime.add(bus.mem.vars.X, ti.runtime.num('1', '', ''))) } },
     { type: 'EndStatement' },
-    { type: 'IfStatement', condition: (mem) => { return tilib.runtime.testEquals(mem.vars.B, tilib.runtime.num('1')) } },
+    { type: 'IfStatement', condition: (bus) => { return ti.runtime.testEquals(bus.mem.vars.B, ti.runtime.num('1', '', '')) } },
     { type: 'ThenStatement' },
-    { type: 'Assignment', statement: (mem) => { mem.vars.B = tilib.runtime.num('2') } },
+    { type: 'Assignment', statement: (bus) => { ti.runtime.assign(bus.mem.vars.B, ti.runtime.num('2', '', '')) } },
     { type: 'GotoStatement', label: 'A' },
     { type: 'EndStatement' },
-    { type: 'IoStatement', statement: (mem) => { tilib.runtime.disp(mem.vars.X) } }
+    { type: 'IoStatement', statement: (bus) => { ti.runtime.disp(bus.io, bus.mem.vars.X) } }
+  ]
   ], [
     '1->X',
     '1->B',
