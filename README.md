@@ -25,13 +25,14 @@ To build, use node.
 
 ```sh
 npm install
-npm run build
+npm run build # production build
+npm start # dev build, experiment at localhost:9080/playground/
 ```
 
 To setup the library for use in the browser, import it:
 
 ```html
-<script src="dist/ti.js"></script>
+<script src="ti.js"></script>
 ```
 
 ## Usage
@@ -45,7 +46,7 @@ console.log(transpiled);
 /*
     output:
     [
-        { type: 'Assignment', statement: (mem) => { mem.vars.X = tilib.runtime.num('1') } }
+      { type: 'Assignment', statement: (bus) => { ti.runtime.assign(bus.mem.vars.X, ti.runtime.num('1', '', '')) } }
     ]
 */
 ```
@@ -78,7 +79,7 @@ Option | default value | description
 source | `undefined` | the original TI-Basic code, as a string or an array of strings; if provided, debug and error messages will include the source line
 debug | `false` | if `true`, will emit debug logs.
 
-See the [sample](/sample) directory for more examples.
+See the [web](/web) directory for more examples.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

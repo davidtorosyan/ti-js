@@ -9,7 +9,8 @@ const FREQUENCY_SETTING = 'frequency'
 
 const DEFAULT_SETTINGS = {
   [DEBUG_SETTING]: false,
-  [PERSIST_SETTING]: false,
+  [PERSIST_SETTING]: true,
+  [SOURCE_SETTING]: undefined,
   [FREQUENCY_SETTING]: 1
 }
 
@@ -29,7 +30,7 @@ function initInput () {
     $('#source'),
     SOURCE_SETTING,
     () => getFromStorage(PERSIST_SETTING),
-    callback => $.get('loop.8xp.txt', callback))
+    callback => $.get('/api/loop.8xp.txt', callback))
 }
 
 function configureTranspiler () {
@@ -53,6 +54,10 @@ function configureTranspiler () {
     }
 
     const source = $source.val()
+    if (source.length === 0) {
+      return
+    }
+
     const transpiled = ti.parser.parse(source, { output: 'source' })
     $transpiled.val(transpiled)
 
@@ -75,21 +80,27 @@ function configureTranspiler () {
 // ----- Helpers -----
 
 function bindTextarea ($textArea, name, condition = () => true, load = undefined) {
-  if (condition() === true) {
-    $textArea.val(getFromStorage(name))
-    $textArea.trigger('propertychange')
-  } else if (load !== undefined) {
-    load(result => {
-      $textArea.val(result)
-      $textArea.trigger('propertychange')
-    })
-  }
-
   $textArea.on('input selectionchange propertychange', () => {
     if (condition() === true) {
       saveToStorage(name, $textArea.val())
     }
   })
+
+  if (condition() === true) {
+    const result = getFromStorage(name)
+    if (result !== undefined) {
+      $textArea.val(result)
+      $textArea.trigger('propertychange')
+      return
+    }
+  }
+
+  if (load !== undefined) {
+    load(result => {
+      $textArea.val(result)
+      $textArea.trigger('propertychange')
+    })
+  }
 }
 
 function bindCheckbox ($checkBox, name) {
