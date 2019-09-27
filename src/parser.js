@@ -1,9 +1,10 @@
-import peg from 'pegjs'
-import grammar from './tibasic.pegjs'
+import parser from './tibasic.pegjs'
+// import peg from 'pegjs'
+// import grammar from './tibasic.pegjs'
 
 // ----- private -----
 
-const parser = peg.generate(grammar)
+// const parser = peg.generate(grammar)
 
 function quote (str) {
   return "'" + str + "'"
@@ -43,18 +44,6 @@ export function parse (source, options = {}) {
     throw new Error('Undefined source!')
   }
 
-  let outputAsProgram = false
-  switch (options.output) {
-    case 'program':
-    case undefined:
-      outputAsProgram = true
-      break
-    case 'source':
-      break
-    default:
-      throw new Error(`Unrecognized option for output: ${options.output}`)
-  }
-
   const name = options.name
   const includeSource = options.includeSource
 
@@ -67,17 +56,19 @@ export function parse (source, options = {}) {
   const sourceLines = source.split(/\r?\n/)
   const parsedLines = sourceLines.map(s => {
     try {
-      return parser.parse(s)
+      const parsedLine = parser.parse(s)
+      parsedLine.source = s
+      return parsedLine
     } catch (error) {
       if (error.name === 'SyntaxError') {
-        return "{ type: 'SyntaxError' }"
+        return { type: 'SyntaxError' }
       }
 
       throw error
     }
   })
 
-  let lines = buildList(parsedLines)
+  let lines = parsedLines
 
   if (name !== undefined) {
     lines = `tilib.core.prgmNew('${name}', ${lines}`
@@ -87,11 +78,6 @@ export function parse (source, options = {}) {
     }
 
     lines += ')'
-  }
-
-  if (outputAsProgram) {
-    // eslint-disable-next-line no-eval
-    lines = eval(lines)
   }
 
   return lines

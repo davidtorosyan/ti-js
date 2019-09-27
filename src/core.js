@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import * as daemon from './daemon'
 import * as iolib from './io'
+import * as types from './types'
 
 let default_mem
 
@@ -391,6 +392,9 @@ source: ${state.sourceLines[state.i] || ''}`)
     case 'Assignment':
       line.statement(state.bus)
       break
+    case 'Display':
+      state.bus.io.stdout(valueToString(evaluate(line.value)))
+      break
     case 'IoStatement':
       line.statement(state.bus)
       if (line.action === 'suspend') {
@@ -405,4 +409,74 @@ source: ${state.sourceLines[state.i] || ''}`)
     default:
       throw error('lib', 'unexpected')
   }
+}
+
+function evaluate (value) {
+  switch (value.type) {
+    case types.NUMBER:
+      return value
+    case 'binary':
+      return applyBinaryOperator(value)
+    default:
+      throw error('lib', 'unexpected')
+  }
+}
+
+function applyBinaryOperator (value) {
+  const left = evaluate(value.left)
+  const right = evaluate(value.right)
+  switch (left.type) {
+    case types.NUMBER:
+      return applyBinaryOperatorToNumber(left, right, value.operator)
+    default:
+      throw error('lib', 'unexpected')
+  }
+}
+
+function applyBinaryOperatorToNumber (left, right, operator) {
+  if (right.type !== types.NUMBER) {
+    throw error('ti', 'DATA TYPE')
+  }
+  const leftNumber = resolveNumber(left)
+  const rightNumber = resolveNumber(right)
+
+  let result
+  switch (operator) {
+    case '+': result = leftNumber + rightNumber; break
+    case '-': result = leftNumber - rightNumber; break
+    default: throw error('lib', 'unexpected')
+  }
+  return { type: types.NUMBER, float: result }
+}
+
+function resolveNumber (value) {
+  if (value.float !== undefined) {
+    return value.float
+  }
+  let str = ''
+  if (value.integer !== undefined) {
+    str += value.integer
+  }
+  if (value.fraction !== undefined) {
+    str += '.' + value.fraction
+  }
+  if (value.exponent !== undefined) {
+    str += 'e' + value.exponent
+  }
+  return parseFloat(str)
+}
+
+function valueToString (value) {
+  let str = ''
+  switch (value.type) {
+    case types.NUMBER:
+      str = resolveNumber(value).toString()
+      if (str.startsWith('0.')) {
+        str = str.substring(1)
+      }
+      break
+    default:
+      throw error('lib', 'unexpected')
+  }
+  return str
 }

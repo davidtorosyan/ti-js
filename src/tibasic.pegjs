@@ -2,6 +2,9 @@
 // ==================
 
 {
+    const types = require ('./types.js');
+    const util = require ('./pegutil.js');
+
     var lib         = "ti.";
     var lib_runtime = lib + "runtime.";
 
@@ -89,12 +92,23 @@
         return result;
     }
 
-    function buildBinaryExpression(head, tail) 
+    function buildBinaryExpressionOld(head, tail) 
     {
         return tail.reduce(
             (result, element) => element[0] + paren(result, element[1]),
             head);
     }
+
+  function buildBinaryExpression(head, tail) {
+    return tail.reduce(function(result, element) {
+      return {
+        type: "binary",
+        operator: element[0],
+        left: result,
+        right: element[1]
+      };
+    }, head);
+  }
 }
 
 Start
@@ -114,13 +128,26 @@ Variable
 
 NumericLiteral
     = integer:Digit+ "." fraction:Digit* exponent:ExponentPart? { 
-        return lib_num + paren(quote(integer), quote(fraction), quote(exponent)); 
+        return {
+          type: types.NUMBER,
+          integer: util.join(integer),
+          fraction: util.joinNonEmpty(fraction),
+          exponent: util.join(exponent)
+        }
     }
-    / "." fraction:Digit* exponent:ExponentPart? { 
-        return lib_num + paren(quote(), quote(fraction), quote(exponent)); 
+    / "." fraction:Digit+ exponent:ExponentPart? { 
+      return {
+          type: types.NUMBER,
+          fraction: util.join(fraction),
+          exponent: util.join(exponent)
+        }
     }
     / integer:Digit+ exponent:ExponentPart? { 
-        return lib_num + paren(quote(integer), quote(), quote(exponent)); 
+      return {
+          type: types.NUMBER,
+          integer: util.join(integer),
+          exponent: util.join(exponent)
+        }
     }
 
 Digit
@@ -177,8 +204,8 @@ MultiplicativeExpression
     { return buildBinaryExpression(head, tail); }
 
 AdditiveOperator
-    = "+" { return lib_add; }
-    / "-" { return lib_minus; }
+    = "+"
+    / "-"
 
 AdditiveExpression
     = head:MultiplicativeExpression 
@@ -347,8 +374,9 @@ Prompt
     { return buildType("IoStatement", "statement", buildFunc(lib_prompt + paren(io, ctl, variable)), "action", quote("suspend")) };
 
 Display
-    = "Disp " val:ValueExpression
-    { return buildType("IoStatement", "statement", buildFunc(lib_disp + paren(io, val))) };
+    = "Disp " val:ValueExpression {
+      return { type: "Display", value: val }
+    }
 
 IoStatement
     // = Input

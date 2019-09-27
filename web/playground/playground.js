@@ -58,12 +58,11 @@ function configureTranspiler () {
       return
     }
 
-    const transpiled = ti.parser.parse(source, { output: 'source' })
-    $transpiled.val(transpiled)
+    const lines = ti.parser.parse(source)
+    const ast = JSON.stringify(lines, null, 2)
+    $transpiled.val(ast)
 
     $output.val('')
-    // eslint-disable-next-line no-eval
-    const lines = eval(transpiled)
     program = ti.core.run(lines, {
       source: source,
       debug: getFromStorage(DEBUG_SETTING),
