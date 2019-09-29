@@ -63,7 +63,7 @@ function configureTranspiler () {
     const ast = JSON.stringify(lines, (key, value) => {
       if (value !== null) return value
     }, 2)
-    
+
     $transpiled.val(ast)
 
     $output.val('')

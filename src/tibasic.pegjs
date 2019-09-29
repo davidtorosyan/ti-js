@@ -235,100 +235,81 @@ IfStatement
   { return { type: types.IfStatement, value }}
 
 Then 
-    = "Then" 
-    { return buildType("ThenStatement") };
+  = "Then" 
+  { return { type: types.ThenStatement }}
 
 Else 
-    = "Else" 
-    { return buildType("ElseStatement") };
+  = "Else" 
+  { return { type: types.ElseStatement }}
 
 For
-    = "For(" variable:Variable "," start:ValueExpression "," end:ValueExpression "," step:ValueExpression OptionalEndParen 
-    {   
-        return buildType(
-            "ForLoop", 
-            "init",      buildFunc(lib_assign + paren(variable, start)),
-            "condition", buildFunc(lib_testLessEquals + paren(variable, end), true),
-            "step",      buildFunc(lib_assign + paren(variable, lib_add + paren(variable, step)))
-        )
-    };
+  = "For(" variable:Variable "," start:ValueExpression "," end:ValueExpression "," step:ValueExpression OptionalEndParen 
+  { return { type: types.ForLoop, variable, start, end, step }}
 
 While
-    = "While " condition:ValueExpression
-    { return buildType("WhileLoop", "condition", buildFunc(condition, true)) };
+  = "While " value:ValueExpression
+  { return { type: types.WhileLoop, value }}
 
 Repeat
-    = "Repeat " condition:ValueExpression
-    { return buildType("RepeatLoop", "condition", buildFunc(condition, true)) };
+  = "Repeat " value:ValueExpression
+  { return { type: types.RepeatLoop, value }}
 
 End 
-    = "End" 
-    { return buildType("EndStatement") };
+  = "End" 
+  { return { type: types.EndStatement }}
 
 Pause 
-    = "Pause" 
-    { return buildType("PauseStatement") };
+  = "Pause" 
+  { return { type: types.PauseStatement }}
 
 Label
-    = "Lbl " location:Location
-    { return buildType("LabelStatement", "label", quote(location)) };
+  = "Lbl " location:Location
+  { return { type: types.LabelStatement, location }}
 
 Goto
-    = "Goto " location:Location 
-    { return buildType("GotoStatement", "label", quote(location)) };
+  = "Goto " location:Location 
+  { return { type: types.GotoStatement, location }}
 
 IncrementSkip
-    = "IS>(" variable:Variable "," end:ValueExpression OptionalEndParen
-    { 
-        return buildType(
-            "IncrementSkip", 
-            "increment", buildFunc(lib_assign + paren(variable, lib_add + paren(variable, lib_num_one))),
-            "condition", buildFunc(lib_testLessEquals + paren(variable, end), true),
-        )
-    };
+  = "IS>(" variable:Variable "," end:ValueExpression OptionalEndParen
+  { return { type: types.IncrementSkip, variable, end }}
 
 DecrementSkip
     = "DS<(" variable:Variable "," end:ValueExpression OptionalEndParen
-    { 
-        return buildType(
-            "DecrementSkip", 
-            "decrement", buildFunc(lib_assign + paren(variable, lib_minus + paren(variable, lib_num_one))),
-            "condition", buildFunc(lib_testGreaterEquals + paren(variable, end), true),
-        )
-    };
+    { return { type: types.DecrementSkip, variable, end }}
 
 // Menu("Title","Option 1",Label 1[,…,"Option 7",Label 7])
 Menu
     = "Menu(" 
-    { return buildType("MenuStatement") };
+    { return { type: types.MenuStatement }}
 
 Program
     = "prgm" 
-    { return buildType("ProgramStatement") };
+    { return { type: types.ProgramStatement }}
 
 Return 
     = "Return" 
-    { return buildType("ReturnStatement") };
+    { return { type: types.ReturnStatement }}
 
 Stop 
     = "Stop" 
-    { return buildType("StopStatement") };
+    { return { type: types.StopStatement }}
 
 DelVar 
     = "DelVar" 
-    { return buildType("DelVarStatement") };
+    { return { type: types.DelVarStatement }}
 
 GraphStyle 
     = "GraphStyle(" 
-    { return buildType("GraphStyleStatement") };
+    { return { type: types.GraphStyleStatement }}
 
 OpenLib 
     = "OpenLib(" 
-    { return buildType("OpenLibStatement") };
+    { return { type: types.OpenLibStatement }}
 
 ExecLib 
     = "ExecLib(" 
-    { return buildType("ExecLibStatement") };
+    { return { type: types.ExecLibStatement }}
 
 CtlStatement
     = IfStatement
@@ -358,7 +339,7 @@ CtlStatement
 
 Prompt
     = "Prompt " variable:Variable
-    { return buildType("IoStatement", "statement", buildFunc(lib_prompt + paren(io, ctl, variable)), "action", quote("suspend")) };
+    { return { type: types.Prompt, variable } }
 
 Display
     = "Disp " value:ValueExpression 

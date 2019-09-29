@@ -251,8 +251,8 @@ source: ${state.sourceLines[state.i] || ''}`)
     const lastBlockIndex = state.blockStack[state.blockStack.length - 1]
     const lastBlock = state.lines[lastBlockIndex]
 
-    if (type === 'EndStatement' ||
-      (type === 'ElseStatement' && lastBlock.type === 'ThenStatement')) {
+    if (type === types.EndStatement ||
+      (type === types.ElseStatement && lastBlock.type === types.ThenStatement)) {
       state.blockStack.pop()
 
       if (state.blockStack.length < state.falsyStackHeight) {
@@ -260,11 +260,11 @@ source: ${state.sourceLines[state.i] || ''}`)
       }
     }
 
-    if (type === 'ForLoop' ||
-      type === 'RepeatLoop' ||
-      type === 'WhileLoop' ||
-      (type === 'ThenStatement' && state.falsyBlockPreviousIf === true) ||
-      (type === 'ElseStatement' && lastBlock.type === 'ThenStatement')) {
+    if (type === types.ForLoop ||
+      type === types.RepeatLoop ||
+      type === types.WhileLoop ||
+      (type === types.ThenStatement && state.falsyBlockPreviousIf === true) ||
+      (type === types.ElseStatement && lastBlock.type === types.ThenStatement)) {
       state.blockStack.push(state.i)
     }
 
@@ -277,7 +277,7 @@ source: ${state.sourceLines[state.i] || ''}`)
   // ----- search for label -----
 
   if (state.searchLabel !== undefined) {
-    if (type === 'LabelStatement' && line.label === state.searchLabel) {
+    if (type === types.LabelStatement && line.label === state.searchLabel) {
       state.searchLabel = undefined
     }
 
@@ -290,7 +290,7 @@ source: ${state.sourceLines[state.i] || ''}`)
     const ifResultFalse = state.ifResult !== true
     state.ifResult = undefined
 
-    if (type === 'ThenStatement') {
+    if (type === types.ThenStatement) {
       state.blockStack.push(state.i)
 
       if (ifResultFalse) {
@@ -325,45 +325,45 @@ source: ${state.sourceLines[state.i] || ''}`)
     case types.IfStatement:
       state.ifResult = isTruthy(evaluate(line.value, state.bus.mem))
       break
-    case 'ThenStatement':
+    case types.ThenStatement:
       throw error('ti', 'SYNTAX')
-    case 'ElseStatement':
+    case types.ElseStatement:
       if (state.blockStack.length === 0) {
         throw error('ti', 'SYNTAX')
       }
-      if (state.lines[state.blockStack.pop()].type === 'ThenStatement') {
+      if (state.lines[state.blockStack.pop()].type === types.ThenStatement) {
         state.blockStack.push(state.i)
         state.falsyStackHeight = state.blockStack.length
       } else {
         throw error('ti', 'SYNTAX')
       }
       break
-    case 'ForLoop':
+    case types.ForLoop:
       line.init(state.bus)
       state.blockStack.push(state.i)
       if (!isTruthy(line.condition(state.bus))) {
         state.falsyStackHeight = state.blockStack.length
       }
       break
-    case 'WhileLoop':
+    case types.WhileLoop:
       state.blockStack.push(state.i)
       if (!isTruthy(line.condition(state.bus))) {
         state.falsyStackHeight = state.blockStack.length
       }
       break
-    case 'RepeatLoop':
+    case types.RepeatLoop:
       state.blockStack.push(state.i)
       break
-    case 'EndStatement':
+    case types.EndStatement:
       if (state.blockStack.length === 0) {
         throw error('ti', 'SYNTAX')
       }
       source = state.blockStack.pop()
       sourceLine = state.lines[source]
-      if (sourceLine.type === 'ForLoop' ||
-              sourceLine.type === 'WhileLoop' ||
-              sourceLine.type === 'RepeatLoop') {
-        if (sourceLine.type === 'ForLoop') {
+      if (sourceLine.type === types.ForLoop ||
+              sourceLine.type === types.WhileLoop ||
+              sourceLine.type === types.RepeatLoop) {
+        if (sourceLine.type === types.ForLoop) {
           sourceLine.step(state.bus)
         }
 
@@ -371,27 +371,27 @@ source: ${state.sourceLines[state.i] || ''}`)
           state.blockStack.push(source)
           state.i = source
         }
-      } else if (sourceLine.type === 'ThenStatement' ||
-                  sourceLine.type === 'ElseStatement') {
+      } else if (sourceLine.type === types.ThenStatement ||
+                  sourceLine.type === types.ElseStatement) {
         // empty
       } else {
         throw error('lib', `impossibleEndFrom'${sourceLine.type}`)
       }
       break
-    case 'PauseStatement':
+    case types.PauseStatement:
       throw error('lib', 'unimplemented')
-    case 'LabelStatement':
+    case types.LabelStatement:
       break
-    case 'GotoStatement':
+    case types.GotoStatement:
       state.searchLabel = line.label
       state.i = -1
       break
       // TODO increment and decrement have an interaction with DelVar
-    case 'IncrementSkip':
+    case types.IncrementSkip:
       line.increment(state.bus)
       state.incrementDecrementResult = isTruthy(line.condition(state.bus))
       break
-    case 'DecrementSkip':
+    case types.DecrementSkip:
       line.decrement(state.bus)
       state.incrementDecrementResult = isTruthy(line.condition(state.bus))
       break
@@ -402,7 +402,7 @@ source: ${state.sourceLines[state.i] || ''}`)
     case types.Display:
       state.bus.io.stdout(valueToString(evaluate(line.value, state.bus.mem)))
       break
-    case 'IoStatement':
+    case types.Prompt:
       line.statement(state.bus)
       if (line.action === 'suspend') {
         return daemon.SUSPEND
@@ -411,7 +411,7 @@ source: ${state.sourceLines[state.i] || ''}`)
     case types.ValueStatement:
       assignAns(state.bus.mem, evaluate(line.value, state.bus.mem))
       break
-    case 'SyntaxError':
+    case types.SyntaxError:
       throw error('ti', 'SYNTAX')
     default:
       throw error('lib', 'unexpected')
@@ -472,7 +472,7 @@ function evaluate (value, mem) {
         default: throw error('lib', 'unexpected string binary operator')
       }
       return { type: types.STRING, chars: result }
-    } 
+    }
   } else if (t === types.VARIABLE) {
     return mem.vars[value.name]
   } else if (t === types.ANS) {

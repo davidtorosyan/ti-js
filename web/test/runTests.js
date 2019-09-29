@@ -189,7 +189,15 @@ function configureTranspiler () {
     $result.removeAttr('data-result')
 
     const source = $input.val()
-    const transpiled = ti.parser.parse(source, { output: 'source' })
+    let transpiled
+    try {
+      transpiled = ti.parser.parse(source, { output: 'source' })
+    } catch (ex) {
+      $result.text('Failure')
+      $result.attr('data-result', 'failure')
+      updateCount()
+      return
+    }
 
     $output.val('')
     // eslint-disable-next-line no-eval
