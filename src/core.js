@@ -40,6 +40,8 @@ function newFloat () {
   return { type: types.NUMBER, float: 0 }
 }
 
+const ONE = { type: types.NUMBER, float: 1 }
+
 // eslint-disable-next-line camelcase
 export function new_mem () {
   return {
@@ -339,15 +341,15 @@ source: ${state.sourceLines[state.i] || ''}`)
       }
       break
     case types.ForLoop:
-      line.init(state.bus)
+      assignVariable(state.bus.mem, line.variable.name, evaluate(line.start, state.bus.mem))
       state.blockStack.push(state.i)
-      if (!isTruthy(line.condition(state.bus))) {
+      if (!isTruthy(evaluate(lessThanCondition(line.variable, line.end), state.bus.mem))) {
         state.falsyStackHeight = state.blockStack.length
       }
       break
     case types.WhileLoop:
       state.blockStack.push(state.i)
-      if (!isTruthy(line.condition(state.bus))) {
+      if (!isTruthy(evaluate(line.value, state.bus.mem))) {
         state.falsyStackHeight = state.blockStack.length
       }
       break
@@ -365,6 +367,7 @@ source: ${state.sourceLines[state.i] || ''}`)
               sourceLine.type === types.RepeatLoop) {
         if (sourceLine.type === types.ForLoop) {
           sourceLine.step(state.bus)
+          // increment(state.bus.mem, sourceLine.)
         }
 
         if (isTruthy(sourceLine.condition(state.bus))) {
@@ -424,6 +427,24 @@ function assignVariable (mem, name, value) {
 
 function assignAns (mem, value) {
   mem.ans = value
+}
+
+function lessThanCondition (variable, end) {
+  return {
+    type: types.BINARY,
+    operator: '<=',
+    left: variable,
+    right: end
+  }
+}
+
+function increment (mem, variable, step) {
+  assignVariable(mem, variable.name, evaluate({
+    type: types.BINARY,
+    operator: '+',
+    left: variable,
+    right: step
+  }), mem)
 }
 
 function evaluate (value, mem) {
