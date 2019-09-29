@@ -98,17 +98,6 @@
             (result, element) => element[0] + paren(result, element[1]),
             head);
     }
-
-  function buildBinaryExpression(head, tail) {
-    return tail.reduce(function(result, element) {
-      return {
-        type: "binary",
-        operator: element[0],
-        left: result,
-        right: element[1]
-      };
-    }, head);
-  }
 }
 
 Start
@@ -119,124 +108,122 @@ Start
 // * Lists
 
 Location
-    = [A-Z0-9][A-Z0-9]?
-    { return text(); }
+  = [A-Z0-9][A-Z0-9]?
+  { return text(); }
+
+VariableIdentifier
+  = [A-Z]
+  / "&theta" { return "THETA" }
 
 Variable
-    = name:[A-Z] { return mem_vars + name; }
-    / "&theta" { return mem_vars + "THETA"; }
+  = name:VariableIdentifier { return { type: types.VARIABLE, name } }
 
 NumericLiteral
-    = integer:Digit+ "." fraction:Digit* exponent:ExponentPart? { 
-        return {
-          type: types.NUMBER,
-          integer: util.join(integer),
-          fraction: util.joinNonEmpty(fraction),
-          exponent: util.join(exponent)
-        }
-    }
-    / "." fraction:Digit+ exponent:ExponentPart? { 
-      return {
-          type: types.NUMBER,
-          fraction: util.join(fraction),
-          exponent: util.join(exponent)
-        }
-    }
-    / integer:Digit+ exponent:ExponentPart? { 
-      return {
-          type: types.NUMBER,
-          integer: util.join(integer),
-          exponent: util.join(exponent)
-        }
-    }
+  = integer:Integer "." fraction:Integer? exponent:ExponentPart? { 
+    return { type: types.NUMBER, integer, fraction, exponent }
+  }
+  / "." fraction:Integer exponent:ExponentPart? { 
+    return { type: types.NUMBER, fraction, exponent }
+  }
+  / integer:Integer exponent:ExponentPart? { 
+    return { type: types.NUMBER, integer, exponent }
+  }
 
 Digit
-    = [0-9]
+  = [0-9]
 
 ExponentPart
-  = ExponentIndicator exponent:SignedInteger
-  { return exponent; }
+  = ExponentIndicator @$(SignedInteger)
 
 ExponentIndicator
-    = "&E"
+  = "&E"
+
+Integer
+  = $(Digit+)
 
 SignedInteger
-  = [+-]? Digit+
+  = $([+-]? Integer)
+
+Character
+  = [^"]
+
+CharacterString
+  = $(Character*)
 
 StringLiteral
-    = '"' chars:[^"]* '"'? 
-    { return lib_str + paren(quote(chars)); }
+  = '"' chars:CharacterString '"'? 
+  { return { type: types.STRING, chars } }
 
 Answer
-    = "Ans"
-    { return mem_ans; }
+  = "Ans"
+  { return { type: types.ANS } }
 
 OptionalEndParen
-    = ")"?
+  = ")"?
 
 Literal
-    = NumericLiteral
-    / Answer
-    / Variable
-    / StringLiteral
+  = NumericLiteral
+  / Answer
+  / Variable
+  / StringLiteral
 
 // ----- Expressions -----
 
 PrimaryExpression
-    = Literal
-    / "(" expression:ValueExpression ")" { return expression; }
+  = Literal
+  / "(" @ValueExpression ")"
 
 UnaryOperator
-    = "-" { return lib_negative; }
+  = "-"
 
 UnaryExpression
-    = PrimaryExpression 
-    / operator:UnaryOperator exp:UnaryExpression
-    { return operator + paren(exp); }
+  = PrimaryExpression 
+  / operator:UnaryOperator argument:UnaryExpression
+  { return { type: types.UNARY, operator, argument } }
 
 MultiplicativeOperator
-    = "*" { return lib_multiply; }
-    / "/" { return lib_divide; }
+  = "*"
+  / "/"
 
 MultiplicativeExpression
-    = head:UnaryExpression 
-    tail:(MultiplicativeOperator UnaryExpression)* 
-    { return buildBinaryExpression(head, tail); }
+  = head:UnaryExpression 
+  tail:(MultiplicativeOperator UnaryExpression)* 
+  { return util.buildBinaryExpression(head, tail); }
 
 AdditiveOperator
-    = "+"
-    / "-"
+  = "+"
+  / "-"
 
 AdditiveExpression
-    = head:MultiplicativeExpression 
-    tail:(AdditiveOperator MultiplicativeExpression)* 
-    { return buildBinaryExpression(head, tail); }
+  = head:MultiplicativeExpression 
+  tail:(AdditiveOperator MultiplicativeExpression)* 
+  { return util.buildBinaryExpression(head, tail); }
 
 TestOperator
-    = "="  { return lib_testEquals; }
-    / "!=" { return lib_testNotEquals; }
-    / ">=" { return lib_testGreaterEquals; }
-    / ">"  { return lib_testGreater; }
-    / "<=" { return lib_testLessEquals; }
-    / "<"  { return lib_testLess; }
+  = "="
+  / "!="
+  / ">="
+  / ">"
+  / "<="
+  / "<" 
 
 TestExpression
-    = head:AdditiveExpression 
-    tail:(TestOperator AdditiveExpression)* 
-    { return buildBinaryExpression(head, tail); }
+  = head:AdditiveExpression 
+  tail:(TestOperator AdditiveExpression)* 
+  { return util.buildBinaryExpression(head, tail); }
 
 ValueExpression
-    = TestExpression
+  = TestExpression
 
 // ----- Statements -----
 
 ValueStatement
-    = value:ValueExpression
-    { return buildType("ValueStatement", "statement", buildFunc(value, true)) };
+  = value:ValueExpression
+  { return { type: types.ValueStatement, value }}
 
 Assignment
-    = left:ValueExpression "->" right:Variable 
-    { return buildType("Assignment", "statement", buildFunc(lib_assign + paren(right, left))) };
+  = value:ValueExpression "->" variable:Variable 
+  { return { type: types.AssignmentStatement, value, variable }}
 
 // ----- CTL -----
 // TODO:
@@ -244,8 +231,8 @@ Assignment
 // * Arguments should always be optional (and result in argument error)
 
 IfStatement
-    = "If " condition:ValueExpression 
-    { return buildType("IfStatement", "condition", buildFunc(condition, true)) };
+  = "If " value:ValueExpression 
+  { return { type: types.IfStatement, value }}
 
 Then 
     = "Then" 
@@ -374,9 +361,8 @@ Prompt
     { return buildType("IoStatement", "statement", buildFunc(lib_prompt + paren(io, ctl, variable)), "action", quote("suspend")) };
 
 Display
-    = "Disp " val:ValueExpression {
-      return { type: "Display", value: val }
-    }
+    = "Disp " value:ValueExpression 
+    { return { type: types.Display, value } }
 
 IoStatement
     // = Input

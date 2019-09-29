@@ -59,7 +59,11 @@ function configureTranspiler () {
     }
 
     const lines = ti.parser.parse(source)
-    const ast = JSON.stringify(lines, null, 2)
+    // const ast = JSON.stringify(lines, null, 2)
+    const ast = JSON.stringify(lines, (key, value) => {
+      if (value !== null) return value
+    }, 2)
+    
     $transpiled.val(ast)
 
     $output.val('')

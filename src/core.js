@@ -22,7 +22,7 @@ export function error (type, code, hideSource = false) {
 }
 
 // eslint-disable-next-line camelcase
-export function new_value (num, type = 'numeric') {
+export function new_value (num, type = 'number') {
   return {
     type: type,
     value: num
@@ -36,45 +36,52 @@ function new_var (name) {
   return val
 };
 
+function newFloat () {
+  return { type: types.NUMBER, float: 0 }
+}
+
 // eslint-disable-next-line camelcase
 export function new_mem () {
   return {
     vars: {
-      A: new_var('A'),
-      B: new_var('B'),
-      C: new_var('C'),
-      D: new_var('D'),
-      E: new_var('E'),
-      F: new_var('F'),
-      G: new_var('G'),
-      H: new_var('H'),
-      I: new_var('I'),
-      J: new_var('J'),
-      K: new_var('K'),
-      L: new_var('L'),
-      M: new_var('M'),
-      N: new_var('N'),
-      O: new_var('O'),
-      P: new_var('P'),
-      Q: new_var('Q'),
-      R: new_var('R'),
-      S: new_var('S'),
-      T: new_var('T'),
-      U: new_var('U'),
-      V: new_var('V'),
-      W: new_var('W'),
-      X: new_var('X'),
-      Y: new_var('Y'),
-      Z: new_var('Z'),
-      THETA: new_var('θ')
+      A: newFloat(),
+      B: newFloat(),
+      C: newFloat(),
+      D: newFloat(),
+      E: newFloat(),
+      F: newFloat(),
+      G: newFloat(),
+      H: newFloat(),
+      I: newFloat(),
+      J: newFloat(),
+      K: newFloat(),
+      L: newFloat(),
+      M: newFloat(),
+      N: newFloat(),
+      O: newFloat(),
+      P: newFloat(),
+      Q: newFloat(),
+      R: newFloat(),
+      S: newFloat(),
+      T: newFloat(),
+      U: newFloat(),
+      V: newFloat(),
+      W: newFloat(),
+      X: newFloat(),
+      Y: newFloat(),
+      Z: newFloat(),
+      THETA: newFloat()
     },
-    ans: new_var(),
+    ans: newFloat(),
     prgms: []
   }
 };
 
-export function isTruthy (x) {
-  return x.value !== 0
+export function isTruthy (value) {
+  if (value.type === types.NUMBER) {
+    return resolveNumber(value) !== 0
+  }
+  return false
 }
 
 export function prgmNew (name, program, source = []) {
@@ -261,7 +268,7 @@ source: ${state.sourceLines[state.i] || ''}`)
       state.blockStack.push(state.i)
     }
 
-    state.falsyBlockPreviousIf = type === 'IfStatement'
+    state.falsyBlockPreviousIf = type === types.IfStatement
     return
   }
 
@@ -315,8 +322,8 @@ source: ${state.sourceLines[state.i] || ''}`)
 
   switch (type) {
     // ----- CtlStatement -----
-    case 'IfStatement':
-      state.ifResult = isTruthy(line.condition(state.bus))
+    case types.IfStatement:
+      state.ifResult = isTruthy(evaluate(line.value, state.bus.mem))
       break
     case 'ThenStatement':
       throw error('ti', 'SYNTAX')
@@ -389,11 +396,11 @@ source: ${state.sourceLines[state.i] || ''}`)
       state.incrementDecrementResult = isTruthy(line.condition(state.bus))
       break
       // ----- other -----
-    case 'Assignment':
-      line.statement(state.bus)
+    case types.AssignmentStatement:
+      assignVariable(state.bus.mem, line.variable.name, evaluate(line.value, state.bus.mem))
       break
-    case 'Display':
-      state.bus.io.stdout(valueToString(evaluate(line.value)))
+    case types.Display:
+      state.bus.io.stdout(valueToString(evaluate(line.value, state.bus.mem)))
       break
     case 'IoStatement':
       line.statement(state.bus)
@@ -401,8 +408,8 @@ source: ${state.sourceLines[state.i] || ''}`)
         return daemon.SUSPEND
       }
       break
-    case 'ValueStatement':
-      state.bus.mem.ans = line.statement(state.bus)
+    case types.ValueStatement:
+      assignAns(state.bus.mem, evaluate(line.value, state.bus.mem))
       break
     case 'SyntaxError':
       throw error('ti', 'SYNTAX')
@@ -411,42 +418,68 @@ source: ${state.sourceLines[state.i] || ''}`)
   }
 }
 
-function evaluate (value) {
-  switch (value.type) {
-    case types.NUMBER:
-      return value
-    case 'binary':
-      return applyBinaryOperator(value)
-    default:
-      throw error('lib', 'unexpected')
-  }
+function assignVariable (mem, name, value) {
+  mem.vars[name] = value
 }
 
-function applyBinaryOperator (value) {
-  const left = evaluate(value.left)
-  const right = evaluate(value.right)
-  switch (left.type) {
-    case types.NUMBER:
-      return applyBinaryOperatorToNumber(left, right, value.operator)
-    default:
-      throw error('lib', 'unexpected')
-  }
+function assignAns (mem, value) {
+  mem.ans = value
 }
 
-function applyBinaryOperatorToNumber (left, right, operator) {
-  if (right.type !== types.NUMBER) {
-    throw error('ti', 'DATA TYPE')
+function evaluate (value, mem) {
+  const t = value.type
+  if (t === types.NUMBER || t === types.STRING) {
+    return value
+  } else if (t === types.UNARY) {
+    const argument = evaluate(value.argument, mem)
+    if (argument.type === types.NUMBER) {
+      const argumentNumber = resolveNumber(argument)
+      let result
+      switch (value.operator) {
+        case '-': result = -1 * argumentNumber; break
+        default: throw error('lib', 'unexpected numeric unary operator')
+      }
+      return { type: types.NUMBER, float: result }
+    }
+  } else if (t === types.BINARY) {
+    const left = evaluate(value.left, mem)
+    const right = evaluate(value.right, mem)
+    if (left.type !== right.type) {
+      throw error('ti', 'DATA TYPE')
+    }
+    if (left.type === types.NUMBER) {
+      const leftNumber = resolveNumber(left)
+      const rightNumber = resolveNumber(right)
+      let result
+      switch (value.operator) {
+        case '+': result = leftNumber + rightNumber; break
+        case '-': result = leftNumber - rightNumber; break
+        case '*': result = leftNumber * rightNumber; break
+        case '/': result = leftNumber / rightNumber; break
+        case '=': result = leftNumber === rightNumber; break
+        case '!=': result = leftNumber !== rightNumber; break
+        case '>=': result = leftNumber >= rightNumber; break
+        case '>': result = leftNumber > rightNumber; break
+        case '<=': result = leftNumber <= rightNumber; break
+        case '<': result = leftNumber < rightNumber; break
+        default: throw error('lib', 'unexpected numeric binray operator')
+      }
+      return { type: types.NUMBER, float: result }
+    } else if (left.type === types.STRING) {
+      let result
+      switch (value.operator) {
+        case '+': result = left.chars + right.chars; break
+        default: throw error('lib', 'unexpected string binary operator')
+      }
+      return { type: types.STRING, chars: result }
+    } 
+  } else if (t === types.VARIABLE) {
+    return mem.vars[value.name]
+  } else if (t === types.ANS) {
+    return mem.ans
   }
-  const leftNumber = resolveNumber(left)
-  const rightNumber = resolveNumber(right)
 
-  let result
-  switch (operator) {
-    case '+': result = leftNumber + rightNumber; break
-    case '-': result = leftNumber - rightNumber; break
-    default: throw error('lib', 'unexpected')
-  }
-  return { type: types.NUMBER, float: result }
+  throw error('lib', 'unexpected value')
 }
 
 function resolveNumber (value) {
@@ -454,13 +487,13 @@ function resolveNumber (value) {
     return value.float
   }
   let str = ''
-  if (value.integer !== undefined) {
+  if (value.integer !== null) {
     str += value.integer
   }
-  if (value.fraction !== undefined) {
+  if (value.fraction !== null) {
     str += '.' + value.fraction
   }
-  if (value.exponent !== undefined) {
+  if (value.exponent !== null) {
     str += 'e' + value.exponent
   }
   return parseFloat(str)
@@ -475,8 +508,11 @@ function valueToString (value) {
         str = str.substring(1)
       }
       break
+    case types.STRING:
+      str = value.chars
+      break
     default:
-      throw error('lib', 'unexpected')
+      throw error('lib', 'unexpected value tostring')
   }
   return str
 }

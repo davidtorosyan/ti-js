@@ -1,11 +1,10 @@
 export const NUMBER = 'number'
-
-export function join(arr) {
-  if (arr === null) return undefined
-  return Array.isArray(arr) ? arr.join("") : arr
-}
-
-export function joinNonEmpty(arr) {
-  const result = join(arr)
-  return result === "" ? undefined : result
-}
+export const BINARY = 'binary'
+export const UNARY = 'unary'
+export const VARIABLE = 'variable'
+export const STRING = 'string'
+export const ANS = 'ans'
+export const ValueStatement = 'value'
+export const AssignmentStatement = 'assign'
+export const IfStatement = 'if'
+export const Display = 'display'
