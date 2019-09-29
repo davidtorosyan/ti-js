@@ -394,12 +394,12 @@ source: ${state.sourceLines[state.i] || ''}`)
       break
       // TODO increment and decrement have an interaction with DelVar
     case types.IncrementSkip:
-      increment(state.bus.mem, sourceLine.variable, ONE)
-      state.incrementDecrementResult = isTruthy(evaluate(binaryOperation(sourceLine.variable, '<=', sourceLine.end), state.bus.mem))
+      increment(state.bus.mem, line.variable, ONE)
+      state.incrementDecrementResult = isTruthy(evaluate(binaryOperation(line.variable, '<=', line.end), state.bus.mem))
       break
     case types.DecrementSkip:
-      increment(state.bus.mem, sourceLine.variable, MINUSONE)
-      state.incrementDecrementResult = isTruthy(evaluate(binaryOperation(sourceLine.variable, '>=', sourceLine.end), state.bus.mem))
+      increment(state.bus.mem, line.variable, MINUSONE)
+      state.incrementDecrementResult = isTruthy(evaluate(binaryOperation(line.variable, '>=', line.end), state.bus.mem))
       break
       // ----- other -----
     case types.AssignmentStatement:
@@ -425,7 +425,9 @@ source: ${state.sourceLines[state.i] || ''}`)
 }
 
 function assignVariable (mem, name, value) {
-  mem.vars[name] = value
+  if (value.type === types.NUMBER) {
+    mem.vars[name] = value
+  }
 }
 
 function assignAns (mem, value) {
@@ -447,7 +449,7 @@ function increment (mem, variable, step) {
     operator: '+',
     left: variable,
     right: step
-  }), mem)
+  }, mem), mem)
 }
 
 function evaluate (value, mem) {
@@ -491,11 +493,20 @@ function evaluate (value, mem) {
       return { type: types.NUMBER, float: result }
     } else if (left.type === types.STRING) {
       let result
+      let numberResult
       switch (value.operator) {
         case '+': result = left.chars + right.chars; break
+        case '=': numberResult = left.chars === right.chars ? 1 : 0; break
+        case '!=': numberResult = left.chars !== right.chars ? 1 : 0; break
         default: throw error('lib', 'unexpected string binary operator')
       }
-      return { type: types.STRING, chars: result }
+      if (result !== undefined) {
+        return { type: types.STRING, chars: result }
+      }
+      if (numberResult !== undefined) {
+        return { type: types.NUMBER, float: numberResult }
+      }
+      throw error('lib', 'unexpected string binary result')
     }
   } else if (t === types.VARIABLE) {
     return mem.vars[value.name]
@@ -511,15 +522,16 @@ function resolveNumber (value) {
     return value.float
   }
   let str = ''
-  if (value.integer !== null) {
+  if (value.integer !== undefined && value.integer !== null) {
     str += value.integer
   }
-  if (value.fraction !== null) {
+  if (value.fraction !== undefined && value.fraction !== null) {
     str += '.' + value.fraction
   }
-  if (value.exponent !== null) {
+  if (value.exponent !== undefined && value.exponent !== null) {
     str += 'e' + value.exponent
   }
+  console.log(str)
   return parseFloat(str)
 }
 
