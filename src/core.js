@@ -29,13 +29,6 @@ export function new_value (num, type = 'number') {
   }
 }
 
-// eslint-disable-next-line camelcase
-function new_var (name) {
-  const val = new_value(0)
-  val.name = name
-  return val
-};
-
 function newFloat () {
   return { type: types.NUMBER, float: 0 }
 }
