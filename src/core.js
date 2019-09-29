@@ -42,6 +42,8 @@ function newFloat () {
 
 const ONE = { type: types.NUMBER, float: 1 }
 
+const MINUSONE = { type: types.NUMBER, float: -1 }
+
 // eslint-disable-next-line camelcase
 export function new_mem () {
   return {
@@ -279,7 +281,7 @@ source: ${state.sourceLines[state.i] || ''}`)
   // ----- search for label -----
 
   if (state.searchLabel !== undefined) {
-    if (type === types.LabelStatement && line.label === state.searchLabel) {
+    if (type === types.LabelStatement && line.location === state.searchLabel) {
       state.searchLabel = undefined
     }
 
@@ -343,7 +345,7 @@ source: ${state.sourceLines[state.i] || ''}`)
     case types.ForLoop:
       assignVariable(state.bus.mem, line.variable.name, evaluate(line.start, state.bus.mem))
       state.blockStack.push(state.i)
-      if (!isTruthy(evaluate(lessThanCondition(line.variable, line.end), state.bus.mem))) {
+      if (!isTruthy(evaluate(binaryOperation(line.variable, '<=', line.end), state.bus.mem))) {
         state.falsyStackHeight = state.blockStack.length
       }
       break
@@ -366,11 +368,12 @@ source: ${state.sourceLines[state.i] || ''}`)
               sourceLine.type === types.WhileLoop ||
               sourceLine.type === types.RepeatLoop) {
         if (sourceLine.type === types.ForLoop) {
-          sourceLine.step(state.bus)
-          // increment(state.bus.mem, sourceLine.)
-        }
-
-        if (isTruthy(sourceLine.condition(state.bus))) {
+          increment(state.bus.mem, sourceLine.variable, sourceLine.step)
+          if (isTruthy(evaluate(binaryOperation(sourceLine.variable, '<=', sourceLine.end), state.bus.mem))) {
+            state.blockStack.push(source)
+            state.i = source
+          }
+        } else if (isTruthy(evaluate(sourceLine.value, state.bus.mem))) {
           state.blockStack.push(source)
           state.i = source
         }
@@ -386,17 +389,17 @@ source: ${state.sourceLines[state.i] || ''}`)
     case types.LabelStatement:
       break
     case types.GotoStatement:
-      state.searchLabel = line.label
+      state.searchLabel = line.location
       state.i = -1
       break
       // TODO increment and decrement have an interaction with DelVar
     case types.IncrementSkip:
-      line.increment(state.bus)
-      state.incrementDecrementResult = isTruthy(line.condition(state.bus))
+      increment(state.bus.mem, sourceLine.variable, ONE)
+      state.incrementDecrementResult = isTruthy(evaluate(binaryOperation(sourceLine.variable, '<=', sourceLine.end), state.bus.mem))
       break
     case types.DecrementSkip:
-      line.decrement(state.bus)
-      state.incrementDecrementResult = isTruthy(line.condition(state.bus))
+      increment(state.bus.mem, sourceLine.variable, MINUSONE)
+      state.incrementDecrementResult = isTruthy(evaluate(binaryOperation(sourceLine.variable, '>=', sourceLine.end), state.bus.mem))
       break
       // ----- other -----
     case types.AssignmentStatement:
@@ -429,12 +432,12 @@ function assignAns (mem, value) {
   mem.ans = value
 }
 
-function lessThanCondition (variable, end) {
+function binaryOperation (left, operator, right) {
   return {
     type: types.BINARY,
-    operator: '<=',
-    left: variable,
-    right: end
+    operator,
+    left,
+    right
   }
 }
 
@@ -477,12 +480,12 @@ function evaluate (value, mem) {
         case '-': result = leftNumber - rightNumber; break
         case '*': result = leftNumber * rightNumber; break
         case '/': result = leftNumber / rightNumber; break
-        case '=': result = leftNumber === rightNumber; break
-        case '!=': result = leftNumber !== rightNumber; break
-        case '>=': result = leftNumber >= rightNumber; break
-        case '>': result = leftNumber > rightNumber; break
-        case '<=': result = leftNumber <= rightNumber; break
-        case '<': result = leftNumber < rightNumber; break
+        case '=': result = leftNumber === rightNumber ? 1 : 0; break
+        case '!=': result = leftNumber !== rightNumber ? 1 : 0; break
+        case '>=': result = leftNumber >= rightNumber ? 1 : 0; break
+        case '>': result = leftNumber > rightNumber ? 1 : 0; break
+        case '<=': result = leftNumber <= rightNumber ? 1 : 0; break
+        case '<': result = leftNumber < rightNumber ? 1 : 0; break
         default: throw error('lib', 'unexpected numeric binray operator')
       }
       return { type: types.NUMBER, float: result }
