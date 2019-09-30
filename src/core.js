@@ -29,13 +29,13 @@ export function new_value (num, type = 'number') {
   }
 }
 
-function newFloat () {
-  return { type: types.NUMBER, float: 0 }
+function newFloat (value=0) {
+  return { type: types.NUMBER, float: value }
 }
 
-const ONE = { type: types.NUMBER, float: 1 }
+const ONE = newFloat(1)
 
-const MINUSONE = { type: types.NUMBER, float: -1 }
+const MINUSONE = newFloat(-1)
 
 // eslint-disable-next-line camelcase
 export function new_mem () {
@@ -155,6 +155,7 @@ export function run (lines, options = {}) {
 
   const taskId = daemon.setTinyInterval(() => runLoop(state), state.frequencyMs)
   state.bus.ctl.resume = (callback) => {
+    console.log('hey')
     state.bus.ctl.callback = callback
     daemon.resumeTinyInterval(taskId)
   }
@@ -402,11 +403,17 @@ source: ${state.sourceLines[state.i] || ''}`)
       state.bus.io.stdout(valueToString(evaluate(line.value, state.bus.mem)))
       break
     case types.Prompt:
-      line.statement(state.bus)
-      if (line.action === 'suspend') {
-        return daemon.SUSPEND
-      }
-      break
+      state.bus.io.stdout(`${line.variable.name}=?`, false)
+      state.bus.io.onStdin(input => state.bus.ctl.resume(() => {
+        console.log('sup')
+        if (input === null || input === undefined || input === '') {
+          state.bus.io.stdout('')
+          throw error('ti', 'SYNTAX', true)
+        }
+        state.bus.io.stdout(input)
+        assignVariable(state.bus.mem, line.variable.name, newFloat(parseFloat(input)))
+      }))
+      return daemon.SUSPEND
     case types.ValueStatement:
       assignAns(state.bus.mem, evaluate(line.value, state.bus.mem))
       break

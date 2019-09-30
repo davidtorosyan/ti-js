@@ -146,18 +146,21 @@ window.addEventListener('message', daemonHandleMessage, true)
 window.addEventListener('message', daemonHandleException, true)
 
 export function setTinyInterval (func, delay) {
-  daemonCreateTask(func, delay)
+  return daemonCreateTask(func, delay)
 }
+
 export function clearTinyInterval (tinyIntervalID) {
   daemonDeleteTask(tinyIntervalID)
 }
+
 export function resumeTinyInterval (tinyIntervalID) {
   daemonResumeTask(tinyIntervalID)
 }
 
 export function setTinyTimeout (func, delay) {
-  daemonCreateTask(func, delay, true)
+  return daemonCreateTask(func, delay, true)
 }
+
 export function clearTinyTimeout (tinyTimeoutID) {
   daemonDeleteTask(tinyTimeoutID)
 }
