@@ -35,16 +35,16 @@ function initInput () {
 
 function configureTranspiler () {
   const $source = $('#source')
-  const $transpiled = $('#transpiled')
+  const $ast = $('#transpiled')
   const $output = $('#output')
   const $input = $('#input')
   const $daemonStatus = $('#daemonStatus')
 
-  ti.daemon.addEventListener('start', () => $daemonStatus.attr('data-status', 'running'))
-  ti.daemon.addEventListener('suspend', () => $daemonStatus.attr('data-status', 'suspended'))
-  ti.daemon.addEventListener('stop', () => $daemonStatus.removeAttr('data-status'))
+  ti.on('start', () => $daemonStatus.attr('data-status', 'running'))
+  ti.on('suspend', () => $daemonStatus.attr('data-status', 'suspended'))
+  ti.on('stop', () => $daemonStatus.removeAttr('data-status'))
 
-  const io = ti.io.val_io($output, { input: $input })
+  const io = ti.ioFromVal($output, { input: $input })
 
   let program
 
@@ -58,16 +58,15 @@ function configureTranspiler () {
       return
     }
 
-    const lines = ti.parser.parse(source)
+    const lines = ti.parse(source)
     const ast = JSON.stringify(lines, (key, value) => {
       if (value !== null) return value
     }, 2)
 
-    $transpiled.val(ast)
+    $ast.val(ast)
 
     $output.val('')
-    program = ti.core.run(lines, {
-      source: source,
+    program = ti.run(lines, {
       debug: getFromStorage(DEBUG_SETTING),
       io: io,
       frequencyMs: getFromStorage(FREQUENCY_SETTING)

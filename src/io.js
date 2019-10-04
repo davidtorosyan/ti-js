@@ -1,3 +1,6 @@
+// input/output
+// ==================
+
 export function error (io, ex) {
   if (ex.type === 'ti') {
     io.stderr(`ERR:${ex.code}`, ex.source)
@@ -6,8 +9,7 @@ export function error (io, ex) {
   }
 };
 
-// eslint-disable-next-line camelcase
-export const default_io = {
+export const fromConsole = {
   stdout: x => console.log(x),
   stderr: (x, source) => console.log(x),
   liberr: (x, source) => console.log(x),
@@ -15,8 +17,7 @@ export const default_io = {
   cleanup: () => {}
 }
 
-// eslint-disable-next-line camelcase
-export function val_io (elem, options = {}) {
+export function ioFromVal (elem, options = {}) {
   const parseOption = (option, defaultValue) => {
     return option === undefined ? defaultValue : option === true
   }
@@ -65,9 +66,9 @@ export function val_io (elem, options = {}) {
 
   return {
     stdout: appendToOutput,
-    stderr: includeErrors ? appendToError : default_io.stderr,
-    liberr: includeLibErrors ? appendToError : default_io.stderr,
-    onStdin: input !== undefined ? onStdin : default_io.onStdin,
+    stderr: includeErrors ? appendToError : fromConsole.stderr,
+    liberr: includeLibErrors ? appendToError : fromConsole.stderr,
+    onStdin: input !== undefined ? onStdin : fromConsole.onStdin,
     cleanup: () => input.off('keypress')
   }
 };

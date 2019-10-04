@@ -1,3 +1,6 @@
+// utilities for use in parsing ti-basic
+// ==================
+
 import * as types from './types.js'
 
 export function buildBinaryExpression (head, tail) {

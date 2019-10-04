@@ -1,5 +1,8 @@
-const messageName = 'tiny-timeout-message'
-const exceptionName = 'tiny-timeout-exception'
+// daemon to get around setTimeout limitations
+// ==================
+
+const loopMessageName = 'daemon-loop'
+const exceptionName = 'daemon-exception'
 const minimumDelay = 0.001 // 1 microsecond
 const tasks = {}
 const exceptions = []
@@ -7,18 +10,18 @@ let running = false
 let nextTaskId = 0
 const maxExceptions = 1000
 
-const daemonEventTarget = document.createTextNode(null)
+const eventTarget = document.createTextNode(null)
 
 function fireEvent (name) {
   const event = new Event(name)
-  daemonEventTarget.dispatchEvent(event)
+  eventTarget.dispatchEvent(event)
 }
 
 function startIfNeeded () {
   if (running === false) {
     running = true
     fireEvent('start')
-    window.postMessage(messageName, '*')
+    window.postMessage(loopMessageName, '*')
   }
 }
 
@@ -65,8 +68,8 @@ function deleteTask (taskId) {
   delete tasks[taskId]
 };
 
-function daemonHandleMessage (event) {
-  if (!(event.source === window && event.data === messageName)) {
+function handleMessage (event) {
+  if (!(event.source === window && event.data === loopMessageName)) {
     return
   }
 
@@ -142,11 +145,11 @@ function daemonHandleMessage (event) {
       fireEvent('stop')
     }
   } else {
-    window.postMessage(messageName, '*')
+    window.postMessage(loopMessageName, '*')
   }
 };
 
-function daemonHandleException (event) {
+function handleException (event) {
   if (!(event.source === window && event.data === exceptionName)) {
     return
   }
@@ -156,8 +159,8 @@ function daemonHandleException (event) {
   }
 }
 
-window.addEventListener('message', daemonHandleMessage, true)
-window.addEventListener('message', daemonHandleException, true)
+window.addEventListener('message', handleMessage, true)
+window.addEventListener('message', handleException, true)
 
 export function setTinyInterval (func, delay) {
   return createTask(func, delay)
@@ -184,6 +187,6 @@ export const DONE = 'done'
 export const FAULTED = 'faulted'
 export const SUSPEND = 'suspend'
 
-export const addEventListener = daemonEventTarget.addEventListener.bind(daemonEventTarget)
-export const removeEventListener = daemonEventTarget.removeEventListener.bind(daemonEventTarget)
-export const dispatchEvent = daemonEventTarget.dispatchEvent.bind(daemonEventTarget)
+export const on = eventTarget.addEventListener.bind(eventTarget)
+export const off = eventTarget.removeEventListener.bind(eventTarget)
+// export const dispatchEvent = eventTarget.dispatchEvent.bind(eventTarget)

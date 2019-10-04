@@ -1,4 +1,4 @@
-// TI-Basic Grammar
+// ti-basic grammar
 // ==================
 
 {

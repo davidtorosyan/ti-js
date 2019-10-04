@@ -1,31 +1,15 @@
-/* eslint-disable camelcase */
+// core runtime
+// ==================
+
 import * as daemon from './daemon'
 import * as iolib from './io'
 import * as types from './types'
-
-let default_mem
-
-function get_mem () {
-  if (default_mem === undefined) {
-    default_mem = new_mem()
-  }
-
-  return default_mem
-}
 
 export function error (type, code, hideSource = false) {
   return {
     type: type,
     code: code,
     hideSource: hideSource
-  }
-}
-
-// eslint-disable-next-line camelcase
-export function new_value (num, type = 'number') {
-  return {
-    type: type,
-    value: num
   }
 }
 
@@ -37,8 +21,7 @@ const ONE = newFloat(1)
 
 const MINUSONE = newFloat(-1)
 
-// eslint-disable-next-line camelcase
-export function new_mem () {
+function newMem () {
   return {
     vars: {
       A: newFloat(),
@@ -69,35 +52,15 @@ export function new_mem () {
       Z: newFloat(),
       THETA: newFloat()
     },
-    ans: newFloat(),
-    prgms: []
+    ans: newFloat()
   }
 };
 
-export function isTruthy (value) {
+function isTruthy (value) {
   if (value.type === types.NUMBER) {
     return resolveNumber(value) !== 0
   }
   return false
-}
-
-export function prgmNew (name, program, source = []) {
-  get_mem().prgms.push(
-    {
-      name: name,
-      program: program,
-      source: source
-    })
-}
-
-export function prgmExec (name) {
-  const found = get_mem().prgms.find(e => e.name === name)
-
-  if (found === undefined) {
-    error('UNDEFINED')
-  }
-
-  run(found.program, { source: found.source })
 }
 
 export function run (lines, options = {}) {
@@ -110,7 +73,7 @@ export function run (lines, options = {}) {
     }
   }
 
-  let io = iolib.default_io
+  let io = iolib.fromConsole
   if (options.io !== undefined) {
     io = options.io
   }
@@ -122,7 +85,7 @@ export function run (lines, options = {}) {
 
   const state = {
     bus: {
-      mem: new_mem(),
+      mem: newMem(),
       io: io,
       ctl: {
         resume: undefined,
@@ -169,7 +132,7 @@ export function run (lines, options = {}) {
   }
 }
 
-export function runLoop (state) {
+function runLoop (state) {
   let result
 
   try {
@@ -183,9 +146,14 @@ export function runLoop (state) {
     }
 
     if (state.i < state.lines.length && ex.hideSource !== true) {
+      let source = state.lines[state.i].source
+      console.log(state.lines[state.i])
+      if (state.sourceLines !== undefined) {
+        source = state.sourceLines[state.i]
+      }
       ex.source = {
         index: state.i,
-        line: state.sourceLines === undefined ? undefined : state.sourceLines[state.i]
+        line: source
       }
     }
 
@@ -208,7 +176,7 @@ export function runLoop (state) {
   return result
 }
 
-export function runLine (state) {
+function runLine (state) {
   if (state.debug) {
     console.debug(`Line: ${state.i}, \t\
 searchLabel: ${state.searchLabel || ''}, \t\

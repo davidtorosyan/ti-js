@@ -1,3 +1,6 @@
+// types to use for the ti-basic AST
+// ==================
+
 export const NUMBER = 'number'
 export const BINARY = 'binary'
 export const UNARY = 'unary'
