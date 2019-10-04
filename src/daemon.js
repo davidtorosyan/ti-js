@@ -9,21 +9,23 @@ const maxExceptions = 1000
 
 const daemonEventTarget = document.createTextNode(null)
 
-function daemonEvent (name) {
+function fireEvent (name) {
   const event = new Event(name)
   daemonEventTarget.dispatchEvent(event)
 }
 
-function daemonStartIfNeeded () {
+function startIfNeeded () {
   if (running === false) {
     running = true
-    daemonEvent('start')
+    fireEvent('start')
     window.postMessage(messageName, '*')
   }
 }
 
-function daemonCreateTask (func, delay, runOnce) {
+function createTask (func, delay, runOnce) {
   const taskId = nextTaskId++
+
+  console.debug(`[Task ${taskId}] Start`)
 
   tasks[taskId] = {
     func: func,
@@ -34,20 +36,32 @@ function daemonCreateTask (func, delay, runOnce) {
     suspended: false
   }
 
-  daemonStartIfNeeded()
+  startIfNeeded()
   return taskId
 }
 
-function daemonResumeTask (taskId) {
+function resumeTask (taskId) {
+  console.debug(`[Task ${taskId}] Resume`)
+
   if (!(taskId in tasks)) {
-    console.log(tasks)
+    console.debug(tasks)
     throw new Error(`Error resuming: task '${taskId}' not found`)
   }
   tasks[taskId].suspended = false
-  daemonStartIfNeeded()
+  startIfNeeded()
 };
 
-function daemonDeleteTask (taskId) {
+function suspendTask (taskId) {
+  console.debug(`[Task ${taskId}] Suspend`)
+
+  if (!(taskId in tasks)) {
+    throw new Error(`Error suspending: task '${taskId}' not found`)
+  }
+  tasks[taskId].suspended = true
+};
+
+function deleteTask (taskId) {
+  console.debug(`[Task ${taskId}] Stop`)
   delete tasks[taskId]
 };
 
@@ -102,13 +116,13 @@ function daemonHandleMessage (event) {
       if (result === DONE ||
                 task.runOnce ||
                 (task.stopOnException && result === FAULTED)) {
-        daemonDeleteTask(taskId)
+        deleteTask(taskId)
         runningTaskCount -= 1
         break
       }
 
       if (result === SUSPEND) {
-        task.suspended = true
+        suspendTask(taskId)
         runningTaskCount -= 1
         suspendedTaskCount += 1
         break
@@ -123,9 +137,9 @@ function daemonHandleMessage (event) {
   if (runningTaskCount === 0) {
     running = false
     if (suspendedTaskCount > 0) {
-      daemonEvent('suspend')
+      fireEvent('suspend')
     } else {
-      daemonEvent('stop')
+      fireEvent('stop')
     }
   } else {
     window.postMessage(messageName, '*')
@@ -146,23 +160,23 @@ window.addEventListener('message', daemonHandleMessage, true)
 window.addEventListener('message', daemonHandleException, true)
 
 export function setTinyInterval (func, delay) {
-  return daemonCreateTask(func, delay)
+  return createTask(func, delay)
 }
 
 export function clearTinyInterval (tinyIntervalID) {
-  daemonDeleteTask(tinyIntervalID)
+  deleteTask(tinyIntervalID)
 }
 
 export function resumeTinyInterval (tinyIntervalID) {
-  daemonResumeTask(tinyIntervalID)
+  resumeTask(tinyIntervalID)
 }
 
 export function setTinyTimeout (func, delay) {
-  return daemonCreateTask(func, delay, true)
+  return createTask(func, delay, true)
 }
 
 export function clearTinyTimeout (tinyTimeoutID) {
-  daemonDeleteTask(tinyTimeoutID)
+  deleteTask(tinyTimeoutID)
 }
 
 export const YIELD = 'yield'

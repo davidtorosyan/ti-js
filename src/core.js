@@ -29,7 +29,7 @@ export function new_value (num, type = 'number') {
   }
 }
 
-function newFloat (value=0) {
+function newFloat (value = 0) {
   return { type: types.NUMBER, float: value }
 }
 
@@ -155,7 +155,6 @@ export function run (lines, options = {}) {
 
   const taskId = daemon.setTinyInterval(() => runLoop(state), state.frequencyMs)
   state.bus.ctl.resume = (callback) => {
-    console.log('hey')
     state.bus.ctl.callback = callback
     daemon.resumeTinyInterval(taskId)
   }
@@ -163,7 +162,10 @@ export function run (lines, options = {}) {
   return {
     getStatus: () => state.status,
     isActive: () => state.status === 'pending' || state.status === 'running',
-    stop: () => daemon.clearTinyInterval(taskId)
+    stop: () => {
+      io.cleanup()
+      daemon.clearTinyInterval(taskId)
+    }
   }
 }
 
@@ -208,7 +210,7 @@ export function runLoop (state) {
 
 export function runLine (state) {
   if (state.debug) {
-    console.log(`Line: ${state.i}, \t\
+    console.debug(`Line: ${state.i}, \t\
 searchLabel: ${state.searchLabel || ''}, \t\
 ifResult: ${state.ifResult || ''}, \t\
 blockStack: ${state.blockStack || ''} \t\
@@ -223,7 +225,7 @@ source: ${state.sourceLines[state.i] || ''}`)
     }
 
     if (state.debug) {
-      console.log(state.bus.mem)
+      console.debug(state.bus.mem)
     }
 
     return daemon.DONE
@@ -405,7 +407,6 @@ source: ${state.sourceLines[state.i] || ''}`)
     case types.Prompt:
       state.bus.io.stdout(`${line.variable.name}=?`, false)
       state.bus.io.onStdin(input => state.bus.ctl.resume(() => {
-        console.log('sup')
         if (input === null || input === undefined || input === '') {
           state.bus.io.stdout('')
           throw error('ti', 'SYNTAX', true)
@@ -531,7 +532,6 @@ function resolveNumber (value) {
   if (value.exponent !== undefined && value.exponent !== null) {
     str += 'e' + value.exponent
   }
-  console.log(str)
   return parseFloat(str)
 }
 

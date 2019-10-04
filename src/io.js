@@ -11,7 +11,8 @@ export const default_io = {
   stdout: x => console.log(x),
   stderr: (x, source) => console.log(x),
   liberr: (x, source) => console.log(x),
-  onStdin: callback => setTimeout(() => callback(prompt('Input?')), 100)
+  onStdin: callback => setTimeout(() => callback(prompt('Input?')), 100),
+  cleanup: () => {}
 }
 
 // eslint-disable-next-line camelcase
@@ -66,6 +67,7 @@ export function val_io (elem, options = {}) {
     stdout: appendToOutput,
     stderr: includeErrors ? appendToError : default_io.stderr,
     liberr: includeLibErrors ? appendToError : default_io.stderr,
-    onStdin: input !== undefined ? onStdin : default_io.onStdin
+    onStdin: input !== undefined ? onStdin : default_io.onStdin,
+    cleanup: () => input.off('keypress')
   }
 };
