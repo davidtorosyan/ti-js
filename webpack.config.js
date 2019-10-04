@@ -12,7 +12,7 @@ module.exports = {
     rules: [
       {
         test: /\.pegjs$/i,
-        loader: 'raw-loader'
+        loader: 'pegjs-loader'
       }
     ]
   }

@@ -1,16 +1,9 @@
-/* eslint-disable camelcase */
+// core runtime
+// ==================
+
 import * as daemon from './daemon'
 import * as iolib from './io'
-
-let default_mem
-
-function get_mem () {
-  if (default_mem === undefined) {
-    default_mem = new_mem()
-  }
-
-  return default_mem
-}
+import * as types from './types'
 
 export function error (type, code, hideSource = false) {
   return {
@@ -20,79 +13,54 @@ export function error (type, code, hideSource = false) {
   }
 }
 
-// eslint-disable-next-line camelcase
-export function new_value (num, type = 'numeric') {
-  return {
-    type: type,
-    value: num
-  }
+function newFloat (value = 0) {
+  return { type: types.NUMBER, float: value }
 }
 
-// eslint-disable-next-line camelcase
-function new_var (name) {
-  const val = new_value(0)
-  val.name = name
-  return val
-};
+const ONE = newFloat(1)
 
-// eslint-disable-next-line camelcase
-export function new_mem () {
+const MINUSONE = newFloat(-1)
+
+function newMem () {
   return {
     vars: {
-      A: new_var('A'),
-      B: new_var('B'),
-      C: new_var('C'),
-      D: new_var('D'),
-      E: new_var('E'),
-      F: new_var('F'),
-      G: new_var('G'),
-      H: new_var('H'),
-      I: new_var('I'),
-      J: new_var('J'),
-      K: new_var('K'),
-      L: new_var('L'),
-      M: new_var('M'),
-      N: new_var('N'),
-      O: new_var('O'),
-      P: new_var('P'),
-      Q: new_var('Q'),
-      R: new_var('R'),
-      S: new_var('S'),
-      T: new_var('T'),
-      U: new_var('U'),
-      V: new_var('V'),
-      W: new_var('W'),
-      X: new_var('X'),
-      Y: new_var('Y'),
-      Z: new_var('Z'),
-      THETA: new_var('θ')
+      A: newFloat(),
+      B: newFloat(),
+      C: newFloat(),
+      D: newFloat(),
+      E: newFloat(),
+      F: newFloat(),
+      G: newFloat(),
+      H: newFloat(),
+      I: newFloat(),
+      J: newFloat(),
+      K: newFloat(),
+      L: newFloat(),
+      M: newFloat(),
+      N: newFloat(),
+      O: newFloat(),
+      P: newFloat(),
+      Q: newFloat(),
+      R: newFloat(),
+      S: newFloat(),
+      T: newFloat(),
+      U: newFloat(),
+      V: newFloat(),
+      W: newFloat(),
+      X: newFloat(),
+      Y: newFloat(),
+      Z: newFloat(),
+      THETA: newFloat()
     },
-    ans: new_var(),
-    prgms: []
+    ans: newFloat()
   }
 };
 
-export function isTruthy (x) {
-  return x.value !== 0
-}
-
-export function prgmNew (name, program, source = []) {
-  get_mem().prgms.push(
-    {
-      name: name,
-      program: program,
-      source: source
-    })
-}
-
-export function prgmExec (name) {
-  const found = get_mem().prgms.find(e => e.name === name)
-
-  if (found === undefined) {
-    error('UNDEFINED')
+function isTruthy (value) {
+  if (value.type === types.NUMBER) {
+    return resolveNumber(value) !== 0
   }
-
-  run(found.program, { source: found.source })
+  return false
 }
 
 export function run (lines, options = {}) {
@@ -105,7 +73,7 @@ export function run (lines, options = {}) {
     }
   }
 
-  let io = iolib.default_io
+  let io = iolib.fromConsole
   if (options.io !== undefined) {
     io = options.io
   }
@@ -117,7 +85,7 @@ export function run (lines, options = {}) {
 
   const state = {
     bus: {
-      mem: new_mem(),
+      mem: newMem(),
       io: io,
       ctl: {
         resume: undefined,
@@ -157,11 +125,14 @@ export function run (lines, options = {}) {
   return {
     getStatus: () => state.status,
     isActive: () => state.status === 'pending' || state.status === 'running',
-    stop: () => daemon.clearTinyInterval(taskId)
+    stop: () => {
+      io.cleanup()
+      daemon.clearTinyInterval(taskId)
+    }
   }
 }
 
-export function runLoop (state) {
+function runLoop (state) {
   let result
 
   try {
@@ -175,9 +146,13 @@ export function runLoop (state) {
     }
 
     if (state.i < state.lines.length && ex.hideSource !== true) {
+      let source = state.lines[state.i].source
+      if (state.sourceLines !== undefined) {
+        source = state.sourceLines[state.i]
+      }
       ex.source = {
         index: state.i,
-        line: state.sourceLines === undefined ? undefined : state.sourceLines[state.i]
+        line: source
       }
     }
 
@@ -200,9 +175,9 @@ export function runLoop (state) {
   return result
 }
 
-export function runLine (state) {
+function runLine (state) {
   if (state.debug) {
-    console.log(`Line: ${state.i}, \t\
+    console.debug(`Line: ${state.i}, \t\
 searchLabel: ${state.searchLabel || ''}, \t\
 ifResult: ${state.ifResult || ''}, \t\
 blockStack: ${state.blockStack || ''} \t\
@@ -217,7 +192,7 @@ source: ${state.sourceLines[state.i] || ''}`)
     }
 
     if (state.debug) {
-      console.log(state.bus.mem)
+      console.debug(state.bus.mem)
     }
 
     return daemon.DONE
@@ -243,8 +218,8 @@ source: ${state.sourceLines[state.i] || ''}`)
     const lastBlockIndex = state.blockStack[state.blockStack.length - 1]
     const lastBlock = state.lines[lastBlockIndex]
 
-    if (type === 'EndStatement' ||
-      (type === 'ElseStatement' && lastBlock.type === 'ThenStatement')) {
+    if (type === types.EndStatement ||
+      (type === types.ElseStatement && lastBlock.type === types.ThenStatement)) {
       state.blockStack.pop()
 
       if (state.blockStack.length < state.falsyStackHeight) {
@@ -252,15 +227,15 @@ source: ${state.sourceLines[state.i] || ''}`)
       }
     }
 
-    if (type === 'ForLoop' ||
-      type === 'RepeatLoop' ||
-      type === 'WhileLoop' ||
-      (type === 'ThenStatement' && state.falsyBlockPreviousIf === true) ||
-      (type === 'ElseStatement' && lastBlock.type === 'ThenStatement')) {
+    if (type === types.ForLoop ||
+      type === types.RepeatLoop ||
+      type === types.WhileLoop ||
+      (type === types.ThenStatement && state.falsyBlockPreviousIf === true) ||
+      (type === types.ElseStatement && lastBlock.type === types.ThenStatement)) {
       state.blockStack.push(state.i)
     }
 
-    state.falsyBlockPreviousIf = type === 'IfStatement'
+    state.falsyBlockPreviousIf = type === types.IfStatement
     return
   }
 
@@ -269,7 +244,7 @@ source: ${state.sourceLines[state.i] || ''}`)
   // ----- search for label -----
 
   if (state.searchLabel !== undefined) {
-    if (type === 'LabelStatement' && line.label === state.searchLabel) {
+    if (type === types.LabelStatement && line.location === state.searchLabel) {
       state.searchLabel = undefined
     }
 
@@ -282,7 +257,7 @@ source: ${state.sourceLines[state.i] || ''}`)
     const ifResultFalse = state.ifResult !== true
     state.ifResult = undefined
 
-    if (type === 'ThenStatement') {
+    if (type === types.ThenStatement) {
       state.blockStack.push(state.i)
 
       if (ifResultFalse) {
@@ -314,95 +289,233 @@ source: ${state.sourceLines[state.i] || ''}`)
 
   switch (type) {
     // ----- CtlStatement -----
-    case 'IfStatement':
-      state.ifResult = isTruthy(line.condition(state.bus))
+    case types.IfStatement:
+      state.ifResult = isTruthy(evaluate(line.value, state.bus.mem))
       break
-    case 'ThenStatement':
+    case types.ThenStatement:
       throw error('ti', 'SYNTAX')
-    case 'ElseStatement':
+    case types.ElseStatement:
       if (state.blockStack.length === 0) {
         throw error('ti', 'SYNTAX')
       }
-      if (state.lines[state.blockStack.pop()].type === 'ThenStatement') {
+      if (state.lines[state.blockStack.pop()].type === types.ThenStatement) {
         state.blockStack.push(state.i)
         state.falsyStackHeight = state.blockStack.length
       } else {
         throw error('ti', 'SYNTAX')
       }
       break
-    case 'ForLoop':
-      line.init(state.bus)
+    case types.ForLoop:
+      assignVariable(state.bus.mem, line.variable.name, evaluate(line.start, state.bus.mem))
       state.blockStack.push(state.i)
-      if (!isTruthy(line.condition(state.bus))) {
+      if (!isTruthy(evaluate(binaryOperation(line.variable, '<=', line.end), state.bus.mem))) {
         state.falsyStackHeight = state.blockStack.length
       }
       break
-    case 'WhileLoop':
+    case types.WhileLoop:
       state.blockStack.push(state.i)
-      if (!isTruthy(line.condition(state.bus))) {
+      if (!isTruthy(evaluate(line.value, state.bus.mem))) {
         state.falsyStackHeight = state.blockStack.length
       }
       break
-    case 'RepeatLoop':
+    case types.RepeatLoop:
       state.blockStack.push(state.i)
       break
-    case 'EndStatement':
+    case types.EndStatement:
       if (state.blockStack.length === 0) {
         throw error('ti', 'SYNTAX')
       }
       source = state.blockStack.pop()
       sourceLine = state.lines[source]
-      if (sourceLine.type === 'ForLoop' ||
-              sourceLine.type === 'WhileLoop' ||
-              sourceLine.type === 'RepeatLoop') {
-        if (sourceLine.type === 'ForLoop') {
-          sourceLine.step(state.bus)
-        }
-
-        if (isTruthy(sourceLine.condition(state.bus))) {
+      if (sourceLine.type === types.ForLoop ||
+              sourceLine.type === types.WhileLoop ||
+              sourceLine.type === types.RepeatLoop) {
+        if (sourceLine.type === types.ForLoop) {
+          increment(state.bus.mem, sourceLine.variable, sourceLine.step)
+          if (isTruthy(evaluate(binaryOperation(sourceLine.variable, '<=', sourceLine.end), state.bus.mem))) {
+            state.blockStack.push(source)
+            state.i = source
+          }
+        } else if (isTruthy(evaluate(sourceLine.value, state.bus.mem))) {
           state.blockStack.push(source)
           state.i = source
         }
-      } else if (sourceLine.type === 'ThenStatement' ||
-                  sourceLine.type === 'ElseStatement') {
+      } else if (sourceLine.type === types.ThenStatement ||
+                  sourceLine.type === types.ElseStatement) {
         // empty
       } else {
         throw error('lib', `impossibleEndFrom'${sourceLine.type}`)
       }
       break
-    case 'PauseStatement':
+    case types.PauseStatement:
       throw error('lib', 'unimplemented')
-    case 'LabelStatement':
+    case types.LabelStatement:
       break
-    case 'GotoStatement':
-      state.searchLabel = line.label
+    case types.GotoStatement:
+      state.searchLabel = line.location
       state.i = -1
       break
       // TODO increment and decrement have an interaction with DelVar
-    case 'IncrementSkip':
-      line.increment(state.bus)
-      state.incrementDecrementResult = isTruthy(line.condition(state.bus))
+    case types.IncrementSkip:
+      increment(state.bus.mem, line.variable, ONE)
+      state.incrementDecrementResult = isTruthy(evaluate(binaryOperation(line.variable, '<=', line.end), state.bus.mem))
       break
-    case 'DecrementSkip':
-      line.decrement(state.bus)
-      state.incrementDecrementResult = isTruthy(line.condition(state.bus))
+    case types.DecrementSkip:
+      increment(state.bus.mem, line.variable, MINUSONE)
+      state.incrementDecrementResult = isTruthy(evaluate(binaryOperation(line.variable, '>=', line.end), state.bus.mem))
       break
       // ----- other -----
-    case 'Assignment':
-      line.statement(state.bus)
+    case types.AssignmentStatement:
+      assignVariable(state.bus.mem, line.variable.name, evaluate(line.value, state.bus.mem))
       break
-    case 'IoStatement':
-      line.statement(state.bus)
-      if (line.action === 'suspend') {
-        return daemon.SUSPEND
-      }
+    case types.Display:
+      state.bus.io.stdout(valueToString(evaluate(line.value, state.bus.mem)))
       break
-    case 'ValueStatement':
-      state.bus.mem.ans = line.statement(state.bus)
+    case types.Prompt:
+      state.bus.io.stdout(`${line.variable.name}=?`, false)
+      state.bus.io.onStdin(input => state.bus.ctl.resume(() => {
+        if (input === null || input === undefined || input === '') {
+          state.bus.io.stdout('')
+          throw error('ti', 'SYNTAX', true)
+        }
+        state.bus.io.stdout(input)
+        assignVariable(state.bus.mem, line.variable.name, newFloat(parseFloat(input)))
+      }))
+      return daemon.SUSPEND
+    case types.ValueStatement:
+      assignAns(state.bus.mem, evaluate(line.value, state.bus.mem))
       break
-    case 'SyntaxError':
+    case types.SyntaxError:
       throw error('ti', 'SYNTAX')
     default:
       throw error('lib', 'unexpected')
   }
+}
+
+function assignVariable (mem, name, value) {
+  if (value.type === types.NUMBER) {
+    mem.vars[name] = value
+  }
+}
+
+function assignAns (mem, value) {
+  mem.ans = value
+}
+
+function binaryOperation (left, operator, right) {
+  return {
+    type: types.BINARY,
+    operator,
+    left,
+    right
+  }
+}
+
+function increment (mem, variable, step) {
+  assignVariable(mem, variable.name, evaluate({
+    type: types.BINARY,
+    operator: '+',
+    left: variable,
+    right: step
+  }, mem), mem)
+}
+
+function evaluate (value, mem) {
+  const t = value.type
+  if (t === types.NUMBER || t === types.STRING) {
+    return value
+  } else if (t === types.UNARY) {
+    const argument = evaluate(value.argument, mem)
+    if (argument.type === types.NUMBER) {
+      const argumentNumber = resolveNumber(argument)
+      let result
+      switch (value.operator) {
+        case '-': result = -1 * argumentNumber; break
+        default: throw error('lib', 'unexpected numeric unary operator')
+      }
+      return { type: types.NUMBER, float: result }
+    }
+  } else if (t === types.BINARY) {
+    const left = evaluate(value.left, mem)
+    const right = evaluate(value.right, mem)
+    if (left.type !== right.type) {
+      throw error('ti', 'DATA TYPE')
+    }
+    if (left.type === types.NUMBER) {
+      const leftNumber = resolveNumber(left)
+      const rightNumber = resolveNumber(right)
+      let result
+      switch (value.operator) {
+        case '+': result = leftNumber + rightNumber; break
+        case '-': result = leftNumber - rightNumber; break
+        case '*': result = leftNumber * rightNumber; break
+        case '/': result = leftNumber / rightNumber; break
+        case '=': result = leftNumber === rightNumber ? 1 : 0; break
+        case '!=': result = leftNumber !== rightNumber ? 1 : 0; break
+        case '>=': result = leftNumber >= rightNumber ? 1 : 0; break
+        case '>': result = leftNumber > rightNumber ? 1 : 0; break
+        case '<=': result = leftNumber <= rightNumber ? 1 : 0; break
+        case '<': result = leftNumber < rightNumber ? 1 : 0; break
+        default: throw error('lib', 'unexpected numeric binray operator')
+      }
+      return { type: types.NUMBER, float: result }
+    } else if (left.type === types.STRING) {
+      let result
+      let numberResult
+      switch (value.operator) {
+        case '+': result = left.chars + right.chars; break
+        case '=': numberResult = left.chars === right.chars ? 1 : 0; break
+        case '!=': numberResult = left.chars !== right.chars ? 1 : 0; break
+        default: throw error('lib', 'unexpected string binary operator')
+      }
+      if (result !== undefined) {
+        return { type: types.STRING, chars: result }
+      }
+      if (numberResult !== undefined) {
+        return { type: types.NUMBER, float: numberResult }
+      }
+      throw error('lib', 'unexpected string binary result')
+    }
+  } else if (t === types.VARIABLE) {
+    return mem.vars[value.name]
+  } else if (t === types.ANS) {
+    return mem.ans
+  }
+
+  throw error('lib', 'unexpected value')
+}
+
+function resolveNumber (value) {
+  if (value.float !== undefined) {
+    return value.float
+  }
+  let str = ''
+  if (value.integer !== undefined && value.integer !== null) {
+    str += value.integer
+  }
+  if (value.fraction !== undefined && value.fraction !== null) {
+    str += '.' + value.fraction
+  }
+  if (value.exponent !== undefined && value.exponent !== null) {
+    str += 'e' + value.exponent
+  }
+  return parseFloat(str)
+}
+
+function valueToString (value) {
+  let str = ''
+  switch (value.type) {
+    case types.NUMBER:
+      str = resolveNumber(value).toString()
+      if (str.startsWith('0.')) {
+        str = str.substring(1)
+      }
+      break
+    case types.STRING:
+      str = value.chars
+      break
+    default:
+      throw error('lib', 'unexpected value tostring')
+  }
+  return str
 }

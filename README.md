@@ -9,9 +9,9 @@
 
 ## Introduction
 
-This is an effort to write a TI-Basic to JavaScript transpiler and runtime.
+This is an effort to write a TI-Basic compiler and runtime in JavaScript.
 
-Note that this project is ***not*** a TI-83 or TI-84 emulator, as those already exist.
+Note that this project is ***not*** a TI-83 or TI-84 emulator.
 
 Rather, the two goals are:
 1. Bring the TI-Basic language to life
@@ -37,38 +37,41 @@ To setup the library for use in the browser, import it:
 
 ## Usage
 
-To convert TI-Basic to JavaScript, use `ti.parser`:
+To convert TI-Basic to JavaScript, use `ti.parse`:
 
 ```js
-let source = "1->X"
-let transpiled = ti.parser.parse(source, options={ output: "source" });
-console.log(transpiled);
+var ast = ti.parse('1->X');
+console.log(ast);
 /*
     output:
     [
-      { type: 'Assignment', statement: (bus) => { ti.runtime.assign(bus.mem.vars.X, ti.runtime.num('1', '', '')) } }
+      {
+        "type": "assign",
+        "value": {
+          "type": "number",
+          "integer": "1"
+        },
+        "variable": {
+          "type": "variable",
+          "name": "X"
+        },
+        "source": "1->X"
+      }
     ]
 */
 ```
 
-There are a number of options:
+The options for parse:
 
 Option | default value | description
 --- | --- | ---
-output | `"program"` | if set to `"program"`, the method will return transpiled program; if set to `"source"`, it will return transpiled parser source code as a string
-name | `undefined` | if set, the generated code will be wrapped in `tilib.core.prgmNew`, so it could later be run with `tilib.core.prgmExec` and the given name
-includeSource | `false` | if `true`, will embed the original source in the output. Only valid if `name` is set
+sourceMap | `inline` | if `inline`, will embed the original source in the output AST.
 
-To run the transpiled code, use `ti.core.run` or `ti.core.prgmExec`:
+To run the AST, use `ti.run`:
 
 ```js
-let source = "Disp 4"
-let transpiled = tipiler.parser.parse(source);
-ti.core.run(transpiled)
-// output: 4
-
-ti.parser.parse(source, options={ name: "assign" });
-ti.core.prgmExec("assign");
+var ast = ti.parse('Disp 4');
+ti.run(ast)
 // output: 4
 ```
 
@@ -76,8 +79,11 @@ The options:
 
 Option | default value | description
 --- | --- | ---
-source | `undefined` | the original TI-Basic code, as a string or an array of strings; if provided, debug and error messages will include the source line
+source | `undefined` | the original TI-Basic code, as a string or an array of strings; overrides inline source
 debug | `false` | if `true`, will emit debug logs.
+io | `undefined` | redirects output instead of going to the console; use `ti.ioFromVal` to create this
+frequencyMs | `1` | how long on average to take executing each line in milliseconds; minimum value is `0.001`
+
 
 See the [web](/web) directory for more examples.
 

@@ -1,100 +1,9 @@
-// TI-Basic Grammar
+// ti-basic grammar
 // ==================
 
 {
-    var lib         = "ti.";
-    var lib_runtime = lib + "runtime.";
-
-    // runtime functions
-    var lib_assign            = lib_runtime + "assign";
-    var lib_num               = lib_runtime + "num";
-    var lib_str               = lib_runtime + "str";
-    
-    var lib_negative          = lib_runtime + "negative";
-    var lib_multiply          = lib_runtime + "multiply";
-    var lib_divide            = lib_runtime + "divide";
-    var lib_add               = lib_runtime + "add";
-    var lib_minus             = lib_runtime + "minus";
-    var lib_testEquals        = lib_runtime + "testEquals";
-    var lib_testNotEquals     = lib_runtime + "testNotEquals";
-    var lib_testGreater       = lib_runtime + "testGreater";
-    var lib_testGreaterEquals = lib_runtime + "testGreaterEquals";
-    var lib_testLess          = lib_runtime + "testLess";
-    var lib_testLessEquals    = lib_runtime + "testLessEquals";
-
-    var lib_prompt            = lib_runtime + "prompt";
-    var lib_disp              = lib_runtime + "disp";
-
-    var lib_num_one           = lib_num + "('1')";
-
-    // bus
-    var bus         = "bus";
-    var mem         = bus + ".mem";
-    var mem_vars    = mem + ".vars.";
-    var mem_ans     = mem + ".ans";
-    var io          = bus + ".io";
-    var ctl         = bus + ".ctl";
-
-    function quote(str)
-    {
-        if (str === undefined || str === null)
-        {
-            return "''";
-        }
-        else if (Array.isArray(str))
-        {
-            return "'" + str.join("") + "'";
-        }
-        else
-        {
-            return "'" + str + "'";
-        }
-    }
-
-    function paren(...args)
-    {
-        return "(" + args.join(", ") + ")";
-    }
-
-    function buildFunc(str, shouldReturn=false)
-    {
-        return "(" + bus + ") => { " + (shouldReturn ? "return " : "") + str + " }";
-    }
-
-    function buildType(name, ...args)
-    {
-        let result = "{ type: '" + name + "'";
-
-        let property = undefined;
-        for (let i = 0; i < args.length; i++)
-        {
-            if (property === undefined)
-            {
-                property = args[i];
-            }
-            else
-            {
-                result += ", " + property + ": " + args[i];
-                property = undefined;
-            }
-        }
-
-        if (property !== undefined)
-        {
-            throw "TI-Basic grammar exception: Property missing value: " + property;
-        }
-
-        result += " }";
-
-        return result;
-    }
-
-    function buildBinaryExpression(head, tail) 
-    {
-        return tail.reduce(
-            (result, element) => element[0] + paren(result, element[1]),
-            head);
-    }
+    const types = require ('./types.js');
+    const util = require ('./pegutil.js');
 }
 
 Start
@@ -105,111 +14,122 @@ Start
 // * Lists
 
 Location
-    = [A-Z0-9][A-Z0-9]?
-    { return text(); }
+  = [A-Z0-9][A-Z0-9]?
+  { return text(); }
+
+VariableIdentifier
+  = [A-Z]
+  / "&theta" { return "THETA" }
 
 Variable
-    = name:[A-Z] { return mem_vars + name; }
-    / "&theta" { return mem_vars + "THETA"; }
+  = name:VariableIdentifier { return { type: types.VARIABLE, name } }
 
 NumericLiteral
-    = integer:Digit+ "." fraction:Digit* exponent:ExponentPart? { 
-        return lib_num + paren(quote(integer), quote(fraction), quote(exponent)); 
-    }
-    / "." fraction:Digit* exponent:ExponentPart? { 
-        return lib_num + paren(quote(), quote(fraction), quote(exponent)); 
-    }
-    / integer:Digit+ exponent:ExponentPart? { 
-        return lib_num + paren(quote(integer), quote(), quote(exponent)); 
-    }
+  = integer:Integer "." fraction:Integer? exponent:ExponentPart? { 
+    return { type: types.NUMBER, integer, fraction, exponent }
+  }
+  / "." fraction:Integer exponent:ExponentPart? { 
+    return { type: types.NUMBER, fraction, exponent }
+  }
+  / integer:Integer exponent:ExponentPart? { 
+    return { type: types.NUMBER, integer, exponent }
+  }
 
 Digit
-    = [0-9]
+  = [0-9]
 
 ExponentPart
-  = ExponentIndicator exponent:SignedInteger
-  { return exponent; }
+  = ExponentIndicator @$(SignedInteger)
 
 ExponentIndicator
-    = "&E"
+  = "&E"
+
+Integer
+  = $(Digit+)
 
 SignedInteger
-  = [+-]? Digit+
+  = $([+-]? Integer)
+
+Character
+  = [^"]
+
+CharacterString
+  = $(Character*)
 
 StringLiteral
-    = '"' chars:[^"]* '"'? 
-    { return lib_str + paren(quote(chars)); }
+  = '"' chars:CharacterString '"'? 
+  { return { type: types.STRING, chars } }
 
 Answer
-    = "Ans"
-    { return mem_ans; }
+  = "Ans"
+  { return { type: types.ANS } }
 
 OptionalEndParen
-    = ")"?
+  = ")"?
 
 Literal
-    = NumericLiteral
-    / Answer
-    / Variable
-    / StringLiteral
+  = NumericLiteral
+  / Answer
+  / Variable
+  / StringLiteral
 
 // ----- Expressions -----
 
 PrimaryExpression
-    = Literal
-    / "(" expression:ValueExpression ")" { return expression; }
+  = Literal
+  / "(" @ValueExpression ")"
 
 UnaryOperator
-    = "-" { return lib_negative; }
+  = "-"
 
 UnaryExpression
-    = PrimaryExpression 
-    / operator:UnaryOperator exp:UnaryExpression
-    { return operator + paren(exp); }
+  = PrimaryExpression 
+  / operator:UnaryOperator argument:UnaryExpression
+  { return { type: types.UNARY, operator, argument } }
 
 MultiplicativeOperator
-    = "*" { return lib_multiply; }
-    / "/" { return lib_divide; }
+  = "*"
+  / "/"
 
 MultiplicativeExpression
-    = head:UnaryExpression 
-    tail:(MultiplicativeOperator UnaryExpression)* 
-    { return buildBinaryExpression(head, tail); }
+  = head:UnaryExpression 
+  tail:(MultiplicativeOperator UnaryExpression)* 
+  { return util.buildBinaryExpression(head, tail); }
 
 AdditiveOperator
-    = "+" { return lib_add; }
-    / "-" { return lib_minus; }
+  = "+"
+  / "-"
 
 AdditiveExpression
-    = head:MultiplicativeExpression 
-    tail:(AdditiveOperator MultiplicativeExpression)* 
-    { return buildBinaryExpression(head, tail); }
+  = head:MultiplicativeExpression 
+  tail:(AdditiveOperator MultiplicativeExpression)* 
+  { return util.buildBinaryExpression(head, tail); }
 
 TestOperator
-    = "="  { return lib_testEquals; }
-    / "!=" { return lib_testNotEquals; }
-    / ">=" { return lib_testGreaterEquals; }
-    / ">"  { return lib_testGreater; }
-    / "<=" { return lib_testLessEquals; }
-    / "<"  { return lib_testLess; }
+  = "="
+  / "!="
+  / ">="
+  / ">"
+  / "<="
+  / "<" 
 
 TestExpression
-    = head:AdditiveExpression 
-    tail:(TestOperator AdditiveExpression)* 
-    { return buildBinaryExpression(head, tail); }
+  = head:AdditiveExpression 
+  tail:(TestOperator AdditiveExpression)* 
+  { return util.buildBinaryExpression(head, tail); }
 
 ValueExpression
-    = TestExpression
+  = TestExpression
 
 // ----- Statements -----
 
 ValueStatement
-    = value:ValueExpression
-    { return buildType("ValueStatement", "statement", buildFunc(value, true)) };
+  = value:ValueExpression
+  { return { type: types.ValueStatement, value }}
 
 Assignment
-    = left:ValueExpression "->" right:Variable 
-    { return buildType("Assignment", "statement", buildFunc(lib_assign + paren(right, left))) };
+  = value:ValueExpression "->" variable:Variable 
+  { return { type: types.AssignmentStatement, value, variable }}
 
 // ----- CTL -----
 // TODO:
@@ -217,159 +137,140 @@ Assignment
 // * Arguments should always be optional (and result in argument error)
 
 IfStatement
-    = "If " condition:ValueExpression 
-    { return buildType("IfStatement", "condition", buildFunc(condition, true)) };
+  = "If " value:ValueExpression 
+  { return { type: types.IfStatement, value }}
 
 Then 
-    = "Then" 
-    { return buildType("ThenStatement") };
+  = "Then" 
+  { return { type: types.ThenStatement }}
 
 Else 
-    = "Else" 
-    { return buildType("ElseStatement") };
+  = "Else" 
+  { return { type: types.ElseStatement }}
 
 For
-    = "For(" variable:Variable "," start:ValueExpression "," end:ValueExpression "," step:ValueExpression OptionalEndParen 
-    {   
-        return buildType(
-            "ForLoop", 
-            "init",      buildFunc(lib_assign + paren(variable, start)),
-            "condition", buildFunc(lib_testLessEquals + paren(variable, end), true),
-            "step",      buildFunc(lib_assign + paren(variable, lib_add + paren(variable, step)))
-        )
-    };
+  = "For(" variable:Variable "," start:ValueExpression "," end:ValueExpression "," step:ValueExpression OptionalEndParen 
+  { return { type: types.ForLoop, variable, start, end, step }}
 
 While
-    = "While " condition:ValueExpression
-    { return buildType("WhileLoop", "condition", buildFunc(condition, true)) };
+  = "While " value:ValueExpression
+  { return { type: types.WhileLoop, value }}
 
 Repeat
-    = "Repeat " condition:ValueExpression
-    { return buildType("RepeatLoop", "condition", buildFunc(condition, true)) };
+  = "Repeat " value:ValueExpression
+  { return { type: types.RepeatLoop, value }}
 
 End 
-    = "End" 
-    { return buildType("EndStatement") };
+  = "End" 
+  { return { type: types.EndStatement }}
 
 Pause 
-    = "Pause" 
-    { return buildType("PauseStatement") };
+  = "Pause" 
+  { return { type: types.PauseStatement }}
 
 Label
-    = "Lbl " location:Location
-    { return buildType("LabelStatement", "label", quote(location)) };
+  = "Lbl " location:Location
+  { return { type: types.LabelStatement, location }}
 
 Goto
-    = "Goto " location:Location 
-    { return buildType("GotoStatement", "label", quote(location)) };
+  = "Goto " location:Location 
+  { return { type: types.GotoStatement, location }}
 
 IncrementSkip
-    = "IS>(" variable:Variable "," end:ValueExpression OptionalEndParen
-    { 
-        return buildType(
-            "IncrementSkip", 
-            "increment", buildFunc(lib_assign + paren(variable, lib_add + paren(variable, lib_num_one))),
-            "condition", buildFunc(lib_testLessEquals + paren(variable, end), true),
-        )
-    };
+  = "IS>(" variable:Variable "," end:ValueExpression OptionalEndParen
+  { return { type: types.IncrementSkip, variable, end }}
 
 DecrementSkip
-    = "DS<(" variable:Variable "," end:ValueExpression OptionalEndParen
-    { 
-        return buildType(
-            "DecrementSkip", 
-            "decrement", buildFunc(lib_assign + paren(variable, lib_minus + paren(variable, lib_num_one))),
-            "condition", buildFunc(lib_testGreaterEquals + paren(variable, end), true),
-        )
-    };
+  = "DS<(" variable:Variable "," end:ValueExpression OptionalEndParen
+  { return { type: types.DecrementSkip, variable, end }}
 
 // Menu("Title","Option 1",Label 1[,…,"Option 7",Label 7])
 Menu
-    = "Menu(" 
-    { return buildType("MenuStatement") };
+  = "Menu(" 
+  { return { type: types.MenuStatement }}
 
 Program
-    = "prgm" 
-    { return buildType("ProgramStatement") };
+  = "prgm" 
+  { return { type: types.ProgramStatement }}
 
 Return 
-    = "Return" 
-    { return buildType("ReturnStatement") };
+  = "Return" 
+  { return { type: types.ReturnStatement }}
 
 Stop 
-    = "Stop" 
-    { return buildType("StopStatement") };
+  = "Stop" 
+  { return { type: types.StopStatement }}
 
 DelVar 
-    = "DelVar" 
-    { return buildType("DelVarStatement") };
+  = "DelVar" 
+  { return { type: types.DelVarStatement }}
 
 GraphStyle 
-    = "GraphStyle(" 
-    { return buildType("GraphStyleStatement") };
+  = "GraphStyle(" 
+  { return { type: types.GraphStyleStatement }}
 
 OpenLib 
-    = "OpenLib(" 
-    { return buildType("OpenLibStatement") };
+  = "OpenLib(" 
+  { return { type: types.OpenLibStatement }}
 
 ExecLib 
-    = "ExecLib(" 
-    { return buildType("ExecLibStatement") };
+  = "ExecLib(" 
+  { return { type: types.ExecLibStatement }}
 
 CtlStatement
-    = IfStatement
-    / Then
-    / Else
-    / For
-    / While
-    / Repeat
-    / End
-    / Pause
-    / Label
-    / Goto
-    / IncrementSkip
-    / DecrementSkip
-    / Menu
-    / Program
-    / Return
-    / Stop
-    / DelVar
-    / GraphStyle
-    / OpenLib
-    / ExecLib
+  = IfStatement
+  / Then
+  / Else
+  / For
+  / While
+  / Repeat
+  / End
+  / Pause
+  / Label
+  / Goto
+  / IncrementSkip
+  / DecrementSkip
+  / Menu
+  / Program
+  / Return
+  / Stop
+  / DelVar
+  / GraphStyle
+  / OpenLib
+  / ExecLib
 
 // ----- I/O -----
 // TODO:
 // * Input
 
 Prompt
-    = "Prompt " variable:Variable
-    { return buildType("IoStatement", "statement", buildFunc(lib_prompt + paren(io, ctl, variable)), "action", quote("suspend")) };
+  = "Prompt " variable:Variable
+  { return { type: types.Prompt, variable } }
 
 Display
-    = "Disp " val:ValueExpression
-    { return buildType("IoStatement", "statement", buildFunc(lib_disp + paren(io, val))) };
+  = "Disp " value:ValueExpression 
+  { return { type: types.Display, value } }
 
 IoStatement
-    // = Input
-    = Prompt
-    / Display
-    // / DispGraph
-    // / DispTable
-    // / Output(
-    // / getKey
-    // / ClrHome
-    // / ClrTable
-    // / GetCalc(
-    // / Get(
-    // / Send(
+  // = Input
+  = Prompt
+  / Display
+  // / DispGraph
+  // / DispTable
+  // / Output(
+  // / getKey
+  // / ClrHome
+  // / ClrTable
+  // / GetCalc(
+  // / Get(
+  // / Send(
 
 // ----- Statement -----
 // TODO:
 // * More statement types
 
 Statement
-    = Assignment
-    / CtlStatement
-    / IoStatement
-    / ValueStatement
+  = Assignment
+  / CtlStatement
+  / IoStatement
+  / ValueStatement

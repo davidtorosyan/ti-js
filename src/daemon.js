@@ -1,5 +1,8 @@
-const messageName = 'tiny-timeout-message'
-const exceptionName = 'tiny-timeout-exception'
+// daemon to get around setTimeout limitations
+// ==================
+
+const loopMessageName = 'daemon-loop'
+const exceptionName = 'daemon-exception'
 const minimumDelay = 0.001 // 1 microsecond
 const tasks = {}
 const exceptions = []
@@ -7,23 +10,25 @@ let running = false
 let nextTaskId = 0
 const maxExceptions = 1000
 
-const daemonEventTarget = document.createTextNode(null)
+const eventTarget = document.createTextNode(null)
 
-function daemonEvent (name) {
+function fireEvent (name) {
   const event = new Event(name)
-  daemonEventTarget.dispatchEvent(event)
+  eventTarget.dispatchEvent(event)
 }
 
-function daemonStartIfNeeded () {
+function startIfNeeded () {
   if (running === false) {
     running = true
-    daemonEvent('start')
-    window.postMessage(messageName, '*')
+    fireEvent('start')
+    window.postMessage(loopMessageName, '*')
   }
 }
 
-function daemonCreateTask (func, delay, runOnce) {
+function createTask (func, delay, runOnce) {
   const taskId = nextTaskId++
+
+  console.debug(`[Task ${taskId}] Start`)
 
   tasks[taskId] = {
     func: func,
@@ -34,25 +39,37 @@ function daemonCreateTask (func, delay, runOnce) {
     suspended: false
   }
 
-  daemonStartIfNeeded()
+  startIfNeeded()
   return taskId
 }
 
-function daemonResumeTask (taskId) {
+function resumeTask (taskId) {
+  console.debug(`[Task ${taskId}] Resume`)
+
   if (!(taskId in tasks)) {
-    console.log(tasks)
+    console.debug(tasks)
     throw new Error(`Error resuming: task '${taskId}' not found`)
   }
   tasks[taskId].suspended = false
-  daemonStartIfNeeded()
+  startIfNeeded()
 };
 
-function daemonDeleteTask (taskId) {
+function suspendTask (taskId) {
+  console.debug(`[Task ${taskId}] Suspend`)
+
+  if (!(taskId in tasks)) {
+    throw new Error(`Error suspending: task '${taskId}' not found`)
+  }
+  tasks[taskId].suspended = true
+};
+
+function deleteTask (taskId) {
+  console.debug(`[Task ${taskId}] Stop`)
   delete tasks[taskId]
 };
 
-function daemonHandleMessage (event) {
-  if (!(event.source === window && event.data === messageName)) {
+function handleMessage (event) {
+  if (!(event.source === window && event.data === loopMessageName)) {
     return
   }
 
@@ -102,13 +119,13 @@ function daemonHandleMessage (event) {
       if (result === DONE ||
                 task.runOnce ||
                 (task.stopOnException && result === FAULTED)) {
-        daemonDeleteTask(taskId)
+        deleteTask(taskId)
         runningTaskCount -= 1
         break
       }
 
       if (result === SUSPEND) {
-        task.suspended = true
+        suspendTask(taskId)
         runningTaskCount -= 1
         suspendedTaskCount += 1
         break
@@ -123,16 +140,16 @@ function daemonHandleMessage (event) {
   if (runningTaskCount === 0) {
     running = false
     if (suspendedTaskCount > 0) {
-      daemonEvent('suspend')
+      fireEvent('suspend')
     } else {
-      daemonEvent('stop')
+      fireEvent('stop')
     }
   } else {
-    window.postMessage(messageName, '*')
+    window.postMessage(loopMessageName, '*')
   }
 };
 
-function daemonHandleException (event) {
+function handleException (event) {
   if (!(event.source === window && event.data === exceptionName)) {
     return
   }
@@ -142,24 +159,27 @@ function daemonHandleException (event) {
   }
 }
 
-window.addEventListener('message', daemonHandleMessage, true)
-window.addEventListener('message', daemonHandleException, true)
+window.addEventListener('message', handleMessage, true)
+window.addEventListener('message', handleException, true)
 
 export function setTinyInterval (func, delay) {
-  daemonCreateTask(func, delay)
+  return createTask(func, delay)
 }
+
 export function clearTinyInterval (tinyIntervalID) {
-  daemonDeleteTask(tinyIntervalID)
+  deleteTask(tinyIntervalID)
 }
+
 export function resumeTinyInterval (tinyIntervalID) {
-  daemonResumeTask(tinyIntervalID)
+  resumeTask(tinyIntervalID)
 }
 
 export function setTinyTimeout (func, delay) {
-  daemonCreateTask(func, delay, true)
+  return createTask(func, delay, true)
 }
+
 export function clearTinyTimeout (tinyTimeoutID) {
-  daemonDeleteTask(tinyTimeoutID)
+  deleteTask(tinyTimeoutID)
 }
 
 export const YIELD = 'yield'
@@ -167,6 +187,6 @@ export const DONE = 'done'
 export const FAULTED = 'faulted'
 export const SUSPEND = 'suspend'
 
-export const addEventListener = daemonEventTarget.addEventListener.bind(daemonEventTarget)
-export const removeEventListener = daemonEventTarget.removeEventListener.bind(daemonEventTarget)
-export const dispatchEvent = daemonEventTarget.dispatchEvent.bind(daemonEventTarget)
+export const on = eventTarget.addEventListener.bind(eventTarget)
+export const off = eventTarget.removeEventListener.bind(eventTarget)
+// export const dispatchEvent = eventTarget.dispatchEvent.bind(eventTarget)

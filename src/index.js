@@ -1,7 +1,7 @@
-import * as core from './core.js'
-import * as daemon from './daemon.js'
-import * as io from './io.js'
-import * as runtime from './runtime.js'
-import * as parser from './parser.js'
+// entry point
+// ==================
 
-export { core, daemon, io, runtime, parser }
+export { run } from './core.js'
+export { on } from './daemon.js'
+export { ioFromVal } from './io.js'
+export { parse } from './parser.js'

@@ -183,17 +183,23 @@ function configureTranspiler () {
     const $output = $testCase.find('[data-type=output]')
     const $result = $testCase.find('[data-type=result]')
 
-    const io = ti.io.val_io($output, { includeLineNumbers: false, includeSource: false })
+    const io = ti.ioFromVal($output, { includeLineNumbers: false, includeSource: false })
 
     $result.text('Transpiling')
     $result.removeAttr('data-result')
 
     const source = $input.val()
-    const transpiled = ti.parser.parse(source, { output: 'source' })
+    let lines
+    try {
+      lines = ti.parse(source)
+    } catch (ex) {
+      $result.text('Failure')
+      $result.attr('data-result', 'failure')
+      updateCount()
+      return
+    }
 
     $output.val('')
-    // eslint-disable-next-line no-eval
-    const lines = eval(transpiled)
 
     $result.text('Running')
 
@@ -210,8 +216,7 @@ function configureTranspiler () {
       updateCount()
     }
 
-    ti.core.run(lines, {
-      source: source,
+    ti.run(lines, {
       debug: false,
       io: io,
       callback: callback
