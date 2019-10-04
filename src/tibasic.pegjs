@@ -181,96 +181,96 @@ IncrementSkip
   { return { type: types.IncrementSkip, variable, end }}
 
 DecrementSkip
-    = "DS<(" variable:Variable "," end:ValueExpression OptionalEndParen
-    { return { type: types.DecrementSkip, variable, end }}
+  = "DS<(" variable:Variable "," end:ValueExpression OptionalEndParen
+  { return { type: types.DecrementSkip, variable, end }}
 
 // Menu("Title","Option 1",Label 1[,…,"Option 7",Label 7])
 Menu
-    = "Menu(" 
-    { return { type: types.MenuStatement }}
+  = "Menu(" 
+  { return { type: types.MenuStatement }}
 
 Program
-    = "prgm" 
-    { return { type: types.ProgramStatement }}
+  = "prgm" 
+  { return { type: types.ProgramStatement }}
 
 Return 
-    = "Return" 
-    { return { type: types.ReturnStatement }}
+  = "Return" 
+  { return { type: types.ReturnStatement }}
 
 Stop 
-    = "Stop" 
-    { return { type: types.StopStatement }}
+  = "Stop" 
+  { return { type: types.StopStatement }}
 
 DelVar 
-    = "DelVar" 
-    { return { type: types.DelVarStatement }}
+  = "DelVar" 
+  { return { type: types.DelVarStatement }}
 
 GraphStyle 
-    = "GraphStyle(" 
-    { return { type: types.GraphStyleStatement }}
+  = "GraphStyle(" 
+  { return { type: types.GraphStyleStatement }}
 
 OpenLib 
-    = "OpenLib(" 
-    { return { type: types.OpenLibStatement }}
+  = "OpenLib(" 
+  { return { type: types.OpenLibStatement }}
 
 ExecLib 
-    = "ExecLib(" 
-    { return { type: types.ExecLibStatement }}
+  = "ExecLib(" 
+  { return { type: types.ExecLibStatement }}
 
 CtlStatement
-    = IfStatement
-    / Then
-    / Else
-    / For
-    / While
-    / Repeat
-    / End
-    / Pause
-    / Label
-    / Goto
-    / IncrementSkip
-    / DecrementSkip
-    / Menu
-    / Program
-    / Return
-    / Stop
-    / DelVar
-    / GraphStyle
-    / OpenLib
-    / ExecLib
+  = IfStatement
+  / Then
+  / Else
+  / For
+  / While
+  / Repeat
+  / End
+  / Pause
+  / Label
+  / Goto
+  / IncrementSkip
+  / DecrementSkip
+  / Menu
+  / Program
+  / Return
+  / Stop
+  / DelVar
+  / GraphStyle
+  / OpenLib
+  / ExecLib
 
 // ----- I/O -----
 // TODO:
 // * Input
 
 Prompt
-    = "Prompt " variable:Variable
-    { return { type: types.Prompt, variable } }
+  = "Prompt " variable:Variable
+  { return { type: types.Prompt, variable } }
 
 Display
-    = "Disp " value:ValueExpression 
-    { return { type: types.Display, value } }
+  = "Disp " value:ValueExpression 
+  { return { type: types.Display, value } }
 
 IoStatement
-    // = Input
-    = Prompt
-    / Display
-    // / DispGraph
-    // / DispTable
-    // / Output(
-    // / getKey
-    // / ClrHome
-    // / ClrTable
-    // / GetCalc(
-    // / Get(
-    // / Send(
+  // = Input
+  = Prompt
+  / Display
+  // / DispGraph
+  // / DispTable
+  // / Output(
+  // / getKey
+  // / ClrHome
+  // / ClrTable
+  // / GetCalc(
+  // / Get(
+  // / Send(
 
 // ----- Statement -----
 // TODO:
 // * More statement types
 
 Statement
-    = Assignment
-    / CtlStatement
-    / IoStatement
-    / ValueStatement
+  = Assignment
+  / CtlStatement
+  / IoStatement
+  / ValueStatement
