@@ -59,7 +59,7 @@ function initTests () {
   const trimInput = (text) => {
     const indent = tiJsTests.options.indent
 
-    if (text.indexOf('\n') === -1) {
+    if (text === undefined || text.indexOf('\n') === -1) {
       return text
     }
 
@@ -97,6 +97,11 @@ function initTests () {
     $input.attr('data-type', 'input')
     $input.val(trimInput(testCase.input))
     $row.append($('<td>').append($input))
+
+    const $stdin = $('<textarea>')
+    $stdin.attr('data-type', 'stdin')
+    $stdin.val(trimInput(testCase.stdin))
+    $row.append($('<td>').append($stdin))
 
     const $expected = $('<textarea>')
     $expected.attr('data-type', 'expected')
@@ -179,11 +184,12 @@ function configureTranspiler () {
     }
 
     const $testCase = $input.parents('[data-type=testCase]')
+    const $stdin = $testCase.find('[data-type=stdin]')
     const $expected = $testCase.find('[data-type=expected]')
     const $output = $testCase.find('[data-type=output]')
     const $result = $testCase.find('[data-type=result]')
 
-    const io = ti.ioFromVal($output, { includeLineNumbers: false, includeSource: false })
+    const io = ti.ioFromVal($output, { includeLineNumbers: false, includeSource: false, stdin: $stdin.val() })
 
     $result.text('Transpiling')
     $result.removeAttr('data-result')

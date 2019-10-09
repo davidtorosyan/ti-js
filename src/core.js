@@ -4,6 +4,7 @@
 import * as daemon from './daemon'
 import * as iolib from './io'
 import * as types from './types'
+import * as parser from './parser'
 
 export function error (type, code, hideSource = false) {
   return {
@@ -186,6 +187,11 @@ falsyBlockPreviousIf: ${state.falsyBlockPreviousIf || ''}, \t\
 source: ${state.sourceLines[state.i] || ''}`)
   }
 
+  if (state.bus.ctl.callback !== undefined) {
+    state.bus.ctl.callback()
+    state.bus.ctl.callback = undefined
+  }
+
   if (state.i >= state.lines.length) {
     if (state.searchLabel !== undefined) {
       throw error('ti', 'LABEL')
@@ -196,11 +202,6 @@ source: ${state.sourceLines[state.i] || ''}`)
     }
 
     return daemon.DONE
-  }
-
-  if (state.bus.ctl.callback !== undefined) {
-    state.bus.ctl.callback()
-    state.bus.ctl.callback = undefined
   }
 
   state.linesRun++
@@ -379,7 +380,7 @@ source: ${state.sourceLines[state.i] || ''}`)
           throw error('ti', 'SYNTAX', true)
         }
         state.bus.io.stdout(input)
-        assignVariable(state.bus.mem, line.variable.name, newFloat(parseFloat(input)))
+        assignVariable(state.bus.mem, line.variable.name, evaluate(parser.parseExpression(input), state.bus.mem))
       }))
       return daemon.SUSPEND
     case types.ValueStatement:
@@ -422,7 +423,9 @@ function increment (mem, variable, step) {
 
 function evaluate (value, mem) {
   const t = value.type
-  if (t === types.NUMBER || t === types.STRING) {
+  if (t === types.SyntaxError) {
+    throw error('ti', 'SYNTAX')
+  } else if (t === types.NUMBER || t === types.STRING) {
     return value
   } else if (t === types.UNARY) {
     const argument = evaluate(value.argument, mem)

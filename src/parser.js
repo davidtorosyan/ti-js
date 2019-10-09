@@ -1,7 +1,8 @@
 // ti-basic parser using pegjs
 // ==================
 
-import parser from './tibasic.pegjs'
+import pegJsParser from './tibasic.pegjs'
+import * as types from './types'
 
 export function parse (source, options = {}) {
   if (source === undefined) {
@@ -14,7 +15,7 @@ export function parse (source, options = {}) {
   const parsedLines = sourceLines.map(s => {
     let parsedLine
     try {
-      parsedLine = parser.parse(s)
+      parsedLine = pegJsParser.parse(s)
     } catch (error) {
       if (error.name === 'SyntaxError') {
         parsedLine = { type: 'SyntaxError' }
@@ -29,4 +30,26 @@ export function parse (source, options = {}) {
   })
 
   return parsedLines
+}
+
+export function parseExpression (source) {
+  if (source === undefined) {
+    throw new Error('Undefined source!')
+  }
+
+  const sourceLines = source.split(/\r?\n/)
+  if (sourceLines.Length > 1) {
+    throw new Error('Too many lines for an expression')
+  }
+  const sourceLine = sourceLines[0]
+  let parsedLine
+  try {
+    parsedLine = pegJsParser.parse(sourceLine)
+  } catch (error) {
+    if (error.name !== 'SyntaxError') {
+      throw error
+    }
+  }
+
+  return parsedLine !== undefined && parsedLine.type === types.ValueStatement ? parsedLine.value : { type: 'SyntaxError' }
 }

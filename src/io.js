@@ -27,6 +27,12 @@ export function ioFromVal (elem, options = {}) {
   const includeSource = parseOption(options.includeSource, true)
   const includeLibErrors = parseOption(options.includeLibErrors, true)
   const input = options.input
+  const stdin = options.stdin
+
+  let stdinQueue
+  if (stdin !== undefined && stdin !== '') {
+    stdinQueue = stdin.split('\n').reverse()
+  }
 
   const appendToOutput = (x, newline = true) => setTimeout(() => {
     let result = elem.val() + x
@@ -52,23 +58,38 @@ export function ioFromVal (elem, options = {}) {
 
   const enterkey = 13
 
-  const onStdin = callback => {
-    setTimeout(() => input.val(''), 0)
-    input.on('keypress', e => {
-      if (e.keyCode === enterkey) {
-        input.off('keypress')
-        const result = input.val()
-        setTimeout(() => input.val(''), 0)
+  let onStdin = fromConsole.onStdin
+  if (stdinQueue !== undefined) {
+    onStdin = callback => {
+      setTimeout(() => {
+        const result = stdinQueue.pop()
         callback(result)
-      }
-    })
+      })
+    }
+  } else if (input !== undefined) {
+    onStdin = callback => {
+      setTimeout(() => input.val(''), 0)
+      input.on('keypress', e => {
+        if (e.keyCode === enterkey) {
+          input.off('keypress')
+          const result = input.val()
+          setTimeout(() => input.val(''), 0)
+          callback(result)
+        }
+      })
+    }
+  }
+
+  let cleanup = fromConsole.cleanup
+  if (input !== undefined) {
+    cleanup = () => input.off('keypress')
   }
 
   return {
     stdout: appendToOutput,
     stderr: includeErrors ? appendToError : fromConsole.stderr,
     liberr: includeLibErrors ? appendToError : fromConsole.stderr,
-    onStdin: input !== undefined ? onStdin : fromConsole.onStdin,
-    cleanup: () => input.off('keypress')
+    onStdin,
+    cleanup
   }
 };

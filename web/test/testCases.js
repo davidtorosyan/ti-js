@@ -497,6 +497,40 @@ const tiJsTests =
         2
         9
         `
+    },
+    {
+      name: 'Prompt',
+      input: `\
+        Prompt X
+        Disp X
+        `,
+      expected: `\
+        X=?1
+        1
+        `,
+      stdin: '1'
+    },
+    {
+      name: 'PromptExpression',
+      input: `\
+        1->X
+        Prompt Y
+        Disp Y
+        `,
+      expected: `\
+        Y=?X
+        1
+        `,
+      stdin: 'X'
+    },
+    {
+      name: 'PromptError',
+      input: 'Prompt X',
+      expected: `\
+        X=?Foo
+        ERR:SYNTAX
+      `,
+      stdin: 'Foo'
     }
   ]
 }
