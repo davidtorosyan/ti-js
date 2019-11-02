@@ -67,33 +67,45 @@ Answer
 OptionalEndParen
   = ")"?
 
-Literal
-  = NumericLiteral
-  / Answer
+TokenLiteral
+  = Answer
   / Variable
   / StringLiteral
 
 // ----- Expressions -----
 
-PrimaryExpression
-  = Literal
+TokenExpression
+  = TokenLiteral
   / "(" @ValueExpression ")"
 
 UnaryOperator
-  = "-"
+  = "&-"
+
+TokenUnaryExpression
+  = TokenExpression 
+  / operator:UnaryOperator argument:TokenUnaryExpression
+  { return { type: types.UNARY, operator, argument } }
 
 UnaryExpression
-  = PrimaryExpression 
+  = TokenUnaryExpression
+  / NumericLiteral
   / operator:UnaryOperator argument:UnaryExpression
   { return { type: types.UNARY, operator, argument } }
+
+ImplicitMultiplicativeExpression
+  = head:TokenUnaryExpression tail:(UnaryExpression TokenUnaryExpression)* end:UnaryExpression?
+  { return util.buildImplicitBinaryExpression(head, tail, end); }
+  / head:UnaryExpression tail:(TokenUnaryExpression UnaryExpression)* end:TokenUnaryExpression?
+  { return util.buildImplicitBinaryExpression(head, tail, end); }
+  / UnaryExpression
 
 MultiplicativeOperator
   = "*"
   / "/"
 
 MultiplicativeExpression
-  = head:UnaryExpression 
-  tail:(MultiplicativeOperator UnaryExpression)* 
+  = head:ImplicitMultiplicativeExpression 
+  tail:(MultiplicativeOperator ImplicitMultiplicativeExpression)* 
   { return util.buildBinaryExpression(head, tail); }
 
 AdditiveOperator

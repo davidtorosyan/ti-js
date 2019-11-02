@@ -13,3 +13,17 @@ export function buildBinaryExpression (head, tail) {
     }
   }, head)
 }
+export function buildImplicitBinaryExpression (head, tail, end) {
+  const list = tail.flat()
+  if (end !== null) {
+    list.push(end)
+  }
+  return list.reduce(function (result, element) {
+    return {
+      type: types.BINARY,
+      operator: '*',
+      left: result,
+      right: element
+    }
+  }, head)
+}

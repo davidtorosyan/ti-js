@@ -433,7 +433,7 @@ function evaluate (value, mem) {
       const argumentNumber = resolveNumber(argument)
       let result
       switch (value.operator) {
-        case '-': result = -1 * argumentNumber; break
+        case '&-': result = -1 * argumentNumber; break
         default: throw error('lib', 'unexpected numeric unary operator')
       }
       return { type: types.NUMBER, float: result }

@@ -219,8 +219,8 @@ const tiJsTests =
     {
       name: 'Unary',
       input: `\
-        Disp -1
-        Disp --1
+        Disp &-1
+        Disp &-&-1
         `,
       expected: `\
         -1
@@ -309,12 +309,12 @@ const tiJsTests =
     },
     {
       name: 'OrderOfOperations',
-      input: 'Disp -0+3*2-1',
+      input: 'Disp &-0+3*2-1',
       expected: '5'
     },
     {
       name: 'OrderOfParenthesis',
-      input: 'Disp -(0+3)*(2-1)',
+      input: 'Disp &-(0+3)*(2-1)',
       expected: '-3'
     },
     {
@@ -531,6 +531,47 @@ const tiJsTests =
         ERR:SYNTAX
       `,
       stdin: 'Foo'
+    },
+    {
+      name: 'MultiplyImplicitVariables',
+      input: `\
+        2->X
+        3->Y
+        Disp XY
+        Disp X&-Y
+        Disp XYX
+        `,
+      expected: `\
+        6
+        -6
+        12
+      `
+    },
+    {
+      name: 'MultiplyImplicitMixed',
+      input: `\
+        2->X
+        Disp 3X
+        Disp X3
+        Disp 3X3
+        Disp X3X
+        `,
+      expected: `\
+        6
+        6
+        18
+        12
+      `
+    },
+    {
+      name: 'MultiplyImplicitFail1',
+      input: 'Disp 1&-1',
+      expected: 'ERR:SYNTAX'
+    },
+    {
+      name: 'MultiplyImplicitFail2',
+      input: 'Disp X1&-1',
+      expected: 'ERR:SYNTAX'
     }
   ]
 }
