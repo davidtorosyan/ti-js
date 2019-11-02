@@ -8,6 +8,7 @@ module.exports = merge(common, {
   devServer: {
     contentBase: path.resolve(__dirname, 'web'),
     publicPath: '/dist/',
-    port: 9080
+    port: 9080,
+    watchContentBase: true
   }
 })
