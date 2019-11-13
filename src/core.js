@@ -24,35 +24,8 @@ const MINUSONE = newFloat(-1)
 
 function newMem () {
   return {
-    vars: {
-      A: newFloat(),
-      B: newFloat(),
-      C: newFloat(),
-      D: newFloat(),
-      E: newFloat(),
-      F: newFloat(),
-      G: newFloat(),
-      H: newFloat(),
-      I: newFloat(),
-      J: newFloat(),
-      K: newFloat(),
-      L: newFloat(),
-      M: newFloat(),
-      N: newFloat(),
-      O: newFloat(),
-      P: newFloat(),
-      Q: newFloat(),
-      R: newFloat(),
-      S: newFloat(),
-      T: newFloat(),
-      U: newFloat(),
-      V: newFloat(),
-      W: newFloat(),
-      X: newFloat(),
-      Y: newFloat(),
-      Z: newFloat(),
-      THETA: newFloat()
-    },
+    vars: {},
+    stringVars: {},
     ans: newFloat()
   }
 };
@@ -61,7 +34,7 @@ function isTruthy (value) {
   if (value.type === types.NUMBER) {
     return resolveNumber(value) !== 0
   }
-  return false
+  throw error('ti', 'DATA TYPE')
 }
 
 export function run (lines, options = {}) {
@@ -178,13 +151,16 @@ function runLoop (state) {
 
 function runLine (state) {
   if (state.debug) {
-    console.debug(`Line: ${state.i}, \t\
-searchLabel: ${state.searchLabel || ''}, \t\
-ifResult: ${state.ifResult || ''}, \t\
-blockStack: ${state.blockStack || ''} \t\
-falsyStackHeight: ${state.falsyStackHeight || ''}, \t\
-falsyBlockPreviousIf: ${state.falsyBlockPreviousIf || ''}, \t\
-source: ${state.sourceLines[state.i] || ''}`)
+    console.debug({
+      Line: state.i,
+      searchLabel: state.searchLabel,
+      ifResult: state.ifResult,
+      blockStack: state.blockStack,
+      falsyStackHeight: state.falsyStackHeight,
+      falsyBlockPreviousIf: state.falsyBlockPreviousIf,
+      source: state.source,
+      mem: state.bus.mem
+    })
   }
 
   if (state.bus.ctl.callback !== undefined) {
@@ -317,7 +293,7 @@ source: ${state.sourceLines[state.i] || ''}`)
       if (line.variable === null || line.start === null || line.end === null) {
         throw error('ti', 'ARGUMENT')
       }
-      assignVariable(state.bus.mem, line.variable.name, evaluate(line.start, state.bus.mem))
+      assignVariable(state.bus.mem, line.variable, evaluate(line.start, state.bus.mem))
       state.blockStack.push(state.i)
       if (!isTruthy(evaluate(binaryOperation(line.variable, '<=', line.end), state.bus.mem))) {
         state.falsyStackHeight = state.blockStack.length
@@ -389,7 +365,7 @@ source: ${state.sourceLines[state.i] || ''}`)
       break
       // ----- other -----
     case types.AssignmentStatement:
-      assignVariable(state.bus.mem, line.variable.name, evaluate(line.value, state.bus.mem))
+      assignVariable(state.bus.mem, line.variable, evaluate(line.value, state.bus.mem))
       break
     case types.Display:
       if (line.value !== null) {
@@ -407,7 +383,7 @@ source: ${state.sourceLines[state.i] || ''}`)
           throw error('ti', 'SYNTAX', true)
         }
         state.bus.io.stdout(input)
-        assignVariable(state.bus.mem, line.variable.name, evaluate(parser.parseExpression(input), state.bus.mem))
+        assignVariable(state.bus.mem, line.variable, evaluate(parser.parseExpression(input), state.bus.mem))
       }))
       return daemon.SUSPEND
     case types.ValueStatement:
@@ -420,9 +396,17 @@ source: ${state.sourceLines[state.i] || ''}`)
   }
 }
 
-function assignVariable (mem, name, value) {
-  if (value.type === types.NUMBER) {
-    mem.vars[name] = value
+function assignVariable (mem, variable, value) {
+  if (variable.type === types.STRINGVARIABLE) {
+    if (value.type !== types.STRING) {
+      throw error('ti', 'DATA TYPE')
+    }
+    mem.stringVars[variable.name] = value
+  } else if (variable.type === types.VARIABLE) {
+    if (value.type !== types.NUMBER) {
+      return
+    }
+    mem.vars[variable.name] = value
   }
 }
 
@@ -440,7 +424,7 @@ function binaryOperation (left, operator, right) {
 }
 
 function increment (mem, variable, step) {
-  assignVariable(mem, variable.name, evaluate({
+  assignVariable(mem, variable, evaluate({
     type: types.BINARY,
     operator: '+',
     left: variable,
@@ -507,7 +491,17 @@ function evaluate (value, mem) {
       throw error('lib', 'unexpected string binary result')
     }
   } else if (t === types.VARIABLE) {
-    return mem.vars[value.name]
+    let result = mem.vars[value.name]
+    if (result === undefined) {
+      result = mem.vars[value.name] = newFloat()
+    }
+    return result
+  } else if (t === types.STRINGVARIABLE) {
+    const result = mem.stringVars[value.name]
+    if (result === undefined) {
+      throw error('ti', 'UNDEFINED')
+    }
+    return result
   } else if (t === types.ANS) {
     return mem.ans
   }

@@ -635,6 +635,39 @@ const tiJsTests =
         2
         3
         `
+    },
+    {
+      name: 'DisplayUndefinedNumeric',
+      input: 'Disp X',
+      expected: '0'
+    },
+    {
+      name: 'DisplayUndefinedString',
+      input: 'Disp Str0',
+      expected: 'ERR:UNDEFINED'
+    },
+    {
+      name: 'DisplayStringVariable',
+      input: `\
+        "A"->Str0
+        Disp Str0
+        `,
+      expected: 'A'
+    },
+    {
+      name: 'IfString',
+      input: `\
+        "A"->Str0
+        If Str0
+        `,
+      expected: 'ERR:DATA TYPE'
+    },
+    {
+      name: 'IfUndefinedString',
+      input: `\
+        If Str0
+        `,
+      expected: 'ERR:UNDEFINED'
     }
   ]
 }

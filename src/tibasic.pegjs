@@ -23,12 +23,23 @@ Location
   = [A-Z0-9][A-Z0-9]?
   { return text(); }
 
-VariableIdentifier
+NumericVariableIdentifier
   = [A-Z]
   / "&theta" { return "THETA" }
 
+StringVariableIdentifier
+  = "Str" Digit
+  { return text(); }
+
+NumericVariable
+  = name:NumericVariableIdentifier { return { type: types.VARIABLE, name } }
+
+StringVariable
+  = name:StringVariableIdentifier { return { type: types.STRINGVARIABLE, name } }
+
 Variable
-  = name:VariableIdentifier { return { type: types.VARIABLE, name } }
+  = StringVariable
+  / NumericVariable
 
 NumericLiteral
   = integer:Integer "." fraction:Integer? exponent:ExponentPart? { 
@@ -155,6 +166,7 @@ Assignment
 // ----- CTL -----
 // TODO:
 // * Everything after Menu
+// * If statement towards the end of file should syntax error
 
 IfStatement
   = "If " value:ValueExpression? extra:ExtraCharacters?
