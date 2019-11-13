@@ -288,9 +288,16 @@ source: ${state.sourceLines[state.i] || ''}`)
 
   let source, sourceLine
 
+  if (line.extra === true) {
+    throw error('ti', 'SYNTAX')
+  }
+
   switch (type) {
     // ----- CtlStatement -----
     case types.IfStatement:
+      if (line.value === null) {
+        throw error('ti', 'ARGUMENT')
+      }
       state.ifResult = isTruthy(evaluate(line.value, state.bus.mem))
       break
     case types.ThenStatement:
@@ -307,6 +314,9 @@ source: ${state.sourceLines[state.i] || ''}`)
       }
       break
     case types.ForLoop:
+      if (line.variable === null || line.start === null || line.end === null) {
+        throw error('ti', 'ARGUMENT')
+      }
       assignVariable(state.bus.mem, line.variable.name, evaluate(line.start, state.bus.mem))
       state.blockStack.push(state.i)
       if (!isTruthy(evaluate(binaryOperation(line.variable, '<=', line.end), state.bus.mem))) {
@@ -314,12 +324,18 @@ source: ${state.sourceLines[state.i] || ''}`)
       }
       break
     case types.WhileLoop:
+      if (line.value === null) {
+        throw error('ti', 'ARGUMENT')
+      }
       state.blockStack.push(state.i)
       if (!isTruthy(evaluate(line.value, state.bus.mem))) {
         state.falsyStackHeight = state.blockStack.length
       }
       break
     case types.RepeatLoop:
+      if (line.value === null) {
+        throw error('ti', 'ARGUMENT')
+      }
       state.blockStack.push(state.i)
       break
     case types.EndStatement:
@@ -332,7 +348,7 @@ source: ${state.sourceLines[state.i] || ''}`)
               sourceLine.type === types.WhileLoop ||
               sourceLine.type === types.RepeatLoop) {
         if (sourceLine.type === types.ForLoop) {
-          increment(state.bus.mem, sourceLine.variable, sourceLine.step)
+          increment(state.bus.mem, sourceLine.variable, sourceLine.step !== null ? sourceLine.step : ONE)
           if (isTruthy(evaluate(binaryOperation(sourceLine.variable, '<=', sourceLine.end), state.bus.mem))) {
             state.blockStack.push(source)
             state.i = source
@@ -358,10 +374,16 @@ source: ${state.sourceLines[state.i] || ''}`)
       break
       // TODO increment and decrement have an interaction with DelVar
     case types.IncrementSkip:
+      if (line.variable === null || line.end === null) {
+        throw error('ti', 'ARGUMENT')
+      }
       increment(state.bus.mem, line.variable, ONE)
       state.incrementDecrementResult = isTruthy(evaluate(binaryOperation(line.variable, '<=', line.end), state.bus.mem))
       break
     case types.DecrementSkip:
+      if (line.variable === null || line.end === null) {
+        throw error('ti', 'ARGUMENT')
+      }
       increment(state.bus.mem, line.variable, MINUSONE)
       state.incrementDecrementResult = isTruthy(evaluate(binaryOperation(line.variable, '>=', line.end), state.bus.mem))
       break
@@ -370,9 +392,14 @@ source: ${state.sourceLines[state.i] || ''}`)
       assignVariable(state.bus.mem, line.variable.name, evaluate(line.value, state.bus.mem))
       break
     case types.Display:
-      state.bus.io.stdout(valueToString(evaluate(line.value, state.bus.mem)))
+      if (line.value !== null) {
+        state.bus.io.stdout(valueToString(evaluate(line.value, state.bus.mem)))
+      }
       break
     case types.Prompt:
+      if (line.variable === null) {
+        throw error('ti', 'ARGUMENT')
+      }
       state.bus.io.stdout(`${line.variable.name}=?`, false)
       state.bus.io.onStdin(input => state.bus.ctl.resume(() => {
         if (input === null || input === undefined || input === '') {

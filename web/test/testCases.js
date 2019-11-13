@@ -572,6 +572,69 @@ const tiJsTests =
       name: 'MultiplyImplicitFail2',
       input: 'Disp X1&-1',
       expected: 'ERR:SYNTAX'
+    },
+    {
+      name: 'NestedFalseEmptyCondition',
+      input: `\
+        If 0
+        Then
+        If 
+        Then
+        Else
+        End
+        Disp 1
+        End
+        Disp 2
+      `,
+      expected: '2'
+    },
+    {
+      name: 'EmptyConditionFail',
+      input: `\
+        If 
+        Then
+        Disp 1
+        Else
+        Disp 2
+        End
+      `,
+      expected: 'ERR:ARGUMENT'
+    },
+    {
+      name: 'ExtraConditionFail',
+      input: `\
+        If 1 foo
+        Disp 1
+      `,
+      expected: 'ERR:SYNTAX'
+    },
+    {
+      name: 'NestedFalseExtraCondition',
+      input: `\
+        If 0
+        Then
+        If 0 foo
+        Then
+        Else
+        End
+        Disp 1
+        End
+        Disp 2
+      `,
+      expected: '2'
+    },
+    {
+      name: 'ForLoopDefaultStep',
+      input: `\
+        For(X,1,3)
+        Disp X
+        End
+        `,
+      expected: `\
+        1
+        2
+        3
+        `
     }
   ]
 }

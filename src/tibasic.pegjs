@@ -13,6 +13,12 @@ Start
 // TODO:
 // * Lists
 
+SourceCharacter
+  = .
+
+ExtraCharacters
+  = SourceCharacter+ { return true }
+
 Location
   = [A-Z0-9][A-Z0-9]?
   { return text(); }
@@ -133,6 +139,9 @@ TestExpression
 ValueExpression
   = TestExpression
 
+ArgumentExpression
+  = "," @ValueExpression
+
 // ----- Statements -----
 
 ValueStatement
@@ -146,35 +155,34 @@ Assignment
 // ----- CTL -----
 // TODO:
 // * Everything after Menu
-// * Arguments should always be optional (and result in argument error)
 
 IfStatement
-  = "If " value:ValueExpression 
-  { return { type: types.IfStatement, value }}
+  = "If " value:ValueExpression? extra:ExtraCharacters?
+  { return { type: types.IfStatement, value, extra }}
 
 Then 
-  = "Then" 
-  { return { type: types.ThenStatement }}
+  = "Then" extra:ExtraCharacters?
+  { return { type: types.ThenStatement, extra }}
 
 Else 
-  = "Else" 
-  { return { type: types.ElseStatement }}
+  = "Else" extra:ExtraCharacters?
+  { return { type: types.ElseStatement, extra }}
 
 For
-  = "For(" variable:Variable "," start:ValueExpression "," end:ValueExpression "," step:ValueExpression OptionalEndParen 
-  { return { type: types.ForLoop, variable, start, end, step }}
+  = "For(" variable:Variable? start:ArgumentExpression? end:ArgumentExpression? step:ArgumentExpression? OptionalEndParen extra:ExtraCharacters?
+  { return { type: types.ForLoop, variable, start, end, step, extra }}
 
 While
-  = "While " value:ValueExpression
-  { return { type: types.WhileLoop, value }}
+  = "While " value:ValueExpression? extra:ExtraCharacters?
+  { return { type: types.WhileLoop, value, extra }}
 
 Repeat
-  = "Repeat " value:ValueExpression
-  { return { type: types.RepeatLoop, value }}
+  = "Repeat " value:ValueExpression? extra:ExtraCharacters?
+  { return { type: types.RepeatLoop, value, extra }}
 
 End 
-  = "End" 
-  { return { type: types.EndStatement }}
+  = "End" extra:ExtraCharacters?
+  { return { type: types.EndStatement, extra }}
 
 Pause 
   = "Pause" 
@@ -189,11 +197,11 @@ Goto
   { return { type: types.GotoStatement, location }}
 
 IncrementSkip
-  = "IS>(" variable:Variable "," end:ValueExpression OptionalEndParen
+  = "IS>(" variable:Variable? end:ArgumentExpression? OptionalEndParen
   { return { type: types.IncrementSkip, variable, end }}
 
 DecrementSkip
-  = "DS<(" variable:Variable "," end:ValueExpression OptionalEndParen
+  = "DS<(" variable:Variable? end:ArgumentExpression? OptionalEndParen
   { return { type: types.DecrementSkip, variable, end }}
 
 // Menu("Title","Option 1",Label 1[,…,"Option 7",Label 7])
@@ -256,11 +264,11 @@ CtlStatement
 // * Input
 
 Prompt
-  = "Prompt " variable:Variable
+  = "Prompt " variable:Variable?
   { return { type: types.Prompt, variable } }
 
 Display
-  = "Disp " value:ValueExpression 
+  = "Disp " value:ValueExpression? 
   { return { type: types.Display, value } }
 
 IoStatement
