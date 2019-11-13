@@ -217,6 +217,11 @@ const tiJsTests =
       expected: '1'
     },
     {
+      name: 'GotoError',
+      input: 'Goto A',
+      expected: 'ERR:LABEL'
+    },
+    {
       name: 'Unary',
       input: `\
         Disp &-1
@@ -668,6 +673,71 @@ const tiJsTests =
         If Str0
         `,
       expected: 'ERR:UNDEFINED'
+    },
+    {
+      name: 'MenuChoice1',
+      input: `\
+        Menu("Title","Choice1",A,"Choice2",B)
+        Lbl A
+        Disp 1
+        Lbl B
+        Disp 2
+        `,
+      expected: `\
+        Title
+        1:Choice1
+        2:Choice2
+        1
+        2
+        `,
+      stdin: '1'
+    },
+    {
+      name: 'MenuChoice2',
+      input: `\
+        Menu("Title","Choice1",A,"Choice2",B)
+        Lbl A
+        Disp 1
+        Lbl B
+        Disp 2
+        `,
+      expected: `\
+        Title
+        1:Choice1
+        2:Choice2
+        2
+        `,
+      stdin: '2'
+    },
+    {
+      name: 'MenuInvalidChoices',
+      input: `\
+        Menu("Title","Choice",A)
+        Lbl A
+        Disp 1
+        `,
+      expected: `\
+        Title
+        1:Choice
+        1
+        `,
+      stdin: `\
+        a
+        2
+        1
+        `
+    },
+    {
+      name: 'MenuLableError',
+      input: `\
+        Menu("Title","Choice",A)
+        `,
+      expected: `\
+        Title
+        1:Choice
+        ERR:LABEL
+        `,
+      stdin: '1'
     }
   ]
 }

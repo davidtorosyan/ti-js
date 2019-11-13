@@ -348,7 +348,7 @@ function runLine (state) {
       state.searchLabel = line.location
       state.i = -1
       break
-      // TODO increment and decrement have an interaction with DelVar
+    // TODO increment and decrement have an interaction with DelVar
     case types.IncrementSkip:
       if (line.variable === null || line.end === null) {
         throw error('ti', 'ARGUMENT')
@@ -363,7 +363,25 @@ function runLine (state) {
       increment(state.bus.mem, line.variable, MINUSONE)
       state.incrementDecrementResult = isTruthy(evaluate(binaryOperation(line.variable, '>=', line.end), state.bus.mem))
       break
-      // ----- other -----
+    case types.MenuStatement:
+      if (line.title === null || line.choices.length === 0 || line.choices.length > 7) {
+        throw error('ti', 'ARGUMENT')
+      }
+      state.bus.io.stdout(valueToString(evaluate(line.title, state.bus.mem), true))
+      line.choices.forEach((choice, idx) => {
+        state.bus.io.stdout(`${idx + 1}:${valueToString(choice.option)}`)
+      })
+      state.bus.io.onStdin(input => {
+        const digit = parseDigit(input)
+        if (digit === undefined || digit === 0 || digit > line.choices.length) {
+          return true
+        }
+        state.searchLabel = line.choices[digit - 1].location
+        state.i = 0
+        state.bus.ctl.resume()
+      })
+      return daemon.SUSPEND
+    // ----- other -----
     case types.AssignmentStatement:
       assignVariable(state.bus.mem, line.variable, evaluate(line.value, state.bus.mem))
       break
@@ -526,7 +544,10 @@ function resolveNumber (value) {
   return parseFloat(str)
 }
 
-function valueToString (value) {
+function valueToString (value, strict = false) {
+  if (strict && value.type !== types.STRING) {
+    throw error('ti', 'DATA TYPE')
+  }
   let str = ''
   switch (value.type) {
     case types.NUMBER:
@@ -542,4 +563,15 @@ function valueToString (value) {
       throw error('lib', 'unexpected value tostring')
   }
   return str
+}
+
+function parseDigit (str) {
+  if (str === undefined || str === null || str === '' || str.length > 1) {
+    return
+  }
+  const digit = str.charCodeAt(0) - '0'.charCodeAt(0)
+  if (digit < 0 || digit > 9) {
+    return
+  }
+  return digit
 }

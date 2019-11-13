@@ -9,11 +9,19 @@ export function error (io, ex) {
   }
 };
 
+function promptUntil (callback) {
+  setTimeout(() => {
+    if (callback(prompt('Input?')) === true) {
+      promptUntil(callback)
+    }
+  }, 100)
+}
+
 export const fromConsole = {
   stdout: x => console.log(x),
   stderr: (x, source) => console.log(x),
   liberr: (x, source) => console.log(x),
-  onStdin: callback => setTimeout(() => callback(prompt('Input?')), 100),
+  onStdin: promptUntil,
   cleanup: () => {}
 }
 
@@ -58,23 +66,28 @@ export function ioFromVal (elem, options = {}) {
 
   const enterkey = 13
 
+  function readFromQueue (callback) {
+    setTimeout(() => {
+      const result = stdinQueue.pop()
+      if (callback(result) === true) {
+        readFromQueue(callback)
+      }
+    }, 0)
+  }
+
   let onStdin = fromConsole.onStdin
   if (stdinQueue !== undefined) {
-    onStdin = callback => {
-      setTimeout(() => {
-        const result = stdinQueue.pop()
-        callback(result)
-      })
-    }
+    onStdin = readFromQueue
   } else if (input !== undefined) {
     onStdin = callback => {
       setTimeout(() => input.val(''), 0)
       input.on('keypress', e => {
         if (e.keyCode === enterkey) {
-          input.off('keypress')
           const result = input.val()
           setTimeout(() => input.val(''), 0)
-          callback(result)
+          if (callback(result) !== true) {
+            input.off('keypress')
+          }
         }
       })
     }

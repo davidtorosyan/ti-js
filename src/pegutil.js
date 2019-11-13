@@ -13,6 +13,7 @@ export function buildBinaryExpression (head, tail) {
     }
   }, head)
 }
+
 export function buildImplicitBinaryExpression (head, tail, end) {
   const list = tail.flat()
   if (end !== null) {
@@ -26,4 +27,19 @@ export function buildImplicitBinaryExpression (head, tail, end) {
       right: element
     }
   }, head)
+}
+
+export function buildMenuStatement (title, options) {
+  const choices = options.map(function (element) {
+    return {
+      option: element[1],
+      location: element[3]
+    }
+  })
+
+  return {
+    type: types.MenuStatement,
+    title,
+    choices
+  }
 }

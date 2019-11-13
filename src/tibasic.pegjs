@@ -165,7 +165,7 @@ Assignment
 
 // ----- CTL -----
 // TODO:
-// * Everything after Menu
+// * Everything after Program
 // * If statement towards the end of file should syntax error
 
 IfStatement
@@ -216,10 +216,9 @@ DecrementSkip
   = "DS<(" variable:Variable? end:ArgumentExpression? OptionalEndParen
   { return { type: types.DecrementSkip, variable, end }}
 
-// Menu("Title","Option 1",Label 1[,…,"Option 7",Label 7])
 Menu
-  = "Menu(" 
-  { return { type: types.MenuStatement }}
+  = "Menu(" title:ValueExpression? options:("," StringLiteral "," Location)* OptionalEndParen
+  { return util.buildMenuStatement(title, options); }
 
 Program
   = "prgm" 
