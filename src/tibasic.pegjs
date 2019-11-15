@@ -2,12 +2,12 @@
 // ==================
 
 {
-    const types = require ('./types.js');
-    const util = require ('./pegutil.js');
+  const types = require ('./types.js');
+  const util = require ('./pegutil.js');
 }
 
 Start
-    = Statement
+  = Statement
 
 // ----- Components -----
 // TODO:
@@ -25,10 +25,10 @@ Location
 
 NumericVariableIdentifier
   = [A-Z]
-  / "&theta" { return "THETA" }
+  / '&theta' { return 'THETA' }
 
 StringVariableIdentifier
-  = "Str" Digit
+  = 'Str' Digit
   { return text(); }
 
 NumericVariable
@@ -42,10 +42,10 @@ Variable
   / NumericVariable
 
 NumericLiteral
-  = integer:Integer "." fraction:Integer? exponent:ExponentPart? { 
+  = integer:Integer '.' fraction:Integer? exponent:ExponentPart? { 
     return { type: types.NUMBER, integer, fraction, exponent }
   }
-  / "." fraction:Integer exponent:ExponentPart? { 
+  / '.' fraction:Integer exponent:ExponentPart? { 
     return { type: types.NUMBER, fraction, exponent }
   }
   / integer:Integer exponent:ExponentPart? { 
@@ -59,7 +59,7 @@ ExponentPart
   = ExponentIndicator @$(SignedInteger)
 
 ExponentIndicator
-  = "&E"
+  = '&E'
 
 Integer
   = $(Digit+)
@@ -78,11 +78,11 @@ StringLiteral
   { return { type: types.STRING, chars } }
 
 Answer
-  = "Ans"
+  = 'Ans'
   { return { type: types.ANS } }
 
 OptionalEndParen
-  = ")"?
+  = ')'?
 
 TokenLiteral
   = Answer
@@ -93,10 +93,10 @@ TokenLiteral
 
 TokenExpression
   = TokenLiteral
-  / "(" @ValueExpression ")"
+  / '(' @ValueExpression ')'
 
 UnaryOperator
-  = "&-"
+  = '&-'
 
 TokenUnaryExpression
   = TokenExpression 
@@ -117,8 +117,8 @@ ImplicitMultiplicativeExpression
   / UnaryExpression
 
 MultiplicativeOperator
-  = "*"
-  / "/"
+  = '*'
+  / '/'
 
 MultiplicativeExpression
   = head:ImplicitMultiplicativeExpression 
@@ -126,8 +126,8 @@ MultiplicativeExpression
   { return util.buildBinaryExpression(head, tail); }
 
 AdditiveOperator
-  = "+"
-  / "-"
+  = '+'
+  / '-'
 
 AdditiveExpression
   = head:MultiplicativeExpression 
@@ -135,12 +135,12 @@ AdditiveExpression
   { return util.buildBinaryExpression(head, tail); }
 
 TestOperator
-  = "="
-  / "!="
-  / ">="
-  / ">"
-  / "<="
-  / "<" 
+  = '='
+  / '!='
+  / '>='
+  / '>'
+  / '<='
+  / '<' 
 
 TestExpression
   = head:AdditiveExpression 
@@ -151,7 +151,7 @@ ValueExpression
   = TestExpression
 
 ArgumentExpression
-  = "," @ValueExpression
+  = ',' @ValueExpression
 
 // ----- Statements -----
 
@@ -160,7 +160,7 @@ ValueStatement
   { return { type: types.ValueStatement, value }}
 
 Assignment
-  = value:ValueExpression "->" variable:Variable 
+  = value:ValueExpression '->' variable:Variable 
   { return { type: types.AssignmentStatement, value, variable }}
 
 // ----- CTL -----
@@ -169,83 +169,83 @@ Assignment
 // * If statement towards the end of file should syntax error
 
 IfStatement
-  = "If " value:ValueExpression? extra:ExtraCharacters?
+  = 'If ' value:ValueExpression? extra:ExtraCharacters?
   { return { type: types.IfStatement, value, extra }}
 
 Then 
-  = "Then" extra:ExtraCharacters?
+  = 'Then' extra:ExtraCharacters?
   { return { type: types.ThenStatement, extra }}
 
 Else 
-  = "Else" extra:ExtraCharacters?
+  = 'Else' extra:ExtraCharacters?
   { return { type: types.ElseStatement, extra }}
 
 For
-  = "For(" variable:Variable? start:ArgumentExpression? end:ArgumentExpression? step:ArgumentExpression? OptionalEndParen extra:ExtraCharacters?
+  = 'For(' variable:Variable? start:ArgumentExpression? end:ArgumentExpression? step:ArgumentExpression? OptionalEndParen extra:ExtraCharacters?
   { return { type: types.ForLoop, variable, start, end, step, extra }}
 
 While
-  = "While " value:ValueExpression? extra:ExtraCharacters?
+  = 'While ' value:ValueExpression? extra:ExtraCharacters?
   { return { type: types.WhileLoop, value, extra }}
 
 Repeat
-  = "Repeat " value:ValueExpression? extra:ExtraCharacters?
+  = 'Repeat ' value:ValueExpression? extra:ExtraCharacters?
   { return { type: types.RepeatLoop, value, extra }}
 
 End 
-  = "End" extra:ExtraCharacters?
+  = 'End' extra:ExtraCharacters?
   { return { type: types.EndStatement, extra }}
 
 Pause 
-  = "Pause" 
+  = 'Pause' 
   { return { type: types.PauseStatement }}
 
 Label
-  = "Lbl " location:Location
+  = 'Lbl ' location:Location
   { return { type: types.LabelStatement, location }}
 
 Goto
-  = "Goto " location:Location 
+  = 'Goto ' location:Location 
   { return { type: types.GotoStatement, location }}
 
 IncrementSkip
-  = "IS>(" variable:Variable? end:ArgumentExpression? OptionalEndParen
+  = 'IS>(' variable:Variable? end:ArgumentExpression? OptionalEndParen
   { return { type: types.IncrementSkip, variable, end }}
 
 DecrementSkip
-  = "DS<(" variable:Variable? end:ArgumentExpression? OptionalEndParen
+  = 'DS<(' variable:Variable? end:ArgumentExpression? OptionalEndParen
   { return { type: types.DecrementSkip, variable, end }}
 
 Menu
-  = "Menu(" title:ValueExpression? options:("," StringLiteral "," Location)* OptionalEndParen
+  = 'Menu(' title:ValueExpression? options:(',' StringLiteral ',' Location)* OptionalEndParen
   { return util.buildMenuStatement(title, options); }
 
 Program
-  = "prgm" 
+  = 'prgm' 
   { return { type: types.ProgramStatement }}
 
 Return 
-  = "Return" 
+  = 'Return' 
   { return { type: types.ReturnStatement }}
 
 Stop 
-  = "Stop" 
+  = 'Stop' 
   { return { type: types.StopStatement }}
 
 DelVar 
-  = "DelVar" 
+  = 'DelVar' 
   { return { type: types.DelVarStatement }}
 
 GraphStyle 
-  = "GraphStyle(" 
+  = 'GraphStyle(' 
   { return { type: types.GraphStyleStatement }}
 
 OpenLib 
-  = "OpenLib(" 
+  = 'OpenLib(' 
   { return { type: types.OpenLibStatement }}
 
 ExecLib 
-  = "ExecLib(" 
+  = 'ExecLib(' 
   { return { type: types.ExecLibStatement }}
 
 CtlStatement
@@ -275,11 +275,11 @@ CtlStatement
 // * Input
 
 Prompt
-  = "Prompt " variable:Variable?
+  = 'Prompt ' variable:Variable?
   { return { type: types.Prompt, variable } }
 
 Display
-  = "Disp " value:ValueExpression? 
+  = 'Disp ' value:ValueExpression? 
   { return { type: types.Display, value } }
 
 IoStatement
