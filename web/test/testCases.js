@@ -729,15 +729,64 @@ const tiJsTests =
     },
     {
       name: 'MenuLableError',
-      input: `\
-        Menu("Title","Choice",A)
-        `,
+      input: 'Menu("Title","Choice",A)',
       expected: `\
         Title
         1:Choice
         ERR:LABEL
         `,
       stdin: '1'
+    },
+    {
+      name: 'Return',
+      input: `\
+        Disp 1
+        Return
+        Disp 2
+        `,
+      expected: '1'
+    },
+    {
+      name: 'DelVar',
+      input: `\
+        1->X
+        DelVar X
+        Disp X
+        `,
+      expected: '0'
+    },
+    {
+      name: 'IncrementUndefined',
+      input: 'IS>(X,1)',
+      expected: 'ERR:UNDEFINED'
+    },
+    {
+      name: 'IncrementDelVar',
+      input: `\
+        1->X
+        DelVar X
+        IS>(X,1)
+        `,
+      expected: 'ERR:UNDEFINED'
+    },
+    {
+      name: 'ForDelVar',
+      input: `\
+        For(X,1,2)
+        DelVar X
+        End
+        `,
+      expected: 'ERR:UNDEFINED'
+    },
+    {
+      name: 'ExtraArguments',
+      input: 'For(X,1,1,1,1,1)',
+      expected: 'ERR:ARGUMENT'
+    },
+    {
+      name: 'IfAtEnd',
+      input: 'If 1',
+      expected: 'ERR:SYNTAX'
     }
   ]
 }

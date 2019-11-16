@@ -173,6 +173,10 @@ function runLine (state) {
       throw error('ti', 'LABEL')
     }
 
+    if (state.ifResult !== undefined || state.incrementDecrementResult !== undefined) {
+      throw error('ti', 'SYNTAX')
+    }
+
     if (state.debug) {
       console.debug(state.bus.mem)
     }
@@ -267,6 +271,9 @@ function runLine (state) {
   if (line.extra === true) {
     throw error('ti', 'SYNTAX')
   }
+  if (line.args === true) {
+    throw error('ti', 'ARGUMENT')
+  }
 
   switch (type) {
     // ----- CtlStatement -----
@@ -348,7 +355,6 @@ function runLine (state) {
       state.searchLabel = line.location
       state.i = -1
       break
-    // TODO increment and decrement have an interaction with DelVar
     case types.IncrementSkip:
       if (line.variable === null || line.end === null) {
         throw error('ti', 'ARGUMENT')
@@ -381,6 +387,25 @@ function runLine (state) {
         state.bus.ctl.resume()
       })
       return daemon.SUSPEND
+    case types.ProgramStatement:
+      // TODO implement
+      throw error('lib', 'unimplemented')
+    case types.ReturnStatement:
+      // TODO interaction with subprograms
+      return daemon.DONE
+    case types.StopStatement:
+      return daemon.DONE
+    case types.DelVarStatement:
+      if (line.variable === null) {
+        throw error('ti', 'ARGUMENT')
+      }
+      deleteVariable(state.bus.mem, line.variable)
+      break
+    case types.GraphStyleStatement:
+      throw error('lib', 'unimplemented')
+    case types.OpenLibStatement:
+    case types.ExecLibStatement:
+      throw error('lib', 'unimplemented')
     // ----- other -----
     case types.AssignmentStatement:
       assignVariable(state.bus.mem, line.variable, evaluate(line.value, state.bus.mem))
@@ -428,6 +453,22 @@ function assignVariable (mem, variable, value) {
   }
 }
 
+function deleteVariable (mem, variable) {
+  if (variable.type === types.STRINGVARIABLE) {
+    delete mem.stringVars[variable.name]
+  } else if (variable.type === types.VARIABLE) {
+    delete mem.vars[variable.name]
+  }
+}
+
+function hasVariable (mem, variable) {
+  if (variable.type === types.STRINGVARIABLE) {
+    return variable.name in mem.stringVars
+  } else if (variable.type === types.VARIABLE) {
+    return variable.name in mem.vars
+  }
+}
+
 function assignAns (mem, value) {
   mem.ans = value
 }
@@ -442,6 +483,9 @@ function binaryOperation (left, operator, right) {
 }
 
 function increment (mem, variable, step) {
+  if (!hasVariable(mem, variable)) {
+    throw error('ti', 'UNDEFINED')
+  }
   assignVariable(mem, variable, evaluate({
     type: types.BINARY,
     operator: '+',

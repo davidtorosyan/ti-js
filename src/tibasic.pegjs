@@ -31,6 +31,13 @@ StringVariableIdentifier
   = 'Str' Digit
   { return text(); }
 
+PrgmChar
+  = [A-Z0-9]
+
+ProgramName
+  = [A-Z] PrgmChar? PrgmChar? PrgmChar? PrgmChar? PrgmChar? PrgmChar? PrgmChar?
+  { return text(); }
+
 NumericVariable
   = name:NumericVariableIdentifier { return { type: types.VARIABLE, name } }
 
@@ -153,6 +160,9 @@ ValueExpression
 ArgumentExpression
   = ',' @ValueExpression
 
+ExtraArguments
+  = ArgumentExpression+ { return true }
+
 // ----- Statements -----
 
 ValueStatement
@@ -165,8 +175,7 @@ Assignment
 
 // ----- CTL -----
 // TODO:
-// * Everything after Program
-// * If statement towards the end of file should syntax error
+// * DelVar should be able to appear multiple times in a line
 
 IfStatement
   = 'If ' value:ValueExpression? extra:ExtraCharacters?
@@ -181,8 +190,8 @@ Else
   { return { type: types.ElseStatement, extra }}
 
 For
-  = 'For(' variable:Variable? start:ArgumentExpression? end:ArgumentExpression? step:ArgumentExpression? OptionalEndParen extra:ExtraCharacters?
-  { return { type: types.ForLoop, variable, start, end, step, extra }}
+  = 'For(' variable:Variable? start:ArgumentExpression? end:ArgumentExpression? step:ArgumentExpression? args:ExtraArguments? OptionalEndParen extra:ExtraCharacters?
+  { return { type: types.ForLoop, variable, start, end, step, args, extra }}
 
 While
   = 'While ' value:ValueExpression? extra:ExtraCharacters?
@@ -221,8 +230,8 @@ Menu
   { return util.buildMenuStatement(title, options); }
 
 Program
-  = 'prgm' 
-  { return { type: types.ProgramStatement }}
+  = 'prgm' name:ProgramName
+  { return { type: types.ProgramStatement, name }}
 
 Return 
   = 'Return' 
@@ -233,20 +242,20 @@ Stop
   { return { type: types.StopStatement }}
 
 DelVar 
-  = 'DelVar' 
-  { return { type: types.DelVarStatement }}
+  = 'DelVar ' variable:Variable?
+  { return { type: types.DelVarStatement, variable }}
 
 GraphStyle 
-  = 'GraphStyle(' 
-  { return { type: types.GraphStyleStatement }}
+  = 'GraphStyle(' equation:ValueExpression? style:ArgumentExpression? OptionalEndParen
+  { return { type: types.GraphStyleStatement, equation, style }}
 
 OpenLib 
-  = 'OpenLib(' 
-  { return { type: types.OpenLibStatement }}
+  = 'OpenLib(' name:ProgramName OptionalEndParen
+  { return { type: types.OpenLibStatement, name }}
 
 ExecLib 
-  = 'ExecLib(' 
-  { return { type: types.ExecLibStatement }}
+  = 'ExecLib(' name:ProgramName OptionalEndParen
+  { return { type: types.ExecLibStatement, name }}
 
 CtlStatement
   = IfStatement
