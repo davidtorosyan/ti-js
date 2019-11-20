@@ -1,7 +1,7 @@
-// utilities for use in parsing ti-basic
-// ==================
+// pegutil
+// =======
 
-import * as types from './types.js'
+import * as types from '../common/types'
 
 export function buildBinaryExpression (head, tail) {
   return tail.reduce(function (result, element) {
@@ -36,10 +36,16 @@ export function buildMenuStatement (title, options) {
       location: element[3]
     }
   })
-
   return {
     type: types.MenuStatement,
     title,
     choices
+  }
+}
+
+export function buildList (head, tail) {
+  return {
+    type: types.LIST,
+    elements: [head].concat(tail)
   }
 }

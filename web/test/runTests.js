@@ -163,6 +163,18 @@ function configureTranspiler () {
     $overall.toggleClass('success', successCount === allCount)
     $failed.toggleClass('failed', failedCount > 0)
     $running.toggleClass('running', runningCount > 0)
+
+    let title = 'ti-js'
+
+    if (runningCount > 0) {
+      title += ': Running'
+    } else if (successCount === allCount) {
+      title += ': Success'
+    } else {
+      title += `: Failed (${failedCount})`
+    }
+
+    document.title = title
   }
 
   updateCount()

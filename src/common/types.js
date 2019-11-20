@@ -1,17 +1,35 @@
-// types to use for the ti-basic AST
-// ==================
+// types
+// =====
+
+// ----- Errors -----
+
+export const ti = 'ti'
+export const lib = 'lib'
+
+// ----- Components -----
 
 export const NUMBER = 'number'
-export const BINARY = 'binary'
-export const UNARY = 'unary'
 export const VARIABLE = 'variable'
 export const STRINGVARIABLE = 'stringVariable'
+export const LIST = 'list'
+export const LISTVARIABLE = 'listVariable'
+export const LISTINDEX = 'listIndex'
 export const STRING = 'string'
 export const ANS = 'ans'
+
+// ----- Expressions -----
+
+export const BINARY = 'binary'
+export const UNARY = 'unary'
+
+// ----- Statements -----
+
 export const ValueStatement = 'value'
 export const AssignmentStatement = 'assign'
-export const IfStatement = 'if'
-export const Display = 'display'
+
+// ----- CTL -----
+
+export const IfStatement = 'IfStatement'
 export const ThenStatement = 'ThenStatement'
 export const ElseStatement = 'ElseStatement'
 export const ForLoop = 'ForLoop'
@@ -31,5 +49,9 @@ export const DelVarStatement = 'DelVarStatement'
 export const GraphStyleStatement = 'GraphStyleStatement'
 export const OpenLibStatement = 'OpenLibStatement'
 export const ExecLibStatement = 'ExecLibStatement'
+
+// ----- I/O -----
+
+export const Display = 'display'
 export const Prompt = 'Prompt'
 export const SyntaxError = 'SyntaxError'

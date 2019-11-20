@@ -1,41 +1,48 @@
 // ti-basic grammar
-// ==================
+// ================
 
 {
-  const types = require ('./types.js');
-  const util = require ('./pegutil.js');
+  const types = require ('../common/types');
+  const util = require ('./pegutil');
 }
 
 Start
   = Statement
 
 // ----- Components -----
-// TODO:
-// * Lists
 
 SourceCharacter
   = .
+
+Alpha
+  = [A-Z]
+
+AlphaNum
+  = [A-Z0-9]
 
 ExtraCharacters
   = SourceCharacter+ { return true }
 
 Location
-  = [A-Z0-9][A-Z0-9]?
+  = AlphaNum AlphaNum?
   { return text(); }
 
 NumericVariableIdentifier
-  = [A-Z]
+  = Alpha
   / '&theta' { return 'THETA' }
 
 StringVariableIdentifier
   = 'Str' Digit
   { return text(); }
 
-PrgmChar
-  = [A-Z0-9]
+ListVariableIdentifier
+  = '&list' Alpha AlphaNum? AlphaNum? AlphaNum? AlphaNum?
+  { return 'List' + text().substring(5); }
+  / '&L' number:[1-6]
+  { return 'List' + number; }
 
 ProgramName
-  = [A-Z] PrgmChar? PrgmChar? PrgmChar? PrgmChar? PrgmChar? PrgmChar? PrgmChar?
+  = Alpha AlphaNum? AlphaNum? AlphaNum? AlphaNum? AlphaNum? AlphaNum? AlphaNum?
   { return text(); }
 
 NumericVariable
@@ -44,9 +51,21 @@ NumericVariable
 StringVariable
   = name:StringVariableIdentifier { return { type: types.STRINGVARIABLE, name } }
 
+ListVariable
+  = name:ListVariableIdentifier { return { type: types.LISTVARIABLE, name } }
+
 Variable
   = StringVariable
   / NumericVariable
+  / ListVariable
+
+ListIndex
+  = list:ListVariable "(" index:ValueExpression OptionalEndParen 
+  { return { type: types.LISTINDEX, list, index } }
+
+Assignable
+  = ListIndex
+  / Variable 
 
 NumericLiteral
   = integer:Integer '.' fraction:Integer? exponent:ExponentPart? { 
@@ -91,16 +110,24 @@ Answer
 OptionalEndParen
   = ')'?
 
+// Numeric is not included as a "token",
+// because they are not distinct and so
+// cannot be used in implicit multiplication.
 TokenLiteral
   = Answer
-  / Variable
+  / Assignable
   / StringLiteral
 
 // ----- Expressions -----
 
+ListExpression
+ = '{' head:ValueExpression tail:ArgumentExpression* '}'?
+ { return util.buildList(head, tail); }
+
 TokenExpression
   = TokenLiteral
   / '(' @ValueExpression ')'
+  / ListExpression
 
 UnaryOperator
   = '&-'
@@ -116,6 +143,7 @@ UnaryExpression
   / operator:UnaryOperator argument:UnaryExpression
   { return { type: types.UNARY, operator, argument } }
 
+// See note on TokenLiteral
 ImplicitMultiplicativeExpression
   = head:TokenUnaryExpression tail:(UnaryExpression TokenUnaryExpression)* end:UnaryExpression?
   { return util.buildImplicitBinaryExpression(head, tail, end); }
@@ -170,12 +198,13 @@ ValueStatement
   { return { type: types.ValueStatement, value }}
 
 Assignment
-  = value:ValueExpression '->' variable:Variable 
-  { return { type: types.AssignmentStatement, value, variable }}
+  = value:ValueExpression '->' assignable:Assignable 
+  { return { type: types.AssignmentStatement, value, assignable }}
 
 // ----- CTL -----
 // TODO:
 // * DelVar should be able to appear multiple times in a line
+// * For( should accept expressions instead of a variable (with interesting behavior)
 
 IfStatement
   = 'If ' value:ValueExpression? extra:ExtraCharacters?

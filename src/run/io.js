@@ -1,10 +1,12 @@
-// input/output
-// ==================
+// io
+// ==
+
+import * as types from '../common/types'
 
 export function error (io, ex) {
-  if (ex.type === 'ti') {
+  if (ex.type === types.ti) {
     io.stderr(`ERR:${ex.code}`, ex.source)
-  } else if (ex.type === 'lib') {
+  } else if (ex.type === types.lib) {
     io.liberr(`Error: ${ex.code}`, ex.source)
   }
 };

@@ -1,5 +1,7 @@
-// daemon to get around setTimeout limitations
-// ==================
+// daemon
+// ======
+
+import * as signal from '../common/signal'
 
 const loopMessageName = 'daemon-loop'
 const exceptionName = 'daemon-exception'
@@ -108,7 +110,7 @@ function handleMessage (event) {
       try {
         result = task.func()
       } catch (ex) {
-        result = FAULTED
+        result = signal.FAULTED
 
         if (exceptions.length < maxExceptions) {
           exceptions.push(ex)
@@ -116,22 +118,22 @@ function handleMessage (event) {
         }
       }
 
-      if (result === DONE ||
+      if (result === signal.DONE ||
                 task.runOnce ||
-                (task.stopOnException && result === FAULTED)) {
+                (task.stopOnException && result === signal.FAULTED)) {
         deleteTask(taskId)
         runningTaskCount -= 1
         break
       }
 
-      if (result === SUSPEND) {
+      if (result === signal.SUSPEND) {
         suspendTask(taskId)
         runningTaskCount -= 1
         suspendedTaskCount += 1
         break
       }
 
-      if (result === YIELD) {
+      if (result === signal.YIELD) {
         break
       }
     }
@@ -181,11 +183,6 @@ export function setTinyTimeout (func, delay) {
 export function clearTinyTimeout (tinyTimeoutID) {
   deleteTask(tinyTimeoutID)
 }
-
-export const YIELD = 'yield'
-export const DONE = 'done'
-export const FAULTED = 'faulted'
-export const SUSPEND = 'suspend'
 
 export const on = eventTarget.addEventListener.bind(eventTarget)
 export const off = eventTarget.removeEventListener.bind(eventTarget)

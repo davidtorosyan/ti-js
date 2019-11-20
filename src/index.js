@@ -1,7 +1,7 @@
 // entry point
 // ==================
 
-export { run } from './core.js'
-export { on } from './daemon.js'
-export { ioFromVal } from './io.js'
-export { parse } from './parser.js'
+export { run } from './run/runtime'
+export { on } from './run/daemon'
+export { ioFromVal } from './run/io'
+export { parse } from './parse/parser'

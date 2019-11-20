@@ -1,8 +1,8 @@
-// ti-basic parser using pegjs
-// ==================
+// parser
+// ======
 
 import pegJsParser from './tibasic.pegjs'
-import * as types from './types'
+import * as types from '../common/types'
 
 export function parse (source, options = {}) {
   if (source === undefined) {

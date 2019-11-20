@@ -452,6 +452,11 @@ const tiJsTests =
       expected: 'ERR:DATA TYPE'
     },
     {
+      name: 'NumberStringAdd',
+      input: 'Disp 1+"foo"',
+      expected: 'ERR:DATA TYPE'
+    },
+    {
       name: 'NestedFalseRepeat',
       input: `\
         If 0
@@ -787,6 +792,197 @@ const tiJsTests =
       name: 'IfAtEnd',
       input: 'If 1',
       expected: 'ERR:SYNTAX'
+    },
+    {
+      name: 'List',
+      input: 'Disp {2}',
+      expected: '{2}'
+    },
+    {
+      name: 'ListExpression',
+      input: 'Disp {2+3}',
+      expected: '{5}'
+    },
+    {
+      name: 'ListStringFails',
+      input: 'Disp {"A"}',
+      expected: 'ERR:DATA TYPE'
+    },
+    {
+      name: 'ListListFails',
+      input: 'Disp {{1}}',
+      expected: 'ERR:DATA TYPE'
+    },
+    {
+      name: 'ListListVariableFails',
+      input: `\
+        {1}->&listA
+        Disp {&listA}
+        `,
+      expected: 'ERR:DATA TYPE'
+    },
+    {
+      name: 'ListUnary',
+      input: `\
+        Disp &-{2}
+        Disp &-{2,&-3}
+        Disp &-&-{2,3}
+        `,
+      expected: `\
+        {-2}
+        {-2 3}
+        {2 3}
+        `
+    },
+    {
+      name: 'ListBinary',
+      input: `\
+        Disp {2}+{3}
+        Disp {2,1}+{3,1}
+        Disp {2,1}-{3,1}
+        Disp {2,1}*{3,1}
+        Disp {6,1}/{2,1}
+        Disp {2,1}={3,1}
+        Disp {2,1}!={3,1}
+        Disp {2,1}>{3,1}
+        Disp {2,1}>={3,1}
+        Disp {2,1}<{3,1}
+        Disp {2,1}<={3,1}
+      `,
+      expected: `\
+        {5}
+        {5 2}
+        {-1 0}
+        {6 1}
+        {3 1}
+        {0 1}
+        {1 0}
+        {0 0}
+        {0 1}
+        {1 0}
+        {1 1}
+      `
+    },
+    {
+      name: 'ListWithNumber',
+      input: `\
+        Disp {2,3}+4
+        Disp 4+{2,3}
+      `,
+      expected: `\
+        {6 7}
+        {6 7}
+      `
+    },
+    {
+      name: 'ListWithString',
+      input: 'Disp {2}+"A"',
+      expected: 'ERR:DATA TYPE'
+    },
+    {
+      name: 'StringWithList',
+      input: 'Disp "A"+{2}',
+      expected: 'ERR:DATA TYPE'
+    },
+    {
+      name: 'ListVariable',
+      input: `\
+        {1}->&L1
+        Disp &L1
+      `,
+      expected: '{1}'
+    },
+    {
+      name: 'CustomListVariable',
+      input: `\
+        {1}->&listA
+        Disp &listA
+      `,
+      expected: '{1}'
+    },
+    {
+      name: 'UndefinedListVariable',
+      input: 'Disp &L1',
+      expected: 'ERR:UNDEFINED'
+    },
+    {
+      name: 'DivideByZero',
+      input: 'Disp 1/0',
+      expected: 'ERR:DIVIDE BY 0'
+    },
+    {
+      name: 'Ans',
+      input: `\
+        1
+        Disp Ans
+      `,
+      expected: '1'
+    },
+    {
+      name: 'AnsAssign',
+      input: `\
+        1->X
+        Disp Ans
+      `,
+      expected: '1'
+    },
+    {
+      name: 'AnsString',
+      input: `\
+        "A"->X
+        Disp Ans
+      `,
+      expected: 'A'
+    },
+    {
+      name: 'AnsList',
+      input: `\
+        {4,9}
+        Disp Ans
+      `,
+      expected: '{4 9}'
+    },
+    {
+      name: 'ListIndex',
+      input: `\
+        1->X
+        {4,9}->&L1
+        Disp &L1(1)
+        Disp &L1(2)
+        Disp &L1(X)
+        Disp &L1(X+1)
+      `,
+      expected: `\
+        4
+        9
+        4
+        9
+      `
+    },
+    {
+      name: 'ListIndexSmall',
+      input: `\
+        {4,9}->&L1
+        Disp &L1(0)
+      `,
+      expected: 'ERR:INVALID DIM'
+    },
+    {
+      name: 'ListIndexLarge',
+      input: `\
+        {4,9}->&L1
+        Disp &L1(3)
+      `,
+      expected: 'ERR:INVALID DIM'
+    },
+    {
+      name: 'ListIndexAssign',
+      input: `\
+        {4,9}->&L1
+        5->&L1(1+1)
+        Disp &L1(2)
+      `,
+      expected: '5'
     }
   ]
 }
