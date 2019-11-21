@@ -5,6 +5,7 @@
 
 export const ti = 'ti'
 export const lib = 'lib'
+export const SyntaxError = 'SyntaxError'
 
 // ----- Components -----
 
@@ -52,6 +53,6 @@ export const ExecLibStatement = 'ExecLibStatement'
 
 // ----- I/O -----
 
-export const Display = 'display'
+export const Input = 'Input'
 export const Prompt = 'Prompt'
-export const SyntaxError = 'SyntaxError'
+export const Display = 'display'

@@ -10,6 +10,11 @@ Start
   = Statement
 
 // ----- Components -----
+// TODO:
+// * List assignments (e.g dim)
+// * Constants (e.g i, e, pi)
+// * Angles
+// * Matrices
 
 SourceCharacter
   = .
@@ -36,10 +41,12 @@ StringVariableIdentifier
   { return text(); }
 
 ListVariableIdentifier
+  = '&L' number:[1-6]
+  { return 'List' + number; }
+
+CustomListVariableIdentifier
   = '&list' Alpha AlphaNum? AlphaNum? AlphaNum? AlphaNum?
   { return 'List' + text().substring(5); }
-  / '&L' number:[1-6]
-  { return 'List' + number; }
 
 ProgramName
   = Alpha AlphaNum? AlphaNum? AlphaNum? AlphaNum? AlphaNum? AlphaNum? AlphaNum?
@@ -52,7 +59,8 @@ StringVariable
   = name:StringVariableIdentifier { return { type: types.STRINGVARIABLE, name } }
 
 ListVariable
-  = name:ListVariableIdentifier { return { type: types.LISTVARIABLE, name } }
+  = name:ListVariableIdentifier { return { type: types.LISTVARIABLE, name, custom: false } }
+  / name:CustomListVariableIdentifier { return { type: types.LISTVARIABLE, name, custom: true } }
 
 Variable
   = StringVariable
@@ -119,6 +127,16 @@ TokenLiteral
   / StringLiteral
 
 // ----- Expressions -----
+// TODO:
+// * Logic
+// * Exponents
+// * Trig
+// * Other variable types (e.g. equations)
+// * List expressions (e.g. seq)
+// * Math (e.g. abs)
+// * Complex Math (e.g. conj)
+// * Probability (e.g. rand)
+// * Matrices
 
 ListExpression
  = '{' head:ValueExpression tail:ArgumentExpression* '}'?
@@ -187,6 +205,9 @@ ValueExpression
 
 ArgumentExpression
   = ',' @ValueExpression
+
+PrefixArgumentExpression
+  = @ValueExpression ','
 
 ExtraArguments
   = ArgumentExpression+ { return true }
@@ -310,7 +331,12 @@ CtlStatement
 
 // ----- I/O -----
 // TODO:
-// * Input
+// * Allow multiple variables for Prompt
+// * Remaining commands
+
+Input
+  = 'Input ' text:PrefixArgumentExpression? variable:Variable?
+  { return { type: types.Input, text, variable } }
 
 Prompt
   = 'Prompt ' variable:Variable?
@@ -321,8 +347,8 @@ Display
   { return { type: types.Display, value } }
 
 IoStatement
-  // = Input
-  = Prompt
+  = Input
+  / Prompt
   / Display
   // / DispGraph
   // / DispTable
@@ -336,7 +362,10 @@ IoStatement
 
 // ----- Statement -----
 // TODO:
-// * More statement types
+// * List statements (e.g. SortA)
+// * Draw statements (e.g. Line)
+// * Point statements (e.g. Pxl-On)
+// * Store statements (e.g. StorePic)
 
 Statement
   = Assignment

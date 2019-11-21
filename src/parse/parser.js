@@ -11,6 +11,9 @@ export function parse (source, options = {}) {
 
   const sourceMap = options.sourceMap || 'inline'
 
+  // TODO:
+  // * Allow blank lines
+  // * Allow multiple statements per line with ':'
   const sourceLines = source.split(/\r?\n/)
   const parsedLines = sourceLines.map(s => {
     let parsedLine

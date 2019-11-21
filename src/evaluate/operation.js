@@ -69,6 +69,24 @@ export function resolveNumber (value) {
   return parseFloat(str)
 }
 
+export function variableToString (variable) {
+  let str = variable.name
+  switch (variable.type) {
+    case types.VARIABLE:
+    case types.STRINGVARIABLE:
+      break
+    case types.LISTVARIABLE:
+      str = str.substring(4)
+      if (!variable.custom) {
+        str = `&L${str}`
+      }
+      break
+    default:
+      throw core.libError('unexpected variable tostring')
+  }
+  return str
+}
+
 export function valueToString (value, strict = false) {
   if (strict && value.type !== types.STRING) {
     throw core.DataTypeError

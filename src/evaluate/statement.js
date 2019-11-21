@@ -116,7 +116,7 @@ statementOf[types.EndStatement] = (line, state) => {
 }
 
 statementOf[types.PauseStatement] = (line, state) => {
-  throw core.libError('unimplemented')
+  throw core.UnimplementedError
 }
 
 statementOf[types.LabelStatement] = (line, state) => {
@@ -164,8 +164,7 @@ statementOf[types.MenuStatement] = (line, state) => {
 }
 
 statementOf[types.ProgramStatement] = (line, state) => {
-  // TODO implement
-  throw core.libError('unimplemented')
+  throw core.UnimplementedError
 }
 
 statementOf[types.ReturnStatement] = (line, state) => {
@@ -185,15 +184,15 @@ statementOf[types.DelVarStatement] = (line, state) => {
 }
 
 statementOf[types.GraphStyleStatement] = (line, state) => {
-  throw core.libError('unimplemented')
+  throw core.UnimplementedError
 }
 
 statementOf[types.OpenLibStatement] = (line, state) => {
-  throw core.libError('unimplemented')
+  throw core.UnimplementedError
 }
 
 statementOf[types.ExecLibStatement] = (line, state) => {
-  throw core.libError('unimplemented')
+  throw core.UnimplementedError
 }
 
 // ----- I/O -----
@@ -204,20 +203,26 @@ statementOf[types.Display] = (line, state) => {
   }
 }
 
+statementOf[types.Input] = (line, state) => {
+  if (line.variable === null) {
+    if (line.text !== null) {
+      throw core.ArgumentError
+    }
+    throw core.UnimplementedError
+  }
+  let text = '?'
+  if (line.text !== null) {
+    text = operation.valueToString(expression.evaluate(line.text, state.mem), true)
+  }
+  return getInput(text, line.variable, state, true)
+}
+
 statementOf[types.Prompt] = (line, state) => {
   if (line.variable === null) {
     throw core.ArgumentError
   }
-  state.io.stdout(`${line.variable.name}=?`, false)
-  state.io.onStdin(input => state.resume(() => {
-    if (input === null || input === undefined || input === '') {
-      state.io.stdout('')
-      throw core.SyntaxErrorHiddenSource
-    }
-    state.io.stdout(input)
-    operation.assignVariable(state.mem, line.variable, expression.evaluate(parser.parseExpression(input), state.mem))
-  }))
-  return signal.SUSPEND
+  const text = operation.variableToString(line.variable)
+  return getInput(`${text}=?`, line.variable, state, false)
 }
 
 // ----- Helpers -----
@@ -232,4 +237,31 @@ function increment (mem, variable, step) {
     left: variable,
     right: step
   }, mem), mem)
+}
+
+function getInput (text, variable, state, allowStringLiterals) {
+  state.io.stdout(text, false)
+  state.io.onStdin(input => {
+    if (input === null || input === undefined || input === '') {
+      return true
+    }
+    state.resume(() => {
+      state.io.stdout(input)
+
+      let value
+      if (variable.type === types.STRINGVARIABLE && allowStringLiterals) {
+        value = { type: types.STRING, chars: input }
+      } else {
+        value = expression.evaluate(parser.parseExpression(input), state.mem)
+      }
+
+      // special case where a prompt for a numerical variable is interpreted as a list variable
+      if (variable.type === types.VARIABLE && value.type === types.LIST) {
+        variable = { type: types.LISTVARIABLE, name: `List${variable.name}`, custom: true }
+      }
+
+      operation.assignVariable(state.mem, variable, value)
+    })
+  })
+  return signal.SUSPEND
 }

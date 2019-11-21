@@ -521,6 +521,21 @@ const tiJsTests =
       stdin: '1'
     },
     {
+      name: 'PromptEmpty',
+      input: `\
+        Prompt X
+        Disp X
+        `,
+      expected: `\
+        X=?1
+        1
+        `,
+      stdin: `\
+        
+        1
+      `
+    },
+    {
       name: 'PromptExpression',
       input: `\
         1->X
@@ -532,6 +547,86 @@ const tiJsTests =
         1
         `,
       stdin: 'X'
+    },
+    {
+      name: 'PromptString',
+      input: `\
+        Prompt Str0
+        Disp Str0
+        `,
+      expected: `\
+        Str0=?"Hey"
+        Hey
+        `,
+      stdin: '"Hey"'
+    },
+    {
+      name: 'PromptNumberString',
+      input: `\
+        Prompt X
+        Disp X
+        `,
+      expected: `\
+        X=?"A"
+        0
+      `,
+      stdin: '"A"'
+    },
+    {
+      name: 'PromptNumberList',
+      input: `\
+        Prompt X
+        Disp X
+        Disp &listX
+        `,
+      expected: `\
+        X=?{1,2}
+        0
+        {1 2}
+      `,
+      stdin: '{1,2}'
+    },
+    {
+      name: 'PromptStringNumber',
+      input: 'Prompt Str0',
+      expected: `\
+        Str0=?1
+        ERR:DATA TYPE
+      `,
+      stdin: '1'
+    },
+    {
+      name: 'PromptList',
+      input: `\
+        Prompt &L1
+        Disp &L1
+        `,
+      expected: `\
+        &L1=?{1,2}
+        {1 2}
+      `,
+      stdin: '{1,2}'
+    },
+    {
+      name: 'PromptCustomList',
+      input: `\
+        Prompt &listX
+        Disp &listX
+        `,
+      expected: `\
+        X=?{1,2}
+        {1 2}
+      `,
+      stdin: '{1,2}'
+    },
+    {
+      name: 'PromptListNumber',
+      input: 'Prompt &listX',
+      expected: `\
+        X=?1
+        ERR:DATA TYPE
+      `,
+      stdin: '1'
     },
     {
       name: 'PromptError',
@@ -983,6 +1078,114 @@ const tiJsTests =
         Disp &L1(2)
       `,
       expected: '5'
+    },
+    {
+      name: 'Input',
+      input: `\
+        Input X
+        Disp X
+        `,
+      expected: `\
+        ?1
+        1
+        `,
+      stdin: '1'
+    },
+    {
+      name: 'InputExpression',
+      input: `\
+        Input X
+        Disp X
+        `,
+      expected: `\
+        ?1+1
+        2
+        `,
+      stdin: '1+1'
+    },
+    {
+      name: 'InputText',
+      input: `\
+        Input "IN ",X
+        Disp X
+        `,
+      expected: `\
+        IN 1
+        1
+        `,
+      stdin: '1'
+    },
+    {
+      name: 'InputNoVariable',
+      input: 'Input "IN ",',
+      expected: 'ERR:ARGUMENT'
+    },
+    {
+      name: 'InputTextInvalid',
+      input: 'Input 1,X',
+      expected: 'ERR:DATA TYPE'
+    },
+    {
+      name: 'InputNumberString',
+      input: `\
+        Input X
+        Disp X
+        `,
+      expected: `\
+        ?"A"
+        0
+        `,
+      stdin: '"A"'
+    },
+    {
+      name: 'InputNumberList',
+      input: `\
+        Input X
+        Disp X
+        Disp &listX
+        `,
+      expected: `\
+        ?{1,2}
+        0
+        {1 2}
+      `,
+      stdin: '{1,2}'
+    },
+    {
+      name: 'InputString',
+      input: `\
+        Input Str0
+        Disp Str0
+        `,
+      expected: `\
+        ?A
+        A
+        `,
+      stdin: 'A'
+    },
+    {
+      name: 'InputStringQuoted',
+      input: `\
+        Input Str0
+        Disp Str0
+        `,
+      expected: `\
+        ?"A"
+        "A"
+        `,
+      stdin: '"A"'
+    },
+    {
+      name: 'InputList',
+      input: `\
+        Input &L1
+        Disp &L1
+        `,
+      expected: `\
+        ?{1,2}
+        {1 2}
+      `,
+      stdin: '{1,2}'
     }
   ]
 }

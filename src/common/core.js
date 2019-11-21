@@ -24,11 +24,11 @@ export const DimMismatchError = tiError('DIM MISMATCH')
 export const DivideByZeroError = tiError('DIVIDE BY 0')
 export const InvalidDimError = tiError('INVALID DIM')
 
-export const SyntaxErrorHiddenSource = tiError('SYNTAX', true)
-
 export function libError (code, hideSource = false) {
   return error(types.lib, code, hideSource)
 }
+
+export const UnimplementedError = libError('unimplemented')
 
 export function newMem () {
   return {
