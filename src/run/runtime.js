@@ -1,12 +1,12 @@
 // runtime
 // =======
 
-import * as types from '../common/types'
 import * as core from '../common/core'
 import * as signal from '../common/signal'
+import * as types from '../common/types'
 import * as statement from '../evaluate/statement'
+import * as iolib from '../evaluate/iolib'
 import * as daemon from './daemon'
-import * as iolib from './io'
 
 export function run (lines, options = {}) {
   let sourceLines = []
@@ -18,11 +18,6 @@ export function run (lines, options = {}) {
     }
   }
 
-  let io = iolib.fromConsole
-  if (options.io !== undefined) {
-    io = options.io
-  }
-
   let frequencyMs = 1
   if (options.frequencyMs !== undefined) {
     frequencyMs = options.frequencyMs
@@ -30,7 +25,6 @@ export function run (lines, options = {}) {
 
   const state = {
     mem: core.newMem(),
-    io: io,
 
     resume: undefined,
     resumeCallback: undefined,
@@ -55,7 +49,20 @@ export function run (lines, options = {}) {
     callback: options.callback,
     frequencyMs: frequencyMs,
 
-    status: 'pending'
+    status: 'pending',
+
+    rows: 8,
+    columns: 16,
+
+    io: {
+      elem: options.elem,
+      input: options.input,
+      stdin: options.stdin,
+      includeErrors: options.includeErrors === undefined || options.includeErrors === true,
+      includeLibErrors: options.includeLibErrors === undefined || options.includeLibErrors === true,
+      includeLineNumbers: options.includeLineNumbers === undefined || options.includeLineNumbers === true,
+      includeSource: options.includeSource === undefined || options.includeSource === true
+    }
   }
 
   const taskId = daemon.setTinyInterval(() => runLoop(state), state.frequencyMs)
@@ -68,7 +75,7 @@ export function run (lines, options = {}) {
     getStatus: () => state.status,
     isActive: () => state.status === 'pending' || state.status === 'running',
     stop: () => {
-      io.cleanup()
+      iolib.cleanup(state.io)
       daemon.clearTinyInterval(taskId)
     }
   }
@@ -98,7 +105,7 @@ function runLoop (state) {
       }
     }
 
-    iolib.error(state.io, ex)
+    iolib.stderr(ex, state.io)
     result = signal.DONE
   }
 

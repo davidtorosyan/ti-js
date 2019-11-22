@@ -16,6 +16,8 @@ Start
 // * Angles
 // * Matrices
 
+// ----- Basic characters -----
+
 SourceCharacter
   = .
 
@@ -25,12 +27,28 @@ Alpha
 AlphaNum
   = [A-Z0-9]
 
+Digit
+  = [0-9]
+
+// ----- Useful character sets -----
+
 ExtraCharacters
   = SourceCharacter+ { return true }
+
+OptionalEndParen
+  = ')'?
+
+// ----- Names -----
 
 Location
   = AlphaNum AlphaNum?
   { return text(); }
+
+ProgramName
+  = Alpha AlphaNum? AlphaNum? AlphaNum? AlphaNum? AlphaNum? AlphaNum? AlphaNum?
+  { return text(); }
+
+// ----- Variables -----
 
 NumericVariableIdentifier
   = Alpha
@@ -47,10 +65,6 @@ ListVariableIdentifier
 CustomListVariableIdentifier
   = '&list' Alpha AlphaNum? AlphaNum? AlphaNum? AlphaNum?
   { return 'List' + text().substring(5); }
-
-ProgramName
-  = Alpha AlphaNum? AlphaNum? AlphaNum? AlphaNum? AlphaNum? AlphaNum? AlphaNum?
-  { return text(); }
 
 NumericVariable
   = name:NumericVariableIdentifier { return { type: types.VARIABLE, name } }
@@ -75,6 +89,20 @@ Assignable
   = ListIndex
   / Variable 
 
+// ----- Numbers -----
+
+Integer
+  = $(Digit+)
+
+SignedInteger
+  = $([+-]? Integer)
+
+ExponentIndicator
+  = '&E'
+
+ExponentPart
+  = ExponentIndicator @$(SignedInteger)
+
 NumericLiteral
   = integer:Integer '.' fraction:Integer? exponent:ExponentPart? { 
     return { type: types.NUMBER, integer, fraction, exponent }
@@ -86,20 +114,7 @@ NumericLiteral
     return { type: types.NUMBER, integer, exponent }
   }
 
-Digit
-  = [0-9]
-
-ExponentPart
-  = ExponentIndicator @$(SignedInteger)
-
-ExponentIndicator
-  = '&E'
-
-Integer
-  = $(Digit+)
-
-SignedInteger
-  = $([+-]? Integer)
+// ----- Strings -----
 
 Character
   = [^"]
@@ -111,18 +126,25 @@ StringLiteral
   = '"' chars:CharacterString '"'? 
   { return { type: types.STRING, chars } }
 
+// ----- Tokens -----
+
 Answer
   = 'Ans'
   { return { type: types.ANS } }
 
-OptionalEndParen
-  = ')'?
+GetKey
+  = 'getKey'
+  { return { type: types.GetKey } }
+
+Token
+  = Answer
+  / GetKey
 
 // Numeric is not included as a "token",
 // because they are not distinct and so
 // cannot be used in implicit multiplication.
 TokenLiteral
-  = Answer
+  = Token
   / Assignable
   / StringLiteral
 
@@ -346,19 +368,50 @@ Display
   = 'Disp ' value:ValueExpression? 
   { return { type: types.Display, value } }
 
+DispGraph
+  = 'DispGraph'
+  { return { type: types.DispGraph } }
+
+DispTable
+  = 'DispTable'
+  { return { type: types.DispTable } }
+
+Output
+  = 'Output(' row:ValueExpression? column:ArgumentExpression? value:ArgumentExpression? OptionalEndParen
+  { return { type: types.Output, row, column, value } }
+
+ClrHome
+  = 'ClrHome'
+  { return { type: types.ClrHome } }
+
+ClrTable
+  = 'ClrTable'
+  { return { type: types.ClrTable } }
+
+GetCalc
+  = 'GetCalc(' variable:Variable? portflag:ArgumentExpression? OptionalEndParen
+  { return { type: types.GetCalc, variable, portflag } }
+
+Get
+  = 'Get('  variable:Variable? OptionalEndParen
+  { return { type: types.Get, variable } }
+
+Send
+  = 'Send(' variable:Variable? OptionalEndParen
+  { return { type: types.Send, variable } }
+
 IoStatement
   = Input
   / Prompt
   / Display
-  // / DispGraph
-  // / DispTable
-  // / Output(
-  // / getKey
-  // / ClrHome
-  // / ClrTable
-  // / GetCalc(
-  // / Get(
-  // / Send(
+  / DispGraph
+  / DispTable
+  / Output
+  / ClrHome
+  / ClrTable
+  / GetCalc
+  / Get
+  / Send
 
 // ----- Statement -----
 // TODO:

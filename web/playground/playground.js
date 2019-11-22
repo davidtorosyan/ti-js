@@ -44,8 +44,6 @@ function configureTranspiler () {
   ti.on('suspend', () => $daemonStatus.attr('data-status', 'suspended'))
   ti.on('stop', () => $daemonStatus.removeAttr('data-status'))
 
-  const io = ti.ioFromVal($output, { input: $input })
-
   let program
 
   const transpile = () => {
@@ -68,7 +66,8 @@ function configureTranspiler () {
     $output.val('')
     program = ti.run(lines, {
       debug: getFromStorage(DEBUG_SETTING),
-      io: io,
+      elem: $output,
+      input: $input,
       frequencyMs: getFromStorage(FREQUENCY_SETTING)
     })
   }

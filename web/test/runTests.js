@@ -201,8 +201,6 @@ function configureTranspiler () {
     const $output = $testCase.find('[data-type=output]')
     const $result = $testCase.find('[data-type=result]')
 
-    const io = ti.ioFromVal($output, { includeLineNumbers: false, includeSource: false, stdin: $stdin.val() })
-
     $result.text('Transpiling')
     $result.removeAttr('data-result')
 
@@ -236,7 +234,10 @@ function configureTranspiler () {
 
     ti.run(lines, {
       debug: false,
-      io: io,
+      elem: $output,
+      includeLineNumbers: false,
+      includeSource: false,
+      stdin: $stdin.val(),
       callback: callback
     })
   }

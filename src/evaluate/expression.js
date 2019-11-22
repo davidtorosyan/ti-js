@@ -21,6 +21,8 @@ expressionOf[types.SyntaxError] = (value, mem) => {
   throw core.SyntaxError
 }
 
+// ----- Values -----
+
 expressionOf[types.NUMBER] = (value, mem) => {
   if (value.float !== undefined) {
     return value
@@ -55,20 +57,7 @@ expressionOf[types.LIST] = (value, mem) => {
   }
 }
 
-expressionOf[types.LISTINDEX] = (value, mem) => {
-  const list = evaluate(value.list, mem)
-  const index = evaluate(value.index, mem)
-  if (index.type !== types.NUMBER) {
-    throw core.InvalidDimError
-  }
-  if (index.float < 1 || index.float > list.elements.length) {
-    throw core.InvalidDimError
-  }
-  return {
-    type: types.NUMBER,
-    float: list.elements[index.float - 1].float
-  }
-}
+// ----- Variables -----
 
 expressionOf[types.VARIABLE] = (value, mem) => {
   let result = mem.vars[value.name]
@@ -94,9 +83,32 @@ expressionOf[types.LISTVARIABLE] = (value, mem) => {
   return result
 }
 
+expressionOf[types.LISTINDEX] = (value, mem) => {
+  const list = evaluate(value.list, mem)
+  const index = evaluate(value.index, mem)
+  if (index.type !== types.NUMBER) {
+    throw core.InvalidDimError
+  }
+  if (index.float < 1 || index.float > list.elements.length) {
+    throw core.InvalidDimError
+  }
+  return {
+    type: types.NUMBER,
+    float: list.elements[index.float - 1].float
+  }
+}
+
+// ----- Tokens -----
+
 expressionOf[types.ANS] = (value, mem) => {
   return mem.ans
 }
+
+expressionOf[types.GetKey] = (value, mem) => {
+  throw core.UnimplementedError
+}
+
+// ----- Operators -----
 
 expressionOf[types.UNARY] = (value, mem) => {
   const argument = evaluate(value.argument, mem)

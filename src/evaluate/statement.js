@@ -1,13 +1,14 @@
 // statement
 // =========
 
-import * as signal from '../common/signal'
 import * as core from '../common/core'
+import * as signal from '../common/signal'
 import * as types from '../common/types'
 import * as parser from '../parse/parser'
 import * as operation from './operation'
 import * as expression from './expression'
 import * as assignment from './assignment'
+import * as iolib from './iolib'
 
 export function evaluate (line, state) {
   const behavior = statementOf[line.type]
@@ -147,11 +148,11 @@ statementOf[types.MenuStatement] = (line, state) => {
   if (line.title === null || line.choices.length === 0 || line.choices.length > 7) {
     throw core.ArgumentError
   }
-  state.io.stdout(operation.valueToString(expression.evaluate(line.title, state.mem), true))
+  iolib.stdout(operation.valueToString(expression.evaluate(line.title, state.mem), true), state.io)
   line.choices.forEach((choice, idx) => {
-    state.io.stdout(`${idx + 1}:${operation.valueToString(choice.option)}`)
+    iolib.stdout(`${idx + 1}:${operation.valueToString(choice.option)}`, state.io)
   })
-  state.io.onStdin(input => {
+  iolib.onStdin(input => {
     const digit = operation.parseDigit(input)
     if (digit === undefined || digit === 0 || digit > line.choices.length) {
       return true
@@ -159,7 +160,7 @@ statementOf[types.MenuStatement] = (line, state) => {
     state.searchLabel = line.choices[digit - 1].location
     state.i = 0
     state.resume()
-  })
+  }, state.io)
   return signal.SUSPEND
 }
 
@@ -199,7 +200,7 @@ statementOf[types.ExecLibStatement] = (line, state) => {
 
 statementOf[types.Display] = (line, state) => {
   if (line.value !== null) {
-    state.io.stdout(operation.valueToString(expression.evaluate(line.value, state.mem)))
+    iolib.stdout(operation.valueToString(expression.evaluate(line.value, state.mem)), state.io)
   }
 }
 
@@ -225,6 +226,50 @@ statementOf[types.Prompt] = (line, state) => {
   return getInput(`${text}=?`, line.variable, state, false)
 }
 
+statementOf[types.DispGraph] = (line, state) => {
+  throw core.UnimplementedError
+}
+
+statementOf[types.DispTable] = (line, state) => {
+  throw core.UnimplementedError
+}
+
+statementOf[types.Output] = (line, state) => {
+  if (line.row === null || line.column === null || line.value === null) {
+    throw core.ArgumentError
+  }
+  const row = expression.evaluate(line.row, state.mem)
+  const column = expression.evaluate(line.column, state.mem)
+  if (row.type !== types.NUMBER || column.type !== types.NUMBER) {
+    throw core.DataTypeError
+  }
+  if (row.float < 1 || row.float > state.rows || column.float < 1 || column.float > state.columns) {
+    throw core.DomainError
+  }
+  // TODO: respect rows and columns
+  iolib.stdout(operation.valueToString(expression.evaluate(line.value, state.mem)), state.io)
+}
+
+statementOf[types.ClrHome] = (line, state) => {
+  throw core.UnimplementedError
+}
+
+statementOf[types.ClrTable] = (line, state) => {
+  throw core.UnimplementedError
+}
+
+statementOf[types.GetCalc] = (line, state) => {
+  throw core.UnimplementedError
+}
+
+statementOf[types.Get] = (line, state) => {
+  throw core.UnimplementedError
+}
+
+statementOf[types.Send] = (line, state) => {
+  throw core.UnimplementedError
+}
+
 // ----- Helpers -----
 
 function increment (mem, variable, step) {
@@ -240,13 +285,13 @@ function increment (mem, variable, step) {
 }
 
 function getInput (text, variable, state, allowStringLiterals) {
-  state.io.stdout(text, false)
-  state.io.onStdin(input => {
+  iolib.stdout(text, state.io, false)
+  iolib.onStdin(input => {
     if (input === null || input === undefined || input === '') {
       return true
     }
     state.resume(() => {
-      state.io.stdout(input)
+      iolib.stdout(input, state.io)
 
       let value
       if (variable.type === types.STRINGVARIABLE && allowStringLiterals) {
@@ -262,6 +307,6 @@ function getInput (text, variable, state, allowStringLiterals) {
 
       operation.assignVariable(state.mem, variable, value)
     })
-  })
+  }, state.io)
   return signal.SUSPEND
 }

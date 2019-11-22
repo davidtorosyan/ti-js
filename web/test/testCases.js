@@ -1186,6 +1186,21 @@ const tiJsTests =
         {1 2}
       `,
       stdin: '{1,2}'
+    },
+    {
+      name: 'Output',
+      input: 'Output(1,2,3)',
+      expected: '3'
+    },
+    {
+      name: 'OutputDomain',
+      input: 'Output(0,2,3)',
+      expected: 'ERR:DOMAIN'
+    },
+    {
+      name: 'OutputDomainHigh',
+      input: 'Output(9,2,3)',
+      expected: 'ERR:DOMAIN'
     }
   ]
 }

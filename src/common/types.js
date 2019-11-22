@@ -7,16 +7,23 @@ export const ti = 'ti'
 export const lib = 'lib'
 export const SyntaxError = 'SyntaxError'
 
-// ----- Components -----
+// ----- Values -----
 
 export const NUMBER = 'number'
+export const LIST = 'list'
+export const STRING = 'string'
+
+// ----- Tokens -----
+
+export const ANS = 'ans'
+export const GetKey = 'GetKey'
+
+// ----- Variables -----
+
 export const VARIABLE = 'variable'
 export const STRINGVARIABLE = 'stringVariable'
-export const LIST = 'list'
 export const LISTVARIABLE = 'listVariable'
 export const LISTINDEX = 'listIndex'
-export const STRING = 'string'
-export const ANS = 'ans'
 
 // ----- Expressions -----
 
@@ -56,3 +63,11 @@ export const ExecLibStatement = 'ExecLibStatement'
 export const Input = 'Input'
 export const Prompt = 'Prompt'
 export const Display = 'display'
+export const DispGraph = 'DispGraph'
+export const DispTable = 'DispTable'
+export const Output = 'Output'
+export const ClrHome = 'ClrHome'
+export const ClrTable = 'ClrTable'
+export const GetCalc = 'GetCalc'
+export const Get = 'Get'
+export const Send = 'Send'

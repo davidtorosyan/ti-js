@@ -1,8 +1,8 @@
 // parser
 // ======
 
-import pegJsParser from './tibasic.pegjs'
 import * as types from '../common/types'
+import pegJsParser from './tibasic.pegjs'
 
 export function parse (source, options = {}) {
   if (source === undefined) {

@@ -23,6 +23,7 @@ export const ArgumentError = tiError('ARGUMENT')
 export const DimMismatchError = tiError('DIM MISMATCH')
 export const DivideByZeroError = tiError('DIVIDE BY 0')
 export const InvalidDimError = tiError('INVALID DIM')
+export const DomainError = tiError('DOMAIN')
 
 export function libError (code, hideSource = false) {
   return error(types.lib, code, hideSource)
