@@ -17,7 +17,7 @@ Rather, the two goals are:
 1. Bring the TI-Basic language to life
 2. Show off TI-Basic programs in the browser
 
-**Current status**: Only a small subset of TI-Basic is implemented. The next step is completing the [grammar](src/tibasic.pegjs).
+**Current status**: Only a small subset of TI-Basic is implemented. The next step is completing the [grammar](src/parse/tibasic.pegjs).
 
 ## Setup
 
