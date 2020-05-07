@@ -1,1 +1,7 @@
 theme: jekyll-theme-dinky
+title: ti-js
+description: TI-Basic interpreter written in JavaScript
+sass_dir: assets/css
+hide_footer: true
+baseurl: /ti-js
+port: 4002
