@@ -1,1 +1,18 @@
-../../userpage/assets/css/style.scss
+---
+---
+
+@import "{{ site.theme }}";
+
+//
+// Variables
+//
+
+$font-size: 18px;
+
+.buttons, button {
+    font-size: 14px;
+}
+
+body {
+    font-size: $font-size;
+}

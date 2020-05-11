@@ -11,13 +11,4 @@ Run:
 
 Notes:
 * Make sure to run `run.sh` from the root directory.
-* You can visit the site at http://localhost:4000/
-
-To use this as a root site:
-* `git submodule add <repo> userpage`
-* `./userpage/bootstrap.sh`
-* Update `scripts/README.md`, `_config.yml`, and `index.md`
-
-To update:
-* `git pull --recurse-submodules`
-* `./userpage/scripts/refresh.sh`
+* You can visit the site at http://localhost:4002/

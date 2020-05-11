@@ -1,7 +1,7 @@
 ---
-title: ti-js
+title: TI-JS
 ---
 
-## Welcome to ti-js
+## Welcome to TI-JS
 
 Coming soon.

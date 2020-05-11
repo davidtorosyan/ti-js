@@ -1,5 +1,5 @@
-theme: jekyll-theme-dinky
-title: ti-js
+theme: jekyll-theme-hacker
+title: TI-JS
 description: TI-Basic interpreter written in JavaScript
 sass_dir: assets/css
 hide_footer: true
