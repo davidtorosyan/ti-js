@@ -10,9 +10,21 @@
 $font-size: 18px;
 
 .buttons, button {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 body {
-    font-size: $font-size;
+  font-size: $font-size;
+}
+
+textarea {
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 10px;
+  font-size: 16px;
+  color: #b5e853;
+  border-radius: 2px;
+  word-wrap: normal;
+  overflow: auto;
+  overflow-y: hidden;
 }

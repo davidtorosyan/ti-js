@@ -19,6 +19,8 @@ Rather, the two goals are:
 
 **Current status**: Only a small subset of TI-Basic is implemented. The next step is completing the [grammar](src/parse/tibasic.pegjs).
 
+TI-JS is in prerelease and is not yet versioned.
+
 ## Setup
 
 To build, use node.
