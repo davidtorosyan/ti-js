@@ -11,6 +11,17 @@ title: TI-JS
   crossorigin="anonymous"></script>
 <script src="{{ '/assets/js/demo.js' | relative_url }}"></script>
 
+<noscript>
+  <style>
+    .noscript {
+      display: none; 
+    }
+    pre {
+      white-space: initial;
+    }
+  </style>
+</noscript>
+
 ## What is this?
 
 If you're familiar with the [TI-84 graphing calculator](https://en.wikipedia.org/wiki/TI-84_Plus_series),
@@ -28,7 +39,12 @@ so that it can run in the browser.
 Try changing the input above to see this output change:
 
 - Output
-<textarea id="output" readonly rows="2" cols="20"></textarea>
+<textarea id="output" class="noscript" readonly rows="2" cols="20"></textarea>
+<noscript markdown="1">
+```txt
+ERR: Looks like JavaScript is disabled. As this is a JS library, the demo won't work!
+```
+</noscript>
 
 ## But why?
 
