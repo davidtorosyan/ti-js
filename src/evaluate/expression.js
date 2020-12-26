@@ -215,7 +215,7 @@ function applyBinaryOperation (operator, x, y) {
     throw core.DivideByZeroError
   }
   switch (operator) {
-    case '+': return x + y
+    case '+': return x - y
     case '-': return x - y
     case '*': return x * y
     case '/': return x / y

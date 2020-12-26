@@ -3,15 +3,19 @@
 // ----- Constants -----
 
 const TOGGLECLASS_SETTING = 'toggleclass'
+const HIDE_SUCCESS_SETTING = 'hideSuccess'
 
 const DEFAULT_SETTINGS = {
-  [TOGGLECLASS_SETTING]: {}
+  [TOGGLECLASS_SETTING]: {},
+  [HIDE_SUCCESS_SETTING]: false
 }
 
 // ----- On ready -----
 
 $(() => {
+  initFonts();
   initPage();
+  initInput();
   initTests()
   initButtons()
   configureTranspiler()
@@ -56,10 +60,19 @@ function restoreToggleClass () {
   saveToStorage(TOGGLECLASS_SETTING, map)
 }
 
+function initFonts() {
+  $("head").append($(`\
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300,500,700&display=swap" rel="stylesheet">
+  `))
+}
+
 function initPage () {
   $("body").append($(`\
 <div>
-  <h1>ti-js tests</h1>
+  <h1><a href="../">ti-js</a> tests</h1>
   <div>
       <h3>Results</h3>
       <div id="testSummary">
@@ -76,9 +89,10 @@ function initPage () {
               <span id="running"></span>
           </div>
           <div>
-              <button id="collapseSuccessful">Collapse Successful</button>
-              <button id="collapseAll">Collapse All</button>
-              <button id="expandAll">Expand All</button>
+              <button id="collapseAll">-</button>
+              <button id="expandAll">+</button>
+              <label for="collapseSuccess">Show failures</label>
+              <input id="collapseSuccess" type="checkbox"></input>
           </div>
       </div>
       <h3>Tests</h3>
@@ -96,7 +110,16 @@ function initPage () {
       </table>
   </div>
 </div>
-`));
+`))
+}
+
+function initInput() {
+    bindCheckbox($('#collapseSuccess'), HIDE_SUCCESS_SETTING)
+}
+
+function bindCheckbox ($checkBox, name) {
+  $checkBox.prop('checked', getFromStorage(name))
+  $checkBox.on('change', () => saveToStorage(name, $checkBox.is(':checked')))
 }
 
 function initTests () {
@@ -164,7 +187,9 @@ function initTests () {
   $tbody.on(
     'click',
     '[data-type=result], [data-type=name]',
-    e => $(e.currentTarget).parents('[data-type=testCase]').persistToggleClass('collapse'))
+    e => $(e.currentTarget)
+      .parents('[data-type=testCase]')
+      .persistToggleClass('collapse'))
 
   $('#testTable').append($tbody)
 }
@@ -247,6 +272,9 @@ function configureTranspiler () {
 
     $result.text('Transpiling')
     $result.removeAttr('data-result')
+    if (getFromStorage(HIDE_SUCCESS_SETTING)) {
+      $testCase.persistToggleClass('collapse', false)
+    }
 
     const source = $input.val()
     let lines
@@ -268,6 +296,10 @@ function configureTranspiler () {
       if (output === $expected.val()) {
         $result.text('Success')
         $result.attr('data-result', 'success')
+
+        if (getFromStorage(HIDE_SUCCESS_SETTING)) {
+          $testCase.persistToggleClass('collapse', true)
+        }
       } else {
         $result.text('Failure')
         $result.attr('data-result', 'failure')
@@ -286,8 +318,12 @@ function configureTranspiler () {
     })
   }
 
-  $('[data-type=testCases]').on('input selectionchange propertychange', '[data-type=input]', e => transpile($(e.currentTarget)))
-  $('[data-type=testCases] [data-type=input]').each((i, input) => transpile($(input)))
+  $('[data-type=testCases]').on(
+    'input selectionchange propertychange',
+    '[data-type=input]', e => transpile($(e.currentTarget)))
+
+  $('[data-type=testCases] [data-type=input]').each(
+    (i, input) => transpile($(input)))
 }
 
 // ----- Helpers -----

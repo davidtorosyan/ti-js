@@ -1,9 +1,39 @@
-body {
-    background-color: #FBFAF7;
+:root {
+    --dark-frame:#3A3B35;
+    --mid-frame:#A9AAA5;
+    --light-frame:#C1C2BD;
+    --dark-button:#474743;
+    --blue-button:#6F8EBB;
+    --green-button:#A1C5AC;
+    --mid-button:#C3C4C9;
+    --light-button:#DFDEE4;
+    --dark-blue-text:#18436E;
+    --light-blue-text:#97A7C1;
+    --green-border:#7C9986;
+    --green-screen:#66826B;
+    --black-text:#2C242F;
+    --white-text:#CECFCF;
+    --green-text:#62AE91;
+    --purple-text:#A37EAF;
+}
 
-    font-family: Segoe UI;
-    font-weight: normal;
+body {
+    background-color: var(--mid-frame);
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
     font-size: 16px;
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+}
+
+button {
+    background-color: var(--blue-button);
+    color: var(--white-text);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
 }
 
 .playground textarea {
@@ -19,15 +49,15 @@ body {
 }
 
 [data-type=result] {
-    background-color: yellow;
+    background-color: var(--light-blue-text);
 }
 
 [data-type=result][data-result=success] {
-    background-color: limegreen;
+    background-color: var(--green-text);
 }
 
 [data-type=result][data-result=failure] {
-    background-color: orangered;
+    background-color: var(--purple-text);
 }
 
 thead {
@@ -43,38 +73,24 @@ thead {
 }
 
 #testSummary label {
-    font-weight: bold;
+    font-weight: 700;
 }
 
 #testSummary span.success {
-    background-color: limegreen;
+    background-color: var(--green-text);
 }
 
 #testSummary span.failed {
-    background-color: orangered;
+    background-color: var(--purple-text);
 }
 
 #testSummary span.running {
-    background-color: yellow;
+    background-color: var(--light-blue-text);
 }
 
 [data-type=testCase].collapse textarea {
     display: None;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .playground > div {
     margin: 20px;
@@ -83,13 +99,19 @@ thead {
 .playground > div > label {
     display: block;
     margin-bottom: 10px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 textarea {
     white-space: pre;
     overflow-wrap: normal;
     overflow-x: scroll;
+    background-color: var(--green-border)
+}
+
+h1 > a {
+    text-decoration: none;
+    color: var(--dark-blue-text);
 }
 
 /* Control */
@@ -120,7 +142,7 @@ textarea {
 }
 
 .status > circle[data-status=suspended] {
-    fill: yellow;
+    fill: var(--light-blue-text);
 }
 
 /* Table */
