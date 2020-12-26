@@ -1,0 +1,134 @@
+body {
+    background-color: #FBFAF7;
+
+    font-family: Segoe UI;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.playground textarea {
+    overflow-x: auto;
+}
+
+#options > label {
+    color: black;
+}
+
+#options > input {
+    margin-right: 20px;
+}
+
+[data-type=result] {
+    background-color: yellow;
+}
+
+[data-type=result][data-result=success] {
+    background-color: limegreen;
+}
+
+[data-type=result][data-result=failure] {
+    background-color: orangered;
+}
+
+thead {
+    text-align: left;
+}
+
+#testSummary {
+    margin: 20px;
+}
+
+#testTable {
+    margin: 20px;
+}
+
+#testSummary label {
+    font-weight: bold;
+}
+
+#testSummary span.success {
+    background-color: limegreen;
+}
+
+#testSummary span.failed {
+    background-color: orangered;
+}
+
+#testSummary span.running {
+    background-color: yellow;
+}
+
+[data-type=testCase].collapse textarea {
+    display: None;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.playground > div {
+    margin: 20px;
+}
+
+.playground > div > label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+textarea {
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: scroll;
+}
+
+/* Control */
+
+#run {
+    position: absolute;
+    margin-left: 10px;
+}
+
+/* Status */
+
+.status {
+    height: 22px;
+    width: 22px;
+}
+
+.status > circle {
+    stroke: black;
+    stroke-width: 1;
+    r: 10;
+    fill: gray;
+    cx: 11;
+    cy: 11;
+}
+
+.status > circle[data-status=running] {
+    fill: limegreen;
+}
+
+.status > circle[data-status=suspended] {
+    fill: yellow;
+}
+
+/* Table */
+
+tbody {
+    vertical-align: top;
+}
+
+td {
+    padding-right: 15px;
+}

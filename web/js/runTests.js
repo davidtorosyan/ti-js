@@ -11,6 +11,7 @@ const DEFAULT_SETTINGS = {
 // ----- On ready -----
 
 $(() => {
+  initPage();
   initTests()
   initButtons()
   configureTranspiler()
@@ -53,6 +54,49 @@ function restoreToggleClass () {
   })
 
   saveToStorage(TOGGLECLASS_SETTING, map)
+}
+
+function initPage () {
+  $("body").append($(`\
+<div>
+  <h1>ti-js tests</h1>
+  <div>
+      <h3>Results</h3>
+      <div id="testSummary">
+          <div>
+              <label for="overall">Successful tests:</label>
+              <span id="overall"></span>
+          </div>
+          <div>
+              <label for="failed">Failed:</label>
+              <span id="failed"></span>
+          </div>
+          <div>
+              <label for="running">Running:</label>
+              <span id="running"></span>
+          </div>
+          <div>
+              <button id="collapseSuccessful">Collapse Successful</button>
+              <button id="collapseAll">Collapse All</button>
+              <button id="expandAll">Expand All</button>
+          </div>
+      </div>
+      <h3>Tests</h3>
+      <table id="testTable">
+          <thead>
+              <tr>
+                  <th>Result</th>
+                  <th>Name</th>
+                  <th>Input</th>
+                  <th>Stdin</th>
+                  <th>Expected</th>
+                  <th>Output</th>
+              </tr>
+          </thead>
+      </table>
+  </div>
+</div>
+`));
 }
 
 function initTests () {
