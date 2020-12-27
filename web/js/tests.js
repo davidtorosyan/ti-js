@@ -13,10 +13,10 @@ const DEFAULT_SETTINGS = {
 // ----- On ready -----
 
 $(() => {
-  initFonts();
-  initPage();
-  initInput();
+  initFonts()
+  initPage()
   initTests()
+  initInput()
   initButtons()
   configureTranspiler()
   restoreToggleClass()
@@ -42,6 +42,10 @@ $(() => {
 
     return this
   }
+
+  $.fn.invert = function() {
+    return this.end().not(this);
+  };  
 })(jQuery)
 
 function restoreToggleClass () {
@@ -64,62 +68,70 @@ function initFonts() {
   $("head").append($(`\
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
   `))
 }
 
 function initPage () {
-  $("body").append($(`\
+  $("#content").append($(`\
+<h1><a href="../">ti-js</a> tests</h1>
 <div>
-  <h1><a href="../">ti-js</a> tests</h1>
-  <div>
-      <h3>Results</h3>
-      <div id="testSummary">
-          <div>
-              <label for="overall">Successful tests:</label>
-              <span id="overall"></span>
-          </div>
-          <div>
-              <label for="failed">Failed:</label>
-              <span id="failed"></span>
-          </div>
-          <div>
-              <label for="running">Running:</label>
-              <span id="running"></span>
-          </div>
-          <div>
-              <button id="collapseAll">-</button>
-              <button id="expandAll">+</button>
-              <label for="collapseSuccess">Show failures</label>
-              <input id="collapseSuccess" type="checkbox"></input>
-          </div>
-      </div>
-      <h3>Tests</h3>
-      <table id="testTable">
-          <thead>
-              <tr>
-                  <th>Result</th>
-                  <th>Name</th>
-                  <th>Input</th>
-                  <th>Stdin</th>
-                  <th>Expected</th>
-                  <th>Output</th>
-              </tr>
-          </thead>
-      </table>
-  </div>
+    <h3>Results</h3>
+    <div id="testSummary">
+        <div>
+            <label for="overall">Successful tests:</label>
+            <span id="overall"></span>
+        </div>
+        <div>
+            <label for="failed">Failed:</label>
+            <span id="failed"></span>
+        </div>
+        <div>
+            <label for="running">Running:</label>
+            <span id="running"></span>
+        </div>
+        <div>
+            <button id="collapseAll">-</button>
+            <button id="expandAll">+</button>
+        </div>
+        <div>
+            <label for="collapseSuccess">Auto-hide success</label>
+            <input id="collapseSuccess" type="checkbox"></input>
+        </div>
+    </div>
+    <h3>Tests</h3>
+    <table id="testTable">
+        <thead>
+            <tr>
+                <th>Result</th>
+                <th>Name</th>
+                <th>Input</th>
+                <th>Stdin</th>
+                <th>Expected</th>
+                <th>Output</th>
+            </tr>
+        </thead>
+    </table>
 </div>
 `))
 }
 
 function initInput() {
-    bindCheckbox($('#collapseSuccess'), HIDE_SUCCESS_SETTING)
+    const $testCases = $('[data-type=testCase]')
+    bindCheckbox($('#collapseSuccess'), HIDE_SUCCESS_SETTING, value => {
+      if (value === true) {
+        $testCases
+          .filter('[data-result=success]')
+          .persistToggleClass('collapse', true)
+          .invert()
+          .persistToggleClass('collapse', false)
+      }
+    })
 }
 
-function bindCheckbox ($checkBox, name) {
+function bindCheckbox ($checkBox, name, callback) {
   $checkBox.prop('checked', getFromStorage(name))
-  $checkBox.on('change', () => saveToStorage(name, $checkBox.is(':checked')))
+  $checkBox.on('change', () => saveToStorage(name, $checkBox.is(':checked'), callback))
 }
 
 function initTests () {
@@ -202,10 +214,6 @@ function initButtons () {
 
   $('#expandAll').on('click', () => $testCases
     .persistToggleClass('collapse', false))
-
-  $('#collapseSuccessful').on('click', () => $testCases
-    .has('[data-result=success]')
-    .persistToggleClass('collapse', true))
 }
 
 function configureTranspiler () {
@@ -213,14 +221,13 @@ function configureTranspiler () {
   const $failed = $('#failed')
   const $running = $('#running')
 
-  const $testCases = $('[data-type=testCases]')
-  const $allTests = $testCases.find('[data-type=result]')
+  const $testCases = $('[data-type=testCase]')
 
   const updateCount = () => {
-    const $successTests = $allTests.filter('[data-result=success]')
-    const $failedTests = $allTests.filter('[data-result=failure]')
+    const $successTests = $testCases.filter('[data-result=success]')
+    const $failedTests = $testCases.filter('[data-result=failure]')
 
-    const allCount = $allTests.length
+    const allCount = $testCases.length
     const successCount = $successTests.length
     const failedCount = $failedTests.length
     const runningCount = allCount - (successCount + failedCount)
@@ -282,7 +289,7 @@ function configureTranspiler () {
       lines = ti.parse(source)
     } catch (ex) {
       $result.text('Failure')
-      $result.attr('data-result', 'failure')
+      $testCase.attr('data-result', 'failure')
       updateCount()
       return
     }
@@ -295,14 +302,14 @@ function configureTranspiler () {
       const output = trimLastNewline($output.val())
       if (output === $expected.val()) {
         $result.text('Success')
-        $result.attr('data-result', 'success')
+        $testCase.attr('data-result', 'success')
 
         if (getFromStorage(HIDE_SUCCESS_SETTING)) {
           $testCase.persistToggleClass('collapse', true)
         }
       } else {
         $result.text('Failure')
-        $result.attr('data-result', 'failure')
+        $testCase.attr('data-result', 'failure')
       }
 
       updateCount()
@@ -333,6 +340,9 @@ function getFromStorage (name) {
   return value === null ? DEFAULT_SETTINGS[name] : value
 }
 
-function saveToStorage (name, value) {
+function saveToStorage (name, value, callback) {
   localStorage.setItem(name, JSON.stringify(value))
+  if (callback !== undefined) {
+    callback(value);
+  }
 }

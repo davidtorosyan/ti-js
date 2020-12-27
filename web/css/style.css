@@ -18,15 +18,27 @@
 }
 
 body {
-    background-color: var(--mid-frame);
+    background-color: var(--dark-frame);
 
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 16px;
+    margin: 0px;
+}
+
+#content {
+    max-width: 1200px;
+    background-color: var(--mid-frame);
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    min-height: 100vh;
 }
 
 h1 {
     font-family: 'Cinzel', serif;
+    margin-top: 0;
+    padding-top: 20px;
 }
 
 button {
@@ -48,15 +60,15 @@ button {
     margin-right: 20px;
 }
 
-[data-type=result] {
+[data-type=testCase] {
     background-color: var(--light-blue-text);
 }
 
-[data-type=result][data-result=success] {
+[data-type=testCase][data-result=success] {
     background-color: var(--green-text);
 }
 
-[data-type=result][data-result=failure] {
+[data-type=testCase][data-result=failure] {
     background-color: var(--purple-text);
 }
 
@@ -64,32 +76,24 @@ thead {
     text-align: left;
 }
 
-#testSummary {
-    margin: 20px;
+#testSummary > div {
+    margin-bottom: 5px;
 }
 
 #testTable {
-    margin: 20px;
+    width: 100%;
 }
 
 #testSummary label {
     font-weight: 700;
 }
 
-#testSummary span.success {
-    background-color: var(--green-text);
-}
-
-#testSummary span.failed {
-    background-color: var(--purple-text);
-}
-
-#testSummary span.running {
-    background-color: var(--light-blue-text);
-}
-
 [data-type=testCase].collapse textarea {
     display: None;
+}
+
+[data-type=testCase].collapse {
+    color: var(--dark-button);
 }
 
 .playground > div {
@@ -105,11 +109,24 @@ thead {
 textarea {
     white-space: pre;
     overflow-wrap: normal;
-    overflow-x: scroll;
-    background-color: var(--green-border)
+    background-color: var(--green-border);
 }
 
-h1 > a {
+#testTable textarea {
+    width: 157px;
+    height: 47px;
+}
+
+#testTable td {
+    width: 170px;
+}
+
+#testTable th {
+    background-color: var(--dark-frame);
+    color: var(--white-text);
+}
+
+a {
     text-decoration: none;
     color: var(--dark-blue-text);
 }
@@ -145,12 +162,31 @@ h1 > a {
     fill: var(--light-blue-text);
 }
 
+#testTable, #testTable th, #testTable td {
+    border: 1px solid var(--dark-frame);
+    border-collapse: collapse;
+}
+
+#testTable th, #testTable td {
+    padding: 5px;
+}
+
+.playground td {
+    padding-right: 15px;
+}
+
 /* Table */
 
 tbody {
     vertical-align: top;
 }
 
-td {
-    padding-right: 15px;
+textarea::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    background-color: var(--light-frame); /* or add it to the track */
+  }
+
+textarea::-webkit-scrollbar-thumb {
+    background: var(--green-screen);
 }
