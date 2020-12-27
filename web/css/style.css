@@ -1,0 +1,196 @@
+:root {
+    --dark-frame:#3A3B35;
+    --mid-frame:#A9AAA5;
+    --light-frame:#C1C2BD;
+    --dark-button:#474743;
+    --blue-button:#6F8EBB;
+    --green-button:#A1C5AC;
+    --mid-button:#C3C4C9;
+    --light-button:#DFDEE4;
+    --dark-blue-text:#18436E;
+    --light-blue-text:#97A7C1;
+    --green-border:#7C9986;
+    --green-screen:#66826B;
+    --black-text:#2C242F;
+    --white-text:#CECFCF;
+    --green-text:#62AE91;
+    --purple-text:#A37EAF;
+}
+
+body {
+    background-color: var(--dark-frame);
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    margin: 0px;
+}
+
+#content {
+    max-width: 1200px;
+    background-color: var(--mid-frame);
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    min-height: 100vh;
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    margin-top: 0;
+    padding-top: 20px;
+}
+
+button {
+    background-color: var(--blue-button);
+    color: var(--white-text);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+.playground textarea {
+    overflow-x: auto;
+}
+
+#options > label {
+    color: black;
+}
+
+#options > input {
+    margin-right: 20px;
+}
+
+[data-type=testCase] {
+    background-color: var(--light-blue-text);
+}
+
+[data-type=testCase][data-result=success] {
+    background-color: var(--green-text);
+}
+
+[data-type=testCase][data-result=failure] {
+    background-color: var(--purple-text);
+}
+
+thead {
+    text-align: left;
+}
+
+#testSummary > div {
+    margin-bottom: 5px;
+}
+
+#testTable {
+    width: 100%;
+}
+
+#testSummary label {
+    font-weight: 700;
+}
+
+[data-type=testCase].collapse textarea {
+    display: None;
+}
+
+[data-type=testCase].collapse {
+    color: var(--dark-button);
+}
+
+.playground > div {
+    margin: 20px;
+}
+
+.playground > div > label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+textarea {
+    white-space: pre;
+    overflow-wrap: normal;
+    background-color: var(--green-border);
+}
+
+input {
+    background-color: var(--green-border);
+}
+
+#testTable textarea {
+    width: 157px;
+    height: 47px;
+}
+
+#testTable td {
+    width: 170px;
+}
+
+#testTable th {
+    background-color: var(--dark-frame);
+    color: var(--white-text);
+}
+
+a {
+    text-decoration: none;
+    color: var(--dark-blue-text);
+}
+
+/* Control */
+
+#run {
+    position: absolute;
+    margin-left: 10px;
+}
+
+/* Status */
+
+.status {
+    height: 22px;
+    width: 22px;
+}
+
+.status > circle {
+    stroke: black;
+    stroke-width: 1;
+    r: 10;
+    fill: gray;
+    cx: 11;
+    cy: 11;
+}
+
+.status > circle[data-status=running] {
+    fill: limegreen;
+}
+
+.status > circle[data-status=suspended] {
+    fill: var(--light-blue-text);
+}
+
+#testTable, #testTable th, #testTable td {
+    border: 1px solid var(--dark-frame);
+    border-collapse: collapse;
+}
+
+#testTable th, #testTable td {
+    padding: 5px;
+}
+
+.playground td {
+    padding-right: 15px;
+}
+
+/* Table */
+
+tbody {
+    vertical-align: top;
+}
+
+textarea::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    background-color: var(--light-frame); /* or add it to the track */
+  }
+
+textarea::-webkit-scrollbar-thumb {
+    background: var(--green-screen);
+}
