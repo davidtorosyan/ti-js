@@ -32,6 +32,7 @@ export const UNARY = 'unary'
 
 // ----- Statements -----
 
+export const EmptyStatement = 'empty'
 export const ValueStatement = 'value'
 export const AssignmentStatement = 'assign'
 

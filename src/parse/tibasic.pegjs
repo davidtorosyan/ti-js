@@ -236,6 +236,10 @@ ExtraArguments
 
 // ----- Statements -----
 
+EmptyStatement
+  = !SourceCharacter
+  { return { type: types.EmptyStatement } }
+
 ValueStatement
   = value:ValueExpression
   { return { type: types.ValueStatement, value }}
@@ -421,7 +425,8 @@ IoStatement
 // * Store statements (e.g. StorePic)
 
 Statement
-  = Assignment
+  = EmptyStatement
+  / Assignment
   / CtlStatement
   / IoStatement
   / ValueStatement

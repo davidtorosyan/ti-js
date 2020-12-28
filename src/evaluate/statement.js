@@ -22,6 +22,10 @@ const statementOf = {}
 
 // ----- Statements -----
 
+statementOf[types.EmptyStatement] = (line, state) => {
+  // do nothing
+}
+
 statementOf[types.AssignmentStatement] = (line, state) => {
   const value = expression.evaluate(line.value, state.mem)
   assignment.evaluate(line.assignable, value, state.mem)

@@ -1201,6 +1201,35 @@ const tiJsTests =
       name: 'OutputDomainHigh',
       input: 'Output(9,2,3)',
       expected: 'ERR:DOMAIN'
-    }
+    },
+    {
+      name: 'Empty',
+      input: '',
+      expected: ''
+    },
+    {
+      name: 'EmptyLines',
+      input: `\
+
+      `,
+      expected: ''
+    },
+    {
+      name: 'EmptySkip',
+      input: `\
+        Disp 1
+
+        Disp 2
+      `,
+      expected: `\
+        1
+        2
+      `
+    },
+    {
+      name: 'WhitespaceError',
+      input: ' ',
+      expected: 'ERR:SYNTAX'
+    },
   ]
 }
