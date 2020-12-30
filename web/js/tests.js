@@ -45,7 +45,7 @@ $(() => {
 
   $.fn.invert = function() {
     return this.end().not(this);
-  };  
+  };
 })(jQuery)
 
 function restoreToggleClass () {
@@ -74,7 +74,7 @@ function initFonts() {
 
 function initPage () {
   $("#content").append($(`\
-<h1><a href="../">ti-js</a> tests</h1>
+<h1><a href="../">TI-JS</a> TESTS</h1>
 <div>
     <h3>Results</h3>
     <div id="testSummary">

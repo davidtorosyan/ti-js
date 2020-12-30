@@ -33,7 +33,7 @@ function initFonts() {
 
 function initPage() {
   $('#content').append($(`\
-  <h1><a href="../">ti-js</a> playground</h1>
+  <h1><a href="../">TI-JS</a> PLAYGROUND</h1>
   <div class="playground">
       <div>
           <label for="options">Options</label>
@@ -184,7 +184,7 @@ function bindTextarea ($textArea, name, condition = () => true, load = undefined
 
 function bindCheckbox ($checkBox, name, callback) {
   $checkBox.prop('checked', getFromStorage(name))
-  $checkBox.on('change', () => 
+  $checkBox.on('change', () =>
     saveToStorage(name, $checkBox.is(':checked'), callback))
 }
 

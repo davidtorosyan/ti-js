@@ -27,6 +27,7 @@ body {
 }
 
 #content {
+    min-width: 1200px;
     max-width: 1200px;
     background-color: var(--mid-frame);
     margin: 0 auto;
@@ -122,7 +123,7 @@ input {
 }
 
 #testTable td {
-    width: 170px;
+    min-width: 170px;
 }
 
 #testTable th {
