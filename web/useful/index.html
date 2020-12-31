@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>ti-js example</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta charset="utf-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        li {
+            width: fit-content;
+        }
+
+        pre {
+            background-color: #66826B;
+            width: fit-content;
+            padding: 20px;
+        }
+    </style>
+    <script id="exampleScript">
+function compute() {
+    const list = document.getElementById('list')
+    const items = list.children
+    ti.exec(fibonacci_program, output => {
+        const item = items[output - 1]
+        item.style.backgroundColor = '#FDFF47'
+    })
+}
+
+const fibonacci_program = `\
+1->X
+1->Y
+While Y<20
+Disp Y
+X+Y->S
+Y->X
+S->Y
+End`
+    </script>
+    <script>
+        function showSource() {
+            const script = document.getElementById('exampleScript')
+            const display = document.getElementById('scriptDisplay')
+            display.innerText = script.innerHTML
+            display.parentElement.style.display = 'block'
+        }
+    </script>
+</head>
+
+<body>
+    <div id="content">
+        <h1><a href="../">TI-JS</a> Useful example</h1>
+        <div>
+            <h3>Which items are Fibonacci?</h3>
+            <p>
+                This problem is too complicated for JavaScript, so click
+                this button to outsource the problem to TI-Basic.
+            </p>
+            <p>
+                <button onclick="javascript:compute()">Compute</button>
+                <button onclick="javascript:showSource()">Show source</button>
+            </p>
+            <pre style="display: None"><code id="scriptDisplay"></code></pre>
+            <div>
+                List:
+                <ul id="list">
+                    <li>1. one</li>
+                    <li>2. two</li>
+                    <li>3. three</li>
+                    <li>4. four</li>
+                    <li>5. five</li>
+                    <li>6. six</li>
+                    <li>7. seven</li>
+                    <li>8. eight</li>
+                    <li>9. nine</li>
+                    <li>10. ten</li>
+                    <li>11. eleven</li>
+                    <li>12. twelve</li>
+                    <li>13. thirteen</li>
+                    <li>14. fourteen</li>
+                    <li>15. fifteen</li>
+                    <li>16. sixteen</li>
+                    <li>17. seventeen</li>
+                    <li>18. eighteen</li>
+                    <li>19. nineteen</li>
+                    <li>20. twenty</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/dist/ti.js"></script>
+</body>
+
+</html>

@@ -23,6 +23,11 @@ export function run (lines, options = {}) {
     frequencyMs = options.frequencyMs
   }
 
+  let outputCallback = options.outputCallback
+  if (options.elem !== undefined) {
+    outputCallback = iolib.elemOutput(options.elem)
+  }
+
   const state = {
     mem: core.newMem(),
 
@@ -55,7 +60,7 @@ export function run (lines, options = {}) {
     columns: 16,
 
     io: {
-      elem: options.elem,
+      output: outputCallback,
       input: options.input,
       stdin: options.stdin,
       includeErrors: options.includeErrors === undefined || options.includeErrors === true,

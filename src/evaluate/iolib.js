@@ -5,18 +5,24 @@ import * as types from '../common/types'
 
 const enterkey = 13
 
+export function elemOutput(elem) {
+  return (value, newline) => {
+    setTimeout(() => {
+      let result = elem.val() + value
+      if (newline) {
+        result += '\n'
+      }
+      elem.val(result)
+    }, 0)
+  }
+}
+
 export function stdout (value, options = {}, newline = true) {
-  if (options.elem === undefined) {
+  if (options.output === undefined) {
     console.log(value)
     return
   }
-  setTimeout(() => {
-    let result = options.elem.val() + value
-    if (newline) {
-      result += '\n'
-    }
-    options.elem.val(result)
-  }, 0)
+  options.output(value, newline);
 }
 
 export function stderr (ex, options = {}) {
