@@ -23,10 +23,10 @@ export function run (lines, options = {}) {
     frequencyMs = options.frequencyMs
   }
 
-  let outputCallback = options.outputCallback
-  if (options.elem !== undefined) {
-    outputCallback = iolib.elemOutput(options.elem)
-  }
+  // let outputCallback = options.outputCallback
+  // if (options.elem !== undefined) {
+  //   outputCallback = iolib.elemOutput(options.elem)
+  // }
 
   const state = {
     mem: core.newMem(),
@@ -59,15 +59,19 @@ export function run (lines, options = {}) {
     rows: 8,
     columns: 16,
 
-    io: {
-      output: outputCallback,
-      input: options.input,
-      stdin: options.stdin,
-      includeErrors: options.includeErrors === undefined || options.includeErrors === true,
-      includeLibErrors: options.includeLibErrors === undefined || options.includeLibErrors === true,
-      includeLineNumbers: options.includeLineNumbers === undefined || options.includeLineNumbers === true,
-      includeSource: options.includeSource === undefined || options.includeSource === true
-    }
+    stdin: options.stdin,
+    stdout: options.stdout,
+    stderr: options.stderr,
+
+    // io: {
+    //   output: outputCallback,
+    //   input: options.input,
+    //   stdin: options.stdin,
+    //   includeErrors: options.includeErrors === undefined || options.includeErrors === true,
+    //   includeLibErrors: options.includeLibErrors === undefined || options.includeLibErrors === true,
+    //   includeLineNumbers: options.includeLineNumbers === undefined || options.includeLineNumbers === true,
+    //   includeSource: options.includeSource === undefined || options.includeSource === true
+    // }
   }
 
   const taskId = daemon.setTinyInterval(() => runLoop(state), state.frequencyMs)
