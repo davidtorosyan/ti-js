@@ -29,7 +29,8 @@ export function stdin ($elem) {
           $elem.off('keypress')
         }
       }
-  })
+    })
+  }
 }
 
 export function cleanup ($elem) {

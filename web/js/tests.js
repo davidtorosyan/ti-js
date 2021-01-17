@@ -320,7 +320,7 @@ function configureTranspiler () {
       elem: $output,
       includeLineNumbers: false,
       includeSource: false,
-      stdin: $stdin.val(),
+      stdin: ti.auto.stdin($stdin.val()),
       callback: callback
     })
   }

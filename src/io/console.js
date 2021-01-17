@@ -12,7 +12,7 @@ export function stdout() {
 export function stdin () {
   return (callback, options = {}) => {
     setTimeout(() => {
-      if (callback(prompt('Input?')) === true) {
+      if (callback(prompt('Input2?')) === true) {
        stdin(callback, options)
       }
     }, 100)

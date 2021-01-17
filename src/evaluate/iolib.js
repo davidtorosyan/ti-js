@@ -63,11 +63,11 @@ export function onStdin (callback, options = {}) {
     return
   }
   if (options.input === undefined) {
-    setTimeout(() => {
-      if (callback(prompt('Input?')) === true) {
-        onStdin(callback, options)
-      }
-    }, 100)
+    // setTimeout(() => {
+    //   if (callback(prompt('Input?')) === true) {
+    //     onStdin(callback, options)
+    //   }
+    // }, 100)
     return
   }
   setTimeout(() => options.input.val(''), 0)
