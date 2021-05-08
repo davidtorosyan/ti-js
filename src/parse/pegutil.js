@@ -4,7 +4,6 @@
 import * as types from '../common/types'
 
 export function buildLogicalExpression (head, tail) {
-  console.log(head, tail)
   return tail.reduce(function (result, element) {
 
     return {
