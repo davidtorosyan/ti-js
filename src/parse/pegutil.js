@@ -3,8 +3,21 @@
 
 import * as types from '../common/types'
 
+export function buildLogicalExpression (head, tail) {
+  console.log(head, tail)
+  return tail.reduce(function (result, element) {
+
+    return {
+      type: types.BINARY,
+      operator: element[1],
+      left: result,
+      right: element[3]
+    }
+  }, head)
+}
 export function buildBinaryExpression (head, tail) {
   return tail.reduce(function (result, element) {
+
     return {
       type: types.BINARY,
       operator: element[0],
@@ -15,6 +28,7 @@ export function buildBinaryExpression (head, tail) {
 }
 
 export function buildImplicitBinaryExpression (head, tail, end) {
+  
   const list = tail.flat()
   if (end !== null) {
     list.push(end)
