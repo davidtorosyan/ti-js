@@ -308,6 +308,69 @@ const tiJsTests =
         `
     },
     {
+      name: 'And',
+      input: `\
+        Disp 1 and 1
+        Disp 1 and 0
+        Disp 0 and 0
+        Disp 1-1 and 1
+        Disp 1*0 and 1
+        Disp 1 and 1+2
+        Disp 1=1 and 2<3
+        `,
+      expected: `\
+        1
+        0
+        0
+        0
+        0
+        1
+        1
+        `
+    },
+    {
+      name: 'Or',
+      input: `\
+        Disp 1 or 1
+        Disp 1 or 0
+        Disp 0 or 0
+        Disp 1-1 or 1
+        Disp 1*0 or 1
+        Disp 1 or 1+2
+        Disp 1<0 or 2>3
+        `,
+      expected: `\
+        1
+        1
+        0
+        1
+        1
+        1
+        0
+        `
+    },
+    {
+      name: 'Xor',
+      input: `\
+        Disp 1 xor 1
+        Disp 1 xor 0
+        Disp 0 xor 0
+        Disp 1-1 xor 1
+        Disp 1*0 xor 1
+        Disp 1 xor 1+2
+        Disp 1<0 xor 2>3
+        `,
+      expected: `\
+        0
+        1
+        0
+        1
+        1
+        0
+        0
+        `
+    },
+    {
       name: 'Parenthesis',
       input: 'Disp (2)',
       expected: '2'

@@ -223,13 +223,14 @@ TestExpression
   { return util.buildBinaryExpression(head, tail); }
 
 LogicalOperator
-  = 'and' 
-  / 'or'
+  = ' and ' 
+  / ' or '
+  / ' xor '
 
 LogicalExpression
   = head:TestExpression
-  tail:( _ LogicalOperator _ TestExpression)* 
-  { return util.buildLogicalExpression(head, tail); }
+  tail:(LogicalOperator TestExpression)* 
+  { return util.buildBinaryExpression(head, tail); }
 
 ValueExpression
   = LogicalExpression
@@ -442,6 +443,3 @@ Statement
   / CtlStatement
   / IoStatement
   / ValueStatement
-  
-  _ "whitespace"
-  = [ \t\n\r]*

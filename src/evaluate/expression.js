@@ -225,8 +225,9 @@ function applyBinaryOperation (operator, x, y) {
     case '>': return x > y ? 1 : 0
     case '<=': return x <= y ? 1 : 0
     case '<': return x < y ? 1 : 0
-    case 'and': return x && y ? 1 : 0
-    case 'or': return x || y ? 1 : 0
+    case ' and ': return x && y ? 1 : 0
+    case ' or ': return x || y ? 1 : 0
+    case ' xor ': return (!x && y) || (x && !y) ? 1:0
     default: throw core.libError('unexpected binary operator')
   }
 }
