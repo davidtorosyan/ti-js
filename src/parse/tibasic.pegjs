@@ -222,8 +222,19 @@ TestExpression
   tail:(TestOperator AdditiveExpression)* 
   { return util.buildBinaryExpression(head, tail); }
 
+LogicalOperator
+  = ' and ' 
+  / ' or '
+  / ' xor '
+
+LogicalExpression
+  = head:TestExpression
+  tail:(LogicalOperator TestExpression)* 
+  { return util.buildBinaryExpression(head, tail); }
+
 ValueExpression
-  = TestExpression
+  = LogicalExpression
+
 
 ArgumentExpression
   = ',' @ValueExpression
@@ -233,6 +244,8 @@ PrefixArgumentExpression
 
 ExtraArguments
   = ArgumentExpression+ { return true }
+
+
 
 // ----- Statements -----
 

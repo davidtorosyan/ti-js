@@ -5,6 +5,7 @@ import * as types from '../common/types'
 
 export function buildBinaryExpression (head, tail) {
   return tail.reduce(function (result, element) {
+
     return {
       type: types.BINARY,
       operator: element[0],
@@ -15,6 +16,7 @@ export function buildBinaryExpression (head, tail) {
 }
 
 export function buildImplicitBinaryExpression (head, tail, end) {
+  
   const list = tail.flat()
   if (end !== null) {
     list.push(end)
