@@ -9,17 +9,11 @@
 
 ## Introduction
 
-This is an effort to write a TI-Basic compiler and runtime in JavaScript.
+TI-JS lets you run TI-Basic programs in the browser (by acting as a compiler/runtime, not through emulation).
 
-Note that this project is ***not*** a TI-83 or TI-84 emulator.
+Currently working on expanding the [grammar](src/parse/tibasic.pegjs), so this is in prerelease and is not yet versioned.
 
-Rather, the two goals are:
-1. Bring the TI-Basic language to life
-2. Show off TI-Basic programs in the browser
-
-**Current status**: Only a small subset of TI-Basic is implemented. The next step is completing the [grammar](src/parse/tibasic.pegjs).
-
-TI-JS is in prerelease and is not yet versioned.
+Check out the [project page](https://www.davidtorosyan.com/ti-js/) and the [test suite](https://www.davidtorosyan.com/ti-js/tests/), or [playground](https://www.davidtorosyan.com/ti-js/playground/).
 
 ## Setup
 
