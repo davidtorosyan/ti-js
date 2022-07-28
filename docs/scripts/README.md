@@ -10,5 +10,5 @@ Run:
 3. Run [update.sh](update.sh) when it's time to update package versions
 
 Notes:
-* Make sure to run `run.sh` from the root directory.
-* You can visit the site at http://localhost:4002/
+* Make sure to run `run.sh` from the `docs` directory.
+* You can visit the site at http://localhost:4002/ti-js/
