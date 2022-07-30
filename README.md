@@ -11,7 +11,7 @@
 
 TI-JS lets you run TI-Basic programs in the browser (by acting as a compiler/runtime, not through emulation).
 
-Currently working on expanding the [grammar](src/parse/tibasic.pegjs), so this is in prerelease and is not yet versioned.
+Currently working on expanding the [grammar](src/parse/tibasic.peggy), so this is in prerelease and is not yet versioned.
 
 Check out the [project page](https://www.davidtorosyan.com/ti-js/) and the [test suite](https://www.davidtorosyan.com/ti-js/tests/), or [playground](https://www.davidtorosyan.com/ti-js/playground/).
 

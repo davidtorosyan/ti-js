@@ -11,8 +11,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.pegjs$/i,
-        loader: 'pegjs-loader'
+        test: /\.peggy$/i,
+        loader: 'peggy-loader'
       }
     ]
   }

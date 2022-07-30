@@ -2,7 +2,7 @@
 // ======
 
 import * as types from '../common/types'
-import pegJsParser from './tibasic.pegjs'
+import peggyParser from './tibasic.peggy'
 
 export function parse (source, options = {}) {
   if (source === undefined) {
@@ -17,7 +17,7 @@ export function parse (source, options = {}) {
   const parsedLines = sourceLines.map(s => {
     let parsedLine
     try {
-      parsedLine = pegJsParser.parse(s)
+      parsedLine = peggyParser.parse(s)
     } catch (error) {
       if (error.name === 'SyntaxError') {
         parsedLine = { type: 'SyntaxError' }
@@ -46,7 +46,7 @@ export function parseExpression (source) {
   const sourceLine = sourceLines[0]
   let parsedLine
   try {
-    parsedLine = pegJsParser.parse(sourceLine)
+    parsedLine = peggyParser.parse(sourceLine)
   } catch (error) {
     if (error.name !== 'SyntaxError') {
       throw error
