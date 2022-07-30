@@ -1,6 +1,6 @@
 {
-  "name": "ti-js",
-  "version": "0.4.0",
+  "name": "@davidtorosyan/ti-js",
+  "version": "0.4.1",
   "description": "TI-Basic interpreter written in JavaScript.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
