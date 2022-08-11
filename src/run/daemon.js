@@ -2,6 +2,7 @@
 // ======
 
 import * as signal from '../common/signal'
+import * as loader from '../inject/loader'
 
 const loopMessageName = 'daemon-loop'
 const exceptionName = 'daemon-exception'
@@ -11,6 +12,22 @@ const exceptions = []
 let running = false
 let nextTaskId = 0
 const maxExceptions = 1000
+
+let looper = undefined
+
+function updateLooper(value) {
+  if (typeof looper !== 'undefined') {
+    looper.removeEventListener('message', handleMessage, true)
+    looper.removeEventListener('message', handleException, true)
+  }
+  
+  looper = value
+
+  looper.addEventListener('message', handleMessage, true)
+  looper.addEventListener('message', handleException, true)
+}
+
+loader.subscribe(loader.LOOPER, updateLooper);
 
 const eventTarget = document.createTextNode(null)
 
@@ -23,7 +40,7 @@ function startIfNeeded () {
   if (running === false) {
     running = true
     fireEvent('start')
-    window.postMessage(loopMessageName, '*')
+    looper.postMessage(loopMessageName, '*')
   }
 }
 
@@ -71,7 +88,7 @@ function deleteTask (taskId) {
 };
 
 function handleMessage (event) {
-  if (!(event.source === window && event.data === loopMessageName)) {
+  if (!(event.source === looper.source() && event.data === loopMessageName)) {
     return
   }
 
@@ -114,7 +131,7 @@ function handleMessage (event) {
 
         if (exceptions.length < maxExceptions) {
           exceptions.push(ex)
-          window.postMessage(exceptionName, '*')
+          looper.postMessage(exceptionName, '*')
         }
       }
 
@@ -147,12 +164,12 @@ function handleMessage (event) {
       fireEvent('stop')
     }
   } else {
-    window.postMessage(loopMessageName, '*')
+    looper.postMessage(loopMessageName, '*')
   }
 };
 
 function handleException (event) {
-  if (!(event.source === window && event.data === exceptionName)) {
+  if (!(event.source === looper && event.data === exceptionName)) {
     return
   }
 
@@ -160,9 +177,6 @@ function handleException (event) {
     throw exceptions.pop()
   }
 }
-
-window.addEventListener('message', handleMessage, true)
-window.addEventListener('message', handleException, true)
 
 export function setTinyInterval (func, delay) {
   return createTask(func, delay)
