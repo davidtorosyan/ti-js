@@ -29,10 +29,19 @@ function updateLooper(value) {
 
 loader.subscribe(loader.LOOPER, updateLooper);
 
-const eventTarget = document.createTextNode(null)
+let eventFactory = undefined
+let eventTarget = undefined
+
+function updateEventFactory(value) {
+  eventFactory = value
+
+  eventTarget = eventFactory.createEventTarget()
+}
+
+loader.subscribe(loader.EVENT, updateEventFactory);
 
 function fireEvent (name) {
-  const event = new Event(name)
+  const event = eventFactory.createEvent(name)
   eventTarget.dispatchEvent(event)
 }
 
@@ -198,6 +207,10 @@ export function clearTinyTimeout (tinyTimeoutID) {
   deleteTask(tinyTimeoutID)
 }
 
-export const on = eventTarget.addEventListener.bind(eventTarget)
-export const off = eventTarget.removeEventListener.bind(eventTarget)
-// export const dispatchEvent = eventTarget.dispatchEvent.bind(eventTarget)
+export function on(type, listener, options) {
+  eventTarget.addEventListener(type, listener, options)
+}
+
+export function off(type, listener, options) {
+  eventTarget.removeEventListener(type, listener, options)
+}

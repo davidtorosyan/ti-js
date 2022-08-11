@@ -2,6 +2,7 @@
 // ===========
 
 export const LOOPER = 'looper'
+export const EVENT = 'event'
 
 const map = new Map()
 const callbacks = new Map()
