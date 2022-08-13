@@ -88,39 +88,45 @@ export function run (lines, options = {}) {
 
 function runLoop (state) {
   let result
+  let exceptionToThrow
 
   try {
     state.status = 'running'
     result = runLine(state)
   } catch (ex) {
-    state.status = 'faulted'
-
     if (ex.type === undefined) {
-      throw ex
+      state.status = 'faulted'
+      exceptionToThrow = ex
+    } else {
+      state.status = 'err'
+      if (state.i < state.lines.length && ex.hideSource !== true) {
+        let source = state.lines[state.i].source
+        if (state.sourceLines !== undefined) {
+          source = state.sourceLines[state.i]
+        }
+        ex.source = {
+          index: state.i,
+          line: source
+        }
+      }
+  
+      iolib.stderr(ex, state.io)
     }
 
-    if (state.i < state.lines.length && ex.hideSource !== true) {
-      let source = state.lines[state.i].source
-      if (state.sourceLines !== undefined) {
-        source = state.sourceLines[state.i]
-      }
-      ex.source = {
-        index: state.i,
-        line: source
-      }
-    }
-
-    iolib.stderr(ex, state.io)
     result = signal.DONE
   }
 
   if (result === signal.DONE) {
-    if (state.status !== 'faulted') {
+    if (state.status !== 'faulted' && state.status !== 'err') {
       state.status = 'done'
     }
 
     if (state.callback !== undefined) {
       setTimeout(state.callback, 0)
+    }
+
+    if (typeof exceptionToThrow !== 'undefined') {
+      throw exceptionToThrow
     }
   } else {
     state.i += 1

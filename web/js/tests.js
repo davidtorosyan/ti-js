@@ -298,24 +298,30 @@ function configureTranspiler () {
 
     $result.text('Running')
 
+    let program
     const callback = () => {
-      const output = trimLastNewline($output.val())
-      if (output === $expected.val()) {
-        $result.text('Success')
-        $testCase.attr('data-result', 'success')
-
-        if (getFromStorage(HIDE_SUCCESS_SETTING)) {
-          $testCase.persistToggleClass('collapse', true)
-        }
-      } else {
-        $result.text('Failure')
+      if (program.getStatus() === 'faulted') {
+        $result.text('Faulted')
         $testCase.attr('data-result', 'failure')
+      } else {
+        const output = trimLastNewline($output.val())
+        if (output === $expected.val()) {
+          $result.text('Success')
+          $testCase.attr('data-result', 'success')
+  
+          if (getFromStorage(HIDE_SUCCESS_SETTING)) {
+            $testCase.persistToggleClass('collapse', true)
+          }
+        } else {
+          $result.text('Failure')
+          $testCase.attr('data-result', 'failure')
+        }
       }
 
       updateCount()
     }
 
-    ti.run(lines, {
+    program = ti.run(lines, {
       debug: false,
       elem: $output,
       includeLineNumbers: false,
