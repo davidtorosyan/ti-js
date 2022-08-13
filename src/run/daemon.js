@@ -40,9 +40,16 @@ function updateEventFactory(value) {
 
 loader.subscribe(loader.EVENT, updateEventFactory);
 
+let perf = undefined
+
+function updatePerf(value) {
+  perf = value
+}
+
+loader.subscribe(loader.PERF, updatePerf);
+
 function fireEvent (name) {
-  const event = eventFactory.createEvent(name)
-  eventTarget.dispatchEvent(event)
+  eventFactory.dispatchEvent(eventTarget, name)
 }
 
 function startIfNeeded () {
@@ -96,14 +103,12 @@ function deleteTask (taskId) {
   delete tasks[taskId]
 };
 
-function handleMessage (event) {
-  if (!(event.source === looper.source() && event.data === loopMessageName)) {
+function handleMessage (data) {
+  if (data !== loopMessageName) {
     return
   }
 
-  event.stopPropagation()
-
-  const time = performance.now()
+  const time = perf.now()
   const taskIds = Object.keys(tasks)
   let runningTaskCount = 0
   let suspendedTaskCount = 0
@@ -177,8 +182,8 @@ function handleMessage (event) {
   }
 };
 
-function handleException (event) {
-  if (!(event.source === looper && event.data === exceptionName)) {
+function handleException (data) {
+  if (data !== exceptionName) {
     return
   }
 

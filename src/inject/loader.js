@@ -3,6 +3,7 @@
 
 export const LOOPER = 'looper'
 export const EVENT = 'event'
+export const PERF = 'perf'
 
 const map = new Map()
 const callbacks = new Map()
