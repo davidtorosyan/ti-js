@@ -107,3 +107,6 @@ public
 
 # DynamoDB Local files
 .dynamodb/
+
+# webpack
+dist/

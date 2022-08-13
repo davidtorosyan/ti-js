@@ -1,12 +1,15 @@
 const path = require('path')
+const { merge } = require('webpack-merge')
+const nodeExternals = require('webpack-node-externals');
 
-module.exports = {
+const common = {
   mode: 'development',
-  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'ti.js',
-    library: 'ti'
+    library: {
+      name: 'ti',
+      type: 'umd'
+    },
+    clean: true
   },
   module: {
     rules: [
@@ -17,3 +20,27 @@ module.exports = {
     ]
   }
 }
+
+const web = merge(common, {
+  target: 'web',
+  entry: './src/web.js',
+  output: {
+    path: path.resolve(__dirname, 'dist/web'),
+    filename: 'ti.js',
+  }
+})
+
+const node = merge(common, {
+  target: 'node',
+  entry: './src/node.js',
+  output: {
+    path: path.resolve(__dirname, 'dist/node'),
+    filename: 'ti.js',
+  },
+  externals: [nodeExternals()]
+})
+
+module.exports = new Map([
+  ['web', web],
+  ['node', node],
+]);
