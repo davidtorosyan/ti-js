@@ -2,7 +2,11 @@
   "name": "ti-js",
   "version": "0.4.3",
   "description": "TI-Basic interpreter written in JavaScript.",
-  "main": "./dist/node/ti.js",
+  "main": "dist/node/ti.js",
+  "jsdelivr": "dist/web/ti.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.js",
