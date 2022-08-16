@@ -1,0 +1,23 @@
+{
+  "name": "ti-js_sample_web",
+  "version": "1.0.0",
+  "description": "A sample project for ti-js, running web",
+  "private": true,
+  "source": "src/index.html",
+  "prebuild": "rm -rf dist",
+  "scripts": {
+    "clean:output": "rimraf dist/*",
+    "start": "npm run clean:output && parcel",
+    "build": "npm run clean:output && parcel build"
+  },
+  "author": "David Torosyan <davidtorosyan.git@gmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "parcel": "^2.7.0",
+    "querystring-es3": "^0.2.1",
+    "rimraf": "^3.0.2",
+    "ti-js": "^0.4.9",
+    "url": "^0.11.0"
+  }
+}
