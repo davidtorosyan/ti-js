@@ -3,6 +3,10 @@
   "version": "0.4.6",
   "description": "TI-Basic interpreter written in JavaScript.",
   "main": "dist/node/ti.js",
+  "exports": {
+    ".": "./dist/node/ti.js",
+    "./web": "./dist/web/ti.js"
+  },
   "jsdelivr": "dist/web/ti.js",
   "files": [
     "dist/"
@@ -12,7 +16,9 @@
     "build": "webpack --config webpack.prod.js",
     "watch": "webpack --watch",
     "start": "webpack-dev-server --host localhost --config webpack.dev.js",
-    "lint": "eslint --ignore-path .gitignore --ignore-path .eslintignore ."
+    "lint": "eslint --ignore-path .gitignore --ignore-path .eslintignore .",
+    "bump": "npm version patch",
+    "pub": "npm publish"
   },
   "repository": {
     "type": "git",
