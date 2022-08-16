@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.js",
     "watch": "webpack --watch",
-    "start": "webpack-dev-server --open --host 0.0.0.0 --config webpack.dev.js",
+    "start": "webpack-dev-server --host localhost --config webpack.dev.js",
     "lint": "eslint --ignore-path .gitignore --ignore-path .eslintignore ."
   },
   "repository": {
