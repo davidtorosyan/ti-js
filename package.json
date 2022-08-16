@@ -2,9 +2,8 @@
   "name": "ti-js",
   "version": "0.4.7",
   "description": "TI-Basic interpreter written in JavaScript.",
-  "main": "dist/node/ti.js",
   "exports": {
-    ".": "./dist/node/ti.js",
+    "./node": "./dist/node/ti.js",
     "./web": "./dist/web/ti.js"
   },
   "jsdelivr": "dist/web/ti.js",
