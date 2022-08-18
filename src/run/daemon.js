@@ -15,16 +15,22 @@ const maxExceptions = 1000
 
 let looper = undefined
 
-function updateLooper(value) {
+function startLooper() {
+  if (typeof looper !== 'undefined') {
+    looper.addEventListener('message', handleMessage, true)
+    looper.addEventListener('message', handleException, true)
+  }
+}
+
+function stopLooper() {
   if (typeof looper !== 'undefined') {
     looper.removeEventListener('message', handleMessage, true)
     looper.removeEventListener('message', handleException, true)
   }
-  
-  looper = value
+}
 
-  looper.addEventListener('message', handleMessage, true)
-  looper.addEventListener('message', handleException, true)
+function updateLooper(value) {
+  looper = value
 }
 
 loader.subscribe(loader.LOOPER, updateLooper);
@@ -56,6 +62,7 @@ function startIfNeeded () {
   if (running === false) {
     running = true
     fireEvent('start')
+    startLooper()
     looper.postMessage(loopMessageName, '*')
   }
 }
@@ -172,6 +179,7 @@ function handleMessage (data) {
 
   if (runningTaskCount === 0) {
     running = false
+    stopLooper()
     if (suspendedTaskCount > 0) {
       fireEvent('suspend')
     } else {
