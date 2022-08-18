@@ -1296,3 +1296,5 @@ const tiJsTests =
     },
   ]
 }
+
+module.exports = tiJsTests

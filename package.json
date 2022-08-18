@@ -8,13 +8,15 @@
     "dist/"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.prod.js",
+    "test": "tap --no-coverage-report",
+    "make": "webpack --config webpack.prod.js",
     "watch": "webpack --watch",
     "start": "webpack-dev-server --host localhost --config webpack.dev.js",
     "lint": "eslint --ignore-path .gitignore --ignore-path .eslintignore .",
     "bump": "npm version patch",
-    "pub": "npm publish"
+    "pub": "npm publish",
+    "build": "npm run make && npm test",
+    "cov": "tap --reporter=spec"
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,7 @@
     "peggy": "^2.0.1",
     "peggy-loader": "^0.5.6",
     "raw-loader": "^4.0.2",
+    "tap": "^16.3.0",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.3",
