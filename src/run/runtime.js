@@ -122,7 +122,7 @@ function runLoop (state) {
     }
 
     if (state.callback !== undefined) {
-      setTimeout(state.callback, 0)
+      setTimeout(() => state.callback(state.status), 0)
     }
 
     if (typeof exceptionToThrow !== 'undefined') {
