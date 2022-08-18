@@ -67,10 +67,13 @@ function startIfNeeded () {
   }
 }
 
-function createTask (func, delay, runOnce) {
+function createTask (func, delay, runOnce, options) {
   const taskId = nextTaskId++
+  const debug = options.debug === true
 
-  console.debug(`[Task ${taskId}] Start`)
+  if (debug) {
+    console.debug(`[Task ${taskId}] Start`)
+  }
 
   tasks[taskId] = {
     func: func,
@@ -78,7 +81,8 @@ function createTask (func, delay, runOnce) {
     lastRun: undefined,
     runOnce: runOnce,
     stopOnException: true,
-    suspended: false
+    suspended: false,
+    debug: debug,
   }
 
   startIfNeeded()
@@ -86,27 +90,39 @@ function createTask (func, delay, runOnce) {
 }
 
 function resumeTask (taskId) {
-  console.debug(`[Task ${taskId}] Resume`)
-
   if (!(taskId in tasks)) {
-    console.debug(tasks)
     throw new Error(`Error resuming: task '${taskId}' not found`)
   }
+
+  if (tasks[taskId].debug) {
+    console.debug(`[Task ${taskId}] Resume`)
+  }
+
   tasks[taskId].suspended = false
   startIfNeeded()
 };
 
 function suspendTask (taskId) {
-  console.debug(`[Task ${taskId}] Suspend`)
-
   if (!(taskId in tasks)) {
     throw new Error(`Error suspending: task '${taskId}' not found`)
   }
+
+  if (tasks[taskId].debug) {
+    console.debug(`[Task ${taskId}] Suspend`)
+  }
+
   tasks[taskId].suspended = true
 };
 
 function deleteTask (taskId) {
-  console.debug(`[Task ${taskId}] Stop`)
+  if (!(taskId in tasks)) {
+    throw new Error(`Error deleting: task '${taskId}' not found`)
+  }
+
+  if (tasks[taskId].debug) {
+    console.debug(`[Task ${taskId}] Stop`)
+  }
+
   delete tasks[taskId]
 };
 
@@ -200,8 +216,8 @@ function handleException (data) {
   }
 }
 
-export function setTinyInterval (func, delay) {
-  return createTask(func, delay)
+export function setTinyInterval (func, delay, options = {}) {
+  return createTask(func, delay, false, options)
 }
 
 export function clearTinyInterval (tinyIntervalID) {
@@ -212,7 +228,7 @@ export function resumeTinyInterval (tinyIntervalID) {
   resumeTask(tinyIntervalID)
 }
 
-export function setTinyTimeout (func, delay) {
+export function setTinyTimeout (func, delay, options = {}) {
   return createTask(func, delay, true)
 }
 

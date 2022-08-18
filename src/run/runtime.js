@@ -70,7 +70,11 @@ export function run (lines, options = {}) {
     }
   }
 
-  const taskId = daemon.setTinyInterval(() => runLoop(state), state.frequencyMs)
+  const taskId = daemon.setTinyInterval(
+    () => runLoop(state),
+    state.frequencyMs, 
+    { debug: state.debug }
+  )
   state.resume = (callback) => {
     state.resumeCallback = callback
     daemon.resumeTinyInterval(taskId)
