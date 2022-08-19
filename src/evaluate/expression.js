@@ -212,12 +212,12 @@ function applyUnaryOperation (operator, x) {
 
 function applyBinaryOperation (operator, x, y) {
   if (operator === '/' && y === 0) {
-    throw Error("Some div0 error")
-    //throw core.DivideByZeroError
+    throw core.DivideByZeroError
   }
   switch (operator) {
     case '+': return x + y
-    case '+': return x - y
+    case '-': return x - y
+    case 'foo': return x - y
     case '*': return x * y
     case '/': return x / y
     case '=': return x === y ? 1 : 0
