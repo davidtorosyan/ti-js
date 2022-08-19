@@ -8,14 +8,13 @@
     "dist/"
   ],
   "scripts": {
+    "build": "webpack --config webpack.prod.js",
     "test": "tap --no-coverage-report",
-    "make": "webpack --config webpack.prod.js",
-    "watch": "webpack --watch",
     "start": "webpack-dev-server --host localhost --config webpack.dev.js",
     "lint": "eslint --ignore-path .gitignore --ignore-path .eslintignore .",
     "bump": "npm version patch",
-    "pub": "npm run build && npm publish",
-    "build": "npm run make && npm test",
+    "bt": "npm run build && npm test",
+    "push": "npm run bt && npm publish",
     "cov": "tap --reporter=spec"
   },
   "repository": {
