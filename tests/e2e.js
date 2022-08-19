@@ -53,7 +53,9 @@ tiJsTests.testCases.forEach(testCase => {
   const lines = ti.parse(trimInput(testCase.input))
   ti.run(lines, {
     stdin: trimInput(testCase.stdin),
-    outputCallback: (output, newline) => totalOutput += output + (newline ? '\n' : ''),
+    outputCallback: (output, newline) => {
+      totalOutput += output + (newline ? '\n' : '')
+    },
     includeLineNumbers: false,
     callback: status => handleTestResult(testCase, status, trimLastNewline(totalOutput)),
   })

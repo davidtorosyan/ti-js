@@ -102,14 +102,16 @@ function initInput () {
   })
   bindNumber($('#frequency'), FREQUENCY_SETTING)
 
+  const defaultInput = `\
+For(X,1,3,1)
+Disp X
+End`
+
   bindTextarea(
     $source,
     SOURCE_SETTING,
     () => getFromStorage(PERSIST_SETTING),
-    callback => callback(`\
-For(X,1,3,1)
-Disp X
-End`))
+    callback => callback(defaultInput))
 }
 
 function configureTranspiler () {

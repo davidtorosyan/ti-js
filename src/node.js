@@ -13,7 +13,7 @@ export { run, on, parse }
 
 export function exec (source, callback) {
   const lines = parse(source)
-  const program = run(lines, {
+  run(lines, {
     outputCallback: callback,
   })
 }

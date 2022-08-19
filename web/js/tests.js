@@ -298,9 +298,8 @@ function configureTranspiler () {
 
     $result.text('Running')
 
-    let program
-    const callback = () => {
-      if (program.getStatus() === 'faulted') {
+    const callback = (status) => {
+      if (status === 'faulted') {
         $result.text('Faulted')
         $testCase.attr('data-result', 'failure')
       } else {
@@ -321,7 +320,7 @@ function configureTranspiler () {
       updateCount()
     }
 
-    program = ti.run(lines, {
+    ti.run(lines, {
       debug: false,
       elem: $output,
       includeLineNumbers: false,
