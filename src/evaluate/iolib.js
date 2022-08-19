@@ -5,7 +5,7 @@ import * as types from '../common/types'
 
 const enterkey = 13
 
-export function elemOutput(elem) {
+export function elemOutput (elem) {
   return (value, newline) => {
     setTimeout(() => {
       let result = elem.val() + value
@@ -22,7 +22,7 @@ export function stdout (value, options = {}, newline = true) {
     console.log(value)
     return
   }
-  options.output(value, newline);
+  options.output(value, newline)
 }
 
 export function stderr (ex, options = {}) {

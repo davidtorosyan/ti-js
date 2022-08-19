@@ -7,7 +7,7 @@ const HIDE_SUCCESS_SETTING = 'hideSuccess'
 
 const DEFAULT_SETTINGS = {
   [TOGGLECLASS_SETTING]: {},
-  [HIDE_SUCCESS_SETTING]: false
+  [HIDE_SUCCESS_SETTING]: false,
 }
 
 // ----- On ready -----
@@ -32,8 +32,8 @@ $(() => {
       const id = $(this).attr('id')
       if (id !== undefined) {
         map[id] = {
-          className: className,
-          state: $(this).hasClass(className)
+          className,
+          state: $(this).hasClass(className),
         }
       }
     })
@@ -43,9 +43,9 @@ $(() => {
     return this
   }
 
-  $.fn.invert = function() {
-    return this.end().not(this);
-  };
+  $.fn.invert = function () {
+    return this.end().not(this)
+  }
 })(jQuery)
 
 function restoreToggleClass () {
@@ -64,8 +64,8 @@ function restoreToggleClass () {
   saveToStorage(TOGGLECLASS_SETTING, map)
 }
 
-function initFonts() {
-  $("head").append($(`\
+function initFonts () {
+  $('head').append($(`\
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
@@ -73,7 +73,7 @@ function initFonts() {
 }
 
 function initPage () {
-  $("#content").append($(`\
+  $('#content').append($(`\
 <h1><a href="../">TI-JS</a> TESTS</h1>
 <div>
     <h3>Results</h3>
@@ -116,17 +116,17 @@ function initPage () {
 `))
 }
 
-function initInput() {
-    const $testCases = $('[data-type=testCase]')
-    bindCheckbox($('#collapseSuccess'), HIDE_SUCCESS_SETTING, value => {
-      if (value === true) {
-        $testCases
-          .filter('[data-result=success]')
-          .persistToggleClass('collapse', true)
-          .invert()
-          .persistToggleClass('collapse', false)
-      }
-    })
+function initInput () {
+  const $testCases = $('[data-type=testCase]')
+  bindCheckbox($('#collapseSuccess'), HIDE_SUCCESS_SETTING, value => {
+    if (value === true) {
+      $testCases
+        .filter('[data-result=success]')
+        .persistToggleClass('collapse', true)
+        .invert()
+        .persistToggleClass('collapse', false)
+    }
+  })
 }
 
 function bindCheckbox ($checkBox, name, callback) {
@@ -308,7 +308,7 @@ function configureTranspiler () {
         if (output === $expected.val()) {
           $result.text('Success')
           $testCase.attr('data-result', 'success')
-  
+
           if (getFromStorage(HIDE_SUCCESS_SETTING)) {
             $testCase.persistToggleClass('collapse', true)
           }
@@ -327,7 +327,7 @@ function configureTranspiler () {
       includeLineNumbers: false,
       includeSource: false,
       stdin: $stdin.val(),
-      callback: callback
+      callback,
     })
   }
 
@@ -349,6 +349,6 @@ function getFromStorage (name) {
 function saveToStorage (name, value, callback) {
   localStorage.setItem(name, JSON.stringify(value))
   if (callback !== undefined) {
-    callback(value);
+    callback(value)
   }
 }

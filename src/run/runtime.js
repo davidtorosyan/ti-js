@@ -35,7 +35,7 @@ export function run (lines, options = {}) {
     resumeCallback: undefined,
 
     debug: options.debug === true,
-    sourceLines: sourceLines,
+    sourceLines,
 
     searchLabel: undefined,
     ifResult: undefined,
@@ -49,10 +49,10 @@ export function run (lines, options = {}) {
     falsyBlockPreviousIf: undefined,
 
     i: 0,
-    lines: lines,
+    lines,
 
     callback: options.callback,
-    frequencyMs: frequencyMs,
+    frequencyMs,
 
     status: 'pending',
 
@@ -66,14 +66,14 @@ export function run (lines, options = {}) {
       includeErrors: options.includeErrors === undefined || options.includeErrors === true,
       includeLibErrors: options.includeLibErrors === undefined || options.includeLibErrors === true,
       includeLineNumbers: options.includeLineNumbers === undefined || options.includeLineNumbers === true,
-      includeSource: options.includeSource === undefined || options.includeSource === true
-    }
+      includeSource: options.includeSource === undefined || options.includeSource === true,
+    },
   }
 
   const taskId = daemon.setTinyInterval(
     () => runLoop(state),
-    state.frequencyMs, 
-    { debug: state.debug }
+    state.frequencyMs,
+    { debug: state.debug },
   )
   state.resume = (callback) => {
     state.resumeCallback = callback
@@ -86,7 +86,7 @@ export function run (lines, options = {}) {
     stop: () => {
       iolib.cleanup(state.io)
       daemon.clearTinyInterval(taskId)
-    }
+    },
   }
 }
 
@@ -110,10 +110,10 @@ function runLoop (state) {
         }
         ex.source = {
           index: state.i,
-          line: source
+          line: source,
         }
       }
-  
+
       iolib.stderr(ex, state.io)
     }
 
@@ -149,7 +149,7 @@ function runLine (state) {
       falsyStackHeight: state.falsyStackHeight,
       falsyBlockPreviousIf: state.falsyBlockPreviousIf,
       source: state.source,
-      mem: state.mem
+      mem: state.mem,
     })
   }
 

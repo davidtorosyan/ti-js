@@ -11,7 +11,7 @@ const DEFAULT_SETTINGS = {
   [DEBUG_SETTING]: false,
   [PERSIST_SETTING]: true,
   [SOURCE_SETTING]: undefined,
-  [FREQUENCY_SETTING]: 1
+  [FREQUENCY_SETTING]: 1,
 }
 
 // ----- On ready -----
@@ -67,7 +67,7 @@ function configureTranspiler () {
       debug: getFromStorage(DEBUG_SETTING),
       elem: $output,
       input: $input,
-      frequencyMs: getFromStorage(FREQUENCY_SETTING)
+      frequencyMs: getFromStorage(FREQUENCY_SETTING),
     })
   }
 

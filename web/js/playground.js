@@ -11,7 +11,7 @@ const DEFAULT_SETTINGS = {
   [DEBUG_SETTING]: false,
   [PERSIST_SETTING]: true,
   [SOURCE_SETTING]: undefined,
-  [FREQUENCY_SETTING]: 1
+  [FREQUENCY_SETTING]: 1,
 }
 
 // ----- On ready -----
@@ -23,15 +23,15 @@ $(() => {
   configureTranspiler()
 })
 
-function initFonts() {
-  $("head").append($(`\
+function initFonts () {
+  $('head').append($(`\
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
   `))
 }
 
-function initPage() {
+function initPage () {
   $('#content').append($(`\
   <h1><a href="../">TI-JS</a> PLAYGROUND</h1>
   <div class="playground">
@@ -92,7 +92,7 @@ function initPage() {
 }
 
 function initInput () {
-  const $source = $('#source');
+  const $source = $('#source')
 
   bindCheckbox($('#debug'), DEBUG_SETTING)
   bindCheckbox($('#persist'), PERSIST_SETTING, value => {
@@ -147,7 +147,7 @@ function configureTranspiler () {
       debug: getFromStorage(DEBUG_SETTING),
       elem: $output,
       input: $input,
-      frequencyMs: getFromStorage(FREQUENCY_SETTING)
+      frequencyMs: getFromStorage(FREQUENCY_SETTING),
     })
   }
 
@@ -201,6 +201,6 @@ function getFromStorage (name) {
 function saveToStorage (name, value, callback) {
   localStorage.setItem(name, JSON.stringify(value))
   if (callback !== undefined) {
-    callback(value);
+    callback(value)
   }
 }

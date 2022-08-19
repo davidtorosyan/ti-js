@@ -4,5 +4,5 @@ const common = require(path.resolve(__dirname, 'webpack.config.js'))
 
 module.exports = [...common.values()].map(c => merge(c, {
   mode: 'production',
-  devtool: 'source-map'
+  devtool: 'source-map',
 }))

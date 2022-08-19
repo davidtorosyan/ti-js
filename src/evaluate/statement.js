@@ -284,7 +284,7 @@ function increment (mem, variable, step) {
     type: types.BINARY,
     operator: '+',
     left: variable,
-    right: step
+    right: step,
   }, mem), mem)
 }
 

@@ -3,7 +3,7 @@ const ti = require('../dist/node/ti')
 
 const tiJsTests = require('../web/js/testCases')
 
-function trimInput(text) {
+function trimInput (text) {
   const indent = tiJsTests.options.indent
 
   if (text === undefined || text.indexOf('\n') === -1) {
@@ -17,7 +17,7 @@ function trimInput(text) {
     .join('\n')
 }
 
-function trimLastNewline(text) {
+function trimLastNewline (text) {
   if (text.length > 0) {
     const lastCharacter = text[text.length - 1]
     if (lastCharacter === '\n') {
@@ -28,28 +28,28 @@ function trimLastNewline(text) {
   return text
 }
 
-function handleTestResult(testCase, status, output) {
+function handleTestResult (testCase, status, output) {
   if (status === 'faulted') {
     tap.fail(testCase.name, {
-      'output': output,
-      'expected': trimInput(testCase.expected),
+      output,
+      expected: trimInput(testCase.expected),
     })
   } else if (status === 'done' || status === 'err') {
     tap.equal(
       output,
       trimInput(testCase.expected),
       testCase.name,
-    );
+    )
   } else {
     tap.fail(testCase.name, {
-      'unexpectedStatus': status,
+      unexpectedStatus: status,
     })
   }
 }
 
 tap.plan(tiJsTests.testCases.length)
 tiJsTests.testCases.forEach(testCase => {
-  let totalOutput = ""
+  let totalOutput = ''
   const lines = ti.parse(trimInput(testCase.input))
   ti.run(lines, {
     stdin: trimInput(testCase.stdin),

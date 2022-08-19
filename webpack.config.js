@@ -1,24 +1,24 @@
 const path = require('path')
 const { merge } = require('webpack-merge')
-const nodeExternals = require('webpack-node-externals');
+const nodeExternals = require('webpack-node-externals')
 
 const common = {
   mode: 'development',
   output: {
     library: {
       name: 'ti',
-      type: 'umd'
+      type: 'umd',
     },
-    clean: true
+    clean: true,
   },
   module: {
     rules: [
       {
         test: /\.peggy$/i,
-        loader: 'peggy-loader'
-      }
-    ]
-  }
+        loader: 'peggy-loader',
+      },
+    ],
+  },
 }
 
 const web = merge(common, {
@@ -27,7 +27,7 @@ const web = merge(common, {
   output: {
     path: path.resolve(__dirname, 'dist/web'),
     filename: 'ti.js',
-  }
+  },
 })
 
 const node = merge(common, {
@@ -37,10 +37,10 @@ const node = merge(common, {
     path: path.resolve(__dirname, 'dist/node'),
     filename: 'ti.js',
   },
-  externals: [nodeExternals()]
+  externals: [nodeExternals()],
 })
 
 module.exports = new Map([
   ['web', web],
   ['node', node],
-]);
+])

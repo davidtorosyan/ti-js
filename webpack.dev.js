@@ -7,6 +7,6 @@ module.exports = merge(common.get('web'), {
   devtool: 'inline-source-map',
   devServer: {
     static: path.resolve(__dirname, 'web'),
-    port: 9080
-  }
+    port: 9080,
+  },
 })

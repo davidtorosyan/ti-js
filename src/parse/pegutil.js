@@ -5,18 +5,16 @@ import * as types from '../common/types'
 
 export function buildBinaryExpression (head, tail) {
   return tail.reduce(function (result, element) {
-
     return {
       type: types.BINARY,
       operator: element[0],
       left: result,
-      right: element[1]
+      right: element[1],
     }
   }, head)
 }
 
 export function buildImplicitBinaryExpression (head, tail, end) {
-  
   const list = tail.flat()
   if (end !== null) {
     list.push(end)
@@ -26,7 +24,7 @@ export function buildImplicitBinaryExpression (head, tail, end) {
       type: types.BINARY,
       operator: '*',
       left: result,
-      right: element
+      right: element,
     }
   }, head)
 }
@@ -35,19 +33,19 @@ export function buildMenuStatement (title, options) {
   const choices = options.map(function (element) {
     return {
       option: element[1],
-      location: element[3]
+      location: element[3],
     }
   })
   return {
     type: types.MenuStatement,
     title,
-    choices
+    choices,
   }
 }
 
 export function buildList (head, tail) {
   return {
     type: types.LIST,
-    elements: [head].concat(tail)
+    elements: [head].concat(tail),
   }
 }

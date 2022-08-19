@@ -29,7 +29,7 @@ expressionOf[types.NUMBER] = (value, mem) => {
   }
   return {
     type: types.NUMBER,
-    float: operation.resolveNumber(value)
+    float: operation.resolveNumber(value),
   }
 }
 
@@ -53,7 +53,7 @@ expressionOf[types.LIST] = (value, mem) => {
       }
       return result
     }),
-    resolved: true
+    resolved: true,
   }
 }
 
@@ -94,7 +94,7 @@ expressionOf[types.LISTINDEX] = (value, mem) => {
   }
   return {
     type: types.NUMBER,
-    float: list.elements[index.float - 1].float
+    float: list.elements[index.float - 1].float,
   }
 }
 
@@ -145,7 +145,7 @@ unaryOf[types.LIST] = (operator, argument) => {
   return {
     type: types.LIST,
     elements: argument.elements.map(e => ({ type: types.NUMBER, float: applyUnaryOperation(operator, e.float) })),
-    resolved: true
+    resolved: true,
   }
 }
 
@@ -189,7 +189,7 @@ binaryOf[types.LIST] = (operator, left, right) => {
   return {
     type: types.LIST,
     elements: left.elements.map((e, i) => ({ type: types.NUMBER, float: applyBinaryOperation(operator, e.float, right.elements[i].float) })),
-    resolved: true
+    resolved: true,
   }
 }
 
@@ -199,7 +199,7 @@ function applyBinaryOperationListAndNumber (operator, list, number) {
   return {
     type: types.LIST,
     elements: list.elements.map((e, i) => ({ type: types.NUMBER, float: applyBinaryOperation(operator, e.float, number.float) })),
-    resolved: true
+    resolved: true,
   }
 }
 
@@ -227,7 +227,7 @@ function applyBinaryOperation (operator, x, y) {
     case '<': return x < y ? 1 : 0
     case ' and ': return x && y ? 1 : 0
     case ' or ': return x || y ? 1 : 0
-    case ' xor ': return (!x && y) || (x && !y) ? 1:0
+    case ' xor ': return (!x && y) || (x && !y) ? 1 : 0
     default: throw core.libError('unexpected binary operator')
   }
 }

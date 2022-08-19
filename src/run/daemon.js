@@ -13,46 +13,46 @@ let running = false
 let nextTaskId = 0
 const maxExceptions = 1000
 
-let looper = undefined
+let looper
 
-function startLooper() {
+function startLooper () {
   if (typeof looper !== 'undefined') {
     looper.addEventListener('message', handleMessage, true)
     looper.addEventListener('message', handleException, true)
   }
 }
 
-function stopLooper() {
+function stopLooper () {
   if (typeof looper !== 'undefined') {
     looper.removeEventListener('message', handleMessage, true)
     looper.removeEventListener('message', handleException, true)
   }
 }
 
-function updateLooper(value) {
+function updateLooper (value) {
   looper = value
 }
 
-loader.subscribe(loader.LOOPER, updateLooper);
+loader.subscribe(loader.LOOPER, updateLooper)
 
-let eventFactory = undefined
-let eventTarget = undefined
+let eventFactory
+let eventTarget
 
-function updateEventFactory(value) {
+function updateEventFactory (value) {
   eventFactory = value
 
   eventTarget = eventFactory.createEventTarget()
 }
 
-loader.subscribe(loader.EVENT, updateEventFactory);
+loader.subscribe(loader.EVENT, updateEventFactory)
 
-let perf = undefined
+let perf
 
-function updatePerf(value) {
+function updatePerf (value) {
   perf = value
 }
 
-loader.subscribe(loader.PERF, updatePerf);
+loader.subscribe(loader.PERF, updatePerf)
 
 function fireEvent (name) {
   eventFactory.dispatchEvent(eventTarget, name)
@@ -76,13 +76,13 @@ function createTask (func, delay, runOnce, options) {
   }
 
   tasks[taskId] = {
-    func: func,
+    func,
     delay: Math.max(delay, minimumDelay),
     lastRun: undefined,
-    runOnce: runOnce,
+    runOnce,
     stopOnException: true,
     suspended: false,
-    debug: debug,
+    debug,
   }
 
   startIfNeeded()
@@ -236,10 +236,10 @@ export function clearTinyTimeout (tinyTimeoutID) {
   deleteTask(tinyTimeoutID)
 }
 
-export function on(type, listener, options) {
+export function on (type, listener, options) {
   eventTarget.addEventListener(type, listener, options)
 }
 
-export function off(type, listener, options) {
+export function off (type, listener, options) {
   eventTarget.removeEventListener(type, listener, options)
 }

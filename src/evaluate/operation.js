@@ -51,7 +51,7 @@ export function binaryOperation (left, operator, right) {
     type: types.BINARY,
     operator,
     left,
-    right
+    right,
   }
 }
 

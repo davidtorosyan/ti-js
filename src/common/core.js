@@ -5,9 +5,9 @@ import * as types from './types'
 
 function error (type, code, hideSource = false) {
   return {
-    type: type,
-    code: code,
-    hideSource: hideSource
+    type,
+    code,
+    hideSource,
   }
 }
 
@@ -34,7 +34,7 @@ export const UnimplementedError = libError('unimplemented')
 export function newMem () {
   return {
     vars: {},
-    ans: newFloat()
+    ans: newFloat(),
   }
 }
 

@@ -4,13 +4,13 @@
 const tiJsTests =
 {
   options: {
-    indent: 8
+    indent: 8,
   },
   testCases: [
     {
       name: 'Display',
       input: 'Disp 1',
-      expected: '1'
+      expected: '1',
     },
     {
       name: 'Store',
@@ -18,7 +18,7 @@ const tiJsTests =
         2->X
         Disp X
         `,
-      expected: '2'
+      expected: '2',
     },
     {
       name: 'MultipleDisplay',
@@ -29,7 +29,7 @@ const tiJsTests =
       expected: `\
         1
         2
-        `
+        `,
     },
     {
       name: 'ForLoop',
@@ -42,7 +42,7 @@ const tiJsTests =
         1
         2
         3
-        `
+        `,
     },
     {
       name: 'NestedForLoop',
@@ -58,7 +58,7 @@ const tiJsTests =
         1
         1
         1
-        `
+        `,
     },
     {
       name: 'IfTrue',
@@ -70,7 +70,7 @@ const tiJsTests =
       expected: `\
         1
         2
-        `
+        `,
     },
     {
       name: 'IfFalse',
@@ -81,7 +81,7 @@ const tiJsTests =
         `,
       expected: `\
         2
-        `
+        `,
     },
     {
       name: 'IfThenTrue',
@@ -97,7 +97,7 @@ const tiJsTests =
         1
         2
         3
-        `
+        `,
     },
     {
       name: 'IfThenFalse',
@@ -109,7 +109,7 @@ const tiJsTests =
         End
         Disp 3
         `,
-      expected: '3'
+      expected: '3',
     },
     {
       name: 'IfTrueElse',
@@ -128,7 +128,7 @@ const tiJsTests =
         1
         2
         5
-        `
+        `,
     },
     {
       name: 'IfFalseElse',
@@ -147,7 +147,7 @@ const tiJsTests =
         3
         4
         5
-        `
+        `,
     },
     {
       name: 'NestedTrue',
@@ -164,7 +164,7 @@ const tiJsTests =
       expected: `\
         1
         2
-        `
+        `,
     },
     {
       name: 'NestedFalse',
@@ -178,7 +178,7 @@ const tiJsTests =
         End
         Disp 2
         `,
-      expected: '2'
+      expected: '2',
     },
     {
       name: 'NestedFalseFor',
@@ -192,7 +192,7 @@ const tiJsTests =
         End
         Disp 2
         `,
-      expected: '2'
+      expected: '2',
     },
     {
       name: 'GotoSkip',
@@ -202,7 +202,7 @@ const tiJsTests =
         Lbl A
         Disp 2
         `,
-      expected: '2'
+      expected: '2',
     },
     {
       name: 'GotoBlock',
@@ -214,12 +214,12 @@ const tiJsTests =
         Lbl A
         Disp 1
         `,
-      expected: '1'
+      expected: '1',
     },
     {
       name: 'GotoError',
       input: 'Goto A',
-      expected: 'ERR:LABEL'
+      expected: 'ERR:LABEL',
     },
     {
       name: 'Unary',
@@ -230,7 +230,7 @@ const tiJsTests =
       expected: `\
         -1
         1
-        `
+        `,
     },
     {
       name: 'Multiplicative',
@@ -241,7 +241,7 @@ const tiJsTests =
       expected: `\
         6
         3
-        `
+        `,
     },
     {
       name: 'Additive',
@@ -252,7 +252,7 @@ const tiJsTests =
       expected: `\
         6
         2
-        `
+        `,
     },
     {
       name: 'Equality',
@@ -267,7 +267,7 @@ const tiJsTests =
         0
         1
         0
-        `
+        `,
     },
     {
       name: 'Greater',
@@ -286,7 +286,7 @@ const tiJsTests =
         1
         1
         0
-        `
+        `,
     },
     {
       name: 'Less',
@@ -305,7 +305,7 @@ const tiJsTests =
         0
         1
         1
-        `
+        `,
     },
     {
       name: 'And',
@@ -326,7 +326,7 @@ const tiJsTests =
         0
         1
         1
-        `
+        `,
     },
     {
       name: 'Or',
@@ -347,7 +347,7 @@ const tiJsTests =
         1
         1
         0
-        `
+        `,
     },
     {
       name: 'Xor',
@@ -368,22 +368,22 @@ const tiJsTests =
         1
         0
         0
-        `
+        `,
     },
     {
       name: 'Parenthesis',
       input: 'Disp (2)',
-      expected: '2'
+      expected: '2',
     },
     {
       name: 'OrderOfOperations',
       input: 'Disp &-0+3*2-1',
-      expected: '5'
+      expected: '5',
     },
     {
       name: 'OrderOfParenthesis',
       input: 'Disp &-(0+3)*(2-1)',
-      expected: '-3'
+      expected: '-3',
     },
     {
       name: 'RepeatFalse',
@@ -392,7 +392,7 @@ const tiJsTests =
         Disp 1
         End
         `,
-      expected: '1'
+      expected: '1',
     },
     {
       name: 'RepeatOnce',
@@ -403,7 +403,7 @@ const tiJsTests =
         2->X
         End
         `,
-      expected: '1'
+      expected: '1',
     },
     {
       name: 'WhileFalse',
@@ -413,7 +413,7 @@ const tiJsTests =
         End
         Disp 2
         `,
-      expected: '2'
+      expected: '2',
     },
     {
       name: 'WhileOnce',
@@ -424,7 +424,7 @@ const tiJsTests =
         2->X
         End
         `,
-      expected: '1'
+      expected: '1',
     },
     {
       name: 'Increment',
@@ -439,7 +439,7 @@ const tiJsTests =
       expected: `\
         1
         7
-        `
+        `,
     },
     {
       name: 'Decrement',
@@ -454,7 +454,7 @@ const tiJsTests =
       expected: `\
         1
         5
-        `
+        `,
     },
     {
       name: 'Numeric',
@@ -479,7 +479,7 @@ const tiJsTests =
         100
         100
         1
-        `
+        `,
     },
     {
       name: 'Theta',
@@ -487,12 +487,12 @@ const tiJsTests =
         1->&theta
         Disp &theta
         `,
-      expected: '1'
+      expected: '1',
     },
     {
       name: 'LeadingZero',
       input: 'Disp .1',
-      expected: '.1'
+      expected: '.1',
     },
     {
       name: 'StringOperations',
@@ -507,17 +507,17 @@ const tiJsTests =
         foobar
         0
         1
-        `
+        `,
     },
     {
       name: 'StringNumberAdd',
       input: 'Disp "foo"+1',
-      expected: 'ERR:DATA TYPE'
+      expected: 'ERR:DATA TYPE',
     },
     {
       name: 'NumberStringAdd',
       input: 'Disp 1+"foo"',
-      expected: 'ERR:DATA TYPE'
+      expected: 'ERR:DATA TYPE',
     },
     {
       name: 'NestedFalseRepeat',
@@ -530,7 +530,7 @@ const tiJsTests =
         End
         Disp 2
         `,
-      expected: '2'
+      expected: '2',
     },
     {
       name: 'NestedFalseWhile',
@@ -543,7 +543,7 @@ const tiJsTests =
         End
         Disp 2
         `,
-      expected: '2'
+      expected: '2',
     },
     {
       name: 'NoStoreString',
@@ -552,7 +552,7 @@ const tiJsTests =
         "A"->X
         Disp X
         `,
-      expected: '1'
+      expected: '1',
     },
     {
       name: 'GoBack',
@@ -569,7 +569,7 @@ const tiJsTests =
         1
         2
         9
-        `
+        `,
     },
     {
       name: 'Prompt',
@@ -581,7 +581,7 @@ const tiJsTests =
         X=?1
         1
         `,
-      stdin: '1'
+      stdin: '1',
     },
     {
       name: 'PromptEmpty',
@@ -596,7 +596,7 @@ const tiJsTests =
       stdin: `\
         
         1
-      `
+      `,
     },
     {
       name: 'PromptExpression',
@@ -609,7 +609,7 @@ const tiJsTests =
         Y=?X
         1
         `,
-      stdin: 'X'
+      stdin: 'X',
     },
     {
       name: 'PromptString',
@@ -621,7 +621,7 @@ const tiJsTests =
         Str0=?"Hey"
         Hey
         `,
-      stdin: '"Hey"'
+      stdin: '"Hey"',
     },
     {
       name: 'PromptNumberString',
@@ -633,7 +633,7 @@ const tiJsTests =
         X=?"A"
         0
       `,
-      stdin: '"A"'
+      stdin: '"A"',
     },
     {
       name: 'PromptNumberList',
@@ -647,7 +647,7 @@ const tiJsTests =
         0
         {1 2}
       `,
-      stdin: '{1,2}'
+      stdin: '{1,2}',
     },
     {
       name: 'PromptStringNumber',
@@ -656,7 +656,7 @@ const tiJsTests =
         Str0=?1
         ERR:DATA TYPE
       `,
-      stdin: '1'
+      stdin: '1',
     },
     {
       name: 'PromptList',
@@ -668,7 +668,7 @@ const tiJsTests =
         &L1=?{1,2}
         {1 2}
       `,
-      stdin: '{1,2}'
+      stdin: '{1,2}',
     },
     {
       name: 'PromptCustomList',
@@ -680,7 +680,7 @@ const tiJsTests =
         X=?{1,2}
         {1 2}
       `,
-      stdin: '{1,2}'
+      stdin: '{1,2}',
     },
     {
       name: 'PromptListNumber',
@@ -689,7 +689,7 @@ const tiJsTests =
         X=?1
         ERR:DATA TYPE
       `,
-      stdin: '1'
+      stdin: '1',
     },
     {
       name: 'PromptError',
@@ -698,7 +698,7 @@ const tiJsTests =
         X=?Foo
         ERR:SYNTAX
       `,
-      stdin: 'Foo'
+      stdin: 'Foo',
     },
     {
       name: 'MultiplyImplicitVariables',
@@ -713,7 +713,7 @@ const tiJsTests =
         6
         -6
         12
-      `
+      `,
     },
     {
       name: 'MultiplyImplicitMixed',
@@ -729,17 +729,17 @@ const tiJsTests =
         6
         18
         12
-      `
+      `,
     },
     {
       name: 'MultiplyImplicitFail1',
       input: 'Disp 1&-1',
-      expected: 'ERR:SYNTAX'
+      expected: 'ERR:SYNTAX',
     },
     {
       name: 'MultiplyImplicitFail2',
       input: 'Disp X1&-1',
-      expected: 'ERR:SYNTAX'
+      expected: 'ERR:SYNTAX',
     },
     {
       name: 'NestedFalseEmptyCondition',
@@ -754,7 +754,7 @@ const tiJsTests =
         End
         Disp 2
       `,
-      expected: '2'
+      expected: '2',
     },
     {
       name: 'EmptyConditionFail',
@@ -766,7 +766,7 @@ const tiJsTests =
         Disp 2
         End
       `,
-      expected: 'ERR:ARGUMENT'
+      expected: 'ERR:ARGUMENT',
     },
     {
       name: 'ExtraConditionFail',
@@ -774,7 +774,7 @@ const tiJsTests =
         If 1 foo
         Disp 1
       `,
-      expected: 'ERR:SYNTAX'
+      expected: 'ERR:SYNTAX',
     },
     {
       name: 'NestedFalseExtraCondition',
@@ -789,7 +789,7 @@ const tiJsTests =
         End
         Disp 2
       `,
-      expected: '2'
+      expected: '2',
     },
     {
       name: 'ForLoopDefaultStep',
@@ -802,17 +802,17 @@ const tiJsTests =
         1
         2
         3
-        `
+        `,
     },
     {
       name: 'DisplayUndefinedNumeric',
       input: 'Disp X',
-      expected: '0'
+      expected: '0',
     },
     {
       name: 'DisplayUndefinedString',
       input: 'Disp Str0',
-      expected: 'ERR:UNDEFINED'
+      expected: 'ERR:UNDEFINED',
     },
     {
       name: 'DisplayStringVariable',
@@ -820,7 +820,7 @@ const tiJsTests =
         "A"->Str0
         Disp Str0
         `,
-      expected: 'A'
+      expected: 'A',
     },
     {
       name: 'IfString',
@@ -828,14 +828,14 @@ const tiJsTests =
         "A"->Str0
         If Str0
         `,
-      expected: 'ERR:DATA TYPE'
+      expected: 'ERR:DATA TYPE',
     },
     {
       name: 'IfUndefinedString',
       input: `\
         If Str0
         `,
-      expected: 'ERR:UNDEFINED'
+      expected: 'ERR:UNDEFINED',
     },
     {
       name: 'MenuChoice1',
@@ -853,7 +853,7 @@ const tiJsTests =
         1
         2
         `,
-      stdin: '1'
+      stdin: '1',
     },
     {
       name: 'MenuChoice2',
@@ -870,7 +870,7 @@ const tiJsTests =
         2:Choice2
         2
         `,
-      stdin: '2'
+      stdin: '2',
     },
     {
       name: 'MenuInvalidChoices',
@@ -888,7 +888,7 @@ const tiJsTests =
         a
         2
         1
-        `
+        `,
     },
     {
       name: 'MenuLableError',
@@ -898,7 +898,7 @@ const tiJsTests =
         1:Choice
         ERR:LABEL
         `,
-      stdin: '1'
+      stdin: '1',
     },
     {
       name: 'Return',
@@ -907,7 +907,7 @@ const tiJsTests =
         Return
         Disp 2
         `,
-      expected: '1'
+      expected: '1',
     },
     {
       name: 'DelVar',
@@ -916,12 +916,12 @@ const tiJsTests =
         DelVar X
         Disp X
         `,
-      expected: '0'
+      expected: '0',
     },
     {
       name: 'IncrementUndefined',
       input: 'IS>(X,1)',
-      expected: 'ERR:UNDEFINED'
+      expected: 'ERR:UNDEFINED',
     },
     {
       name: 'IncrementDelVar',
@@ -930,7 +930,7 @@ const tiJsTests =
         DelVar X
         IS>(X,1)
         `,
-      expected: 'ERR:UNDEFINED'
+      expected: 'ERR:UNDEFINED',
     },
     {
       name: 'ForDelVar',
@@ -939,37 +939,37 @@ const tiJsTests =
         DelVar X
         End
         `,
-      expected: 'ERR:UNDEFINED'
+      expected: 'ERR:UNDEFINED',
     },
     {
       name: 'ExtraArguments',
       input: 'For(X,1,1,1,1,1)',
-      expected: 'ERR:ARGUMENT'
+      expected: 'ERR:ARGUMENT',
     },
     {
       name: 'IfAtEnd',
       input: 'If 1',
-      expected: 'ERR:SYNTAX'
+      expected: 'ERR:SYNTAX',
     },
     {
       name: 'List',
       input: 'Disp {2}',
-      expected: '{2}'
+      expected: '{2}',
     },
     {
       name: 'ListExpression',
       input: 'Disp {2+3}',
-      expected: '{5}'
+      expected: '{5}',
     },
     {
       name: 'ListStringFails',
       input: 'Disp {"A"}',
-      expected: 'ERR:DATA TYPE'
+      expected: 'ERR:DATA TYPE',
     },
     {
       name: 'ListListFails',
       input: 'Disp {{1}}',
-      expected: 'ERR:DATA TYPE'
+      expected: 'ERR:DATA TYPE',
     },
     {
       name: 'ListListVariableFails',
@@ -977,7 +977,7 @@ const tiJsTests =
         {1}->&listA
         Disp {&listA}
         `,
-      expected: 'ERR:DATA TYPE'
+      expected: 'ERR:DATA TYPE',
     },
     {
       name: 'ListUnary',
@@ -990,7 +990,7 @@ const tiJsTests =
         {-2}
         {-2 3}
         {2 3}
-        `
+        `,
     },
     {
       name: 'ListBinary',
@@ -1019,7 +1019,7 @@ const tiJsTests =
         {0 1}
         {1 0}
         {1 1}
-      `
+      `,
     },
     {
       name: 'ListWithNumber',
@@ -1030,17 +1030,17 @@ const tiJsTests =
       expected: `\
         {6 7}
         {6 7}
-      `
+      `,
     },
     {
       name: 'ListWithString',
       input: 'Disp {2}+"A"',
-      expected: 'ERR:DATA TYPE'
+      expected: 'ERR:DATA TYPE',
     },
     {
       name: 'StringWithList',
       input: 'Disp "A"+{2}',
-      expected: 'ERR:DATA TYPE'
+      expected: 'ERR:DATA TYPE',
     },
     {
       name: 'ListVariable',
@@ -1048,7 +1048,7 @@ const tiJsTests =
         {1}->&L1
         Disp &L1
       `,
-      expected: '{1}'
+      expected: '{1}',
     },
     {
       name: 'CustomListVariable',
@@ -1056,17 +1056,17 @@ const tiJsTests =
         {1}->&listA
         Disp &listA
       `,
-      expected: '{1}'
+      expected: '{1}',
     },
     {
       name: 'UndefinedListVariable',
       input: 'Disp &L1',
-      expected: 'ERR:UNDEFINED'
+      expected: 'ERR:UNDEFINED',
     },
     {
       name: 'DivideByZero',
       input: 'Disp 1/0',
-      expected: 'ERR:DIVIDE BY 0'
+      expected: 'ERR:DIVIDE BY 0',
     },
     {
       name: 'Ans',
@@ -1074,7 +1074,7 @@ const tiJsTests =
         1
         Disp Ans
       `,
-      expected: '1'
+      expected: '1',
     },
     {
       name: 'AnsAssign',
@@ -1082,7 +1082,7 @@ const tiJsTests =
         1->X
         Disp Ans
       `,
-      expected: '1'
+      expected: '1',
     },
     {
       name: 'AnsString',
@@ -1090,7 +1090,7 @@ const tiJsTests =
         "A"->X
         Disp Ans
       `,
-      expected: 'A'
+      expected: 'A',
     },
     {
       name: 'AnsList',
@@ -1098,7 +1098,7 @@ const tiJsTests =
         {4,9}
         Disp Ans
       `,
-      expected: '{4 9}'
+      expected: '{4 9}',
     },
     {
       name: 'ListIndex',
@@ -1115,7 +1115,7 @@ const tiJsTests =
         9
         4
         9
-      `
+      `,
     },
     {
       name: 'ListIndexSmall',
@@ -1123,7 +1123,7 @@ const tiJsTests =
         {4,9}->&L1
         Disp &L1(0)
       `,
-      expected: 'ERR:INVALID DIM'
+      expected: 'ERR:INVALID DIM',
     },
     {
       name: 'ListIndexLarge',
@@ -1131,7 +1131,7 @@ const tiJsTests =
         {4,9}->&L1
         Disp &L1(3)
       `,
-      expected: 'ERR:INVALID DIM'
+      expected: 'ERR:INVALID DIM',
     },
     {
       name: 'ListIndexAssign',
@@ -1140,7 +1140,7 @@ const tiJsTests =
         5->&L1(1+1)
         Disp &L1(2)
       `,
-      expected: '5'
+      expected: '5',
     },
     {
       name: 'Input',
@@ -1152,7 +1152,7 @@ const tiJsTests =
         ?1
         1
         `,
-      stdin: '1'
+      stdin: '1',
     },
     {
       name: 'InputExpression',
@@ -1164,7 +1164,7 @@ const tiJsTests =
         ?1+1
         2
         `,
-      stdin: '1+1'
+      stdin: '1+1',
     },
     {
       name: 'InputText',
@@ -1176,17 +1176,17 @@ const tiJsTests =
         IN 1
         1
         `,
-      stdin: '1'
+      stdin: '1',
     },
     {
       name: 'InputNoVariable',
       input: 'Input "IN ",',
-      expected: 'ERR:ARGUMENT'
+      expected: 'ERR:ARGUMENT',
     },
     {
       name: 'InputTextInvalid',
       input: 'Input 1,X',
-      expected: 'ERR:DATA TYPE'
+      expected: 'ERR:DATA TYPE',
     },
     {
       name: 'InputNumberString',
@@ -1198,7 +1198,7 @@ const tiJsTests =
         ?"A"
         0
         `,
-      stdin: '"A"'
+      stdin: '"A"',
     },
     {
       name: 'InputNumberList',
@@ -1212,7 +1212,7 @@ const tiJsTests =
         0
         {1 2}
       `,
-      stdin: '{1,2}'
+      stdin: '{1,2}',
     },
     {
       name: 'InputString',
@@ -1224,7 +1224,7 @@ const tiJsTests =
         ?A
         A
         `,
-      stdin: 'A'
+      stdin: 'A',
     },
     {
       name: 'InputStringQuoted',
@@ -1236,7 +1236,7 @@ const tiJsTests =
         ?"A"
         "A"
         `,
-      stdin: '"A"'
+      stdin: '"A"',
     },
     {
       name: 'InputList',
@@ -1248,34 +1248,34 @@ const tiJsTests =
         ?{1,2}
         {1 2}
       `,
-      stdin: '{1,2}'
+      stdin: '{1,2}',
     },
     {
       name: 'Output',
       input: 'Output(1,2,3)',
-      expected: '3'
+      expected: '3',
     },
     {
       name: 'OutputDomain',
       input: 'Output(0,2,3)',
-      expected: 'ERR:DOMAIN'
+      expected: 'ERR:DOMAIN',
     },
     {
       name: 'OutputDomainHigh',
       input: 'Output(9,2,3)',
-      expected: 'ERR:DOMAIN'
+      expected: 'ERR:DOMAIN',
     },
     {
       name: 'Empty',
       input: '',
-      expected: ''
+      expected: '',
     },
     {
       name: 'EmptyLines',
       input: `\
 
       `,
-      expected: ''
+      expected: '',
     },
     {
       name: 'EmptySkip',
@@ -1287,14 +1287,14 @@ const tiJsTests =
       expected: `\
         1
         2
-      `
+      `,
     },
     {
       name: 'WhitespaceError',
       input: ' ',
-      expected: 'ERR:SYNTAX'
+      expected: 'ERR:SYNTAX',
     },
-  ]
+  ],
 }
 
 module.exports = tiJsTests
