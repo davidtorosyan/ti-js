@@ -216,7 +216,7 @@ function applyBinaryOperation (operator, x, y) {
   }
   switch (operator) {
     case '+': return x + y
-    case '-': return x - y
+    case '+': return x - y
     case '*': return x * y
     case '/': return x / y
     case '=': return x === y ? 1 : 0
