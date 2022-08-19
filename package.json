@@ -14,7 +14,7 @@
     "start": "webpack-dev-server --host localhost --config webpack.dev.js",
     "lint": "eslint --ignore-path .gitignore --ignore-path .eslintignore .",
     "bump": "npm version patch",
-    "pub": "npm build && npm publish",
+    "pub": "npm run build && npm publish",
     "build": "npm run make && npm test",
     "cov": "tap --reporter=spec"
   },
