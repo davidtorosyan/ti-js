@@ -1,2 +1,10 @@
-/dist
-**/*.8xp.js
+.bundle/
+dist/
+node_modules/
+.nyc_output/
+docs/_site/
+docs/.sass-cache/
+docs/.jekyll-cache/
+docs/.jekyll-metadata
+docs/.bundle/
+docs/vendor/
