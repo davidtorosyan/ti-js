@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/davidtorosyan/ti-js",
   "devDependencies": {
+    "@tsconfig/strictest": "^1.0.1",
     "@webpack-cli/serve": "^1.7.0",
     "eslint": "^8.20.0",
     "eslint-config-standard": "^17.0.0",

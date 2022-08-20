@@ -1,9 +1,11 @@
 {
+    "extends": "@tsconfig/strictest/tsconfig.json",
     "compilerOptions": {
         "outDir": "./dist/ts",
         "module": "es6",
         "target": "es5",
         "allowJs": true,
+        "checkJs": false,
         "moduleResolution": "node"
     },
     "include": ["./src/**/*"]
