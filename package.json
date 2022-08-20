@@ -15,7 +15,8 @@
     "bump": "npm version patch",
     "bt": "npm run build && npm test",
     "push": "npm run bt && npm run lint && npm publish",
-    "cov": "tap --reporter=spec"
+    "cov": "tap --reporter=spec",
+    "next": "npm run bump && npm run push && git push"
   },
   "repository": {
     "type": "git",
