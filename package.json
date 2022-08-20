@@ -14,7 +14,7 @@
     "lint": "eslint .",
     "bump": "npm version patch",
     "bt": "npm run build && npm test",
-    "push": "npm run bt && npm publish",
+    "push": "npm run bt && npm run lint && npm publish",
     "cov": "tap --reporter=spec"
   },
   "repository": {
