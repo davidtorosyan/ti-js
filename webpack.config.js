@@ -14,10 +14,17 @@ const common = {
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+      },
+      {
         test: /\.peggy$/i,
         loader: 'peggy-loader',
       },
     ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
 }
 
