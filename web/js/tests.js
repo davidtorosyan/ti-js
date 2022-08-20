@@ -2,7 +2,7 @@
 
 // ----- Constants -----
 
-const TOGGLECLASS_SETTING = 'toggleclass'
+const TOGGLECLASS_SETTING = 'toggleclass';
 const HIDE_SUCCESS_SETTING = 'hideSuccess'
 
 const DEFAULT_SETTINGS = {
