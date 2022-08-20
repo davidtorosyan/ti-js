@@ -55,7 +55,7 @@ function updatePerf (value) {
 loader.subscribe(loader.PERF, updatePerf)
 
 function fireEvent (name) {
-  eventFactory.dispatchEvent(eventTarget, name)
+  eventTarget.dispatchEvent(name)
 }
 
 function startIfNeeded () {
