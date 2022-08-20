@@ -29,7 +29,7 @@ npm start # dev build, experiment at localhost:9080/playground/
 
 In progress, check back later.
 
-If you're eager, poke around the [web](web/) and [sample][sample/] directories for examples.
+If you're eager, poke around the [web](web/) and [sample](sample/) directories for examples.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
