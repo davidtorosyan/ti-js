@@ -17,15 +17,15 @@ let looper
 
 function startLooper () {
   if (typeof looper !== 'undefined') {
-    looper.addEventListener('message', handleMessage, true)
-    looper.addEventListener('message', handleException, true)
+    looper.on(loopMessageName, handleMessage)
+    looper.on(exceptionName, handleException)
   }
 }
 
 function stopLooper () {
   if (typeof looper !== 'undefined') {
-    looper.removeEventListener('message', handleMessage, true)
-    looper.removeEventListener('message', handleException, true)
+    looper.off(loopMessageName, handleMessage)
+    looper.off(exceptionName, handleException)
   }
 }
 
@@ -63,7 +63,7 @@ function startIfNeeded () {
     running = true
     fireEvent('start')
     startLooper()
-    looper.postMessage(loopMessageName, '*')
+    looper.post(loopMessageName)
   }
 }
 
@@ -127,10 +127,6 @@ function deleteTask (taskId) {
 };
 
 function handleMessage (data) {
-  if (data !== loopMessageName) {
-    return
-  }
-
   const time = perf.now()
   const taskIds = Object.keys(tasks)
   let runningTaskCount = 0
@@ -168,7 +164,7 @@ function handleMessage (data) {
 
         if (exceptions.length < maxExceptions) {
           exceptions.push(ex)
-          looper.postMessage(exceptionName, '*')
+          looper.post(exceptionName)
         }
       }
 
@@ -202,15 +198,11 @@ function handleMessage (data) {
       fireEvent('stop')
     }
   } else {
-    looper.postMessage(loopMessageName, '*')
+    looper.post(loopMessageName)
   }
 };
 
 function handleException (data) {
-  if (data !== exceptionName) {
-    return
-  }
-
   if (exceptions.length > 0) {
     throw exceptions.pop()
   }

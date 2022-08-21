@@ -2,7 +2,7 @@
     "extends": "@tsconfig/strictest/tsconfig.json",
     "compilerOptions": {
         "outDir": "./dist/ts",
-        "module": "es6",
+        "module": "es2020",
         "target": "es5",
         "allowJs": true,
         "checkJs": false,
