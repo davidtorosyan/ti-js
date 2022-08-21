@@ -1,4 +1,6 @@
 // perf.web
 // ========
 
-export const perf = performance
+export function now() {
+    return performance.now()
+}

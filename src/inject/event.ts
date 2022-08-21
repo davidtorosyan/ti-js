@@ -8,5 +8,5 @@ export interface EventTarget {
 }
 
 export interface EventFactory {
-    createEventTarget: EventTarget
+    createEventTarget: () => EventTarget
 }

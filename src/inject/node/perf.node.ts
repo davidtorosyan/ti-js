@@ -1,4 +1,8 @@
 // perf.node
 // =========
 
-export { performance as perf } from 'perf_hooks'
+import { performance } from 'perf_hooks'
+
+export function now() {
+    return performance.now()
+}
