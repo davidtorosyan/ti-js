@@ -11,15 +11,15 @@ import type { LoaderContext } from 'webpack';
 
 type Options =
   | BuildOptionsBase &
-      (
-        | Omit<
-            OutputFormatAmdCommonjsEs<'source'>,
-            keyof SourceOptionsBase<'source'>
-          >
-        | Omit<OutputFormatUmd<'source'>, keyof SourceOptionsBase<'source'>>
-        | Omit<OutputFormatGlobals<'source'>, keyof SourceOptionsBase<'source'>>
-        | Omit<OutputFormatBare<'source'>, keyof SourceOptionsBase<'source'>>
-      );
+  (
+    | Omit<
+      OutputFormatAmdCommonjsEs<'source'>,
+      keyof SourceOptionsBase<'source'>
+    >
+    | Omit<OutputFormatUmd<'source'>, keyof SourceOptionsBase<'source'>>
+    | Omit<OutputFormatGlobals<'source'>, keyof SourceOptionsBase<'source'>>
+    | Omit<OutputFormatBare<'source'>, keyof SourceOptionsBase<'source'>>
+  );
 
 function peggyLoader(
   this: LoaderContext<Options>,
@@ -32,6 +32,7 @@ function peggyLoader(
 
   return peggy.generate(grammarContent, {
     output: 'source',
+    plugins: [require('ts-pegjs')],
     ...options,
   });
 }
