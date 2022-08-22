@@ -19,7 +19,10 @@ const common = {
       },
       {
         test: /\.peggy$/i,
-        loader: '@davidtorosyan/ts-peggy-loader',
+        use: [
+          { loader: 'ts-loader' },
+          { loader: '@davidtorosyan/ts-peggy-loader' },
+        ],
       },
     ],
   },
