@@ -30,7 +30,7 @@ const common = {
 
 const web = merge(common, {
   target: 'web',
-  entry: './src/web.js',
+  entry: './src/web.ts',
   output: {
     path: path.resolve(__dirname, 'dist/web'),
     filename: 'ti.js',
@@ -39,7 +39,7 @@ const web = merge(common, {
 
 const node = merge(common, {
   target: 'node',
-  entry: './src/node.js',
+  entry: './src/node.ts',
   output: {
     path: path.resolve(__dirname, 'dist/node'),
     filename: 'ti.js',
