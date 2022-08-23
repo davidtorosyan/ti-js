@@ -1064,6 +1064,15 @@ const tiJsTests =
       expected: 'ERR:UNDEFINED',
     },
     {
+      name: 'ListAssignList',
+      input: `\
+        {4,9}->&L1
+        &L1->&L2
+        Disp &L2
+      `,
+      expected: '{4 9}',
+    },
+    {
       name: 'DivideByZero',
       input: 'Disp 1/0',
       expected: 'ERR:DIVIDE BY 0',
@@ -1141,6 +1150,22 @@ const tiJsTests =
         Disp &L1(2)
       `,
       expected: '5',
+    },
+    {
+      name: 'ListIndexAssignString',
+      input: `\
+        {4}->&L1
+        "A"->&L1(1)
+      `,
+      expected: 'ERR:DATA TYPE',
+    },
+    {
+      name: 'ListIndexAssignList',
+      input: `\
+        {4}->&L1
+        &L1->&L1(1)
+      `,
+      expected: 'ERR:DATA TYPE',
     },
     {
       name: 'Input',

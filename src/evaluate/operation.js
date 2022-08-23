@@ -31,15 +31,15 @@ export function assignVariable (mem, variable, value) {
   } else {
     throw core.libError('unexpected variable type')
   }
-  mem.vars[variable.name] = value
+  mem.vars.set(variable.name, value)
 }
 
 export function deleteVariable (mem, variable) {
-  delete mem.vars[variable.name]
+  mem.vars.delete(variable.name)
 }
 
 export function hasVariable (mem, variable) {
-  return variable.name in mem.vars
+  return mem.vars.has(variable.name)
 }
 
 export function assignAns (mem, value) {

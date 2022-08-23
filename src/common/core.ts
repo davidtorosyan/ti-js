@@ -31,15 +31,24 @@ export function libError(code: string, hideSource = false) {
 
 export const UnimplementedError = libError('unimplemented')
 
-export function newMem() {
+export type Memory = {
+  vars: Map<string, types.ValueResolved>
+  ans: types.ValueResolved
+}
+
+export function newMem(): Memory {
   return {
-    vars: {},
+    vars: new Map<string, types.ValueResolved>(),
     ans: newFloat(),
   }
 }
 
-export function newFloat(value = 0) {
-  return { type: types.NUMBER, float: value }
+export function newFloat(value = 0): types.NumberResolved {
+  return {
+    type: types.NUMBER,
+    resolved: true,
+    float: value
+  }
 }
 
 export const ONE = newFloat(1)

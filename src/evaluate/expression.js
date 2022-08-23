@@ -27,10 +27,7 @@ expressionOf[types.NUMBER] = (value, mem) => {
   if (value.float !== undefined) {
     return value
   }
-  return {
-    type: types.NUMBER,
-    float: operation.resolveNumber(value),
-  }
+  return core.newFloat(operation.resolveNumber(value))
 }
 
 expressionOf[types.STRING] = (value, mem) => {
@@ -60,15 +57,16 @@ expressionOf[types.LIST] = (value, mem) => {
 // ----- Variables -----
 
 expressionOf[types.VARIABLE] = (value, mem) => {
-  let result = mem.vars[value.name]
+  let result = mem.vars.get(value.name)
   if (result === undefined) {
-    result = mem.vars[value.name] = core.newFloat()
+    result = core.newFloat()
+    mem.vars.set(value.name, result)
   }
   return result
 }
 
 expressionOf[types.STRINGVARIABLE] = (value, mem) => {
-  const result = mem.vars[value.name]
+  const result = mem.vars.get(value.name)
   if (result === undefined) {
     throw core.UndefinedError
   }
@@ -76,7 +74,7 @@ expressionOf[types.STRINGVARIABLE] = (value, mem) => {
 }
 
 expressionOf[types.LISTVARIABLE] = (value, mem) => {
-  const result = mem.vars[value.name]
+  const result = mem.vars.get(value.name)
   if (result === undefined) {
     throw core.UndefinedError
   }
@@ -92,10 +90,7 @@ expressionOf[types.LISTINDEX] = (value, mem) => {
   if (index.float < 1 || index.float > list.elements.length) {
     throw core.InvalidDimError
   }
-  return {
-    type: types.NUMBER,
-    float: list.elements[index.float - 1].float,
-  }
+  return core.newFloat(list.elements[index.float - 1].float)
 }
 
 // ----- Tokens -----
@@ -134,7 +129,7 @@ expressionOf[types.BINARY] = (value, mem) => {
 const unaryOf = {}
 
 unaryOf[types.NUMBER] = (operator, argument) => {
-  return { type: types.NUMBER, float: applyUnaryOperation(operator, argument.float) }
+  return core.newFloat(applyUnaryOperation(operator, argument.float))
 }
 
 unaryOf[types.STRING] = (operator, argument) => {
@@ -144,7 +139,8 @@ unaryOf[types.STRING] = (operator, argument) => {
 unaryOf[types.LIST] = (operator, argument) => {
   return {
     type: types.LIST,
-    elements: argument.elements.map(e => ({ type: types.NUMBER, float: applyUnaryOperation(operator, e.float) })),
+    elements: argument.elements.map(e => (
+      core.newFloat(applyUnaryOperation(operator, e.float)))),
     resolved: true,
   }
 }
@@ -160,7 +156,7 @@ binaryOf[types.NUMBER] = (operator, left, right) => {
     }
     throw core.DataTypeError
   }
-  return { type: types.NUMBER, float: applyBinaryOperation(operator, left.float, right.float) }
+  return core.newFloat(applyBinaryOperation(operator, left.float, right.float))
 }
 
 binaryOf[types.STRING] = (operator, left, right) => {
@@ -171,7 +167,7 @@ binaryOf[types.STRING] = (operator, left, right) => {
     return { type: types.STRING, chars: applyBinaryOperation(operator, left.chars, right.chars) }
   }
   if (['=', '!='].includes(operator)) {
-    return { type: types.NUMBER, float: applyBinaryOperation(operator, left.chars, right.chars) }
+    return core.newFloat(applyBinaryOperation(operator, left.chars, right.chars))
   }
   throw core.DataTypeError
 }
@@ -188,7 +184,8 @@ binaryOf[types.LIST] = (operator, left, right) => {
   }
   return {
     type: types.LIST,
-    elements: left.elements.map((e, i) => ({ type: types.NUMBER, float: applyBinaryOperation(operator, e.float, right.elements[i].float) })),
+    elements: left.elements.map((e, i) => (
+      core.newFloat(applyBinaryOperation(operator, e.float, right.elements[i].float)))),
     resolved: true,
   }
 }
@@ -198,7 +195,8 @@ binaryOf[types.LIST] = (operator, left, right) => {
 function applyBinaryOperationListAndNumber (operator, list, number) {
   return {
     type: types.LIST,
-    elements: list.elements.map((e, i) => ({ type: types.NUMBER, float: applyBinaryOperation(operator, e.float, number.float) })),
+    elements: list.elements.map((e, i) => (
+      core.newFloat(applyBinaryOperation(operator, e.float, number.float)))),
     resolved: true,
   }
 }
