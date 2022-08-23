@@ -227,14 +227,10 @@ LogicalOperator
   / ' or '
   / ' xor '
 
-LogicalExpression
+ValueExpression // should be LogicalExpression, but suppress proxy rule warning
   = head:TestExpression
   tail:(LogicalOperator TestExpression)* 
   { return util.buildBinaryExpression(head, tail); }
-
-ValueExpression
-  = LogicalExpression
-
 
 ArgumentExpression
   = ',' @ValueExpression
