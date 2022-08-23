@@ -3,63 +3,57 @@
 
 import * as core from '../common/core'
 import * as types from '../common/types'
-import type { Assignable, ValueResolved } from '../common/types'
 import * as expression from './expression'
 
-export function evaluate (assignable: Assignable, value: ValueResolved, mem: core.Memory) {
-  const behavior = assignmentOf.get(assignable.type)
-  if (behavior === undefined) {
-    throw core.libError('unexpected assignable type')
+
+
+export function evaluate(assignable: types.Assignable, value: types.ValueResolved, mem: core.Memory) {
+  switch (assignable.type) {
+    case types.VARIABLE:
+      return visitVariable(assignable, value, mem)
+    case types.STRINGVARIABLE:
+      return visitStringVariable(assignable, value, mem)
+    case types.LISTVARIABLE:
+      return visitListVariable(assignable, value, mem)
+    case types.LISTINDEX:
+      return visitListIndex(assignable, value, mem)
+    default:
+      return core.exhaustiveMatchingGuard(assignable);
   }
-  return behavior(assignable, value, mem)
 }
-
-type AssignmentBehavior = (assignable: Assignable, value: ValueResolved, mem: core.Memory) => void
-
-const assignmentOf = new Map<string, AssignmentBehavior>()
+=======
+>>>>>>> f75760d (Make assignment more type safe)
 
 // ----- Statements -----
 
-assignmentOf.set(types.VARIABLE, (assignable, value, mem) => {
-  if (assignable.type !== types.VARIABLE) {
-    throw core.libError('unexpected assignable type, numeric variable')
-  }
+function visitVariable(variable: types.Variable, value: types.ValueResolved, mem: core.Memory) {
   if (value.type !== types.NUMBER) {
     return
   }
   if (!value.resolved) {
     throw core.libError('unexpected number not resolved')
   }
-  mem.vars.set(assignable.name, value)
-})
+  mem.vars.set(variable.name, value)
+}
 
-assignmentOf.set(types.STRINGVARIABLE, (assignable, value, mem) => {
-  if (assignable.type !== types.STRINGVARIABLE) {
-    throw core.libError('unexpected assignable type, string variable')
-  }
+function visitStringVariable(variable: types.StringVariable, value: types.ValueResolved, mem: core.Memory) {
   if (value.type !== types.STRING) {
     throw core.DataTypeError
   }
-  mem.vars.set(assignable.name, value)
-})
+  mem.vars.set(variable.name, value)
+}
 
-assignmentOf.set(types.LISTVARIABLE, (assignable, value, mem) => {
-  if (assignable.type !== types.LISTVARIABLE) {
-    throw core.libError('unexpected assignable type, list variable')
-  }
+function visitListVariable(variable: types.ListVariable, value: types.ValueResolved, mem: core.Memory) {
   if (value.type !== types.LIST) {
     throw core.DataTypeError
   }
   if (!value.resolved) {
     throw core.libError('unexpected list not resolved')
   }
-  mem.vars.set(assignable.name, value)
-})
+  mem.vars.set(variable.name, value)
+}
 
-assignmentOf.set(types.LISTINDEX, (assignable, value, mem) => {
-  if (assignable.type !== types.LISTINDEX) {
-    throw core.libError('unexpected assignable type, list index')
-  }
+function visitListIndex(assignable: types.ListIndex, value: types.ValueResolved, mem: core.Memory) {
   const list = expression.evaluate(assignable.list, mem)
   const index = expression.evaluate(assignable.index, mem)
   if (list.type !== types.LIST) {
@@ -82,4 +76,4 @@ assignmentOf.set(types.LISTINDEX, (assignable, value, mem) => {
     throw core.libError('unexpected number not resolved, list index')
   }
   storedList.elements[index.float - 1] = value
-})
+}
