@@ -60,11 +60,11 @@ StringVariableIdentifier
 
 ListVariableIdentifier
   = '&L' number:[1-6]
-  { return 'List' + number; }
+  { return types.ListVariablePrefix + number; }
 
 CustomListVariableIdentifier
-  = '&list' Alpha AlphaNum? AlphaNum? AlphaNum? AlphaNum?
-  { return 'List' + text().substring(5); }
+  = prefix:'&list' Alpha AlphaNum? AlphaNum? AlphaNum? AlphaNum?
+  { return types.ListVariablePrefix + text().substring(prefix.length); }
 
 NumericVariable
   = name:NumericVariableIdentifier { return { type: types.VARIABLE, name } }

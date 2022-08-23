@@ -13,33 +13,14 @@ export const NUMBER = 'number'
 export const LIST = 'list'
 export const STRING = 'string'
 
-export const NUMBER_IFE = 'number_ife'
-export const NUMBER_FE = 'number_fe'
-export const NUMBER_IE = 'number_ie'
+export const ListVariablePrefix = 'List'
 
-export type NumberIFE = {
+export type NumberLiteral = {
     type: typeof NUMBER
     resolved: false
-    subtype: typeof NUMBER_IFE
-    integer: number
-    fraction: number
-    exponent: number
-}
-
-export type NumberFE = {
-    type: typeof NUMBER
-    resolved: false
-    subtype: typeof NUMBER_FE
-    fraction: number
-    exponent: number
-}
-
-export type NumberIE = {
-    type: typeof NUMBER
-    resolved: false
-    subtype: typeof NUMBER_IE
-    integer: number
-    exponent: number
+    integer?: number
+    fraction?: number | null
+    exponent?: number | null
 }
 
 export type NumberResolved = {
@@ -47,11 +28,6 @@ export type NumberResolved = {
     resolved: true
     float: number
 }
-
-export type NumberLiteral =
-    NumberIFE
-    | NumberFE
-    | NumberIE
 
 export type Number =
     NumberLiteral
@@ -117,10 +93,13 @@ export type ListIndex = {
     index: number
 }
 
-export type Assignable =
+export type Variable =
     NumericVariable
     | StringVariable
     | ListVariable
+
+export type Assignable =
+    Variable
     | ListIndex
 
 // ----- Expressions -----
@@ -128,10 +107,18 @@ export type Assignable =
 export const BINARY = 'binary'
 export const UNARY = 'unary'
 
+export type BinaryExpression = {
+    type: typeof BINARY
+    operator: string
+    left: ValueExpression
+    right: ValueExpression
+}
+
 export type ValueExpression =
     Number
     | String
     | List
+    | BinaryExpression
 
 // ----- Statements -----
 
