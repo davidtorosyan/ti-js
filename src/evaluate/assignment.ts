@@ -62,6 +62,9 @@ assignmentOf.set(types.LISTINDEX, (assignable, value, mem) => {
   }
   const list = expression.evaluate(assignable.list, mem)
   const index = expression.evaluate(assignable.index, mem)
+  if (list.type !== types.LIST) {
+    throw core.libError('unexpected type for value, should be list')
+  }
   if (index.type !== types.NUMBER) {
     throw core.DataTypeError
   }

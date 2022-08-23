@@ -90,7 +90,7 @@ export type ListVariable = {
 export type ListIndex = {
     type: 'listIndex'
     list: ListVariable
-    index: number
+    index: ValueExpression
 }
 
 export type Variable =
@@ -114,11 +114,19 @@ export type BinaryExpression = {
     right: ValueExpression
 }
 
+export type UnaryExpression = {
+    type: typeof UNARY
+    operator: string
+    argument: ValueExpression
+}
+
 export type ValueExpression =
     Number
     | String
     | List
+    | Assignable
     | BinaryExpression
+    | UnaryExpression
 
 // ----- Statements -----
 
