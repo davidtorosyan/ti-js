@@ -11,29 +11,6 @@ export function isTruthy (value) {
   throw core.DataTypeError
 }
 
-export function assignVariable (mem, variable, value) {
-  if (variable.type === types.STRINGVARIABLE) {
-    if (value.type !== types.STRING) {
-      throw core.DataTypeError
-    }
-  } else if (variable.type === types.VARIABLE) {
-    if (value.type !== types.NUMBER) {
-      return
-    }
-  } else if (variable.type === types.LISTVARIABLE) {
-    if (value.type !== types.LIST) {
-      throw core.DataTypeError
-    }
-  } else if (variable.type === types.LISTINDEX) {
-    if (value.type !== types.LIST) {
-      throw core.DataTypeError
-    }
-  } else {
-    throw core.libError('unexpected variable type')
-  }
-  mem.vars.set(variable.name, value)
-}
-
 export function deleteVariable (mem, variable) {
   mem.vars.delete(variable.name)
 }

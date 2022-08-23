@@ -69,7 +69,10 @@ statementOf[types.ForLoop] = (line, state) => {
   if (line.variable === null || line.start === null || line.end === null) {
     throw core.ArgumentError
   }
-  operation.assignVariable(state.mem, line.variable, expression.evaluate(line.start, state.mem))
+
+  const value = expression.evaluate(line.start, state.mem)
+  assignment.evaluate(line.variable, value, state.mem)
+
   state.blockStack.push(state.i)
   if (!operation.isTruthy(expression.evaluate(operation.binaryOperation(line.variable, '<=', line.end), state.mem))) {
     state.falsyStackHeight = state.blockStack.length
@@ -280,12 +283,15 @@ function increment (mem, variable, step) {
   if (!operation.hasVariable(mem, variable)) {
     throw core.UndefinedError
   }
-  operation.assignVariable(mem, variable, expression.evaluate({
+
+  const value = expression.evaluate({
     type: types.BINARY,
     operator: '+',
     left: variable,
     right: step,
-  }, mem), mem)
+  }, mem)
+
+  assignment.evaluate(variable, value, mem)
 }
 
 function getInput (text, variable, state, allowStringLiterals) {
@@ -309,7 +315,7 @@ function getInput (text, variable, state, allowStringLiterals) {
         variable = { type: types.LISTVARIABLE, name: `List${variable.name}`, custom: true }
       }
 
-      operation.assignVariable(state.mem, variable, value)
+      assignment.evaluate(variable, value, state.mem)
     })
   }, state.io)
   return signal.SUSPEND
