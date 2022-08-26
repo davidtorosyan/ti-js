@@ -3,7 +3,19 @@
 
 import * as types from './types'
 
-function error(type: string, code: any, hideSource = false) {
+export type TiJsSource = {
+  index: number
+  line: string
+}
+
+export type TiJsError = {
+  type: string
+  code: any
+  hideSource: boolean
+  source?: TiJsSource
+}
+
+function error(type: string, code: any, hideSource = false): TiJsError {
   return {
     type,
     code,
