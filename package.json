@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/davidtorosyan/ti-js",
   "devDependencies": {
+    "@rocket.chat/peggy-loader": "^0.31.16",
     "@tsconfig/strictest": "^1.0.1",
     "@types/jquery": "^3.5.14",
     "@webpack-cli/serve": "^1.7.0",
@@ -42,7 +43,6 @@
     "eslint-plugin-standard": "^4.1.0",
     "loader-utils": "^3.2.0",
     "peggy": "^2.0.1",
-    "peggy-loader": "^0.5.6",
     "raw-loader": "^4.0.2",
     "tap": "^16.3.0",
     "ts-loader": "^9.3.1",

@@ -19,7 +19,7 @@ const common = {
       },
       {
         test: /\.peggy$/i,
-        loader: 'peggy-loader',
+        loader: '@rocket.chat/peggy-loader',
       },
     ],
   },
