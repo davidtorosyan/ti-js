@@ -23,7 +23,7 @@ export function parse(source: string, options: ParseOptions = {}) {
   // * Allow multiple statements per line with ':'
   const sourceLines = source.split(/\r?\n/)
   const parsedLines = sourceLines.map(s => {
-    let parsedLine
+    let parsedLine: types.Statement
     try {
       parsedLine = parseTiBasic(s)
     } catch (error: any) {

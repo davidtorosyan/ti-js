@@ -71,7 +71,7 @@ type CreateTaskOptions = {
 }
 
 type Task = {
-  func: () => string,
+  func: () => string | undefined,
   delay: number,
   lastRun: number | undefined,
   runOnce: boolean,
@@ -81,7 +81,7 @@ type Task = {
 }
 
 function createTask(
-  func: () => string,
+  func: () => string | undefined,
   delay: number,
   runOnce: boolean,
   options: CreateTaskOptions,
@@ -230,7 +230,7 @@ function handleException() {
 }
 
 export function setTinyInterval(
-  func: () => string,
+  func: () => string | undefined,
   delay: number,
   options: CreateTaskOptions = { debug: false },
 ) {
@@ -246,7 +246,7 @@ export function resumeTinyInterval(tinyIntervalID: number) {
 }
 
 export function setTinyTimeout(
-  func: () => string,
+  func: () => string | undefined,
   delay: number,
   options: CreateTaskOptions = { debug: false },
 ) {

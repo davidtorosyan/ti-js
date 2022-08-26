@@ -8,7 +8,7 @@ const enterkey = 13
 
 export type IoOptions = {
   output?: (value: string, newline: boolean) => void
-  input: JQuery<HTMLElement>
+  input?: JQuery<HTMLElement>
   stdin?: string
   stdinQueue?: Array<string>
   includeErrors: boolean
@@ -75,7 +75,8 @@ export function onStdin(callback: (text: string | null | undefined) => boolean, 
     }, 0)
     return
   }
-  if (options.input === undefined) {
+  const input = options.input
+  if (input === undefined) {
     setTimeout(() => {
       if (callback(prompt('Input?')) === true) {
         onStdin(callback, options)
@@ -83,13 +84,13 @@ export function onStdin(callback: (text: string | null | undefined) => boolean, 
     }, 100)
     return
   }
-  setTimeout(() => options.input.val(''), 0)
-  options.input.on('keypress', e => {
+  setTimeout(() => input.val(''), 0)
+  input.on('keypress', e => {
     if (e.keyCode === enterkey) {
-      const result = options.input.val()?.toString()
-      setTimeout(() => options.input.val(''), 0)
+      const result = input.val()?.toString()
+      setTimeout(() => input.val(''), 0)
       if (callback(result) !== true) {
-        options.input.off('keypress')
+        input.off('keypress')
       }
     }
   })

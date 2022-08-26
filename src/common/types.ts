@@ -9,6 +9,7 @@ export const SyntaxError = 'SyntaxError'
 
 export type SyntaxError = {
     type: typeof SyntaxError
+    source?: string
 }
 
 // ----- Values -----
@@ -140,15 +141,18 @@ export const AssignmentStatement = 'assign'
 
 export type EmptyStatement = {
     type: typeof EmptyStatement
+    source?: string
 }
 
 export type ValueStatement = {
     type: typeof ValueStatement
     value: ValueExpression
+    source?: string
 }
 
 export type AssignmentStatement = {
     type: typeof AssignmentStatement
+    source?: string
     value: ValueExpression
     assignable: Assignable
 }
@@ -178,22 +182,26 @@ export const ExecLibStatement = 'ExecLibStatement'
 
 export type IfStatement = {
     type: typeof IfStatement
+    source?: string
     value: ValueExpression | null
     extra: boolean | null
 }
 
 export type ThenStatement = {
     type: typeof ThenStatement
+    source?: string
     extra: boolean | null
 }
 
 export type ElseStatement = {
     type: typeof ElseStatement
+    source?: string
     extra: boolean | null
 }
 
 export type ForLoop = {
     type: typeof ForLoop
+    source?: string
     variable: Variable
     start: ValueExpression | null
     end: ValueExpression | null
@@ -204,43 +212,51 @@ export type ForLoop = {
 
 export type WhileLoop = {
     type: typeof WhileLoop
+    source?: string
     value: ValueExpression | null
     extra: boolean | null
 }
 
 export type RepeatLoop = {
     type: typeof RepeatLoop
+    source?: string
     value: ValueExpression | null
     extra: boolean | null
 }
 
 export type EndStatement = {
     type: typeof EndStatement
+    source?: string
     extra: boolean | null
 }
 
 export type PauseStatement = {
     type: typeof PauseStatement
+    source?: string
 }
 
 export type LabelStatement = {
     type: typeof LabelStatement
+    source?: string
     location: string
 }
 
 export type GotoStatement = {
     type: typeof GotoStatement
+    source?: string
     location: string
 }
 
 export type IncrementSkip = {
     type: typeof IncrementSkip
+    source?: string
     variable: Variable | null
     end: ValueExpression | null
 }
 
 export type DecrementSkip = {
     type: typeof DecrementSkip
+    source?: string
     variable: Variable | null
     end: ValueExpression | null
 }
@@ -252,41 +268,49 @@ export type MenuChoice = {
 
 export type MenuStatement = {
     type: typeof MenuStatement
+    source?: string
     title: ValueExpression | null
     choices: Array<MenuChoice>
 }
 
 export type ProgramStatement = {
     type: typeof ProgramStatement
+    source?: string
     name: string
 }
 
 export type ReturnStatement = {
     type: typeof ReturnStatement
+    source?: string
 }
 
 export type StopStatement = {
     type: typeof StopStatement
+    source?: string
 }
 
 export type DelVarStatement = {
     type: typeof DelVarStatement
+    source?: string
     variable: Variable | null
 }
 
 export type GraphStyleStatement = {
     type: typeof GraphStyleStatement
+    source?: string
     equation: ValueExpression | null
     style: ValueExpression | null
 }
 
 export type OpenLibStatement = {
     type: typeof OpenLibStatement
+    source?: string
     name: string
 }
 
 export type ExecLibStatement = {
     type: typeof ExecLibStatement
+    source?: string
     name: string
 }
 
@@ -328,30 +352,36 @@ export const Send = 'Send'
 
 export type Input = {
     type: typeof Input
+    source?: string
     text: ValueExpression | null
     variable: Variable | null
 }
 
 export type Prompt = {
     type: typeof Prompt
+    source?: string
     variable: Variable | null
 }
 
 export type Display = {
     type: typeof Display
+    source?: string
     value: ValueExpression | null
 }
 
 export type DispGraph = {
     type: typeof DispGraph
+    source?: string
 }
 
 export type DispTable = {
     type: typeof DispTable
+    source?: string
 }
 
 export type Output = {
     type: typeof Output
+    source?: string
     row: ValueExpression | null
     column: ValueExpression | null
     value: ValueExpression | null
@@ -359,25 +389,30 @@ export type Output = {
 
 export type ClrHome = {
     type: typeof ClrHome
+    source?: string
 }
 
 export type ClrTable = {
     type: typeof ClrTable
+    source?: string
 }
 
 export type GetCalc = {
     type: typeof GetCalc
+    source?: string
     variable: Variable | null
     portflag: ValueExpression | null
 }
 
 export type Get = {
     type: typeof Get
+    source?: string
     variable: Variable | null
 }
 
 export type Send = {
     type: typeof Send
+    source?: string
     variable: Variable | null
 }
 
