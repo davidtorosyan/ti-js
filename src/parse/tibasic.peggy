@@ -1,11 +1,6 @@
 // ti-basic grammar
 // ================
 
-{
-  const types = require ('../common/types');
-  const util = require ('./pegutil');
-}
-
 Start
   = Statement
 

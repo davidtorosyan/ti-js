@@ -1,6 +1,7 @@
 const path = require('path')
 const { merge } = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
+const tspegjs = require('ts-pegjs')
 
 const common = {
   mode: 'development',
@@ -19,7 +20,21 @@ const common = {
       },
       {
         test: /\.peggy$/i,
-        loader: '@rocket.chat/peggy-loader',
+        use: [
+          'ts-loader',
+          {
+            loader: '@rocket.chat/peggy-loader',
+            options: {
+              plugins: [tspegjs],
+              tspegjs: {
+                customHeader: [
+                  "import * as types from '../common/types'",
+                  "import * as util from './pegutil'",
+                ].join('\n'),
+              },
+            },
+          },
+        ],
       },
     ],
   },
