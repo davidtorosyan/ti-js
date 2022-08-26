@@ -66,3 +66,7 @@ export function newFloat(value = 0): types.NumberResolved {
 export const ONE = newFloat(1)
 
 export const MINUSONE = newFloat(-1)
+
+export function exhaustiveMatchingGuard(_: never): never {
+  throw new Error("Should not have reached here")
+}

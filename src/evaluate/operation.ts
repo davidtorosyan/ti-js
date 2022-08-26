@@ -95,7 +95,7 @@ export function valueToString(value: types.ValueResolved, strict = false) {
   return str
 }
 
-export function parseDigit(str: string) {
+export function parseDigit(str?: string | null) {
   if (str === undefined || str === null || str === '' || str.length > 1) {
     return
   }
