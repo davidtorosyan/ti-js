@@ -1,0 +1,22 @@
+{
+  "name": "ti-js_sample_node-ts",
+  "version": "1.0.0",
+  "description": "A sample project for ti-js, running node, in typescript",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "clean": "rimraf dist/*",
+    "build": "npm run clean && tsc",
+    "start": "npm run build && node dist/"
+  },
+  "author": "David Torosyan <davidtorosyan.git@gmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/node": "^18.7.14",
+    "rimraf": "^3.0.2",
+    "ti-js": "^0.4.20",
+    "typescript": "^4.8.2"
+  }
+}
