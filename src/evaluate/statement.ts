@@ -34,7 +34,7 @@ export type State = {
   io: iolib.IoOptions
 }
 
-export function evaluate(line: types.Statement, state: State): string | undefined {
+export function evaluate (line: types.Statement, state: State): string | undefined {
   switch (line.type) {
     case types.EmptyStatement:
       return visitEmptyStatement(line, state)
@@ -109,36 +109,36 @@ export function evaluate(line: types.Statement, state: State): string | undefine
     case types.Send:
       return visitSend(line, state)
     default:
-      return core.exhaustiveMatchingGuard(line);
+      return core.exhaustiveMatchingGuard(line)
   }
 }
 
 // ----- Statements -----
 
-function visitEmptyStatement(_line: types.EmptyStatement, _state: State) {
+function visitEmptyStatement (_line: types.EmptyStatement, _state: State) {
   // do nothing
   return undefined
 }
 
-function visitAssignmentStatement(line: types.AssignmentStatement, state: State) {
+function visitAssignmentStatement (line: types.AssignmentStatement, state: State) {
   const value = expression.evaluate(line.value, state.mem)
   assignment.evaluate(line.assignable, value, state.mem)
   operation.assignAns(state.mem, value)
   return undefined
 }
 
-function visitValueStatement(line: types.ValueStatement, state: State) {
+function visitValueStatement (line: types.ValueStatement, state: State) {
   operation.assignAns(state.mem, expression.evaluate(line.value, state.mem))
   return undefined
 }
 
-function visitSyntaxError(_line: types.SyntaxError, _state: State): never {
+function visitSyntaxError (_line: types.SyntaxError, _state: State): never {
   throw core.SyntaxError
 }
 
 // ----- CTL -----
 
-function visitIfStatement(line: types.IfStatement, state: State) {
+function visitIfStatement (line: types.IfStatement, state: State) {
   if (line.value === null) {
     throw core.ArgumentError
   }
@@ -146,11 +146,11 @@ function visitIfStatement(line: types.IfStatement, state: State) {
   return undefined
 }
 
-function visitThenStatement(_line: types.ThenStatement, _state: State): never {
+function visitThenStatement (_line: types.ThenStatement, _state: State): never {
   throw core.SyntaxError
 }
 
-function visitElseStatement(_line: types.ElseStatement, state: State) {
+function visitElseStatement (_line: types.ElseStatement, state: State) {
   const previousBlockIndex = state.blockStack.pop()
   if (previousBlockIndex === undefined) {
     throw core.SyntaxError
@@ -168,7 +168,7 @@ function visitElseStatement(_line: types.ElseStatement, state: State) {
   return undefined
 }
 
-function visitForLoop(line: types.ForLoop, state: State) {
+function visitForLoop (line: types.ForLoop, state: State) {
   if (line.variable === null || line.start === null || line.end === null) {
     throw core.ArgumentError
   }
@@ -183,7 +183,7 @@ function visitForLoop(line: types.ForLoop, state: State) {
   return undefined
 }
 
-function visitWhileLoop(line: types.WhileLoop, state: State) {
+function visitWhileLoop (line: types.WhileLoop, state: State) {
   if (line.value === null) {
     throw core.ArgumentError
   }
@@ -194,7 +194,7 @@ function visitWhileLoop(line: types.WhileLoop, state: State) {
   return undefined
 }
 
-function visitRepeatLoop(line: types.RepeatLoop, state: State) {
+function visitRepeatLoop (line: types.RepeatLoop, state: State) {
   if (line.value === null) {
     throw core.ArgumentError
   }
@@ -202,7 +202,7 @@ function visitRepeatLoop(line: types.RepeatLoop, state: State) {
   return undefined
 }
 
-function visitEndStatement(_line: types.EndStatement, state: State) {
+function visitEndStatement (_line: types.EndStatement, state: State) {
   const source = state.blockStack.pop()
   if (source === undefined) {
     throw core.SyntaxError
@@ -243,22 +243,22 @@ function visitEndStatement(_line: types.EndStatement, state: State) {
   return undefined
 }
 
-function visitPauseStatement(_line: types.PauseStatement, _state: State): never {
+function visitPauseStatement (_line: types.PauseStatement, _state: State): never {
   throw core.UnimplementedError
 }
 
-function visitLabelStatement(_line: types.LabelStatement, _state: State) {
+function visitLabelStatement (_line: types.LabelStatement, _state: State) {
   // do nothing
   return undefined
 }
 
-function visitGotoStatement(line: types.GotoStatement, state: State) {
+function visitGotoStatement (line: types.GotoStatement, state: State) {
   state.searchLabel = line.location
   state.i = -1
   return undefined
 }
 
-function visitIncrementSkip(line: types.IncrementSkip, state: State) {
+function visitIncrementSkip (line: types.IncrementSkip, state: State) {
   if (line.variable === null || line.end === null) {
     throw core.ArgumentError
   }
@@ -267,7 +267,7 @@ function visitIncrementSkip(line: types.IncrementSkip, state: State) {
   return undefined
 }
 
-function visitDecrementSkip(line: types.DecrementSkip, state: State) {
+function visitDecrementSkip (line: types.DecrementSkip, state: State) {
   if (line.variable === null || line.end === null) {
     throw core.ArgumentError
   }
@@ -276,7 +276,7 @@ function visitDecrementSkip(line: types.DecrementSkip, state: State) {
   return undefined
 }
 
-function visitMenuStatement(line: types.MenuStatement, state: State) {
+function visitMenuStatement (line: types.MenuStatement, state: State) {
   if (line.title === null || line.choices.length === 0 || line.choices.length > 7) {
     throw core.ArgumentError
   }
@@ -304,20 +304,20 @@ function visitMenuStatement(line: types.MenuStatement, state: State) {
   return signal.SUSPEND
 }
 
-function visitProgramStatement(_line: types.ProgramStatement, _state: State): never {
+function visitProgramStatement (_line: types.ProgramStatement, _state: State): never {
   throw core.UnimplementedError
 }
 
-function visitReturnStatement(_line: types.ReturnStatement, _state: State) {
+function visitReturnStatement (_line: types.ReturnStatement, _state: State) {
   // TODO interaction with subprograms
   return signal.DONE
 }
 
-function visitStopStatement(_line: types.StopStatement, _state: State) {
+function visitStopStatement (_line: types.StopStatement, _state: State) {
   return signal.DONE
 }
 
-function visitDelVarStatement(line: types.DelVarStatement, state: State) {
+function visitDelVarStatement (line: types.DelVarStatement, state: State) {
   if (line.variable === null) {
     throw core.ArgumentError
   }
@@ -325,28 +325,28 @@ function visitDelVarStatement(line: types.DelVarStatement, state: State) {
   return undefined
 }
 
-function visitGraphStyleStatement(_line: types.GraphStyleStatement, _state: State): never {
+function visitGraphStyleStatement (_line: types.GraphStyleStatement, _state: State): never {
   throw core.UnimplementedError
 }
 
-function visitOpenLibStatement(_line: types.OpenLibStatement, _state: State): never {
+function visitOpenLibStatement (_line: types.OpenLibStatement, _state: State): never {
   throw core.UnimplementedError
 }
 
-function visitExecLibStatement(_line: types.ExecLibStatement, _state: State): never {
+function visitExecLibStatement (_line: types.ExecLibStatement, _state: State): never {
   throw core.UnimplementedError
 }
 
 // ----- I/O -----
 
-function visitDisplay(line: types.Display, state: State) {
+function visitDisplay (line: types.Display, state: State) {
   if (line.value !== null) {
     iolib.stdout(operation.valueToString(expression.evaluate(line.value, state.mem)), state.io)
   }
   return undefined
 }
 
-function visitInput(line: types.Input, state: State) {
+function visitInput (line: types.Input, state: State) {
   if (line.variable === null) {
     if (line.text !== null) {
       throw core.ArgumentError
@@ -360,7 +360,7 @@ function visitInput(line: types.Input, state: State) {
   return getInput(text, line.variable, state, true)
 }
 
-function visitPrompt(line: types.Prompt, state: State) {
+function visitPrompt (line: types.Prompt, state: State) {
   if (line.variable === null) {
     throw core.ArgumentError
   }
@@ -368,15 +368,15 @@ function visitPrompt(line: types.Prompt, state: State) {
   return getInput(`${text}=?`, line.variable, state, false)
 }
 
-function visitDispGraph(_line: types.DispGraph, _state: State): never {
+function visitDispGraph (_line: types.DispGraph, _state: State): never {
   throw core.UnimplementedError
 }
 
-function visitDispTable(_line: types.DispTable, _state: State): never {
+function visitDispTable (_line: types.DispTable, _state: State): never {
   throw core.UnimplementedError
 }
 
-function visitOutput(line: types.Output, state: State) {
+function visitOutput (line: types.Output, state: State) {
   if (line.row === null || line.column === null || line.value === null) {
     throw core.ArgumentError
   }
@@ -393,29 +393,29 @@ function visitOutput(line: types.Output, state: State) {
   return undefined
 }
 
-function visitClrHome(_line: types.ClrHome, _state: State): never {
+function visitClrHome (_line: types.ClrHome, _state: State): never {
   throw core.UnimplementedError
 }
 
-function visitClrTable(_line: types.ClrTable, _state: State): never {
+function visitClrTable (_line: types.ClrTable, _state: State): never {
   throw core.UnimplementedError
 }
 
-function visitGetCalc(_line: types.GetCalc, _state: State): never {
+function visitGetCalc (_line: types.GetCalc, _state: State): never {
   throw core.UnimplementedError
 }
 
-function visitGet(_line: types.Get, _state: State): never {
+function visitGet (_line: types.Get, _state: State): never {
   throw core.UnimplementedError
 }
 
-function visitSend(_line: types.Send, _state: State): never {
+function visitSend (_line: types.Send, _state: State): never {
   throw core.UnimplementedError
 }
 
 // ----- Helpers -----
 
-function increment(mem: core.Memory, variable: types.Variable, step: types.ValueExpression) {
+function increment (mem: core.Memory, variable: types.Variable, step: types.ValueExpression) {
   if (!operation.hasVariable(mem, variable)) {
     throw core.UndefinedError
   }
@@ -430,7 +430,7 @@ function increment(mem: core.Memory, variable: types.Variable, step: types.Value
   assignment.evaluate(variable, value, mem)
 }
 
-function getInput(text: string, variable: types.Variable, state: State, allowStringLiterals: boolean) {
+function getInput (text: string, variable: types.Variable, state: State, allowStringLiterals: boolean) {
   iolib.stdout(text, state.io, false)
   iolib.onStdin(input => {
     if (input === null || input === undefined || input === '') {

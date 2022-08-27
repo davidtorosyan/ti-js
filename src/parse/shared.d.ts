@@ -1,7 +1,7 @@
 // shared
 // ======
 
-declare module "*.peggy" {
-    const parser: import("peggy").Parser;
+declare module '*.peggy' {
+    const parser: import('peggy').Parser
     export = parser;
 }

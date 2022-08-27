@@ -23,7 +23,7 @@ export type RunOptions = {
   includeSource?: boolean
 }
 
-export function run(lines: Array<types.Statement>, options: RunOptions = {}) {
+export function run (lines: Array<types.Statement>, options: RunOptions = {}) {
   let sourceLines: Array<string> = []
   if (options.source !== undefined) {
     if (Array.isArray(options.source)) {
@@ -88,7 +88,7 @@ export function run(lines: Array<types.Statement>, options: RunOptions = {}) {
     rows: 8,
     columns: 16,
 
-    io: ioOptions
+    io: ioOptions,
   }
 
   if (options.callback !== undefined) {
@@ -115,7 +115,7 @@ export function run(lines: Array<types.Statement>, options: RunOptions = {}) {
   }
 }
 
-function runLoop(state: statement.State): string | undefined {
+function runLoop (state: statement.State): string | undefined {
   let result: string | undefined
   let exceptionToThrow
 
@@ -168,7 +168,7 @@ function runLoop(state: statement.State): string | undefined {
   return result
 }
 
-function runLine(state: statement.State): string | undefined {
+function runLine (state: statement.State): string | undefined {
   if (state.debug) {
     console.debug({
       Line: state.i,
@@ -293,13 +293,13 @@ function runLine(state: statement.State): string | undefined {
   // ----- normal execution -----
 
   const couldHaveExtra =
-    type === types.IfStatement
-    || type === types.ThenStatement
-    || type === types.ElseStatement
-    || type === types.ForLoop
-    || type === types.WhileLoop
-    || type === types.RepeatLoop
-    || type === types.EndStatement
+    type === types.IfStatement ||
+    type === types.ThenStatement ||
+    type === types.ElseStatement ||
+    type === types.ForLoop ||
+    type === types.WhileLoop ||
+    type === types.RepeatLoop ||
+    type === types.EndStatement
 
   if (couldHaveExtra && line.extra === true) {
     throw core.SyntaxError

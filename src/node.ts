@@ -11,7 +11,7 @@ nodeLoader.init()
 
 export { run, on, parse }
 
-export function exec(source: string, callback: (output: string) => void) {
+export function exec (source: string, callback: (output: string) => void) {
   const lines = parse(source)
   run(lines, {
     outputCallback: callback,

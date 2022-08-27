@@ -5,22 +5,22 @@ import { Worker } from 'worker_threads'
 
 let worker: Worker | undefined
 
-function createWorker() {
+function createWorker () {
   worker = new Worker(new URL('./worker.ts', import.meta.url))
 }
 
-function destroyWorker() {
+function destroyWorker () {
   if (worker !== undefined) {
     worker.terminate()
     worker = undefined
   }
 }
 
-function workerHasListeners() {
+function workerHasListeners () {
   return worker !== undefined && worker.listenerCount('message') > 0
 }
 
-export function post(message: string) {
+export function post (message: string) {
   if (worker === undefined) {
     return
   }
@@ -28,7 +28,7 @@ export function post(message: string) {
   worker.postMessage(message)
 }
 
-export function on(message: string, listener: () => void) {
+export function on (message: string, listener: () => void) {
   if (worker === undefined) {
     createWorker()
   }
@@ -36,7 +36,7 @@ export function on(message: string, listener: () => void) {
   worker!.on('message', wrapListener(message, listener))
 }
 
-export function off(message: string, listener: () => void) {
+export function off (message: string, listener: () => void) {
   if (worker === undefined) {
     return
   }
@@ -50,9 +50,9 @@ export function off(message: string, listener: () => void) {
 
 type Listener = () => void
 type WrappedListener = (message: string) => void
-let listenerMap = new Map<string, Map<Listener, WrappedListener>>()
+const listenerMap = new Map<string, Map<Listener, WrappedListener>>()
 
-function wrapListener(message: string, listener: () => void) {
+function wrapListener (message: string, listener: () => void) {
   let secondary = listenerMap.get(message)
   if (secondary === undefined) {
     secondary = new Map<Listener, WrappedListener>()

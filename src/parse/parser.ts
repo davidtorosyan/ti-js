@@ -5,14 +5,13 @@ import * as types from '../common/types'
 import {
   parse as parseTiBasic,
   SyntaxError,
-} from './tibasic.peggy';
-
+} from './tibasic.peggy'
 
 type ParseOptions = {
   sourceMap?: string
 }
 
-export function parse(source: string, options: ParseOptions = {}) {
+export function parse (source: string, options: ParseOptions = {}) {
   if (source === undefined) {
     throw new Error('Undefined source!')
   }
@@ -42,7 +41,7 @@ export function parse(source: string, options: ParseOptions = {}) {
   return parsedLines
 }
 
-export function parseExpression(source: String) {
+export function parseExpression (source: string) {
   if (source === undefined) {
     throw new Error('Undefined source!')
   }

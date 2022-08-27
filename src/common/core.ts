@@ -15,7 +15,7 @@ export type TiJsError = {
   source?: TiJsSource
 }
 
-function error(type: string, code: any, hideSource = false): TiJsError {
+function error (type: string, code: any, hideSource = false): TiJsError {
   return {
     type,
     code,
@@ -23,7 +23,7 @@ function error(type: string, code: any, hideSource = false): TiJsError {
   }
 }
 
-function tiError(code: string, hideSource = false) {
+function tiError (code: string, hideSource = false) {
   return error(types.ti, code, hideSource)
 }
 
@@ -37,7 +37,7 @@ export const DivideByZeroError = tiError('DIVIDE BY 0')
 export const InvalidDimError = tiError('INVALID DIM')
 export const DomainError = tiError('DOMAIN')
 
-export function libError(code: string, hideSource = false) {
+export function libError (code: string, hideSource = false) {
   return error(types.lib, code, hideSource)
 }
 
@@ -48,18 +48,18 @@ export type Memory = {
   ans: types.ValueResolved
 }
 
-export function newMem(): Memory {
+export function newMem (): Memory {
   return {
     vars: new Map<string, types.ValueResolved>(),
     ans: newFloat(),
   }
 }
 
-export function newFloat(value = 0): types.NumberResolved {
+export function newFloat (value = 0): types.NumberResolved {
   return {
     type: types.NUMBER,
     resolved: true,
-    float: value
+    float: value,
   }
 }
 
@@ -67,6 +67,6 @@ export const ONE = newFloat(1)
 
 export const MINUSONE = newFloat(-1)
 
-export function exhaustiveMatchingGuard(_: never): never {
-  throw new Error("Should not have reached here")
+export function exhaustiveMatchingGuard (_: never): never {
+  throw new Error('Should not have reached here')
 }

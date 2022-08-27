@@ -17,7 +17,7 @@ export type IoOptions = {
   includeSource: boolean
 }
 
-export function elemOutput(elem: JQuery<HTMLElement>) {
+export function elemOutput (elem: JQuery<HTMLElement>) {
   return (value: string, newline: boolean) => {
     setTimeout(() => {
       let result = elem.val() + value
@@ -29,7 +29,7 @@ export function elemOutput(elem: JQuery<HTMLElement>) {
   }
 }
 
-export function stdout(value: string, options: IoOptions, newline = true) {
+export function stdout (value: string, options: IoOptions, newline = true) {
   if (options.output === undefined) {
     console.log(value)
     return
@@ -37,7 +37,7 @@ export function stdout(value: string, options: IoOptions, newline = true) {
   options.output(value, newline)
 }
 
-export function stderr(ex: TiJsError, options: IoOptions) {
+export function stderr (ex: TiJsError, options: IoOptions) {
   if ((ex.type === types.ti && !options.includeErrors) ||
     (ex.type === types.lib && !options.includeLibErrors)) {
     console.log(ex)
@@ -61,7 +61,7 @@ export function stderr(ex: TiJsError, options: IoOptions) {
   stdout(value, options)
 }
 
-export function onStdin(callback: (text: string | null | undefined) => boolean, options: IoOptions) {
+export function onStdin (callback: (text: string | null | undefined) => boolean, options: IoOptions) {
   if (options.stdin !== undefined && options.stdin !== '' && options.stdinQueue === undefined) {
     options.stdinQueue = options.stdin.split('\n').reverse()
   }
@@ -96,7 +96,7 @@ export function onStdin(callback: (text: string | null | undefined) => boolean, 
   })
 }
 
-export function cleanup(options: IoOptions) {
+export function cleanup (options: IoOptions) {
   if (options.input !== undefined) {
     options.input.off('keypress')
   }

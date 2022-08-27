@@ -5,7 +5,7 @@ import * as core from '../common/core'
 import * as types from '../common/types'
 import * as operation from './operation'
 
-export function evaluate(value: types.ValueExpression, mem: core.Memory) {
+export function evaluate (value: types.ValueExpression, mem: core.Memory) {
   const behavior = expressionOf.get(value.type)
   if (behavior === undefined) {
     throw core.libError('unexpected value')
@@ -246,7 +246,7 @@ binaryOf.set(types.LIST, (operator, left, right) => {
 
 // ----- Helper -----
 
-function applyBinaryOperationListAndNumber(
+function applyBinaryOperationListAndNumber (
   operator: string,
   list: types.ListResolved,
   number: types.NumberResolved,
@@ -259,14 +259,14 @@ function applyBinaryOperationListAndNumber(
   }
 }
 
-function applyUnaryOperation(operator: string, x: number) {
+function applyUnaryOperation (operator: string, x: number) {
   switch (operator) {
     case '&-': return x * -1
     default: throw core.libError('unexpected unary operator')
   }
 }
 
-function applyBinaryOperation(operator: string, x: number, y: number) {
+function applyBinaryOperation (operator: string, x: number, y: number) {
   if (operator === '/' && y === 0) {
     throw core.DivideByZeroError
   }

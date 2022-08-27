@@ -3,26 +3,26 @@
 
 import * as types from '../common/types'
 
-function toBinary(
+function toBinary (
   left: types.ValueExpression,
-  rightOp: types.ValueExpression | [string, types.ValueExpression]
+  rightOp: types.ValueExpression | [string, types.ValueExpression],
 ): types.BinaryExpression {
   return {
     type: types.BINARY,
     operator: Array.isArray(rightOp) ? rightOp[0] : '*',
-    left: left,
+    left,
     right: Array.isArray(rightOp) ? rightOp[1] : rightOp,
   }
 }
 
-export function buildBinaryExpression(
+export function buildBinaryExpression (
   head: types.ValueExpression,
   tail: Array<[string, types.ValueExpression]>,
 ): types.ValueExpression {
   return tail.reduce(toBinary, head)
 }
 
-export function buildImplicitBinaryExpression(
+export function buildImplicitBinaryExpression (
   head: types.ValueExpression,
   tail: Array<[types.ValueExpression, types.ValueExpression]>,
   end: types.ValueExpression,
@@ -34,7 +34,7 @@ export function buildImplicitBinaryExpression(
   return list.reduce(toBinary, head)
 }
 
-function toMenuChoice(
+function toMenuChoice (
   element: [string, types.TiString, string, string],
 ): types.MenuChoice {
   return {
@@ -43,7 +43,7 @@ function toMenuChoice(
   }
 }
 
-export function buildMenuStatement(
+export function buildMenuStatement (
   title: types.TiString,
   options: Array<[string, types.TiString, string, string]>,
 ) {
@@ -55,7 +55,7 @@ export function buildMenuStatement(
   }
 }
 
-export function buildList(
+export function buildList (
   head: types.ValueExpression,
   tail: Array<types.ValueExpression>,
 ) {

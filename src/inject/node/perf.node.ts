@@ -3,6 +3,6 @@
 
 import { performance } from 'perf_hooks'
 
-export function now() {
-    return performance.now()
+export function now () {
+  return performance.now()
 }

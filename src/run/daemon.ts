@@ -18,17 +18,17 @@ const maxExceptions = 1000
 
 let looper: Looper | undefined
 
-function startLooper() {
+function startLooper () {
   looper?.on(loopMessageName, handleMessage)
   looper?.on(exceptionName, handleException)
 }
 
-function stopLooper() {
+function stopLooper () {
   looper?.off(loopMessageName, handleMessage)
   looper?.off(exceptionName, handleException)
 }
 
-function updateLooper(value: Looper) {
+function updateLooper (value: Looper) {
   looper = value
 }
 
@@ -37,7 +37,7 @@ loader.subscribe(loader.LOOPER, updateLooper)
 let eventFactory: EventFactory | undefined
 let eventTarget: EventTarget | undefined
 
-function updateEventFactory(value: EventFactory) {
+function updateEventFactory (value: EventFactory) {
   eventFactory = value
 
   eventTarget = eventFactory.createEventTarget()
@@ -47,17 +47,17 @@ loader.subscribe(loader.EVENT, updateEventFactory)
 
 let perf: Perf | undefined
 
-function updatePerf(value: Perf) {
+function updatePerf (value: Perf) {
   perf = value
 }
 
 loader.subscribe(loader.PERF, updatePerf)
 
-function fireEvent(name: string) {
+function fireEvent (name: string) {
   eventTarget?.dispatchEvent(name)
 }
 
-function startIfNeeded() {
+function startIfNeeded () {
   if (running === false) {
     running = true
     fireEvent('start')
@@ -80,7 +80,7 @@ type Task = {
   debug: boolean,
 }
 
-function createTask(
+function createTask (
   func: () => string | undefined,
   delay: number,
   runOnce: boolean,
@@ -107,7 +107,7 @@ function createTask(
   return taskId
 }
 
-function resumeTask(taskId: number) {
+function resumeTask (taskId: number) {
   const task = tasks.get(taskId)
 
   if (task === undefined) {
@@ -120,9 +120,9 @@ function resumeTask(taskId: number) {
 
   task.suspended = false
   startIfNeeded()
-};
+}
 
-function suspendTask(taskId: number) {
+function suspendTask (taskId: number) {
   const task = tasks.get(taskId)
 
   if (task === undefined) {
@@ -134,9 +134,9 @@ function suspendTask(taskId: number) {
   }
 
   task.suspended = true
-};
+}
 
-function deleteTask(taskId: number) {
+function deleteTask (taskId: number) {
   const task = tasks.get(taskId)
 
   if (task === undefined) {
@@ -148,9 +148,9 @@ function deleteTask(taskId: number) {
   }
 
   tasks.delete(taskId)
-};
+}
 
-function handleMessage() {
+function handleMessage () {
   const time = perf!.now()
   let runningTaskCount = 0
   let suspendedTaskCount = 0
@@ -221,15 +221,15 @@ function handleMessage() {
   } else {
     looper!.post(loopMessageName)
   }
-};
+}
 
-function handleException() {
+function handleException () {
   if (exceptions.length > 0) {
     throw exceptions.pop()
   }
 }
 
-export function setTinyInterval(
+export function setTinyInterval (
   func: () => string | undefined,
   delay: number,
   options: CreateTaskOptions = { debug: false },
@@ -237,15 +237,15 @@ export function setTinyInterval(
   return createTask(func, delay, false, options)
 }
 
-export function clearTinyInterval(tinyIntervalID: number) {
+export function clearTinyInterval (tinyIntervalID: number) {
   deleteTask(tinyIntervalID)
 }
 
-export function resumeTinyInterval(tinyIntervalID: number) {
+export function resumeTinyInterval (tinyIntervalID: number) {
   resumeTask(tinyIntervalID)
 }
 
-export function setTinyTimeout(
+export function setTinyTimeout (
   func: () => string | undefined,
   delay: number,
   options: CreateTaskOptions = { debug: false },
@@ -253,14 +253,14 @@ export function setTinyTimeout(
   return createTask(func, delay, true, options)
 }
 
-export function clearTinyTimeout(tinyTimeoutID: number) {
+export function clearTinyTimeout (tinyTimeoutID: number) {
   deleteTask(tinyTimeoutID)
 }
 
-export function on(type: string, listener: () => void) {
+export function on (type: string, listener: () => void) {
   eventTarget!.addEventListener(type, listener)
 }
 
-export function off(type: string, listener: () => void) {
+export function off (type: string, listener: () => void) {
   eventTarget!.removeEventListener(type, listener)
 }

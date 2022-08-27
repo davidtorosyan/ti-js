@@ -4,26 +4,26 @@
 import * as core from '../common/core'
 import * as types from '../common/types'
 
-export function isTruthy(value: types.ValueResolved) {
+export function isTruthy (value: types.ValueResolved) {
   if (value.type === types.NUMBER) {
     return value.float !== 0
   }
   throw core.DataTypeError
 }
 
-export function deleteVariable(mem: core.Memory, variable: types.Variable) {
+export function deleteVariable (mem: core.Memory, variable: types.Variable) {
   mem.vars.delete(variable.name)
 }
 
-export function hasVariable(mem: core.Memory, variable: types.Variable) {
+export function hasVariable (mem: core.Memory, variable: types.Variable) {
   return mem.vars.has(variable.name)
 }
 
-export function assignAns(mem: core.Memory, value: types.ValueResolved) {
+export function assignAns (mem: core.Memory, value: types.ValueResolved) {
   mem.ans = value
 }
 
-export function binaryOperation(
+export function binaryOperation (
   left: types.ValueExpression,
   operator: string,
   right: types.ValueExpression,
@@ -36,7 +36,7 @@ export function binaryOperation(
   }
 }
 
-export function resolveNumber(value: types.NumberLiteral) {
+export function resolveNumber (value: types.NumberLiteral) {
   let str = ''
   if (value.integer !== undefined) {
     str += value.integer
@@ -53,7 +53,7 @@ export function resolveNumber(value: types.NumberLiteral) {
   return parseFloat(str)
 }
 
-export function variableToString(variable: types.Variable) {
+export function variableToString (variable: types.Variable) {
   let str = variable.name
   switch (variable.type) {
     case types.VARIABLE:
@@ -71,7 +71,7 @@ export function variableToString(variable: types.Variable) {
   return str
 }
 
-export function valueToString(value: types.ValueResolved, strict = false) {
+export function valueToString (value: types.ValueResolved, strict = false) {
   if (strict && value.type !== types.STRING) {
     throw core.DataTypeError
   }
@@ -95,7 +95,7 @@ export function valueToString(value: types.ValueResolved, strict = false) {
   return str
 }
 
-export function parseDigit(str?: string | null) {
+export function parseDigit (str?: string | null) {
   if (str === undefined || str === null || str === '' || str.length > 1) {
     return
   }

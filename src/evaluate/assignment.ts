@@ -6,7 +6,7 @@ import * as types from '../common/types'
 import type { Assignable, ValueResolved } from '../common/types'
 import * as expression from './expression'
 
-export function evaluate(assignable: Assignable, value: ValueResolved, mem: core.Memory) {
+export function evaluate (assignable: Assignable, value: ValueResolved, mem: core.Memory) {
   const behavior = assignmentOf.get(assignable.type)
   if (behavior === undefined) {
     throw core.libError('unexpected assignable type')

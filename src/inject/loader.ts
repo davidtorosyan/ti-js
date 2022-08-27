@@ -10,7 +10,7 @@ type Callback = (value: any) => void
 const map = new Map<string, any>()
 const callbackMap = new Map<string, Array<Callback>>()
 
-export function set(name: string, value: any) {
+export function set (name: string, value: any) {
   map.set(name, value)
   const callbacks = callbackMap.get(name)
   if (callbacks !== undefined) {
@@ -18,7 +18,7 @@ export function set(name: string, value: any) {
   }
 }
 
-export function subscribe(name: string, callback: Callback) {
+export function subscribe (name: string, callback: Callback) {
   let callbacks = callbackMap.get(name)
   if (callbacks === undefined) {
     callbacks = []
@@ -30,7 +30,7 @@ export function subscribe(name: string, callback: Callback) {
   }
 }
 
-export function unsubscribe(name: string, callback: Callback) {
+export function unsubscribe (name: string, callback: Callback) {
   const callbacks = callbackMap.get(name)
   if (callbacks === undefined) {
     return
