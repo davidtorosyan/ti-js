@@ -2,10 +2,15 @@
 // ======
 
 import * as types from '../common/types'
+// import {
+//   parse as parseTiBasic,
+//   SyntaxError,
+// } from './tibasic.peggy';
+// import * as parser from './tibasic.peggy';
 import {
   parse as parseTiBasic,
   SyntaxError,
-} from './tibasic.peggy';
+} from './tibasic-parser';
 
 
 type ParseOptions = {

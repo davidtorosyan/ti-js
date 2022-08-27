@@ -28,9 +28,12 @@ const common = {
               plugins: [tspegjs],
               tspegjs: {
                 customHeader: [
-                  "import * as types from '../common/types'",
+                  "import * as types from '../common/types2'",
                   "import * as util from './pegutil'",
                 ].join('\n'),
+              },
+              returnTypes: {
+                NumericVariable: 'types.NumericVariable',
               },
             },
           },

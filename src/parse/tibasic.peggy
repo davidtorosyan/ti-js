@@ -62,7 +62,10 @@ CustomListVariableIdentifier
   { return types.ListVariablePrefix + text().substring(prefix.length); }
 
 NumericVariable
-  = name:NumericVariableIdentifier { return { type: types.VARIABLE, name } }
+  = name:NumericVariableIdentifier { 
+    const x: types.NumericVariable = { type: types.VARIABLE, name2: name } 
+    return x
+  }
 
 StringVariable
   = name:StringVariableIdentifier { return { type: types.STRINGVARIABLE, name } }
