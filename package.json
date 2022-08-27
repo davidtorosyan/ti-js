@@ -12,6 +12,7 @@
     "test": "tap --no-coverage-report",
     "start": "webpack-dev-server --host localhost --config webpack.dev.js",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "bump": "npm version patch",
     "bt": "npm run build && npm test",
     "push": "npm run bt && npm run lint && npm publish",
@@ -32,6 +33,8 @@
   "devDependencies": {
     "@tsconfig/strictest": "^1.0.1",
     "@types/jquery": "^3.5.14",
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "@typescript-eslint/parser": "^5.35.1",
     "@webpack-cli/serve": "^1.7.0",
     "eslint": "^8.20.0",
     "eslint-config-standard": "^17.0.0",

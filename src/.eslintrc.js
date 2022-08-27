@@ -5,8 +5,12 @@ module.exports = {
   },
   extends: [
     'standard',
+    'plugin:@typescript-eslint/recommended',
   ],
-  root: true,
+  parser: '@typescript-eslint/parser',
+  plugins: [
+    '@typescript-eslint',
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
