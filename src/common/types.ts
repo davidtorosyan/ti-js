@@ -34,11 +34,11 @@ export type NumberResolved = {
     float: number
 }
 
-export type Number =
+export type TiNumber =
     NumberLiteral
     | NumberResolved
 
-export type String = {
+export type TiString = {
     type: typeof STRING
     chars: string
 }
@@ -55,13 +55,13 @@ export type ListResolved = {
     elements: Array<NumberResolved>
 }
 
-export type List =
+export type TiList =
     ListLiteral
     | ListResolved
 
 export type ValueResolved =
     NumberResolved
-    | String
+    | TiString
     | ListResolved
 
 // ----- Tokens -----
@@ -126,9 +126,9 @@ export type UnaryExpression = {
 }
 
 export type ValueExpression =
-    Number
-    | String
-    | List
+    TiNumber
+    | TiString
+    | TiList
     | Assignable
     | BinaryExpression
     | UnaryExpression
@@ -262,7 +262,7 @@ export type DecrementSkip = {
 }
 
 export type MenuChoice = {
-    option: String
+    option: TiString
     location: string
 }
 

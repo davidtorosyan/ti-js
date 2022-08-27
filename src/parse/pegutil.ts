@@ -35,7 +35,7 @@ export function buildImplicitBinaryExpression(
 }
 
 function toMenuChoice(
-  element: [string, types.String, string, string],
+  element: [string, types.TiString, string, string],
 ): types.MenuChoice {
   return {
     option: element[1],
@@ -44,8 +44,8 @@ function toMenuChoice(
 }
 
 export function buildMenuStatement(
-  title: types.String,
-  options: Array<[string, types.String, string, string]>,
+  title: types.TiString,
+  options: Array<[string, types.TiString, string, string]>,
 ) {
   const choices = options.map(toMenuChoice)
   return {
