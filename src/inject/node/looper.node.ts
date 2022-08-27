@@ -6,7 +6,7 @@ import { Worker } from 'worker_threads'
 let worker: Worker | undefined
 
 function createWorker () {
-  worker = new Worker(new URL('./worker.ts', import.meta.url))
+  return new Worker(new URL('./worker.ts', import.meta.url))
 }
 
 function destroyWorker () {
@@ -30,10 +30,10 @@ export function post (message: string) {
 
 export function on (message: string, listener: () => void) {
   if (worker === undefined) {
-    createWorker()
+    worker = createWorker()
   }
 
-  worker!.on('message', wrapListener(message, listener))
+  worker.on('message', wrapListener(message, listener))
 }
 
 export function off (message: string, listener: () => void) {

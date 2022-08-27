@@ -38,8 +38,6 @@ export function evaluate (line: types.Statement, state: State): string | undefin
   switch (line.type) {
     case types.EmptyStatement:
       return visitEmptyStatement(line, state)
-    case types.EmptyStatement:
-      return visitEmptyStatement(line, state)
     case types.AssignmentStatement:
       return visitAssignmentStatement(line, state)
     case types.ValueStatement:

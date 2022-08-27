@@ -238,8 +238,13 @@ binaryOf.set(types.LIST, (operator, left, right) => {
   }
   return {
     type: types.LIST,
-    elements: left.elements.map((e, i) => (
-      core.newFloat(applyBinaryOperation(operator, e.float, right.elements[i]!.float)))),
+    elements: left.elements.map((e, i) => {
+      const num = right.elements[i]
+      if (num === undefined) {
+        throw core.libError('Incorrect number of elements in list!')
+      }
+      return core.newFloat(applyBinaryOperation(operator, e.float, num.float))
+    }),
     resolved: true,
   }
 })

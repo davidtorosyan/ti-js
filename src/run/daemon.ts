@@ -1,17 +1,33 @@
 // daemon
 // ======
 
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import * as signal from '../common/signal'
 import type { EventFactory, EventTarget } from '../inject/event'
 import * as loader from '../inject/loader'
 import type { Looper } from '../inject/looper'
 import type { Perf } from '../inject/perf'
 
+type CreateTaskOptions = {
+  debug: boolean
+}
+
+type Task = {
+  func: () => string | undefined,
+  delay: number,
+  lastRun: number | undefined,
+  runOnce: boolean,
+  stopOnException: boolean,
+  suspended: boolean,
+  debug: boolean,
+}
+
 const loopMessageName = 'daemon-loop'
 const exceptionName = 'daemon-exception'
 const minimumDelay = 0.001 // 1 microsecond
 const tasks = new Map<number, Task>()
-const exceptions: Array<any> = []
+const exceptions: Array<unknown> = []
 let running = false
 let nextTaskId = 0
 const maxExceptions = 1000
@@ -64,20 +80,6 @@ function startIfNeeded () {
     startLooper()
     looper!.post(loopMessageName)
   }
-}
-
-type CreateTaskOptions = {
-  debug: boolean
-}
-
-type Task = {
-  func: () => string | undefined,
-  delay: number,
-  lastRun: number | undefined,
-  runOnce: boolean,
-  stopOnException: boolean,
-  suspended: boolean,
-  debug: boolean,
 }
 
 function createTask (

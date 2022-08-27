@@ -1,6 +1,8 @@
 // inject
 // ===========
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export const LOOPER = 'looper'
 export const EVENT = 'event'
 export const PERF = 'perf'

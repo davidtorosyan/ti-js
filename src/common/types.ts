@@ -1,6 +1,8 @@
 // types
 // =====
 
+/* eslint-disable no-use-before-define */
+
 // ----- Errors -----
 
 export const ti = 'ti'

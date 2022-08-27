@@ -122,8 +122,8 @@ function runLoop (state: statement.State): string | undefined {
   try {
     state.status = 'running'
     result = runLine(state)
-  } catch (ex: any) {
-    if (ex.type === undefined) {
+  } catch (ex: unknown) {
+    if (!(ex instanceof core.TiJsError)) {
       state.status = 'faulted'
       exceptionToThrow = ex
     } else {

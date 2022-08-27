@@ -25,7 +25,7 @@ export function parse (source: string, options: ParseOptions = {}) {
     let parsedLine: types.Statement
     try {
       parsedLine = parseTiBasic(s)
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (error instanceof SyntaxError) {
         parsedLine = { type: 'SyntaxError' }
       } else {
@@ -57,7 +57,7 @@ export function parseExpression (source: string) {
   let parsedLine
   try {
     parsedLine = parseTiBasic(sourceLine)
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (!(error instanceof SyntaxError)) {
       throw error
     }

@@ -5,22 +5,25 @@ import * as types from './types'
 
 export type TiJsSource = {
   index: number
-  line: string
+  line: string | undefined
 }
 
-export type TiJsError = {
-  type: string
-  code: any
-  hideSource: boolean
-  source?: TiJsSource
+export class TiJsError {
+  constructor (
+    public type: string,
+    public code: string,
+    public hideSource: boolean,
+    public source: TiJsSource | undefined,
+  ) {}
 }
 
-function error (type: string, code: any, hideSource = false): TiJsError {
-  return {
+function error (type: string, code: string, hideSource = false): TiJsError {
+  return new TiJsError(
     type,
     code,
     hideSource,
-  }
+    undefined,
+  )
 }
 
 function tiError (code: string, hideSource = false) {
