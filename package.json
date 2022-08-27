@@ -8,13 +8,14 @@
     "dist/"
   ],
   "scripts": {
+    "clean": "rimraf dist/*",
     "build": "webpack --config webpack.prod.js",
     "test": "tap --no-coverage-report",
     "start": "webpack-dev-server --host localhost --config webpack.dev.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "bump": "npm version patch",
-    "bt": "npm run build && npm test",
+    "bt": "npm run clean && npm run build && npm test",
     "push": "npm run bt && npm run lint && npm publish",
     "cov": "tap --reporter=spec",
     "next": "npm run bump && npm run push && git push"
@@ -47,6 +48,7 @@
     "peggy": "^2.0.1",
     "peggy-loader": "^0.5.6",
     "raw-loader": "^4.0.2",
+    "rimraf": "^3.0.2",
     "tap": "^16.3.0",
     "ts-loader": "^9.3.1",
     "typescript": "^4.7.4",
