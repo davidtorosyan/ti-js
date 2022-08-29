@@ -20,6 +20,8 @@ const assignmentOf = new Map<string, AssignmentBehavior>()
 
 // ----- Statements -----
 
+throw Error('foo')
+
 assignmentOf.set(types.VARIABLE, (assignable, value, mem) => {
   if (assignable.type !== types.VARIABLE) {
     throw core.libError('unexpected assignable type, numeric variable')

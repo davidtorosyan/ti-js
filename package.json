@@ -9,15 +9,17 @@
     "dist/web/"
   ],
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
-    "test": "tap --no-coverage-report",
-    "start": "webpack-dev-server --host localhost --config webpack.dev.js",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "build": "webpack --config config/webpack.prod.js",
+    "start": "webpack-dev-server --host localhost --config config/webpack.dev.js",
+    "test:tap": "tap --rcfile config/.taprc",
+    "test:cov": "npm run test:tap -- --reporter=spec",
+    "test": "npm run test:tap -- --no-coverage-report",
+    "lint:eslint": "eslint .",
+    "lint": "npm run lint:eslint",
+    "lint:fix": "npm run lint:eslint -- --fix",
     "bump": "npm version patch",
     "bt": "npm run build && npm test",
     "push": "npm run bt && npm run lint && npm publish",
-    "cov": "tap --reporter=spec",
     "next": "npm run bump && npm run push && git push"
   },
   "repository": {
