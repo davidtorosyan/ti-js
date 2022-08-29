@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/davidtorosyan/ti-js",
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.29.5",
     "@tsconfig/strictest": "^1.0.1",
     "@types/jquery": "^3.5.14",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
