@@ -3,6 +3,7 @@
   "version": "0.4.19",
   "description": "TI-Basic interpreter written in JavaScript.",
   "main": "dist/node/ti.js",
+  "types": "dist/node/ti.d.js",
   "jsdelivr": "dist/web/ti.js",
   "files": [
     "dist/node/",
