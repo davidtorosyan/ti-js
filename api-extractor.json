@@ -134,7 +134,7 @@
     /**
      * (REQUIRED) Whether to generate an API report.
      */
-    "enabled": true
+    "enabled": true,
 
     /**
      * The filename for the API report files.  It will be combined with "reportFolder" or "reportTempFolder" to produce
@@ -160,7 +160,7 @@
      * SUPPORTED TOKENS: <projectFolder>, <packageName>, <unscopedPackageName>
      * DEFAULT VALUE: "<projectFolder>/temp/"
      */
-    // "reportFolder": "<projectFolder>/temp/",
+    "reportFolder": "<projectFolder>/api/",
 
     /**
      * Specifies the folder where the temporary report file is written.  The file name portion is determined by
@@ -175,7 +175,7 @@
      * SUPPORTED TOKENS: <projectFolder>, <packageName>, <unscopedPackageName>
      * DEFAULT VALUE: "<projectFolder>/temp/"
      */
-    // "reportTempFolder": "<projectFolder>/temp/"
+    "reportTempFolder": "<projectFolder>/dist/api/"
   },
 
   /**
@@ -185,7 +185,7 @@
     /**
      * (REQUIRED) Whether to generate a doc model file.
      */
-    "enabled": true
+    "enabled": true,
 
     /**
      * The output path for the doc model file.  The file extension should be ".api.json".
@@ -196,7 +196,7 @@
      * SUPPORTED TOKENS: <projectFolder>, <packageName>, <unscopedPackageName>
      * DEFAULT VALUE: "<projectFolder>/temp/<unscopedPackageName>.api.json"
      */
-    // "apiJsonFilePath": "<projectFolder>/temp/<unscopedPackageName>.api.json"
+    "apiJsonFilePath": "<projectFolder>/dist/api/<unscopedPackageName>.api.json"
   },
 
   /**
@@ -337,7 +337,7 @@
          * DEFAULT VALUE: false
          */
         // "addToApiReportFile": false
-      }
+      },
 
       // "TS2551": {
       //   "logLevel": "warning",
@@ -358,7 +358,11 @@
       "default": {
         "logLevel": "warning"
         // "addToApiReportFile": false
-      }
+      },
+
+      "ae-missing-release-tag": {
+        "logLevel": "none"
+      },
 
       // "ae-extra-release-tag": {
       //   "logLevel": "warning",
