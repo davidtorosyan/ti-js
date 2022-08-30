@@ -13,7 +13,7 @@
     "build": "webpack --config webpack.prod.js",
     "test": "tap --no-coverage-report",
     "start": "webpack-dev-server --host localhost --config webpack.dev.js",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "api:extractor": "api-extractor run",
     "api:prod": "npm run api:extractor",
