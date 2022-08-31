@@ -8,6 +8,9 @@ import * as statement from '../evaluate/statement'
 import * as iolib from '../evaluate/iolib'
 import * as daemon from './daemon'
 
+/**
+ * @alpha
+ */
 export type RunOptions = {
   source?: string | Array<string>
   frequencyMs?: number
@@ -23,6 +26,9 @@ export type RunOptions = {
   includeSource?: boolean
 }
 
+/**
+ * @alpha
+ */
 export function run (lines: Array<types.Statement>, options: RunOptions = {}) {
   let sourceLines: Array<string> = []
   if (options.source !== undefined) {

@@ -7,10 +7,16 @@ import {
   SyntaxError,
 } from './tibasic.peggy'
 
-type ParseOptions = {
+/**
+ * @alpha
+ */
+export type ParseOptions = {
   sourceMap?: string
 }
 
+/**
+ * @alpha
+ */
 export function parse (source: string, options: ParseOptions = {}) {
   if (source === undefined) {
     throw new Error('Undefined source!')
