@@ -629,6 +629,4 @@ type WhileLoop = {
     extra: boolean | null;
 };
 
-// (No @packageDocumentation comment for this package)
-
 ```
