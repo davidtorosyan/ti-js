@@ -10,6 +10,7 @@
     "dist/web/"
   ],
   "scripts": {
+    "clean": "rimraf ./dist/api/* ./dist/ts/*",
     "build": "webpack --config webpack.prod.js",
     "test": "tap --no-coverage-report",
     "start": "webpack-dev-server --host localhost --config webpack.dev.js",
@@ -20,8 +21,8 @@
     "api:prod": "npm run api:extractor && npm run api:post",
     "api": "npm run api:extractor -- --local && npm run api:post",
     "bump": "npm version patch",
-    "bt": "npm run build && npm test && npm run api",
-    "bt:prod": "npm run build && npm test && npm run api:prod",
+    "bt": "npm run clean && npm run build && npm test && npm run api",
+    "bt:prod": "npm run clean && npm run build && npm test && npm run api:prod",
     "push": "npm run bt:prod && npm run lint && npm publish",
     "cov": "tap --reporter=spec",
     "next": "npm run bump && npm run push && git push"
