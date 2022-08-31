@@ -145,7 +145,7 @@
      * SUPPORTED TOKENS: <packageName>, <unscopedPackageName>
      * DEFAULT VALUE: "<unscopedPackageName>.api.md"
      */
-    // "reportFileName": "<unscopedPackageName>.api.md",
+    "reportFileName": "ti.api.md",
 
     /**
      * Specifies the folder where the API report file is written.  The file name portion is determined by
@@ -196,7 +196,7 @@
      * SUPPORTED TOKENS: <projectFolder>, <packageName>, <unscopedPackageName>
      * DEFAULT VALUE: "<projectFolder>/temp/<unscopedPackageName>.api.json"
      */
-    "apiJsonFilePath": "<projectFolder>/dist/api/<unscopedPackageName>.api.json"
+    "apiJsonFilePath": "<projectFolder>/dist/api/ti.api.json"
   },
 
   /**
@@ -220,7 +220,7 @@
      * SUPPORTED TOKENS: <projectFolder>, <packageName>, <unscopedPackageName>
      * DEFAULT VALUE: "<projectFolder>/dist/<unscopedPackageName>.d.ts"
      */
-    "untrimmedFilePath": "<projectFolder>/dist/node/<unscopedPackageName>.d.ts"
+    "untrimmedFilePath": "<projectFolder>/dist/node/ti.d.ts"
 
     /**
      * Specifies the output path for a .d.ts rollup file to be generated with trimming for an "alpha" release.
