@@ -6,16 +6,16 @@
 
 /// <reference types="jquery" />
 
-// @public (undocumented)
+// @alpha (undocumented)
 const ANS = "ans";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type Assignable = Variable | ListIndex;
 
-// @public (undocumented)
+// @alpha (undocumented)
 const AssignmentStatement = "assign";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type AssignmentStatement = {
     type: typeof AssignmentStatement;
     source?: string;
@@ -23,10 +23,10 @@ type AssignmentStatement = {
     assignable: Assignable;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const BINARY = "binary";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type BinaryExpression = {
     type: typeof BINARY;
     operator: string;
@@ -34,31 +34,31 @@ type BinaryExpression = {
     right: ValueExpression;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const ClrHome = "ClrHome";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ClrHome = {
     type: typeof ClrHome;
     source?: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const ClrTable = "ClrTable";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ClrTable = {
     type: typeof ClrTable;
     source?: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 type CtlStatement = IfStatement | ThenStatement | ElseStatement | ForLoop | WhileLoop | RepeatLoop | EndStatement | PauseStatement | LabelStatement | GotoStatement | IncrementSkip | DecrementSkip | MenuStatement | ProgramStatement | ReturnStatement | StopStatement | DelVarStatement | GraphStyleStatement | OpenLibStatement | ExecLibStatement;
 
-// @public (undocumented)
+// @alpha (undocumented)
 const DecrementSkip = "DecrementSkip";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type DecrementSkip = {
     type: typeof DecrementSkip;
     source?: string;
@@ -66,90 +66,90 @@ type DecrementSkip = {
     end: ValueExpression | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const DelVarStatement = "DelVarStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type DelVarStatement = {
     type: typeof DelVarStatement;
     source?: string;
     variable: Variable | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const DispGraph = "DispGraph";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type DispGraph = {
     type: typeof DispGraph;
     source?: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const Display = "display";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type Display = {
     type: typeof Display;
     source?: string;
     value: ValueExpression | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const DispTable = "DispTable";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type DispTable = {
     type: typeof DispTable;
     source?: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const ElseStatement = "ElseStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ElseStatement = {
     type: typeof ElseStatement;
     source?: string;
     extra: boolean | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const EmptyStatement = "empty";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type EmptyStatement = {
     type: typeof EmptyStatement;
     source?: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const EndStatement = "EndStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type EndStatement = {
     type: typeof EndStatement;
     source?: string;
     extra: boolean | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 export function exec(source: string, callback: (output: string) => void): void;
 
-// @public (undocumented)
+// @alpha (undocumented)
 const ExecLibStatement = "ExecLibStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ExecLibStatement = {
     type: typeof ExecLibStatement;
     source?: string;
     name: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const ForLoop = "ForLoop";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ForLoop = {
     type: typeof ForLoop;
     source?: string;
@@ -161,20 +161,20 @@ type ForLoop = {
     extra: boolean | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const Get = "Get";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type Get = {
     type: typeof Get;
     source?: string;
     variable: Variable | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const GetCalc = "GetCalc";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type GetCalc = {
     type: typeof GetCalc;
     source?: string;
@@ -182,23 +182,23 @@ type GetCalc = {
     portflag: ValueExpression | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const GetKey = "GetKey";
 
-// @public (undocumented)
+// @alpha (undocumented)
 const GotoStatement = "GotoStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type GotoStatement = {
     type: typeof GotoStatement;
     source?: string;
     location: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const GraphStyleStatement = "GraphStyleStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type GraphStyleStatement = {
     type: typeof GraphStyleStatement;
     source?: string;
@@ -206,10 +206,10 @@ type GraphStyleStatement = {
     style: ValueExpression | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const IfStatement = "IfStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type IfStatement = {
     type: typeof IfStatement;
     source?: string;
@@ -217,10 +217,10 @@ type IfStatement = {
     extra: boolean | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const IncrementSkip = "IncrementSkip";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type IncrementSkip = {
     type: typeof IncrementSkip;
     source?: string;
@@ -228,10 +228,10 @@ type IncrementSkip = {
     end: ValueExpression | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const Input = "Input";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type Input = {
     type: typeof Input;
     source?: string;
@@ -239,72 +239,72 @@ type Input = {
     variable: Variable | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 type IoStatement = Input | Prompt | Display | DispGraph | DispTable | Output | ClrHome | ClrTable | GetCalc | Get | Send;
 
-// @public (undocumented)
+// @alpha (undocumented)
 const LabelStatement = "LabelStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type LabelStatement = {
     type: typeof LabelStatement;
     source?: string;
     location: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const lib = "lib";
 
-// @public (undocumented)
+// @alpha (undocumented)
 const LIST = "list";
 
-// @public (undocumented)
+// @alpha (undocumented)
 const LISTINDEX = "listIndex";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ListIndex = {
     type: 'listIndex';
     list: ListVariable;
     index: ValueExpression;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ListLiteral = {
     type: typeof LIST;
     resolved: false;
     elements: Array<ValueExpression>;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ListResolved = {
     type: typeof LIST;
     resolved: true;
     elements: Array<NumberResolved>;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const LISTVARIABLE = "listVariable";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ListVariable = {
     type: 'listVariable';
     name: string;
     custom: boolean;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const ListVariablePrefix = "List";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type MenuChoice = {
     option: TiString;
     location: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const MenuStatement = "MenuStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type MenuStatement = {
     type: typeof MenuStatement;
     source?: string;
@@ -312,10 +312,10 @@ type MenuStatement = {
     choices: Array<MenuChoice>;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const NUMBER = "number";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type NumberLiteral = {
     type: typeof NUMBER;
     resolved: false;
@@ -324,36 +324,36 @@ type NumberLiteral = {
     exponent?: number | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 type NumberResolved = {
     type: typeof NUMBER;
     resolved: true;
     float: number;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 type NumericVariable = {
     type: 'variable';
     name: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 export function on(type: string, listener: () => void): void;
 
-// @public (undocumented)
+// @alpha (undocumented)
 const OpenLibStatement = "OpenLibStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type OpenLibStatement = {
     type: typeof OpenLibStatement;
     source?: string;
     name: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const Output = "Output";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type Output = {
     type: typeof Output;
     source?: string;
@@ -362,45 +362,47 @@ type Output = {
     value: ValueExpression | null;
 };
 
-// Warning: (ae-forgotten-export) The symbol "ParseOptions" needs to be exported by the entry point node.d.ts
-// Warning: (ae-forgotten-export) The symbol "types" needs to be exported by the entry point node.d.ts
-//
-// @public (undocumented)
+// @alpha (undocumented)
 export function parse(source: string, options?: ParseOptions): types.Statement[];
 
-// @public (undocumented)
+// @alpha (undocumented)
+export type ParseOptions = {
+    sourceMap?: string;
+};
+
+// @alpha (undocumented)
 const PauseStatement = "PauseStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type PauseStatement = {
     type: typeof PauseStatement;
     source?: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const ProgramStatement = "ProgramStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ProgramStatement = {
     type: typeof ProgramStatement;
     source?: string;
     name: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const Prompt = "Prompt";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type Prompt = {
     type: typeof Prompt;
     source?: string;
     variable: Variable | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const RepeatLoop = "RepeatLoop";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type RepeatLoop = {
     type: typeof RepeatLoop;
     source?: string;
@@ -408,135 +410,223 @@ type RepeatLoop = {
     extra: boolean | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const ReturnStatement = "ReturnStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ReturnStatement = {
     type: typeof ReturnStatement;
     source?: string;
 };
 
-// Warning: (ae-forgotten-export) The symbol "RunOptions" needs to be exported by the entry point node.d.ts
-//
-// @public (undocumented)
+// @alpha (undocumented)
 export function run(lines: Array<types.Statement>, options?: RunOptions): {
     getStatus: () => string;
     isActive: () => boolean;
     stop: () => void;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
+export type RunOptions = {
+    source?: string | Array<string>;
+    frequencyMs?: number;
+    outputCallback?: (value: string, newline: boolean) => void;
+    elem?: JQuery<HTMLElement>;
+    debug?: boolean;
+    callback?: (status: string) => void;
+    input?: JQuery<HTMLElement>;
+    stdin?: string;
+    includeErrors?: boolean;
+    includeLibErrors?: boolean;
+    includeLineNumbers?: boolean;
+    includeSource?: boolean;
+};
+
+// @alpha (undocumented)
 const Send = "Send";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type Send = {
     type: typeof Send;
     source?: string;
     variable: Variable | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 type Statement = EmptyStatement | SyntaxError_2 | AssignmentStatement | CtlStatement | IoStatement | ValueStatement;
 
-// @public (undocumented)
+// @alpha (undocumented)
 const StopStatement = "StopStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type StopStatement = {
     type: typeof StopStatement;
     source?: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const STRING = "string";
 
-// @public (undocumented)
+// @alpha (undocumented)
 const STRINGVARIABLE = "stringVariable";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type StringVariable = {
     type: 'stringVariable';
     name: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const SyntaxError_2 = "SyntaxError";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type SyntaxError_2 = {
     type: typeof SyntaxError_2;
     source?: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const ThenStatement = "ThenStatement";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ThenStatement = {
     type: typeof ThenStatement;
     source?: string;
     extra: boolean | null;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const ti = "ti";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type TiList = ListLiteral | ListResolved;
 
-// @public (undocumented)
+// @alpha (undocumented)
 type TiNumber = NumberLiteral | NumberResolved;
 
-// @public (undocumented)
+// @alpha (undocumented)
 type TiString = {
     type: typeof STRING;
     chars: string;
 };
 
-// @public (undocumented)
+declare namespace types {
+    export {
+        ti,
+        lib,
+        SyntaxError_2 as SyntaxError,
+        NUMBER,
+        LIST,
+        STRING,
+        ListVariablePrefix,
+        NumberLiteral,
+        NumberResolved,
+        TiNumber,
+        TiString,
+        ListLiteral,
+        ListResolved,
+        TiList,
+        ValueResolved,
+        ANS,
+        GetKey,
+        VARIABLE,
+        STRINGVARIABLE,
+        LISTVARIABLE,
+        LISTINDEX,
+        NumericVariable,
+        StringVariable,
+        ListVariable,
+        ListIndex,
+        Variable,
+        Assignable,
+        BINARY,
+        UNARY,
+        BinaryExpression,
+        UnaryExpression,
+        ValueExpression,
+        EmptyStatement,
+        ValueStatement,
+        AssignmentStatement,
+        IfStatement,
+        ThenStatement,
+        ElseStatement,
+        ForLoop,
+        WhileLoop,
+        RepeatLoop,
+        EndStatement,
+        PauseStatement,
+        LabelStatement,
+        GotoStatement,
+        IncrementSkip,
+        DecrementSkip,
+        MenuStatement,
+        ProgramStatement,
+        ReturnStatement,
+        StopStatement,
+        DelVarStatement,
+        GraphStyleStatement,
+        OpenLibStatement,
+        ExecLibStatement,
+        MenuChoice,
+        CtlStatement,
+        Input,
+        Prompt,
+        Display,
+        DispGraph,
+        DispTable,
+        Output,
+        ClrHome,
+        ClrTable,
+        GetCalc,
+        Get,
+        Send,
+        IoStatement,
+        Statement
+    }
+}
+export { types }
+
+// @alpha (undocumented)
 const UNARY = "unary";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type UnaryExpression = {
     type: typeof UNARY;
     operator: string;
     argument: ValueExpression;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ValueExpression = TiNumber | TiString | TiList | Assignable | BinaryExpression | UnaryExpression;
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ValueResolved = NumberResolved | TiString | ListResolved;
 
-// @public (undocumented)
+// @alpha (undocumented)
 const ValueStatement = "value";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type ValueStatement = {
     type: typeof ValueStatement;
     value: ValueExpression;
     source?: string;
 };
 
-// @public (undocumented)
+// @alpha (undocumented)
 const VARIABLE = "variable";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type Variable = NumericVariable | StringVariable | ListVariable;
 
-// @public (undocumented)
+// @alpha (undocumented)
 const WhileLoop = "WhileLoop";
 
-// @public (undocumented)
+// @alpha (undocumented)
 type WhileLoop = {
     type: typeof WhileLoop;
     source?: string;
     value: ValueExpression | null;
     extra: boolean | null;
 };
-
-// (No @packageDocumentation comment for this package)
 
 ```
