@@ -1,13 +1,8 @@
 // daemon
 // ======
 
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-
 import * as signal from '../common/signal'
-import type { EventFactory, EventTarget } from '../inject/event'
-import * as loader from '../inject/loader'
-import type { Looper } from '../inject/looper'
-import type { Perf } from '../inject/perf'
+import * as inject from '../inject/inject'
 
 type CreateTaskOptions = {
   debug: boolean
@@ -32,45 +27,22 @@ let running = false
 let nextTaskId = 0
 const maxExceptions = 1000
 
-let looper: Looper | undefined
+const looper = inject.getLooper
+const eventTarget = inject.getEventTarget
+const perf = inject.getPerf
 
 function startLooper () {
-  looper?.on(loopMessageName, handleMessage)
-  looper?.on(exceptionName, handleException)
+  looper().on(loopMessageName, handleMessage)
+  looper().on(exceptionName, handleException)
 }
 
 function stopLooper () {
-  looper?.off(loopMessageName, handleMessage)
-  looper?.off(exceptionName, handleException)
+  looper().off(loopMessageName, handleMessage)
+  looper().off(exceptionName, handleException)
 }
-
-function updateLooper (value: Looper) {
-  looper = value
-}
-
-loader.subscribe(loader.LOOPER, updateLooper)
-
-let eventFactory: EventFactory | undefined
-let eventTarget: EventTarget | undefined
-
-function updateEventFactory (value: EventFactory) {
-  eventFactory = value
-
-  eventTarget = eventFactory.createEventTarget()
-}
-
-loader.subscribe(loader.EVENT, updateEventFactory)
-
-let perf: Perf | undefined
-
-function updatePerf (value: Perf) {
-  perf = value
-}
-
-loader.subscribe(loader.PERF, updatePerf)
 
 function fireEvent (name: string) {
-  eventTarget?.dispatchEvent(name)
+  eventTarget().dispatchEvent(name)
 }
 
 function startIfNeeded () {
@@ -78,7 +50,7 @@ function startIfNeeded () {
     running = true
     fireEvent('start')
     startLooper()
-    looper!.post(loopMessageName)
+    looper().post(loopMessageName)
   }
 }
 
@@ -153,7 +125,7 @@ function deleteTask (taskId: number) {
 }
 
 function handleMessage () {
-  const time = perf!.now()
+  const time = perf().now()
   let runningTaskCount = 0
   let suspendedTaskCount = 0
 
@@ -187,7 +159,7 @@ function handleMessage () {
 
         if (exceptions.length < maxExceptions) {
           exceptions.push(ex)
-          looper!.post(exceptionName)
+          looper().post(exceptionName)
         }
       }
 
@@ -221,7 +193,7 @@ function handleMessage () {
       fireEvent('stop')
     }
   } else {
-    looper!.post(loopMessageName)
+    looper().post(loopMessageName)
   }
 }
 
@@ -263,9 +235,9 @@ export function clearTinyTimeout (tinyTimeoutID: number) {
  * @alpha
  */
 export function on (type: string, listener: () => void) {
-  eventTarget!.addEventListener(type, listener)
+  eventTarget().addEventListener(type, listener)
 }
 
 export function off (type: string, listener: () => void) {
-  eventTarget!.removeEventListener(type, listener)
+  eventTarget().removeEventListener(type, listener)
 }

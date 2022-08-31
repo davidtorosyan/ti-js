@@ -1,12 +1,7 @@
 // entry point (node)
 // ==================
 
-import * as nodeLoader from './inject/node/loader.node'
-nodeLoader.init()
+import * as nodeInject from './inject/node/inject.node'
+nodeInject.init()
 
-/**
- * A library for compiling and running TI-Basic, built for node.
- *
- * @packageDocumentation
- */
 export * from './common'

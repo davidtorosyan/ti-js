@@ -1,23 +1,27 @@
 // looper.web
 // ===========
 
-export function post (message: string) {
-  return window.postMessage(message, '*')
-}
+import type { Looper } from '../looper'
 
-export function on (message: string, listener: () => void) {
-  return window.addEventListener('message', wrapListener(message, listener))
-}
+export class WebLooper implements Looper {
+  post (message: string) {
+    return window.postMessage(message, '*')
+  }
 
-export function off (message: string, listener: () => void) {
-  return window.removeEventListener('message', wrapListener(message, listener))
-}
+  on (message: string, listener: () => void) {
+    return window.addEventListener('message', this.wrapListener(message, listener))
+  }
 
-function wrapListener (message: string, listener: () => void) {
-  return (event: MessageEvent) => {
-    if (event.source === window && event.data === message) {
-      event.stopPropagation()
-      listener()
+  off (message: string, listener: () => void) {
+    return window.removeEventListener('message', this.wrapListener(message, listener))
+  }
+
+  private wrapListener (message: string, listener: () => void) {
+    return (event: MessageEvent) => {
+      if (event.source === window && event.data === message) {
+        event.stopPropagation()
+        listener()
+      }
     }
   }
 }

@@ -6,7 +6,3 @@ export interface EventTarget {
     removeEventListener: (type: string, listener: () => void) => void
     dispatchEvent: (name: string) => void
 }
-
-export interface EventFactory {
-    createEventTarget: () => EventTarget
-}

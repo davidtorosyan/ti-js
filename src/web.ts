@@ -1,12 +1,7 @@
 // entry point (web)
 // ==================
 
-import * as webLoader from './inject/web/loader.web'
-webLoader.init()
+import * as webInject from './inject/web/inject.web'
+webInject.init()
 
-/**
- * A library for compiling and running TI-Basic, built for web.
- *
- * @packageDocumentation
- */
 export * from './common'

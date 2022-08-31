@@ -4,11 +4,22 @@
 import { EventEmitter } from 'events'
 import type { EventTarget } from '../event'
 
-export function createEventTarget (): EventTarget {
-  const emitter = new EventEmitter()
-  return {
-    addEventListener: (type: string, listener: () => void) => emitter.on(type, listener),
-    removeEventListener: (type: string, listener: () => void) => emitter.off(type, listener),
-    dispatchEvent: (name: string) => emitter.emit(name),
+export class NodeEventTarget implements EventTarget {
+  private readonly emitter: EventEmitter
+
+  constructor () {
+    this.emitter = new EventEmitter()
+  }
+
+  addEventListener (type: string, listener: () => void) {
+    this.emitter.on(type, listener)
+  }
+
+  removeEventListener (type: string, listener: () => void) {
+    this.emitter.off(type, listener)
+  }
+
+  dispatchEvent (name: string) {
+    this.emitter.emit(name)
   }
 }

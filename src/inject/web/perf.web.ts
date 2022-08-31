@@ -1,6 +1,8 @@
 // perf.web
 // ========
 
-export function now () {
-  return performance.now()
+export class WebPerf {
+  now () {
+    return performance.now()
+  }
 }
