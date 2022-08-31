@@ -3,14 +3,31 @@
 
 import * as nodeLoader from './inject/node/loader.node'
 
-import { run } from './run/runtime'
+/**
+ * A library for compiling and running TI-Basic.
+ *
+ * @packageDocumentation
+ */
+
+import { run, RunOptions } from './run/runtime'
 import { on } from './run/daemon'
-import { parse } from './parse/parser'
+import { parse, ParseOptions } from './parse/parser'
+import * as types from './common/types'
 
 nodeLoader.init()
 
-export { run, on, parse }
+export {
+  run,
+  RunOptions,
+  on,
+  parse,
+  ParseOptions,
+  types,
+}
 
+/**
+ * @alpha
+ */
 export function exec (source: string, callback: (output: string) => void) {
   const lines = parse(source)
   run(lines, {

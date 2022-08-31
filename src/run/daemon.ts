@@ -259,6 +259,9 @@ export function clearTinyTimeout (tinyTimeoutID: number) {
   deleteTask(tinyTimeoutID)
 }
 
+/**
+ * @alpha
+ */
 export function on (type: string, listener: () => void) {
   eventTarget!.addEventListener(type, listener)
 }
