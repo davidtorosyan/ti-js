@@ -233,6 +233,7 @@ export type ValueExpression =
     | Assignable
     | BinaryExpression
     | UnaryExpression
+    | SyntaxError
 
 // ----- Statements -----
 

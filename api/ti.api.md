@@ -597,7 +597,7 @@ type UnaryExpression = {
 };
 
 // @alpha (undocumented)
-type ValueExpression = TiNumber | TiString | TiList | Assignable | BinaryExpression | UnaryExpression;
+type ValueExpression = TiNumber | TiString | TiList | Assignable | BinaryExpression | UnaryExpression | SyntaxError_2;
 
 // @alpha (undocumented)
 type ValueResolved = NumberResolved | TiString | ListResolved;
@@ -628,5 +628,7 @@ type WhileLoop = {
     value: ValueExpression | null;
     extra: boolean | null;
 };
+
+// (No @packageDocumentation comment for this package)
 
 ```

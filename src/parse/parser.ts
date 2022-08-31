@@ -47,7 +47,7 @@ export function parse (source: string, options: ParseOptions = {}) {
   return parsedLines
 }
 
-export function parseExpression (source: string) {
+export function parseExpression (source: string) : types.ValueExpression {
   if (source === undefined) {
     throw new Error('Undefined source!')
   }
@@ -60,14 +60,16 @@ export function parseExpression (source: string) {
   if (sourceLine === undefined) {
     throw new Error('Too few lines for an expression')
   }
-  let parsedLine
+  let parsedLine: types.Statement
   try {
     parsedLine = parseTiBasic(sourceLine)
   } catch (error: unknown) {
-    if (!(error instanceof SyntaxError)) {
+    if (error instanceof SyntaxError) {
+      parsedLine = { type: 'SyntaxError' }
+    } else {
       throw error
     }
   }
 
-  return parsedLine !== undefined && parsedLine.type === types.ValueStatement ? parsedLine.value : { type: 'SyntaxError' }
+  return parsedLine.type === types.ValueStatement ? parsedLine.value : { type: 'SyntaxError' }
 }
