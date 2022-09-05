@@ -216,7 +216,9 @@ function visitEndStatement (_line: types.EndStatement, state: State) {
         throw core.libError('End blockstack led to invalid For!')
       }
       increment(state.mem, sourceLine.variable, sourceLine.step !== null ? sourceLine.step : core.ONE)
-      if (operation.isTruthy(expression.evaluate(operation.binaryOperation(sourceLine.variable, '<=', sourceLine.end), state.mem))) {
+      if (operation.isTruthy(
+        expression.evaluate(operation.binaryOperation(sourceLine.variable, '<=', sourceLine.end), state.mem),
+      )) {
         state.blockStack.push(source)
         state.i = source
       }
@@ -261,7 +263,9 @@ function visitIncrementSkip (line: types.IncrementSkip, state: State) {
     throw core.ArgumentError
   }
   increment(state.mem, line.variable, core.ONE)
-  state.incrementDecrementResult = operation.isTruthy(expression.evaluate(operation.binaryOperation(line.variable, '<=', line.end), state.mem))
+  state.incrementDecrementResult = operation.isTruthy(
+    expression.evaluate(operation.binaryOperation(line.variable, '<=', line.end), state.mem),
+  )
   return undefined
 }
 
@@ -270,7 +274,9 @@ function visitDecrementSkip (line: types.DecrementSkip, state: State) {
     throw core.ArgumentError
   }
   increment(state.mem, line.variable, core.MINUSONE)
-  state.incrementDecrementResult = operation.isTruthy(expression.evaluate(operation.binaryOperation(line.variable, '>=', line.end), state.mem))
+  state.incrementDecrementResult = operation.isTruthy(
+    expression.evaluate(operation.binaryOperation(line.variable, '>=', line.end), state.mem),
+  )
   return undefined
 }
 

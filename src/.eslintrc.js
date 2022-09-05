@@ -34,5 +34,7 @@ module.exports = {
     'no-useless-constructor': 'off',
     '@typescript-eslint/no-useless-constructor': 'warn',
     'tsdoc/syntax': 'warn',
+    'function-paren-newline': ['error', 'multiline-arguments'],
+    'max-len': ['error', { code: 120 }],
   },
 }
