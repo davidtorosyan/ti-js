@@ -125,6 +125,20 @@ export const ANS = 'ans'
  */
 export const GetKey = 'GetKey'
 
+/**
+ * @alpha
+ */
+export type Ans = {
+    type: typeof ANS
+}
+
+/**
+ * @alpha
+ */
+export type GetKey = {
+    type: typeof GetKey
+}
+
 // ----- Variables -----
 
 /**
@@ -234,6 +248,8 @@ export type ValueExpression =
     | BinaryExpression
     | UnaryExpression
     | SyntaxError
+    | Ans
+    | GetKey
 
 // ----- Statements -----
 

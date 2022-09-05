@@ -7,46 +7,57 @@ import * as operation from './operation'
 import * as unary from './expressions/unary'
 import * as binary from './expressions/binary'
 
-export function evaluate (value: types.ValueExpression, mem: core.Memory) {
-  const behavior = expressionOf.get(value.type)
-  if (behavior === undefined) {
-    throw core.libError('unexpected value')
+export function evaluate (value: types.ValueExpression, mem: core.Memory): types.ValueResolved {
+  switch (value.type) {
+    case types.SyntaxError:
+      return visitSyntaxError(value, mem)
+    case types.NUMBER:
+      return visitNumber(value, mem)
+    case types.STRING:
+      return visitString(value, mem)
+    case types.LIST:
+      return visitList(value, mem)
+    case types.VARIABLE:
+      return visitVariable(value, mem)
+    case types.STRINGVARIABLE:
+      return visitStringVariable(value, mem)
+    case types.LISTVARIABLE:
+      return visitListVariable(value, mem)
+    case types.LISTINDEX:
+      return visitListIndex(value, mem)
+    case types.ANS:
+      return visitAns(value, mem)
+    case types.GetKey:
+      return visitGetKey(value, mem)
+    case types.UNARY:
+      return visitUnaryExpression(value, mem)
+    case types.BINARY:
+      return visitBinaryExpression(value, mem)
+    default:
+      return core.exhaustiveMatchingGuard(value)
   }
-  return behavior(value, mem)
 }
-
-type ExpressionBehavior = (value: types.ValueExpression, mem: core.Memory) => types.ValueResolved
-const expressionOf = new Map<string, ExpressionBehavior>()
 
 // ----- Expressions -----
 
-expressionOf.set(types.SyntaxError, (_value, _mem) => {
+function visitSyntaxError (_value: types.ValueExpression, _mem: core.Memory): never {
   throw core.SyntaxError
-})
+}
 
 // ----- Values -----
 
-expressionOf.set(types.NUMBER, (value, _mem) => {
-  if (value.type !== types.NUMBER) {
-    throw core.libError('unexpected expression type, number')
-  }
+function visitNumber (value: types.TiNumber, _mem: core.Memory) {
   if (value.resolved) {
     return value
   }
   return core.newFloat(operation.resolveNumber(value))
-})
+}
 
-expressionOf.set(types.STRING, (value, _mem) => {
-  if (value.type !== types.STRING) {
-    throw core.libError('unexpected expression type, string')
-  }
+function visitString (value: types.TiString, _mem: core.Memory) {
   return value
-})
+}
 
-expressionOf.set(types.LIST, (value, mem) => {
-  if (value.type !== types.LIST) {
-    throw core.libError('unexpected expression type, list')
-  }
+function visitList (value: types.TiList, mem: core.Memory) : types.ListResolved {
   if (value.resolved === true) {
     return value
   }
@@ -64,45 +75,36 @@ expressionOf.set(types.LIST, (value, mem) => {
     }),
     resolved: true,
   }
-})
+}
 
 // ----- Variables -----
 
-expressionOf.set(types.VARIABLE, (value, mem) => {
-  if (value.type !== types.VARIABLE) {
-    throw core.libError('unexpected expression type, variable')
-  }
+function visitVariable (value: types.Variable, mem: core.Memory) {
   let result = mem.vars.get(value.name)
   if (result === undefined) {
     result = core.newFloat()
     mem.vars.set(value.name, result)
   }
   return result
-})
+}
 
-expressionOf.set(types.STRINGVARIABLE, (value, mem) => {
-  if (value.type !== types.STRINGVARIABLE) {
-    throw core.libError('unexpected expression type, string variable')
-  }
+function visitStringVariable (value: types.StringVariable, mem: core.Memory) {
   const result = mem.vars.get(value.name)
   if (result === undefined) {
     throw core.UndefinedError
   }
   return result
-})
+}
 
-expressionOf.set(types.LISTVARIABLE, (value, mem) => {
-  if (value.type !== types.LISTVARIABLE) {
-    throw core.libError('unexpected expression type, list variable')
-  }
+function visitListVariable (value: types.ListVariable, mem: core.Memory) {
   const result = mem.vars.get(value.name)
   if (result === undefined) {
     throw core.UndefinedError
   }
   return result
-})
+}
 
-expressionOf.set(types.LISTINDEX, (value, mem) => {
+function visitListIndex (value: types.ListIndex, mem: core.Memory) {
   if (value.type !== types.LISTINDEX) {
     throw core.libError('unexpected expression type, list index')
   }
@@ -122,33 +124,27 @@ expressionOf.set(types.LISTINDEX, (value, mem) => {
     throw core.libError('unexpected incorrect list length')
   }
   return core.newFloat(elem.float)
-})
+}
 
 // ----- Tokens -----
 
-expressionOf.set(types.ANS, (_value, mem) => {
+function visitAns (_value: types.Ans, mem: core.Memory) {
   return mem.ans
-})
+}
 
-expressionOf.set(types.GetKey, (_value, _mem) => {
+function visitGetKey (_value: types.GetKey, _mem: core.Memory) : never {
   throw core.UnimplementedError
-})
+}
 
 // ----- Operators -----
 
-expressionOf.set(types.UNARY, (value, mem) => {
-  if (value.type !== types.UNARY) {
-    throw core.libError('unexpected expression type, unary')
-  }
+function visitUnaryExpression (value: types.UnaryExpression, mem: core.Memory) {
   const argument = evaluate(value.argument, mem)
   return unary.evaluate(value.operator, argument)
-})
+}
 
-expressionOf.set(types.BINARY, (value, mem) => {
-  if (value.type !== types.BINARY) {
-    throw core.libError('unexpected expression type, binary')
-  }
+function visitBinaryExpression (value: types.BinaryExpression, mem: core.Memory) {
   const left = evaluate(value.left, mem)
   const right = evaluate(value.right, mem)
   return binary.evaluate(value.operator, left, right)
-})
+}

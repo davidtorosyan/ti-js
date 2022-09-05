@@ -10,6 +10,11 @@
 const ANS = "ans";
 
 // @alpha (undocumented)
+type Ans = {
+    type: typeof ANS;
+};
+
+// @alpha (undocumented)
 type Assignable = Variable | ListIndex;
 
 // @alpha (undocumented)
@@ -184,6 +189,11 @@ type GetCalc = {
 
 // @alpha (undocumented)
 const GetKey = "GetKey";
+
+// @alpha (undocumented)
+type GetKey = {
+    type: typeof GetKey;
+};
 
 // @alpha (undocumented)
 const GotoStatement = "GotoStatement";
@@ -529,6 +539,7 @@ declare namespace types {
         ValueResolved,
         ANS,
         GetKey,
+        Ans,
         VARIABLE,
         STRINGVARIABLE,
         LISTVARIABLE,
@@ -597,7 +608,7 @@ type UnaryExpression = {
 };
 
 // @alpha (undocumented)
-type ValueExpression = TiNumber | TiString | TiList | Assignable | BinaryExpression | UnaryExpression | SyntaxError_2;
+type ValueExpression = TiNumber | TiString | TiList | Assignable | BinaryExpression | UnaryExpression | SyntaxError_2 | Ans | GetKey;
 
 // @alpha (undocumented)
 type ValueResolved = NumberResolved | TiString | ListResolved;
