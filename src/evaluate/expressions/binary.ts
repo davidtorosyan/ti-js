@@ -5,45 +5,45 @@ import * as core from '../../common/core'
 import * as types from '../../common/types'
 
 export function evaluate (
-  binary: types.BinaryExpression,
+  operator: string,
   left: types.ValueResolved,
   right: types.ValueResolved,
 ): types.ValueResolved {
   switch (left.type) {
     case types.NUMBER:
-      return visitNumber(binary, left, right)
+      return visitNumber(operator, left, right)
     case types.STRING:
-      return visitString(binary, left, right)
+      return visitString(operator, left, right)
     case types.LIST:
-      return visitList(binary, left, right)
+      return visitList(operator, left, right)
     default:
       return core.exhaustiveMatchingGuard(left)
   }
 }
 
 function visitNumber (
-  binary: types.BinaryExpression,
+  operator: string,
   left: types.NumberResolved,
   right: types.ValueResolved,
 ) : types.NumberResolved | types.ListResolved {
   if (right.type !== types.NUMBER) {
     if (right.type === types.LIST) {
-      return applyBinaryOperationListAndNumber(binary.operator, right, left)
+      return applyBinaryOperationListAndNumber(operator, right, left)
     }
     throw core.DataTypeError
   }
-  return core.newFloat(applyBinaryOperation(binary.operator, left.float, right.float))
+  return core.newFloat(applyBinaryOperation(operator, left.float, right.float))
 }
 
 function visitString (
-  binary: types.BinaryExpression,
+  operator: string,
   left: types.TiString,
   right: types.ValueResolved,
 ) : types.TiString | types.NumberResolved {
   if (right.type !== types.STRING) {
     throw core.DataTypeError
   }
-  switch (binary.operator) {
+  switch (operator) {
     case '+': return { type: types.STRING, chars: left.chars + right.chars }
     case '=': return core.newFloat(left.chars === right.chars ? 1 : 0)
     case '!=': return core.newFloat(left.chars !== right.chars ? 1 : 0)
@@ -52,13 +52,13 @@ function visitString (
 }
 
 function visitList (
-  binary: types.BinaryExpression,
+  operator: string,
   left: types.ListResolved,
   right: types.ValueResolved,
 ) : types.ListResolved {
   if (right.type !== types.LIST) {
     if (right.type === types.NUMBER) {
-      return applyBinaryOperationListAndNumber(binary.operator, left, right)
+      return applyBinaryOperationListAndNumber(operator, left, right)
     }
     throw core.DataTypeError
   }
@@ -72,7 +72,7 @@ function visitList (
       if (num === undefined) {
         throw core.libError('Incorrect number of elements in list!')
       }
-      return core.newFloat(applyBinaryOperation(binary.operator, e.float, num.float))
+      return core.newFloat(applyBinaryOperation(operator, e.float, num.float))
     }),
     resolved: true,
   }

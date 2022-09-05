@@ -141,7 +141,7 @@ expressionOf.set(types.UNARY, (value, mem) => {
     throw core.libError('unexpected expression type, unary')
   }
   const argument = evaluate(value.argument, mem)
-  return unary.evaluate(value, argument)
+  return unary.evaluate(value.operator, argument)
 })
 
 expressionOf.set(types.BINARY, (value, mem) => {
@@ -150,5 +150,5 @@ expressionOf.set(types.BINARY, (value, mem) => {
   }
   const left = evaluate(value.left, mem)
   const right = evaluate(value.right, mem)
-  return binary.evaluate(value, left, right)
+  return binary.evaluate(value.operator, left, right)
 })
