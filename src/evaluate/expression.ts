@@ -3,9 +3,9 @@
 
 import * as core from '../common/core'
 import * as types from '../common/types'
-import * as operation from './operation'
-import * as unary from './expressions/unary'
-import * as binary from './expressions/binary'
+import * as operation from './helper/operation'
+import * as unary from './unary'
+import * as binary from './binary'
 
 export function evaluate (value: types.ValueExpression, mem: core.Memory): types.ValueResolved {
   switch (value.type) {

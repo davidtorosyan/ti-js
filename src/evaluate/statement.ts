@@ -5,10 +5,10 @@ import * as core from '../common/core'
 import * as signal from '../common/signal'
 import * as types from '../common/types'
 import * as parser from '../parse/parser'
-import * as operation from './operation'
+import * as operation from './helper/operation'
 import * as expression from './expression'
 import * as assignment from './assignment'
-import * as iolib from './iolib'
+import * as iolib from './helper/iolib'
 
 export type State = {
   mem: core.Memory,

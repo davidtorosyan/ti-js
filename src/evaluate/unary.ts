@@ -1,8 +1,8 @@
 // unary
 // =====
 
-import * as core from '../../common/core'
-import * as types from '../../common/types'
+import * as core from '../common/core'
+import * as types from '../common/types'
 
 export function evaluate (
   operator: string,

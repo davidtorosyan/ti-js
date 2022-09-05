@@ -1,8 +1,8 @@
 // operation
 // =========
 
-import * as core from '../common/core'
-import * as types from '../common/types'
+import * as core from '../../common/core'
+import * as types from '../../common/types'
 
 export function isTruthy (value: types.ValueResolved) {
   if (value.type === types.NUMBER) {

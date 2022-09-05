@@ -1,8 +1,8 @@
 // iolib
 // =====
 
-import type { TiJsError } from '../common/core'
-import * as types from '../common/types'
+import type { TiJsError } from '../../common/core'
+import * as types from '../../common/types'
 
 const enterkey = 13
 
