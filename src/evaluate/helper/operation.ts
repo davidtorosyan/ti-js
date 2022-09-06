@@ -5,7 +5,7 @@ import * as core from '../../common/core'
 import * as types from '../../common/types'
 
 export function isTruthy (value: types.ValueResolved): boolean {
-  if (value.type === types.NUMBER) {
+  if (value.type === types.TiNumber) {
     return value.float !== 0
   }
   throw new core.TiError(core.TiErrorCode.DataType)
@@ -29,7 +29,7 @@ export function binaryOperation (
   right: types.ValueExpression,
 ): types.BinaryExpression {
   return {
-    type: types.BINARY,
+    type: types.BinaryExpression,
     operator,
     left,
     right,
@@ -56,10 +56,10 @@ export function resolveNumber (value: types.NumberLiteral): number {
 export function variableToString (variable: types.Variable): string {
   let str = variable.name
   switch (variable.type) {
-    case types.VARIABLE:
-    case types.STRINGVARIABLE:
+    case types.NumberVariable:
+    case types.StringVariable:
       break
-    case types.LISTVARIABLE:
+    case types.ListVariable:
       str = str.substring(types.ListVariablePrefix.length)
       if (!variable.custom) {
         str = `&L${str}`
@@ -72,21 +72,21 @@ export function variableToString (variable: types.Variable): string {
 }
 
 export function valueToString (value: types.ValueResolved, strict = false): string {
-  if (strict && value.type !== types.STRING) {
+  if (strict && value.type !== types.TiString) {
     throw new core.TiError(core.TiErrorCode.DataType)
   }
   let str = ''
   switch (value.type) {
-    case types.NUMBER:
+    case types.TiNumber:
       str = value.float.toString()
       if (str.startsWith('0.')) {
         str = str.substring(1)
       }
       break
-    case types.STRING:
+    case types.TiString:
       str = value.chars
       break
-    case types.LIST:
+    case types.TiList:
       str = '{' + value.elements.map(e => valueToString(e)).join(' ') + '}'
       break
     default:

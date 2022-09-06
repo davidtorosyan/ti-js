@@ -7,7 +7,7 @@
 /// <reference types="jquery" />
 
 // @alpha (undocumented)
-const ANS = "ans";
+const ANS = "ANS";
 
 // @alpha (undocumented)
 interface Ans {
@@ -19,7 +19,7 @@ interface Ans {
 type Assignable = Variable | ListIndex;
 
 // @alpha (undocumented)
-const AssignmentStatement = "assign";
+const AssignmentStatement = "AssignmentStatement";
 
 // @alpha (undocumented)
 interface AssignmentStatement {
@@ -34,7 +34,7 @@ interface AssignmentStatement {
 }
 
 // @alpha (undocumented)
-const BINARY = "binary";
+const BinaryExpression = "BinaryExpression";
 
 // @alpha (undocumented)
 interface BinaryExpression {
@@ -45,7 +45,7 @@ interface BinaryExpression {
     // (undocumented)
     right: ValueExpression;
     // (undocumented)
-    type: typeof BINARY;
+    type: typeof BinaryExpression;
 }
 
 // @alpha (undocumented)
@@ -113,7 +113,7 @@ interface DispGraph {
 }
 
 // @alpha (undocumented)
-const Display = "display";
+const Display = "Display";
 
 // @alpha (undocumented)
 interface Display {
@@ -150,7 +150,7 @@ interface ElseStatement {
 }
 
 // @alpha (undocumented)
-const EmptyStatement = "empty";
+const EmptyStatement = "EmptyStatement";
 
 // @alpha (undocumented)
 interface EmptyStatement {
@@ -339,13 +339,7 @@ interface LabelStatement {
 }
 
 // @alpha (undocumented)
-const lib = "lib";
-
-// @alpha (undocumented)
-const LIST = "list";
-
-// @alpha (undocumented)
-const LISTINDEX = "listIndex";
+const ListIndex = "ListIndex";
 
 // @alpha (undocumented)
 interface ListIndex {
@@ -354,7 +348,7 @@ interface ListIndex {
     // (undocumented)
     list: ListVariable;
     // (undocumented)
-    type: 'listIndex';
+    type: typeof ListIndex;
 }
 
 // @alpha (undocumented)
@@ -364,7 +358,7 @@ interface ListLiteral {
     // (undocumented)
     resolved: false;
     // (undocumented)
-    type: typeof LIST;
+    type: typeof TiList;
 }
 
 // @alpha (undocumented)
@@ -374,11 +368,11 @@ interface ListResolved {
     // (undocumented)
     resolved: true;
     // (undocumented)
-    type: typeof LIST;
+    type: typeof TiList;
 }
 
 // @alpha (undocumented)
-const LISTVARIABLE = "listVariable";
+const ListVariable = "ListVariable";
 
 // @alpha (undocumented)
 interface ListVariable {
@@ -387,7 +381,7 @@ interface ListVariable {
     // (undocumented)
     name: string;
     // (undocumented)
-    type: 'listVariable';
+    type: typeof ListVariable;
 }
 
 // @alpha (undocumented)
@@ -417,9 +411,6 @@ interface MenuStatement {
 }
 
 // @alpha (undocumented)
-const NUMBER = "number";
-
-// @alpha (undocumented)
 interface NumberLiteral {
     // (undocumented)
     exponent?: number | null;
@@ -430,7 +421,7 @@ interface NumberLiteral {
     // (undocumented)
     resolved: false;
     // (undocumented)
-    type: typeof NUMBER;
+    type: typeof TiNumber;
 }
 
 // @alpha (undocumented)
@@ -440,15 +431,18 @@ interface NumberResolved {
     // (undocumented)
     resolved: true;
     // (undocumented)
-    type: typeof NUMBER;
+    type: typeof TiNumber;
 }
 
 // @alpha (undocumented)
-interface NumericVariable {
+const NumberVariable = "NumberVariable";
+
+// @alpha (undocumented)
+interface NumberVariable {
     // (undocumented)
     name: string;
     // (undocumented)
-    type: 'variable';
+    type: typeof NumberVariable;
 }
 
 // @alpha (undocumented)
@@ -625,17 +619,14 @@ interface StopStatement {
 }
 
 // @alpha (undocumented)
-const STRING = "string";
-
-// @alpha (undocumented)
-const STRINGVARIABLE = "stringVariable";
+const StringVariable = "StringVariable";
 
 // @alpha (undocumented)
 interface StringVariable {
     // (undocumented)
     name: string;
     // (undocumented)
-    type: 'stringVariable';
+    type: typeof StringVariable;
 }
 
 // @alpha (undocumented)
@@ -663,54 +654,49 @@ interface ThenStatement {
 }
 
 // @alpha (undocumented)
-const ti = "ti";
+const TiList = "TiList";
 
 // @alpha (undocumented)
 type TiList = ListLiteral | ListResolved;
 
 // @alpha (undocumented)
+const TiNumber = "TiNumber";
+
+// @alpha (undocumented)
 type TiNumber = NumberLiteral | NumberResolved;
+
+// @alpha (undocumented)
+const TiString = "TiString";
 
 // @alpha (undocumented)
 interface TiString {
     // (undocumented)
     chars: string;
     // (undocumented)
-    type: typeof STRING;
+    type: typeof TiString;
 }
 
 declare namespace types {
     export {
-        ti,
-        lib,
         SyntaxError_2 as SyntaxError,
-        NUMBER,
-        LIST,
-        STRING,
-        ListVariablePrefix,
+        TiNumber,
         NumberLiteral,
         NumberResolved,
-        TiNumber,
         TiString,
+        ListVariablePrefix,
+        TiList,
         ListLiteral,
         ListResolved,
-        TiList,
         ValueResolved,
         ANS,
-        GetKey,
         Ans,
-        VARIABLE,
-        STRINGVARIABLE,
-        LISTVARIABLE,
-        LISTINDEX,
-        NumericVariable,
+        GetKey,
+        NumberVariable,
         StringVariable,
         ListVariable,
         ListIndex,
         Variable,
         Assignable,
-        BINARY,
-        UNARY,
         BinaryExpression,
         UnaryExpression,
         ValueExpression,
@@ -729,6 +715,7 @@ declare namespace types {
         GotoStatement,
         IncrementSkip,
         DecrementSkip,
+        MenuChoice,
         MenuStatement,
         ProgramStatement,
         ReturnStatement,
@@ -737,7 +724,6 @@ declare namespace types {
         GraphStyleStatement,
         OpenLibStatement,
         ExecLibStatement,
-        MenuChoice,
         CtlStatement,
         Input,
         Prompt,
@@ -757,7 +743,7 @@ declare namespace types {
 export { types }
 
 // @alpha (undocumented)
-const UNARY = "unary";
+const UnaryExpression = "UnaryExpression";
 
 // @alpha (undocumented)
 interface UnaryExpression {
@@ -766,7 +752,7 @@ interface UnaryExpression {
     // (undocumented)
     operator: string;
     // (undocumented)
-    type: typeof UNARY;
+    type: typeof UnaryExpression;
 }
 
 // @alpha (undocumented)
@@ -776,7 +762,7 @@ type ValueExpression = TiNumber | TiString | TiList | Assignable | BinaryExpress
 type ValueResolved = NumberResolved | TiString | ListResolved;
 
 // @alpha (undocumented)
-const ValueStatement = "value";
+const ValueStatement = "ValueStatement";
 
 // @alpha (undocumented)
 interface ValueStatement {
@@ -789,10 +775,7 @@ interface ValueStatement {
 }
 
 // @alpha (undocumented)
-const VARIABLE = "variable";
-
-// @alpha (undocumented)
-type Variable = NumericVariable | StringVariable | ListVariable;
+type Variable = NumberVariable | StringVariable | ListVariable;
 
 // @alpha (undocumented)
 const WhileLoop = "WhileLoop";

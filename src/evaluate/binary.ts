@@ -10,11 +10,11 @@ export function evaluate (
   right: types.ValueResolved,
 ): types.ValueResolved {
   switch (left.type) {
-    case types.NUMBER:
+    case types.TiNumber:
       return visitNumber(operator, left, right)
-    case types.STRING:
+    case types.TiString:
       return visitString(operator, left, right)
-    case types.LIST:
+    case types.TiList:
       return visitList(operator, left, right)
     default:
       return core.exhaustiveMatchingGuard(left)
@@ -26,8 +26,8 @@ function visitNumber (
   left: types.NumberResolved,
   right: types.ValueResolved,
 ): types.NumberResolved | types.ListResolved {
-  if (right.type !== types.NUMBER) {
-    if (right.type === types.LIST) {
+  if (right.type !== types.TiNumber) {
+    if (right.type === types.TiList) {
       return applyBinaryOperationListAndNumber(operator, right, left)
     }
     throw new core.TiError(core.TiErrorCode.DataType)
@@ -40,11 +40,11 @@ function visitString (
   left: types.TiString,
   right: types.ValueResolved,
 ): types.TiString | types.NumberResolved {
-  if (right.type !== types.STRING) {
+  if (right.type !== types.TiString) {
     throw new core.TiError(core.TiErrorCode.DataType)
   }
   switch (operator) {
-    case '+': return { type: types.STRING, chars: left.chars + right.chars }
+    case '+': return { type: types.TiString, chars: left.chars + right.chars }
     case '=': return core.newFloat(left.chars === right.chars ? 1 : 0)
     case '!=': return core.newFloat(left.chars !== right.chars ? 1 : 0)
     default: throw new core.TiError(core.TiErrorCode.DataType)
@@ -56,8 +56,8 @@ function visitList (
   left: types.ListResolved,
   right: types.ValueResolved,
 ): types.ListResolved {
-  if (right.type !== types.LIST) {
-    if (right.type === types.NUMBER) {
+  if (right.type !== types.TiList) {
+    if (right.type === types.TiNumber) {
       return applyBinaryOperationListAndNumber(operator, left, right)
     }
     throw new core.TiError(core.TiErrorCode.DataType)
@@ -66,7 +66,7 @@ function visitList (
     throw new core.TiError(core.TiErrorCode.DimMismatch)
   }
   return {
-    type: types.LIST,
+    type: types.TiList,
     elements: left.elements.map((e, i) => {
       const num = right.elements[i]
       if (num === undefined) {
@@ -84,7 +84,7 @@ function applyBinaryOperationListAndNumber (
   number: types.NumberResolved,
 ): types.ListResolved {
   return {
-    type: types.LIST,
+    type: types.TiList,
     elements: list.elements.map((e, _i) => (
       core.newFloat(applyBinaryOperation(operator, e.float, number.float)))),
     resolved: true,

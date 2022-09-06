@@ -8,7 +8,7 @@ function toBinary (
   rightOp: types.ValueExpression | [string, types.ValueExpression],
 ): types.BinaryExpression {
   return {
-    type: types.BINARY,
+    type: types.BinaryExpression,
     operator: Array.isArray(rightOp) ? rightOp[0] : '*',
     left,
     right: Array.isArray(rightOp) ? rightOp[1] : rightOp,
@@ -60,7 +60,7 @@ export function buildList (
   tail: types.ValueExpression[],
 ): types.ListLiteral {
   return {
-    type: types.LIST,
+    type: types.TiList,
     elements: [head].concat(tail),
     resolved: false,
   }

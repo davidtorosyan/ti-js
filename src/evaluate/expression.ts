@@ -11,27 +11,27 @@ export function evaluate (value: types.ValueExpression, mem: core.Memory): types
   switch (value.type) {
     case types.SyntaxError:
       return visitSyntaxError(value, mem)
-    case types.NUMBER:
+    case types.TiNumber:
       return visitNumber(value, mem)
-    case types.STRING:
+    case types.TiString:
       return visitString(value, mem)
-    case types.LIST:
+    case types.TiList:
       return visitList(value, mem)
-    case types.VARIABLE:
+    case types.NumberVariable:
       return visitVariable(value, mem)
-    case types.STRINGVARIABLE:
+    case types.StringVariable:
       return visitStringVariable(value, mem)
-    case types.LISTVARIABLE:
+    case types.ListVariable:
       return visitListVariable(value, mem)
-    case types.LISTINDEX:
+    case types.ListIndex:
       return visitListIndex(value, mem)
     case types.ANS:
       return visitAns(value, mem)
     case types.GetKey:
       return visitGetKey(value, mem)
-    case types.UNARY:
+    case types.UnaryExpression:
       return visitUnaryExpression(value, mem)
-    case types.BINARY:
+    case types.BinaryExpression:
       return visitBinaryExpression(value, mem)
     default:
       return core.exhaustiveMatchingGuard(value)
@@ -62,10 +62,10 @@ function visitList (value: types.TiList, mem: core.Memory): types.ListResolved {
     return value
   }
   return {
-    type: types.LIST,
+    type: types.TiList,
     elements: value.elements.map(function (element) {
       const result = evaluate(element, mem)
-      if (result.type !== types.NUMBER) {
+      if (result.type !== types.TiNumber) {
         // TODO: a list of lists should be a syntax error
         // However, a list of list variables should still be a data type error
         // Distinguishing them here is hard - should be done in grammar?
@@ -107,10 +107,10 @@ function visitListVariable (value: types.ListVariable, mem: core.Memory): types.
 function visitListIndex (value: types.ListIndex, mem: core.Memory): types.NumberResolved {
   const list = evaluate(value.list, mem)
   const index = evaluate(value.index, mem)
-  if (list.type !== types.LIST) {
+  if (list.type !== types.TiList) {
     throw new core.LibError('unexpected expression type, should be list')
   }
-  if (index.type !== types.NUMBER) {
+  if (index.type !== types.TiNumber) {
     throw new core.TiError(core.TiErrorCode.InvalidDim)
   }
   if (index.float < 1 || index.float > list.elements.length) {

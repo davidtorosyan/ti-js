@@ -386,7 +386,7 @@ function visitOutput (line: types.Output, state: State): undefined {
   }
   const row = expression.evaluate(line.row, state.mem)
   const column = expression.evaluate(line.column, state.mem)
-  if (row.type !== types.NUMBER || column.type !== types.NUMBER) {
+  if (row.type !== types.TiNumber || column.type !== types.TiNumber) {
     throw new core.TiError(core.TiErrorCode.DataType)
   }
   if (row.float < 1 || row.float > state.rows || column.float < 1 || column.float > state.columns) {
@@ -425,7 +425,7 @@ function increment (mem: core.Memory, variable: types.Variable, step: types.Valu
   }
 
   const value = expression.evaluate({
-    type: types.BINARY,
+    type: types.BinaryExpression,
     operator: '+',
     left: variable,
     right: step,
@@ -448,15 +448,15 @@ function getInput (text: string, variable: types.Variable, state: State, allowSt
       iolib.stdout(input, state.io)
 
       let value: types.ValueResolved
-      if (variable.type === types.STRINGVARIABLE && allowStringLiterals) {
-        value = { type: types.STRING, chars: input }
+      if (variable.type === types.StringVariable && allowStringLiterals) {
+        value = { type: types.TiString, chars: input }
       } else {
         value = expression.evaluate(parser.parseExpression(input), state.mem)
       }
 
       // special case where a prompt for a numerical variable is interpreted as a list variable
-      if (variable.type === types.VARIABLE && value.type === types.LIST) {
-        variable = { type: types.LISTVARIABLE, name: `List${variable.name}`, custom: true }
+      if (variable.type === types.NumberVariable && value.type === types.TiList) {
+        variable = { type: types.ListVariable, name: `List${variable.name}`, custom: true }
       }
 
       assignment.evaluate(variable, value, state.mem)

@@ -55,7 +55,7 @@ export function newMem (): Memory {
 
 export function newFloat (value = 0): types.NumberResolved {
   return {
-    type: types.NUMBER,
+    type: types.TiNumber,
     resolved: true,
     float: value,
   }

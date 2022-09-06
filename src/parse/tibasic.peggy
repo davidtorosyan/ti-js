@@ -67,14 +67,14 @@ CustomListVariableIdentifier
   { return types.ListVariablePrefix + text().substring(prefix.length); }
 
 NumericVariable
-  = name:NumericVariableIdentifier { return { type: types.VARIABLE, name } }
+  = name:NumericVariableIdentifier { return { type: types.NumberVariable, name } }
 
 StringVariable
-  = name:StringVariableIdentifier { return { type: types.STRINGVARIABLE, name } }
+  = name:StringVariableIdentifier { return { type: types.StringVariable, name } }
 
 ListVariable
-  = name:ListVariableIdentifier { return { type: types.LISTVARIABLE, name, custom: false } }
-  / name:CustomListVariableIdentifier { return { type: types.LISTVARIABLE, name, custom: true } }
+  = name:ListVariableIdentifier { return { type: types.ListVariable, name, custom: false } }
+  / name:CustomListVariableIdentifier { return { type: types.ListVariable, name, custom: true } }
 
 Variable
   = StringVariable
@@ -83,7 +83,7 @@ Variable
 
 ListIndex
   = list:ListVariable "(" index:ValueExpression OptionalEndParen 
-  { return { type: types.LISTINDEX, list, index } }
+  { return { type: types.ListIndex, list, index } }
 
 Assignable
   = ListIndex
@@ -105,13 +105,13 @@ ExponentPart
 
 NumericLiteral
   = integer:Integer '.' fraction:Integer? exponent:ExponentPart? { 
-    return { type: types.NUMBER, integer, fraction, exponent }
+    return { type: types.TiNumber, integer, fraction, exponent }
   }
   / '.' fraction:Integer exponent:ExponentPart? { 
-    return { type: types.NUMBER, fraction, exponent }
+    return { type: types.TiNumber, fraction, exponent }
   }
   / integer:Integer exponent:ExponentPart? { 
-    return { type: types.NUMBER, integer, exponent }
+    return { type: types.TiNumber, integer, exponent }
   }
 
 // ----- Strings -----
@@ -124,7 +124,7 @@ CharacterString
 
 StringLiteral
   = '"' chars:CharacterString '"'? 
-  { return { type: types.STRING, chars } }
+  { return { type: types.TiString, chars } }
 
 // ----- Tokens -----
 
@@ -175,13 +175,13 @@ UnaryOperator
 TokenUnaryExpression
   = TokenExpression 
   / operator:UnaryOperator argument:TokenUnaryExpression
-  { return { type: types.UNARY, operator, argument } }
+  { return { type: types.UnaryExpression, operator, argument } }
 
 UnaryExpression
   = TokenUnaryExpression
   / NumericLiteral
   / operator:UnaryOperator argument:UnaryExpression
-  { return { type: types.UNARY, operator, argument } }
+  { return { type: types.UnaryExpression, operator, argument } }
 
 // See note on TokenLiteral
 ImplicitMultiplicativeExpression

@@ -9,11 +9,11 @@ export function evaluate (
   value: types.ValueResolved,
 ): types.ValueResolved {
   switch (value.type) {
-    case types.NUMBER:
+    case types.TiNumber:
       return visitNumber(operator, value)
-    case types.STRING:
+    case types.TiString:
       return visitString(operator, value)
-    case types.LIST:
+    case types.TiList:
       return visitList(operator, value)
     default:
       return core.exhaustiveMatchingGuard(value)
@@ -30,7 +30,7 @@ function visitString (_operator: string, _argument: types.TiString): never {
 
 function visitList (operator: string, argument: types.ListResolved): types.ListResolved {
   return {
-    type: types.LIST,
+    type: types.TiList,
     elements: argument.elements.map(e => (
       core.newFloat(applyUnaryOperation(operator, e.float)))),
     resolved: true,

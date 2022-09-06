@@ -8,16 +8,6 @@
 /**
  * @alpha
  */
-export const ti = 'ti'
-
-/**
- * @alpha
- */
-export const lib = 'lib'
-
-/**
- * @alpha
- */
 export const SyntaxError = 'SyntaxError'
 
 /**
@@ -28,33 +18,18 @@ export interface SyntaxError {
     source?: string
 }
 
-// ----- Values -----
+// ----- Number -----
 
 /**
  * @alpha
  */
-export const NUMBER = 'number'
-
-/**
- * @alpha
- */
-export const LIST = 'list'
-
-/**
- * @alpha
- */
-export const STRING = 'string'
-
-/**
- * @alpha
- */
-export const ListVariablePrefix = 'List'
+export const TiNumber = 'TiNumber'
 
 /**
  * @alpha
  */
 export interface NumberLiteral {
-    type: typeof NUMBER
+    type: typeof TiNumber
     resolved: false
     integer?: number
     fraction?: number | null
@@ -65,7 +40,7 @@ export interface NumberLiteral {
  * @alpha
  */
 export interface NumberResolved {
-    type: typeof NUMBER
+    type: typeof TiNumber
     resolved: true
     float: number
 }
@@ -77,19 +52,38 @@ export type TiNumber =
     NumberLiteral
     | NumberResolved
 
+// ----- String -----
+
+/**
+ * @alpha
+ */
+export const TiString = 'TiString'
+
 /**
  * @alpha
  */
 export interface TiString {
-    type: typeof STRING
+    type: typeof TiString
     chars: string
 }
+
+// ----- List -----
+
+/**
+ * @alpha
+ */
+export const ListVariablePrefix = 'List'
+
+/**
+ * @alpha
+ */
+export const TiList = 'TiList'
 
 /**
  * @alpha
  */
 export interface ListLiteral {
-    type: typeof LIST
+    type: typeof TiList
     resolved: false
     elements: ValueExpression[]
 }
@@ -98,7 +92,7 @@ export interface ListLiteral {
  * @alpha
  */
 export interface ListResolved {
-    type: typeof LIST
+    type: typeof TiList
     resolved: true
     elements: NumberResolved[]
 }
@@ -109,6 +103,8 @@ export interface ListResolved {
 export type TiList =
     ListLiteral
     | ListResolved
+
+// ----- ValueResolved -----
 
 /**
  * @alpha
@@ -123,12 +119,7 @@ export type ValueResolved =
 /**
  * @alpha
  */
-export const ANS = 'ans'
-
-/**
- * @alpha
- */
-export const GetKey = 'GetKey'
+export const ANS = 'ANS'
 
 /**
  * @alpha
@@ -136,6 +127,11 @@ export const GetKey = 'GetKey'
 export interface Ans {
     type: typeof ANS
 }
+
+/**
+ * @alpha
+ */
+export const GetKey = 'GetKey'
 
 /**
  * @alpha
@@ -149,44 +145,39 @@ export interface GetKey {
 /**
  * @alpha
  */
-export const VARIABLE = 'variable'
+export const NumberVariable = 'NumberVariable'
 
 /**
  * @alpha
  */
-export const STRINGVARIABLE = 'stringVariable'
-
-/**
- * @alpha
- */
-export const LISTVARIABLE = 'listVariable'
-
-/**
- * @alpha
- */
-export const LISTINDEX = 'listIndex'
-
-/**
- * @alpha
- */
-export interface NumericVariable {
-    type: 'variable'
+export interface NumberVariable {
+    type: typeof NumberVariable
     name: string
 }
+
+/**
+ * @alpha
+ */
+export const StringVariable = 'StringVariable'
 
 /**
  * @alpha
  */
 export interface StringVariable {
-    type: 'stringVariable'
+    type: typeof StringVariable
     name: string
 }
 
 /**
  * @alpha
  */
+export const ListVariable = 'ListVariable'
+
+/**
+ * @alpha
+ */
 export interface ListVariable {
-    type: 'listVariable'
+    type: typeof ListVariable
     name: string
     custom: boolean
 }
@@ -194,8 +185,13 @@ export interface ListVariable {
 /**
  * @alpha
  */
+export const ListIndex = 'ListIndex'
+
+/**
+ * @alpha
+ */
 export interface ListIndex {
-    type: 'listIndex'
+    type: typeof ListIndex
     list: ListVariable
     index: ValueExpression
 }
@@ -204,7 +200,7 @@ export interface ListIndex {
  * @alpha
  */
 export type Variable =
-    NumericVariable
+    NumberVariable
     | StringVariable
     | ListVariable
 
@@ -220,18 +216,13 @@ export type Assignable =
 /**
  * @alpha
  */
-export const BINARY = 'binary'
-
-/**
- * @alpha
- */
-export const UNARY = 'unary'
+export const BinaryExpression = 'BinaryExpression'
 
 /**
  * @alpha
  */
 export interface BinaryExpression {
-    type: typeof BINARY
+    type: typeof BinaryExpression
     operator: string
     left: ValueExpression
     right: ValueExpression
@@ -240,8 +231,13 @@ export interface BinaryExpression {
 /**
  * @alpha
  */
+export const UnaryExpression = 'UnaryExpression'
+
+/**
+ * @alpha
+ */
 export interface UnaryExpression {
-    type: typeof UNARY
+    type: typeof UnaryExpression
     operator: string
     argument: ValueExpression
 }
@@ -265,17 +261,7 @@ export type ValueExpression =
 /**
  * @alpha
  */
-export const EmptyStatement = 'empty'
-
-/**
- * @alpha
- */
-export const ValueStatement = 'value'
-
-/**
- * @alpha
- */
-export const AssignmentStatement = 'assign'
+export const EmptyStatement = 'EmptyStatement'
 
 /**
  * @alpha
@@ -288,11 +274,21 @@ export interface EmptyStatement {
 /**
  * @alpha
  */
+export const ValueStatement = 'ValueStatement'
+
+/**
+ * @alpha
+ */
 export interface ValueStatement {
     type: typeof ValueStatement
     value: ValueExpression
     source?: string
 }
+
+/**
+ * @alpha
+ */
+export const AssignmentStatement = 'AssignmentStatement'
 
 /**
  * @alpha
@@ -314,107 +310,17 @@ export const IfStatement = 'IfStatement'
 /**
  * @alpha
  */
-export const ThenStatement = 'ThenStatement'
-
-/**
- * @alpha
- */
-export const ElseStatement = 'ElseStatement'
-
-/**
- * @alpha
- */
-export const ForLoop = 'ForLoop'
-
-/**
- * @alpha
- */
-export const WhileLoop = 'WhileLoop'
-
-/**
- * @alpha
- */
-export const RepeatLoop = 'RepeatLoop'
-
-/**
- * @alpha
- */
-export const EndStatement = 'EndStatement'
-
-/**
- * @alpha
- */
-export const PauseStatement = 'PauseStatement'
-
-/**
- * @alpha
- */
-export const LabelStatement = 'LabelStatement'
-
-/**
- * @alpha
- */
-export const GotoStatement = 'GotoStatement'
-
-/**
- * @alpha
- */
-export const IncrementSkip = 'IncrementSkip'
-
-/**
- * @alpha
- */
-export const DecrementSkip = 'DecrementSkip'
-
-/**
- * @alpha
- */
-export const MenuStatement = 'MenuStatement'
-
-/**
- * @alpha
- */
-export const ProgramStatement = 'ProgramStatement'
-
-/**
- * @alpha
- */
-export const ReturnStatement = 'ReturnStatement'
-
-/**
- * @alpha
- */
-export const StopStatement = 'StopStatement'
-
-/**
- * @alpha
- */
-export const DelVarStatement = 'DelVarStatement'
-
-/**
- * @alpha
- */
-export const GraphStyleStatement = 'GraphStyleStatement'
-
-/**
- * @alpha
- */
-export const OpenLibStatement = 'OpenLibStatement'
-
-/**
- * @alpha
- */
-export const ExecLibStatement = 'ExecLibStatement'
-
-/**
- * @alpha
- */
 export interface IfStatement {
     type: typeof IfStatement
     source?: string
     value: ValueExpression | null
     extra: boolean | null
 }
+
+/**
+ * @alpha
+ */
+export const ThenStatement = 'ThenStatement'
 
 /**
  * @alpha
@@ -428,11 +334,21 @@ export interface ThenStatement {
 /**
  * @alpha
  */
+export const ElseStatement = 'ElseStatement'
+
+/**
+ * @alpha
+ */
 export interface ElseStatement {
     type: typeof ElseStatement
     source?: string
     extra: boolean | null
 }
+
+/**
+ * @alpha
+ */
+export const ForLoop = 'ForLoop'
 
 /**
  * @alpha
@@ -451,12 +367,22 @@ export interface ForLoop {
 /**
  * @alpha
  */
+export const WhileLoop = 'WhileLoop'
+
+/**
+ * @alpha
+ */
 export interface WhileLoop {
     type: typeof WhileLoop
     source?: string
     value: ValueExpression | null
     extra: boolean | null
 }
+
+/**
+ * @alpha
+ */
+export const RepeatLoop = 'RepeatLoop'
 
 /**
  * @alpha
@@ -471,6 +397,11 @@ export interface RepeatLoop {
 /**
  * @alpha
  */
+export const EndStatement = 'EndStatement'
+
+/**
+ * @alpha
+ */
 export interface EndStatement {
     type: typeof EndStatement
     source?: string
@@ -480,10 +411,20 @@ export interface EndStatement {
 /**
  * @alpha
  */
+export const PauseStatement = 'PauseStatement'
+
+/**
+ * @alpha
+ */
 export interface PauseStatement {
     type: typeof PauseStatement
     source?: string
 }
+
+/**
+ * @alpha
+ */
+export const LabelStatement = 'LabelStatement'
 
 /**
  * @alpha
@@ -497,11 +438,21 @@ export interface LabelStatement {
 /**
  * @alpha
  */
+export const GotoStatement = 'GotoStatement'
+
+/**
+ * @alpha
+ */
 export interface GotoStatement {
     type: typeof GotoStatement
     source?: string
     location: string
 }
+
+/**
+ * @alpha
+ */
+export const IncrementSkip = 'IncrementSkip'
 
 /**
  * @alpha
@@ -512,6 +463,11 @@ export interface IncrementSkip {
     variable: Variable | null
     end: ValueExpression | null
 }
+
+/**
+ * @alpha
+ */
+export const DecrementSkip = 'DecrementSkip'
 
 /**
  * @alpha
@@ -534,12 +490,22 @@ export interface MenuChoice {
 /**
  * @alpha
  */
+export const MenuStatement = 'MenuStatement'
+
+/**
+ * @alpha
+ */
 export interface MenuStatement {
     type: typeof MenuStatement
     source?: string
     title: ValueExpression | null
     choices: MenuChoice[]
 }
+
+/**
+ * @alpha
+ */
+export const ProgramStatement = 'ProgramStatement'
 
 /**
  * @alpha
@@ -553,10 +519,20 @@ export interface ProgramStatement {
 /**
  * @alpha
  */
+export const ReturnStatement = 'ReturnStatement'
+
+/**
+ * @alpha
+ */
 export interface ReturnStatement {
     type: typeof ReturnStatement
     source?: string
 }
+
+/**
+ * @alpha
+ */
+export const StopStatement = 'StopStatement'
 
 /**
  * @alpha
@@ -569,11 +545,21 @@ export interface StopStatement {
 /**
  * @alpha
  */
+export const DelVarStatement = 'DelVarStatement'
+
+/**
+ * @alpha
+ */
 export interface DelVarStatement {
     type: typeof DelVarStatement
     source?: string
     variable: Variable | null
 }
+
+/**
+ * @alpha
+ */
+export const GraphStyleStatement = 'GraphStyleStatement'
 
 /**
  * @alpha
@@ -588,11 +574,21 @@ export interface GraphStyleStatement {
 /**
  * @alpha
  */
+export const OpenLibStatement = 'OpenLibStatement'
+
+/**
+ * @alpha
+ */
 export interface OpenLibStatement {
     type: typeof OpenLibStatement
     source?: string
     name: string
 }
+
+/**
+ * @alpha
+ */
+export const ExecLibStatement = 'ExecLibStatement'
 
 /**
  * @alpha
@@ -638,62 +634,17 @@ export const Input = 'Input'
 /**
  * @alpha
  */
-export const Prompt = 'Prompt'
-
-/**
- * @alpha
- */
-export const Display = 'display'
-
-/**
- * @alpha
- */
-export const DispGraph = 'DispGraph'
-
-/**
- * @alpha
- */
-export const DispTable = 'DispTable'
-
-/**
- * @alpha
- */
-export const Output = 'Output'
-
-/**
- * @alpha
- */
-export const ClrHome = 'ClrHome'
-
-/**
- * @alpha
- */
-export const ClrTable = 'ClrTable'
-
-/**
- * @alpha
- */
-export const GetCalc = 'GetCalc'
-
-/**
- * @alpha
- */
-export const Get = 'Get'
-
-/**
- * @alpha
- */
-export const Send = 'Send'
-
-/**
- * @alpha
- */
 export interface Input {
     type: typeof Input
     source?: string
     text: ValueExpression | null
     variable: Variable | null
 }
+
+/**
+ * @alpha
+ */
+export const Prompt = 'Prompt'
 
 /**
  * @alpha
@@ -707,11 +658,21 @@ export interface Prompt {
 /**
  * @alpha
  */
+export const Display = 'Display'
+
+/**
+ * @alpha
+ */
 export interface Display {
     type: typeof Display
     source?: string
     value: ValueExpression | null
 }
+
+/**
+ * @alpha
+ */
+export const DispGraph = 'DispGraph'
 
 /**
  * @alpha
@@ -724,10 +685,20 @@ export interface DispGraph {
 /**
  * @alpha
  */
+export const DispTable = 'DispTable'
+
+/**
+ * @alpha
+ */
 export interface DispTable {
     type: typeof DispTable
     source?: string
 }
+
+/**
+ * @alpha
+ */
+export const Output = 'Output'
 
 /**
  * @alpha
@@ -743,6 +714,11 @@ export interface Output {
 /**
  * @alpha
  */
+export const ClrHome = 'ClrHome'
+
+/**
+ * @alpha
+ */
 export interface ClrHome {
     type: typeof ClrHome
     source?: string
@@ -751,10 +727,20 @@ export interface ClrHome {
 /**
  * @alpha
  */
+export const ClrTable = 'ClrTable'
+
+/**
+ * @alpha
+ */
 export interface ClrTable {
     type: typeof ClrTable
     source?: string
 }
+
+/**
+ * @alpha
+ */
+export const GetCalc = 'GetCalc'
 
 /**
  * @alpha
@@ -769,11 +755,21 @@ export interface GetCalc {
 /**
  * @alpha
  */
+export const Get = 'Get'
+
+/**
+ * @alpha
+ */
 export interface Get {
     type: typeof Get
     source?: string
     variable: Variable | null
 }
+
+/**
+ * @alpha
+ */
+export const Send = 'Send'
 
 /**
  * @alpha
