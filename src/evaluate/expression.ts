@@ -46,14 +46,14 @@ function visitSyntaxError (_value: types.ValueExpression, _mem: core.Memory): ne
 
 // ----- Values -----
 
-function visitNumber (value: types.TiNumber, _mem: core.Memory) {
+function visitNumber (value: types.TiNumber, _mem: core.Memory): types.NumberResolved {
   if (value.resolved) {
     return value
   }
   return core.newFloat(operation.resolveNumber(value))
 }
 
-function visitString (value: types.TiString, _mem: core.Memory) {
+function visitString (value: types.TiString, _mem: core.Memory): types.TiString {
   return value
 }
 
@@ -79,7 +79,7 @@ function visitList (value: types.TiList, mem: core.Memory) : types.ListResolved 
 
 // ----- Variables -----
 
-function visitVariable (value: types.Variable, mem: core.Memory) {
+function visitVariable (value: types.Variable, mem: core.Memory): types.ValueResolved {
   let result = mem.vars.get(value.name)
   if (result === undefined) {
     result = core.newFloat()
@@ -88,7 +88,7 @@ function visitVariable (value: types.Variable, mem: core.Memory) {
   return result
 }
 
-function visitStringVariable (value: types.StringVariable, mem: core.Memory) {
+function visitStringVariable (value: types.StringVariable, mem: core.Memory): types.ValueResolved {
   const result = mem.vars.get(value.name)
   if (result === undefined) {
     throw core.UndefinedError
@@ -96,7 +96,7 @@ function visitStringVariable (value: types.StringVariable, mem: core.Memory) {
   return result
 }
 
-function visitListVariable (value: types.ListVariable, mem: core.Memory) {
+function visitListVariable (value: types.ListVariable, mem: core.Memory) : types.ValueResolved {
   const result = mem.vars.get(value.name)
   if (result === undefined) {
     throw core.UndefinedError
@@ -104,7 +104,7 @@ function visitListVariable (value: types.ListVariable, mem: core.Memory) {
   return result
 }
 
-function visitListIndex (value: types.ListIndex, mem: core.Memory) {
+function visitListIndex (value: types.ListIndex, mem: core.Memory): types.NumberResolved {
   if (value.type !== types.LISTINDEX) {
     throw core.libError('unexpected expression type, list index')
   }
@@ -128,7 +128,7 @@ function visitListIndex (value: types.ListIndex, mem: core.Memory) {
 
 // ----- Tokens -----
 
-function visitAns (_value: types.Ans, mem: core.Memory) {
+function visitAns (_value: types.Ans, mem: core.Memory): types.ValueResolved {
   return mem.ans
 }
 
@@ -138,12 +138,12 @@ function visitGetKey (_value: types.GetKey, _mem: core.Memory) : never {
 
 // ----- Operators -----
 
-function visitUnaryExpression (value: types.UnaryExpression, mem: core.Memory) {
+function visitUnaryExpression (value: types.UnaryExpression, mem: core.Memory): types.ValueResolved {
   const argument = evaluate(value.argument, mem)
   return unary.evaluate(value.operator, argument)
 }
 
-function visitBinaryExpression (value: types.BinaryExpression, mem: core.Memory) {
+function visitBinaryExpression (value: types.BinaryExpression, mem: core.Memory): types.ValueResolved {
   const left = evaluate(value.left, mem)
   const right = evaluate(value.right, mem)
   return binary.evaluate(value.operator, left, right)

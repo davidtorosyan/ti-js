@@ -11,7 +11,7 @@ export class NodeLooper implements Looper {
   private worker: Worker | undefined
   private readonly listenerMap = new Map<string, Map<Listener, WrappedListener>>()
 
-  post (message: string) {
+  post (message: string): void {
     if (this.worker === undefined) {
       return
     }
@@ -19,7 +19,7 @@ export class NodeLooper implements Looper {
     this.worker.postMessage(message)
   }
 
-  on (message: string, listener: () => void) {
+  on (message: string, listener: () => void): void {
     if (this.worker === undefined) {
       this.worker = this.createWorker()
     }
@@ -27,7 +27,7 @@ export class NodeLooper implements Looper {
     this.worker.on('message', this.wrapListener(message, listener))
   }
 
-  off (message: string, listener: () => void) {
+  off (message: string, listener: () => void): void {
     if (this.worker === undefined) {
       return
     }
@@ -39,22 +39,22 @@ export class NodeLooper implements Looper {
     }
   }
 
-  private createWorker () {
+  private createWorker (): Worker {
     return new Worker(new URL('./worker.ts', import.meta.url))
   }
 
-  private destroyWorker () {
+  private destroyWorker (): void {
     if (this.worker !== undefined) {
       this.worker.terminate()
       this.worker = undefined
     }
   }
 
-  private workerHasListeners () {
+  private workerHasListeners (): boolean {
     return this.worker !== undefined && this.worker.listenerCount('message') > 0
   }
 
-  private wrapListener (message: string, listener: () => void) {
+  private wrapListener (message: string, listener: () => void): WrappedListener {
     let secondary = this.listenerMap.get(message)
     if (secondary === undefined) {
       secondary = new Map<Listener, WrappedListener>()
@@ -63,7 +63,7 @@ export class NodeLooper implements Looper {
 
     let wrapped = secondary.get(listener)
     if (wrapped === undefined) {
-      wrapped = (postedMessage: string) => {
+      wrapped = (postedMessage: string): void => {
         if (postedMessage === message) {
           listener()
         }

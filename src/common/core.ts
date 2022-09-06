@@ -26,7 +26,7 @@ function error (type: string, code: string, hideSource = false): TiJsError {
   )
 }
 
-function tiError (code: string, hideSource = false) {
+function tiError (code: string, hideSource = false): TiJsError {
   return error(types.ti, code, hideSource)
 }
 
@@ -40,7 +40,7 @@ export const DivideByZeroError = tiError('DIVIDE BY 0')
 export const InvalidDimError = tiError('INVALID DIM')
 export const DomainError = tiError('DOMAIN')
 
-export function libError (code: string, hideSource = false) {
+export function libError (code: string, hideSource = false): TiJsError {
   return error(types.lib, code, hideSource)
 }
 

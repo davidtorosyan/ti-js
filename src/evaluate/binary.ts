@@ -91,7 +91,7 @@ function applyBinaryOperationListAndNumber (
   }
 }
 
-function applyBinaryOperation (operator: string, x: number, y: number) {
+function applyBinaryOperation (operator: string, x: number, y: number): number {
   if (operator === '/' && y === 0) {
     throw core.DivideByZeroError
   }

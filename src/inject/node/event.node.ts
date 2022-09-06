@@ -11,15 +11,15 @@ export class NodeEventTarget implements EventTarget {
     this.emitter = new EventEmitter()
   }
 
-  addEventListener (type: string, listener: () => void) {
+  addEventListener (type: string, listener: () => void): void {
     this.emitter.on(type, listener)
   }
 
-  removeEventListener (type: string, listener: () => void) {
+  removeEventListener (type: string, listener: () => void): void {
     this.emitter.off(type, listener)
   }
 
-  dispatchEvent (name: string) {
+  dispatchEvent (name: string): void {
     this.emitter.emit(name)
   }
 }

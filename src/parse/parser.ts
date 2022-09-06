@@ -17,7 +17,7 @@ export type ParseOptions = {
 /**
  * @alpha
  */
-export function parse (source: string, options: ParseOptions = {}) {
+export function parse (source: string, options: ParseOptions = {}): types.Statement[] {
   if (source === undefined) {
     throw new Error('Undefined source!')
   }

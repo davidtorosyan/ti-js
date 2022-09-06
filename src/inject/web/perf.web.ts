@@ -2,7 +2,7 @@
 // ========
 
 export class WebPerf {
-  now () {
+  now (): number {
     return performance.now()
   }
 }

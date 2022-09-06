@@ -31,21 +31,21 @@ const looper = inject.getLooper
 const eventTarget = inject.getEventTarget
 const perf = inject.getPerf
 
-function startLooper () {
+function startLooper (): void {
   looper().on(loopMessageName, handleMessage)
   looper().on(exceptionName, handleException)
 }
 
-function stopLooper () {
+function stopLooper (): void {
   looper().off(loopMessageName, handleMessage)
   looper().off(exceptionName, handleException)
 }
 
-function fireEvent (name: string) {
+function fireEvent (name: string): void {
   eventTarget().dispatchEvent(name)
 }
 
-function startIfNeeded () {
+function startIfNeeded (): void {
   if (running === false) {
     running = true
     fireEvent('start')
@@ -59,7 +59,7 @@ function createTask (
   delay: number,
   runOnce: boolean,
   options: CreateTaskOptions,
-) {
+): number {
   const taskId = nextTaskId++
   const debug = options.debug
 
@@ -81,7 +81,7 @@ function createTask (
   return taskId
 }
 
-function resumeTask (taskId: number) {
+function resumeTask (taskId: number): void {
   const task = tasks.get(taskId)
 
   if (task === undefined) {
@@ -96,7 +96,7 @@ function resumeTask (taskId: number) {
   startIfNeeded()
 }
 
-function suspendTask (taskId: number) {
+function suspendTask (taskId: number): void {
   const task = tasks.get(taskId)
 
   if (task === undefined) {
@@ -110,7 +110,7 @@ function suspendTask (taskId: number) {
   task.suspended = true
 }
 
-function deleteTask (taskId: number) {
+function deleteTask (taskId: number): void {
   const task = tasks.get(taskId)
 
   if (task === undefined) {
@@ -124,7 +124,7 @@ function deleteTask (taskId: number) {
   tasks.delete(taskId)
 }
 
-function handleMessage () {
+function handleMessage (): void {
   const time = perf().now()
   let runningTaskCount = 0
   let suspendedTaskCount = 0
@@ -197,7 +197,7 @@ function handleMessage () {
   }
 }
 
-function handleException () {
+function handleException (): void {
   if (exceptions.length > 0) {
     throw exceptions.pop()
   }
@@ -207,15 +207,15 @@ export function setTinyInterval (
   func: () => string | undefined,
   delay: number,
   options: CreateTaskOptions = { debug: false },
-) {
+): number {
   return createTask(func, delay, false, options)
 }
 
-export function clearTinyInterval (tinyIntervalID: number) {
+export function clearTinyInterval (tinyIntervalID: number): void {
   deleteTask(tinyIntervalID)
 }
 
-export function resumeTinyInterval (tinyIntervalID: number) {
+export function resumeTinyInterval (tinyIntervalID: number): void {
   resumeTask(tinyIntervalID)
 }
 
@@ -223,21 +223,21 @@ export function setTinyTimeout (
   func: () => string | undefined,
   delay: number,
   options: CreateTaskOptions = { debug: false },
-) {
+): number {
   return createTask(func, delay, true, options)
 }
 
-export function clearTinyTimeout (tinyTimeoutID: number) {
+export function clearTinyTimeout (tinyTimeoutID: number): void {
   deleteTask(tinyTimeoutID)
 }
 
 /**
  * @alpha
  */
-export function on (type: string, listener: () => void) {
+export function on (type: string, listener: () => void): void {
   eventTarget().addEventListener(type, listener)
 }
 
-export function off (type: string, listener: () => void) {
+export function off (type: string, listener: () => void): void {
   eventTarget().removeEventListener(type, listener)
 }

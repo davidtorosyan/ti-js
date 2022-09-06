@@ -29,7 +29,16 @@ export type RunOptions = {
 /**
  * @alpha
  */
-export function run (lines: Array<types.Statement>, options: RunOptions = {}) {
+export type ProgramHandle = {
+  getStatus(): string
+  isActive(): boolean
+  stop(): void
+}
+
+/**
+ * @alpha
+ */
+export function run (lines: Array<types.Statement>, options: RunOptions = {}): ProgramHandle {
   let sourceLines: Array<string> = []
   if (options.source !== undefined) {
     if (Array.isArray(options.source)) {
@@ -106,7 +115,7 @@ export function run (lines: Array<types.Statement>, options: RunOptions = {}) {
     state.frequencyMs,
     { debug: state.debug },
   )
-  state.resume = (callback) => {
+  state.resume = (callback): void => {
     state.resumeCallback = callback
     daemon.resumeTinyInterval(taskId)
   }
@@ -114,7 +123,7 @@ export function run (lines: Array<types.Statement>, options: RunOptions = {}) {
   return {
     getStatus: () => state.status,
     isActive: () => state.status === 'pending' || state.status === 'running',
-    stop: () => {
+    stop: (): void => {
       iolib.cleanup(state.io)
       daemon.clearTinyInterval(taskId)
     },

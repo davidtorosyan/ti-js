@@ -20,7 +20,7 @@ export function evaluate (
   }
 }
 
-function visitNumber (operator: string, argument: types.NumberResolved) {
+function visitNumber (operator: string, argument: types.NumberResolved): types.NumberResolved {
   return core.newFloat(applyUnaryOperation(operator, argument.float))
 }
 
@@ -37,7 +37,7 @@ function visitList (operator: string, argument: types.ListResolved): types.ListR
   }
 }
 
-function applyUnaryOperation (operator: string, x: number) {
+function applyUnaryOperation (operator: string, x: number): number {
   switch (operator) {
     case '&-': return x * -1
     default: throw core.libError('unexpected unary operator')

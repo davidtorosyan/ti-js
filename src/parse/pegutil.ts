@@ -46,7 +46,7 @@ function toMenuChoice (
 export function buildMenuStatement (
   title: types.TiString,
   options: Array<[string, types.TiString, string, string]>,
-) {
+): types.MenuStatement {
   const choices = options.map(toMenuChoice)
   return {
     type: types.MenuStatement,
@@ -58,9 +58,10 @@ export function buildMenuStatement (
 export function buildList (
   head: types.ValueExpression,
   tail: Array<types.ValueExpression>,
-) {
+): types.ListLiteral {
   return {
     type: types.LIST,
     elements: [head].concat(tail),
+    resolved: false,
   }
 }

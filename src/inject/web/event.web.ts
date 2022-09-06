@@ -10,15 +10,15 @@ export class WebEventTarget implements EventTarget {
     this.textNode = document.createTextNode('')
   }
 
-  addEventListener (type: string, listener: () => void) {
+  addEventListener (type: string, listener: () => void): void {
     this.textNode.addEventListener(type, listener)
   }
 
-  removeEventListener (type: string, listener: () => void) {
+  removeEventListener (type: string, listener: () => void): void {
     this.textNode.removeEventListener(type, listener)
   }
 
-  dispatchEvent (name: string) {
+  dispatchEvent (name: string): void {
     this.textNode.dispatchEvent(new Event(name))
   }
 }

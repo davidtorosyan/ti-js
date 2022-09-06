@@ -5,7 +5,7 @@ import * as core from '../common/core'
 import * as types from '../common/types'
 import * as expression from './expression'
 
-export function evaluate (assignable: types.Assignable, value: types.ValueResolved, mem: core.Memory) {
+export function evaluate (assignable: types.Assignable, value: types.ValueResolved, mem: core.Memory): void {
   switch (assignable.type) {
     case types.VARIABLE:
       return visitVariable(assignable, value, mem)
@@ -22,7 +22,7 @@ export function evaluate (assignable: types.Assignable, value: types.ValueResolv
 
 // ----- Statements -----
 
-function visitVariable (variable: types.Variable, value: types.ValueResolved, mem: core.Memory) {
+function visitVariable (variable: types.Variable, value: types.ValueResolved, mem: core.Memory): void {
   if (value.type !== types.NUMBER) {
     return
   }
@@ -32,14 +32,14 @@ function visitVariable (variable: types.Variable, value: types.ValueResolved, me
   mem.vars.set(variable.name, value)
 }
 
-function visitStringVariable (variable: types.StringVariable, value: types.ValueResolved, mem: core.Memory) {
+function visitStringVariable (variable: types.StringVariable, value: types.ValueResolved, mem: core.Memory): void {
   if (value.type !== types.STRING) {
     throw core.DataTypeError
   }
   mem.vars.set(variable.name, value)
 }
 
-function visitListVariable (variable: types.ListVariable, value: types.ValueResolved, mem: core.Memory) {
+function visitListVariable (variable: types.ListVariable, value: types.ValueResolved, mem: core.Memory): void {
   if (value.type !== types.LIST) {
     throw core.DataTypeError
   }
@@ -49,7 +49,7 @@ function visitListVariable (variable: types.ListVariable, value: types.ValueReso
   mem.vars.set(variable.name, value)
 }
 
-function visitListIndex (assignable: types.ListIndex, value: types.ValueResolved, mem: core.Memory) {
+function visitListIndex (assignable: types.ListIndex, value: types.ValueResolved, mem: core.Memory): void {
   const list = expression.evaluate(assignable.list, mem)
   const index = expression.evaluate(assignable.index, mem)
   if (list.type !== types.LIST) {

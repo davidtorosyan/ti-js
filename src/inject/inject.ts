@@ -14,7 +14,7 @@ export function getEventTarget (): EventTarget {
   return eventTarget
 }
 
-export function setEventTarget (impl: EventTarget) {
+export function setEventTarget (impl: EventTarget): void {
   eventTarget = impl
 }
 
@@ -27,7 +27,7 @@ export function getLooper (): Looper {
   return looper
 }
 
-export function setLooper (impl: Looper) {
+export function setLooper (impl: Looper): void {
   looper = impl
 }
 
@@ -40,6 +40,6 @@ export function getPerf (): Perf {
   return perf
 }
 
-export function setPerf (impl: Perf) {
+export function setPerf (impl: Perf): void {
   perf = impl
 }

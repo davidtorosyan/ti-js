@@ -36,5 +36,6 @@ module.exports = {
     'tsdoc/syntax': 'warn',
     'function-paren-newline': ['error', 'multiline-arguments'],
     'max-len': ['error', { code: 120 }],
+    '@typescript-eslint/explicit-function-return-type': 'warn',
   },
 }

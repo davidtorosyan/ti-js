@@ -113,19 +113,19 @@ export function evaluate (line: types.Statement, state: State): string | undefin
 
 // ----- Statements -----
 
-function visitEmptyStatement (_line: types.EmptyStatement, _state: State) {
+function visitEmptyStatement (_line: types.EmptyStatement, _state: State) : undefined {
   // do nothing
   return undefined
 }
 
-function visitAssignmentStatement (line: types.AssignmentStatement, state: State) {
+function visitAssignmentStatement (line: types.AssignmentStatement, state: State) : undefined {
   const value = expression.evaluate(line.value, state.mem)
   assignment.evaluate(line.assignable, value, state.mem)
   operation.assignAns(state.mem, value)
   return undefined
 }
 
-function visitValueStatement (line: types.ValueStatement, state: State) {
+function visitValueStatement (line: types.ValueStatement, state: State) : undefined {
   operation.assignAns(state.mem, expression.evaluate(line.value, state.mem))
   return undefined
 }
@@ -136,7 +136,7 @@ function visitSyntaxError (_line: types.SyntaxError, _state: State): never {
 
 // ----- CTL -----
 
-function visitIfStatement (line: types.IfStatement, state: State) {
+function visitIfStatement (line: types.IfStatement, state: State) : undefined {
   if (line.value === null) {
     throw core.ArgumentError
   }
@@ -148,7 +148,7 @@ function visitThenStatement (_line: types.ThenStatement, _state: State): never {
   throw core.SyntaxError
 }
 
-function visitElseStatement (_line: types.ElseStatement, state: State) {
+function visitElseStatement (_line: types.ElseStatement, state: State) : undefined {
   const previousBlockIndex = state.blockStack.pop()
   if (previousBlockIndex === undefined) {
     throw core.SyntaxError
@@ -166,7 +166,7 @@ function visitElseStatement (_line: types.ElseStatement, state: State) {
   return undefined
 }
 
-function visitForLoop (line: types.ForLoop, state: State) {
+function visitForLoop (line: types.ForLoop, state: State) : undefined {
   if (line.variable === null || line.start === null || line.end === null) {
     throw core.ArgumentError
   }
@@ -181,7 +181,7 @@ function visitForLoop (line: types.ForLoop, state: State) {
   return undefined
 }
 
-function visitWhileLoop (line: types.WhileLoop, state: State) {
+function visitWhileLoop (line: types.WhileLoop, state: State) : undefined {
   if (line.value === null) {
     throw core.ArgumentError
   }
@@ -192,7 +192,7 @@ function visitWhileLoop (line: types.WhileLoop, state: State) {
   return undefined
 }
 
-function visitRepeatLoop (line: types.RepeatLoop, state: State) {
+function visitRepeatLoop (line: types.RepeatLoop, state: State) : undefined {
   if (line.value === null) {
     throw core.ArgumentError
   }
@@ -200,7 +200,7 @@ function visitRepeatLoop (line: types.RepeatLoop, state: State) {
   return undefined
 }
 
-function visitEndStatement (_line: types.EndStatement, state: State) {
+function visitEndStatement (_line: types.EndStatement, state: State) : undefined {
   const source = state.blockStack.pop()
   if (source === undefined) {
     throw core.SyntaxError
@@ -247,18 +247,18 @@ function visitPauseStatement (_line: types.PauseStatement, _state: State): never
   throw core.UnimplementedError
 }
 
-function visitLabelStatement (_line: types.LabelStatement, _state: State) {
+function visitLabelStatement (_line: types.LabelStatement, _state: State) : undefined {
   // do nothing
   return undefined
 }
 
-function visitGotoStatement (line: types.GotoStatement, state: State) {
+function visitGotoStatement (line: types.GotoStatement, state: State) : undefined {
   state.searchLabel = line.location
   state.i = -1
   return undefined
 }
 
-function visitIncrementSkip (line: types.IncrementSkip, state: State) {
+function visitIncrementSkip (line: types.IncrementSkip, state: State) : undefined {
   if (line.variable === null || line.end === null) {
     throw core.ArgumentError
   }
@@ -269,7 +269,7 @@ function visitIncrementSkip (line: types.IncrementSkip, state: State) {
   return undefined
 }
 
-function visitDecrementSkip (line: types.DecrementSkip, state: State) {
+function visitDecrementSkip (line: types.DecrementSkip, state: State) : undefined {
   if (line.variable === null || line.end === null) {
     throw core.ArgumentError
   }
@@ -280,7 +280,7 @@ function visitDecrementSkip (line: types.DecrementSkip, state: State) {
   return undefined
 }
 
-function visitMenuStatement (line: types.MenuStatement, state: State) {
+function visitMenuStatement (line: types.MenuStatement, state: State): string {
   if (line.title === null || line.choices.length === 0 || line.choices.length > 7) {
     throw core.ArgumentError
   }
@@ -312,16 +312,16 @@ function visitProgramStatement (_line: types.ProgramStatement, _state: State): n
   throw core.UnimplementedError
 }
 
-function visitReturnStatement (_line: types.ReturnStatement, _state: State) {
+function visitReturnStatement (_line: types.ReturnStatement, _state: State): string {
   // TODO interaction with subprograms
   return signal.DONE
 }
 
-function visitStopStatement (_line: types.StopStatement, _state: State) {
+function visitStopStatement (_line: types.StopStatement, _state: State): string {
   return signal.DONE
 }
 
-function visitDelVarStatement (line: types.DelVarStatement, state: State) {
+function visitDelVarStatement (line: types.DelVarStatement, state: State) : undefined {
   if (line.variable === null) {
     throw core.ArgumentError
   }
@@ -343,14 +343,14 @@ function visitExecLibStatement (_line: types.ExecLibStatement, _state: State): n
 
 // ----- I/O -----
 
-function visitDisplay (line: types.Display, state: State) {
+function visitDisplay (line: types.Display, state: State) : undefined {
   if (line.value !== null) {
     iolib.stdout(operation.valueToString(expression.evaluate(line.value, state.mem)), state.io)
   }
   return undefined
 }
 
-function visitInput (line: types.Input, state: State) {
+function visitInput (line: types.Input, state: State) : string {
   if (line.variable === null) {
     if (line.text !== null) {
       throw core.ArgumentError
@@ -364,7 +364,7 @@ function visitInput (line: types.Input, state: State) {
   return getInput(text, line.variable, state, true)
 }
 
-function visitPrompt (line: types.Prompt, state: State) {
+function visitPrompt (line: types.Prompt, state: State): string {
   if (line.variable === null) {
     throw core.ArgumentError
   }
@@ -380,7 +380,7 @@ function visitDispTable (_line: types.DispTable, _state: State): never {
   throw core.UnimplementedError
 }
 
-function visitOutput (line: types.Output, state: State) {
+function visitOutput (line: types.Output, state: State) : undefined {
   if (line.row === null || line.column === null || line.value === null) {
     throw core.ArgumentError
   }
@@ -419,7 +419,7 @@ function visitSend (_line: types.Send, _state: State): never {
 
 // ----- Helpers -----
 
-function increment (mem: core.Memory, variable: types.Variable, step: types.ValueExpression) {
+function increment (mem: core.Memory, variable: types.Variable, step: types.ValueExpression): undefined {
   if (!operation.hasVariable(mem, variable)) {
     throw core.UndefinedError
   }
@@ -432,9 +432,10 @@ function increment (mem: core.Memory, variable: types.Variable, step: types.Valu
   }, mem)
 
   assignment.evaluate(variable, value, mem)
+  return undefined
 }
 
-function getInput (text: string, variable: types.Variable, state: State, allowStringLiterals: boolean) {
+function getInput (text: string, variable: types.Variable, state: State, allowStringLiterals: boolean): string {
   iolib.stdout(text, state.io, false)
   iolib.onStdin(input => {
     if (input === null || input === undefined || input === '') {

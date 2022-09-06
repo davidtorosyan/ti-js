@@ -390,6 +390,13 @@ type PauseStatement = {
 };
 
 // @alpha (undocumented)
+export type ProgramHandle = {
+    getStatus(): string;
+    isActive(): boolean;
+    stop(): void;
+};
+
+// @alpha (undocumented)
 const ProgramStatement = "ProgramStatement";
 
 // @alpha (undocumented)
@@ -430,11 +437,7 @@ type ReturnStatement = {
 };
 
 // @alpha (undocumented)
-export function run(lines: Array<types.Statement>, options?: RunOptions): {
-    getStatus: () => string;
-    isActive: () => boolean;
-    stop: () => void;
-};
+export function run(lines: Array<types.Statement>, options?: RunOptions): ProgramHandle;
 
 // @alpha (undocumented)
 export type RunOptions = {
