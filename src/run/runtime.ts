@@ -143,21 +143,22 @@ function runLoop (state: statement.State): string | undefined {
       exceptionToThrow = ex
     } else {
       state.status = 'err'
-      if (state.i < state.lines.length && !ex.hideSource) {
+      let sourceLine: core.TiJsSource | undefined
+      if (state.i < state.lines.length) {
         const currentLine = state.lines[state.i]
         if (currentLine !== undefined) {
           let source = currentLine.source
           if (state.sourceLines !== undefined) {
             source = state.sourceLines[state.i]
           }
-          ex.source = {
+          sourceLine = {
             index: state.i,
             line: source,
           }
         }
       }
 
-      iolib.stderr(ex, state.io)
+      iolib.stderr(ex, state.io, sourceLine)
     }
 
     result = signal.DONE
@@ -206,11 +207,11 @@ function runLine (state: statement.State): string | undefined {
 
   if (line === undefined) {
     if (state.searchLabel !== undefined) {
-      throw core.LabelError
+      throw new core.TiError(core.TiErrorCode.Label)
     }
 
     if (state.ifResult !== undefined || state.incrementDecrementResult !== undefined) {
-      throw core.SyntaxError
+      throw new core.TiError(core.TiErrorCode.Syntax)
     }
 
     if (state.debug) {
@@ -223,7 +224,7 @@ function runLine (state: statement.State): string | undefined {
   state.linesRun++
 
   if (state.linesRun >= state.maximumLines) {
-    throw core.libError('maxlines')
+    throw new core.LibError('maxlines')
   }
 
   const type = line.type
@@ -233,11 +234,11 @@ function runLine (state: statement.State): string | undefined {
   if (state.falsyStackHeight !== undefined) {
     const lastBlockIndex = state.blockStack[state.blockStack.length - 1]
     if (lastBlockIndex === undefined) {
-      throw core.libError('falsy stack lead to missing line index')
+      throw new core.LibError('falsy stack lead to missing line index')
     }
     const lastBlock = state.lines[lastBlockIndex]
     if (lastBlock === undefined) {
-      throw core.libError('falsy stack lead to missing line')
+      throw new core.LibError('falsy stack lead to missing line')
     }
 
     if (type === types.EndStatement ||
@@ -317,14 +318,14 @@ function runLine (state: statement.State): string | undefined {
     type === types.EndStatement
 
   if (couldHaveExtra && line.extra === true) {
-    throw core.SyntaxError
+    throw new core.TiError(core.TiErrorCode.Syntax)
   }
 
   const couldHaveArgs =
     type === types.ForLoop
 
   if (couldHaveArgs && line.args) {
-    throw core.ArgumentError
+    throw new core.TiError(core.TiErrorCode.Argument)
   }
 
   return statement.evaluate(line, state)

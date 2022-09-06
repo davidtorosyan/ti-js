@@ -131,44 +131,44 @@ function visitValueStatement (line: types.ValueStatement, state: State): undefin
 }
 
 function visitSyntaxError (_line: types.SyntaxError, _state: State): never {
-  throw core.SyntaxError
+  throw new core.TiError(core.TiErrorCode.Syntax)
 }
 
 // ----- CTL -----
 
 function visitIfStatement (line: types.IfStatement, state: State): undefined {
   if (line.value === null) {
-    throw core.ArgumentError
+    throw new core.TiError(core.TiErrorCode.Argument)
   }
   state.ifResult = operation.isTruthy(expression.evaluate(line.value, state.mem))
   return undefined
 }
 
 function visitThenStatement (_line: types.ThenStatement, _state: State): never {
-  throw core.SyntaxError
+  throw new core.TiError(core.TiErrorCode.Syntax)
 }
 
 function visitElseStatement (_line: types.ElseStatement, state: State): undefined {
   const previousBlockIndex = state.blockStack.pop()
   if (previousBlockIndex === undefined) {
-    throw core.SyntaxError
+    throw new core.TiError(core.TiErrorCode.Syntax)
   }
   const previousBlockLine = state.lines[previousBlockIndex]
   if (previousBlockLine === undefined) {
-    throw core.libError('Else blockstack led to missing line!')
+    throw new core.LibError('Else blockstack led to missing line!')
   }
   if (previousBlockLine.type === types.ThenStatement) {
     state.blockStack.push(state.i)
     state.falsyStackHeight = state.blockStack.length
   } else {
-    throw core.SyntaxError
+    throw new core.TiError(core.TiErrorCode.Syntax)
   }
   return undefined
 }
 
 function visitForLoop (line: types.ForLoop, state: State): undefined {
   if (line.variable === null || line.start === null || line.end === null) {
-    throw core.ArgumentError
+    throw new core.TiError(core.TiErrorCode.Argument)
   }
 
   const value = expression.evaluate(line.start, state.mem)
@@ -183,7 +183,7 @@ function visitForLoop (line: types.ForLoop, state: State): undefined {
 
 function visitWhileLoop (line: types.WhileLoop, state: State): undefined {
   if (line.value === null) {
-    throw core.ArgumentError
+    throw new core.TiError(core.TiErrorCode.Argument)
   }
   state.blockStack.push(state.i)
   if (!operation.isTruthy(expression.evaluate(line.value, state.mem))) {
@@ -194,7 +194,7 @@ function visitWhileLoop (line: types.WhileLoop, state: State): undefined {
 
 function visitRepeatLoop (line: types.RepeatLoop, state: State): undefined {
   if (line.value === null) {
-    throw core.ArgumentError
+    throw new core.TiError(core.TiErrorCode.Argument)
   }
   state.blockStack.push(state.i)
   return undefined
@@ -203,17 +203,17 @@ function visitRepeatLoop (line: types.RepeatLoop, state: State): undefined {
 function visitEndStatement (_line: types.EndStatement, state: State): undefined {
   const source = state.blockStack.pop()
   if (source === undefined) {
-    throw core.SyntaxError
+    throw new core.TiError(core.TiErrorCode.Syntax)
   }
   const sourceLine = state.lines[source]
   if (sourceLine === undefined) {
-    throw core.libError('End blockstack led to missing line!')
+    throw new core.LibError('End blockstack led to missing line!')
   }
 
   switch (sourceLine.type) {
     case types.ForLoop:
       if (sourceLine.end === null) {
-        throw core.libError('End blockstack led to invalid For!')
+        throw new core.LibError('End blockstack led to invalid For!')
       }
       increment(state.mem, sourceLine.variable, sourceLine.step !== null ? sourceLine.step : core.ONE)
       if (operation.isTruthy(
@@ -226,7 +226,7 @@ function visitEndStatement (_line: types.EndStatement, state: State): undefined 
     case types.WhileLoop:
     case types.RepeatLoop:
       if (sourceLine.value === null) {
-        throw core.libError('End blockstack led to invalid While/Repeat!')
+        throw new core.LibError('End blockstack led to invalid While/Repeat!')
       }
       if (operation.isTruthy(expression.evaluate(sourceLine.value, state.mem))) {
         state.blockStack.push(source)
@@ -237,14 +237,14 @@ function visitEndStatement (_line: types.EndStatement, state: State): undefined 
     case types.ElseStatement:
       break
     default:
-      throw core.libError(`impossibleEndFrom'${sourceLine.type}`)
+      throw new core.LibError(`impossibleEndFrom'${sourceLine.type}`)
   }
 
   return undefined
 }
 
 function visitPauseStatement (_line: types.PauseStatement, _state: State): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 function visitLabelStatement (_line: types.LabelStatement, _state: State): undefined {
@@ -260,7 +260,7 @@ function visitGotoStatement (line: types.GotoStatement, state: State): undefined
 
 function visitIncrementSkip (line: types.IncrementSkip, state: State): undefined {
   if (line.variable === null || line.end === null) {
-    throw core.ArgumentError
+    throw new core.TiError(core.TiErrorCode.Argument)
   }
   increment(state.mem, line.variable, core.ONE)
   state.incrementDecrementResult = operation.isTruthy(
@@ -271,7 +271,7 @@ function visitIncrementSkip (line: types.IncrementSkip, state: State): undefined
 
 function visitDecrementSkip (line: types.DecrementSkip, state: State): undefined {
   if (line.variable === null || line.end === null) {
-    throw core.ArgumentError
+    throw new core.TiError(core.TiErrorCode.Argument)
   }
   increment(state.mem, line.variable, core.MINUSONE)
   state.incrementDecrementResult = operation.isTruthy(
@@ -282,7 +282,7 @@ function visitDecrementSkip (line: types.DecrementSkip, state: State): undefined
 
 function visitMenuStatement (line: types.MenuStatement, state: State): string {
   if (line.title === null || line.choices.length === 0 || line.choices.length > 7) {
-    throw core.ArgumentError
+    throw new core.TiError(core.TiErrorCode.Argument)
   }
   iolib.stdout(operation.valueToString(expression.evaluate(line.title, state.mem), true), state.io)
   line.choices.forEach((choice, idx) => {
@@ -300,7 +300,7 @@ function visitMenuStatement (line: types.MenuStatement, state: State): string {
     state.searchLabel = choice.location
     state.i = 0
     if (state.resume === undefined) {
-      throw core.libError('resume not defined')
+      throw new core.LibError('resume not defined')
     }
     state.resume()
     return false
@@ -309,7 +309,7 @@ function visitMenuStatement (line: types.MenuStatement, state: State): string {
 }
 
 function visitProgramStatement (_line: types.ProgramStatement, _state: State): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 function visitReturnStatement (_line: types.ReturnStatement, _state: State): string {
@@ -323,22 +323,22 @@ function visitStopStatement (_line: types.StopStatement, _state: State): string 
 
 function visitDelVarStatement (line: types.DelVarStatement, state: State): undefined {
   if (line.variable === null) {
-    throw core.ArgumentError
+    throw new core.TiError(core.TiErrorCode.Argument)
   }
   operation.deleteVariable(state.mem, line.variable)
   return undefined
 }
 
 function visitGraphStyleStatement (_line: types.GraphStyleStatement, _state: State): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 function visitOpenLibStatement (_line: types.OpenLibStatement, _state: State): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 function visitExecLibStatement (_line: types.ExecLibStatement, _state: State): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 // ----- I/O -----
@@ -353,9 +353,9 @@ function visitDisplay (line: types.Display, state: State): undefined {
 function visitInput (line: types.Input, state: State): string {
   if (line.variable === null) {
     if (line.text !== null) {
-      throw core.ArgumentError
+      throw new core.TiError(core.TiErrorCode.Argument)
     }
-    throw core.UnimplementedError
+    throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
   }
   let text = '?'
   if (line.text !== null) {
@@ -366,31 +366,31 @@ function visitInput (line: types.Input, state: State): string {
 
 function visitPrompt (line: types.Prompt, state: State): string {
   if (line.variable === null) {
-    throw core.ArgumentError
+    throw new core.TiError(core.TiErrorCode.Argument)
   }
   const text = operation.variableToString(line.variable)
   return getInput(`${text}=?`, line.variable, state, false)
 }
 
 function visitDispGraph (_line: types.DispGraph, _state: State): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 function visitDispTable (_line: types.DispTable, _state: State): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 function visitOutput (line: types.Output, state: State): undefined {
   if (line.row === null || line.column === null || line.value === null) {
-    throw core.ArgumentError
+    throw new core.TiError(core.TiErrorCode.Argument)
   }
   const row = expression.evaluate(line.row, state.mem)
   const column = expression.evaluate(line.column, state.mem)
   if (row.type !== types.NUMBER || column.type !== types.NUMBER) {
-    throw core.DataTypeError
+    throw new core.TiError(core.TiErrorCode.DataType)
   }
   if (row.float < 1 || row.float > state.rows || column.float < 1 || column.float > state.columns) {
-    throw core.DomainError
+    throw new core.TiError(core.TiErrorCode.Domain)
   }
   // TODO: respect rows and columns
   iolib.stdout(operation.valueToString(expression.evaluate(line.value, state.mem)), state.io)
@@ -398,30 +398,30 @@ function visitOutput (line: types.Output, state: State): undefined {
 }
 
 function visitClrHome (_line: types.ClrHome, _state: State): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 function visitClrTable (_line: types.ClrTable, _state: State): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 function visitGetCalc (_line: types.GetCalc, _state: State): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 function visitGet (_line: types.Get, _state: State): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 function visitSend (_line: types.Send, _state: State): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 // ----- Helpers -----
 
 function increment (mem: core.Memory, variable: types.Variable, step: types.ValueExpression): undefined {
   if (!operation.hasVariable(mem, variable)) {
-    throw core.UndefinedError
+    throw new core.TiError(core.TiErrorCode.Undefined)
   }
 
   const value = expression.evaluate({
@@ -442,7 +442,7 @@ function getInput (text: string, variable: types.Variable, state: State, allowSt
       return true
     }
     if (state.resume === undefined) {
-      throw core.libError('resume not defined')
+      throw new core.LibError('resume not defined')
     }
     state.resume(() => {
       iolib.stdout(input, state.io)

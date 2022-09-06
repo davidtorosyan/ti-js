@@ -1,8 +1,7 @@
 // iolib
 // =====
 
-import type { TiJsError } from '../../common/core'
-import * as types from '../../common/types'
+import * as core from '../../common/core'
 
 const enterkey = 13
 
@@ -37,26 +36,18 @@ export function stdout (value: string, options: IoOptions, newline = true): void
   options.output(value, newline)
 }
 
-export function stderr (ex: TiJsError, options: IoOptions): void {
-  if ((ex.type === types.ti && !options.includeErrors) ||
-    (ex.type === types.lib && !options.includeLibErrors)) {
+export function stderr (ex: core.TiJsError, options: IoOptions, sourceLine: core.TiJsSource | undefined): void {
+  if ((ex instanceof core.TiError && !options.includeErrors) ||
+    (ex instanceof core.LibError && !options.includeLibErrors)) {
     console.log(ex)
     return
   }
-  let value = ''
-  if (ex.type === types.ti) {
-    value += 'ERR:'
-  } else if (ex.type === types.lib) {
-    value += 'Error: '
-  } else {
-    value += 'Unexpected: '
+  let value = ex.message
+  if (options.includeLineNumbers && sourceLine?.index !== undefined) {
+    value += ` on line ${sourceLine.index}`
   }
-  value += ex.code
-  if (options.includeLineNumbers && ex.source?.index !== undefined) {
-    value += ` on line ${ex.source.index}`
-  }
-  if (options.includeSource && ex.source?.line !== undefined) {
-    value += ` :${ex.source.line}`
+  if (options.includeSource && sourceLine?.line !== undefined) {
+    value += ` :${sourceLine.line}`
   }
   stdout(value, options)
 }

@@ -3,48 +3,43 @@
 
 import * as types from './types'
 
+export enum TiErrorCode {
+  DataType = 'DATA TYPE',
+  Syntax = 'SYNTAX',
+  Undefined = 'UNDEFINED',
+  Label = 'LABEL',
+  Argument = 'ARGUMENT',
+  DimMismatch = 'DIM MISMATCH',
+  DivideByZero = 'DIVIDE BY 0',
+  InvalidDim = 'INVALID DIM',
+  Domain = 'DOMAIN',
+}
+
+export const UNIMPLEMENTED_MESSAGE = 'unimplemented'
+
 export interface TiJsSource {
   index: number
   line: string | undefined
 }
 
-export class TiJsError {
+export class TiJsError extends Error {
+}
+
+export class TiError extends TiJsError {
   constructor (
-    public type: string,
-    public code: string,
-    public hideSource: boolean,
-    public source: TiJsSource | undefined,
-  ) {}
+    public code: TiErrorCode,
+  ) {
+    super(`ERR:${code}`)
+  }
 }
 
-function error (type: string, code: string, hideSource = false): TiJsError {
-  return new TiJsError(
-    type,
-    code,
-    hideSource,
-    undefined,
-  )
+export class LibError extends TiJsError {
+  constructor (
+    message: string,
+  ) {
+    super(`Error: ${message}`)
+  }
 }
-
-function tiError (code: string, hideSource = false): TiJsError {
-  return error(types.ti, code, hideSource)
-}
-
-export const DataTypeError = tiError('DATA TYPE')
-export const SyntaxError = tiError('SYNTAX')
-export const UndefinedError = tiError('UNDEFINED')
-export const LabelError = tiError('LABEL')
-export const ArgumentError = tiError('ARGUMENT')
-export const DimMismatchError = tiError('DIM MISMATCH')
-export const DivideByZeroError = tiError('DIVIDE BY 0')
-export const InvalidDimError = tiError('INVALID DIM')
-export const DomainError = tiError('DOMAIN')
-
-export function libError (code: string, hideSource = false): TiJsError {
-  return error(types.lib, code, hideSource)
-}
-
-export const UnimplementedError = libError('unimplemented')
 
 export interface Memory {
   vars: Map<string, types.ValueResolved>

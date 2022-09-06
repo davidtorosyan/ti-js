@@ -41,7 +41,7 @@ export function evaluate (value: types.ValueExpression, mem: core.Memory): types
 // ----- Expressions -----
 
 function visitSyntaxError (_value: types.ValueExpression, _mem: core.Memory): never {
-  throw core.SyntaxError
+  throw new core.TiError(core.TiErrorCode.Syntax)
 }
 
 // ----- Values -----
@@ -69,7 +69,7 @@ function visitList (value: types.TiList, mem: core.Memory): types.ListResolved {
         // TODO: a list of lists should be a syntax error
         // However, a list of list variables should still be a data type error
         // Distinguishing them here is hard - should be done in grammar?
-        throw core.DataTypeError
+        throw new core.TiError(core.TiErrorCode.DataType)
       }
       return result
     }),
@@ -91,7 +91,7 @@ function visitVariable (value: types.Variable, mem: core.Memory): types.ValueRes
 function visitStringVariable (value: types.StringVariable, mem: core.Memory): types.ValueResolved {
   const result = mem.vars.get(value.name)
   if (result === undefined) {
-    throw core.UndefinedError
+    throw new core.TiError(core.TiErrorCode.Undefined)
   }
   return result
 }
@@ -99,29 +99,29 @@ function visitStringVariable (value: types.StringVariable, mem: core.Memory): ty
 function visitListVariable (value: types.ListVariable, mem: core.Memory): types.ValueResolved {
   const result = mem.vars.get(value.name)
   if (result === undefined) {
-    throw core.UndefinedError
+    throw new core.TiError(core.TiErrorCode.Undefined)
   }
   return result
 }
 
 function visitListIndex (value: types.ListIndex, mem: core.Memory): types.NumberResolved {
   if (value.type !== types.LISTINDEX) {
-    throw core.libError('unexpected expression type, list index')
+    throw new core.LibError('unexpected expression type, list index')
   }
   const list = evaluate(value.list, mem)
   const index = evaluate(value.index, mem)
   if (list.type !== types.LIST) {
-    throw core.libError('unexpected expression type, should be list')
+    throw new core.LibError('unexpected expression type, should be list')
   }
   if (index.type !== types.NUMBER) {
-    throw core.InvalidDimError
+    throw new core.TiError(core.TiErrorCode.InvalidDim)
   }
   if (index.float < 1 || index.float > list.elements.length) {
-    throw core.InvalidDimError
+    throw new core.TiError(core.TiErrorCode.InvalidDim)
   }
   const elem = list.elements[index.float - 1]
   if (elem === undefined) {
-    throw core.libError('unexpected incorrect list length')
+    throw new core.LibError('unexpected incorrect list length')
   }
   return core.newFloat(elem.float)
 }
@@ -133,7 +133,7 @@ function visitAns (_value: types.Ans, mem: core.Memory): types.ValueResolved {
 }
 
 function visitGetKey (_value: types.GetKey, _mem: core.Memory): never {
-  throw core.UnimplementedError
+  throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 // ----- Operators -----

@@ -8,7 +8,7 @@ export function isTruthy (value: types.ValueResolved): boolean {
   if (value.type === types.NUMBER) {
     return value.float !== 0
   }
-  throw core.DataTypeError
+  throw new core.TiError(core.TiErrorCode.DataType)
 }
 
 export function deleteVariable (mem: core.Memory, variable: types.Variable): void {
@@ -48,7 +48,7 @@ export function resolveNumber (value: types.NumberLiteral): number {
     str += 'e' + value.exponent
   }
   if (str.length === 0) {
-    throw core.libError('Unable to resolve number, no data')
+    throw new core.LibError('Unable to resolve number, no data')
   }
   return parseFloat(str)
 }
@@ -66,14 +66,14 @@ export function variableToString (variable: types.Variable): string {
       }
       break
     default:
-      throw core.libError('unexpected variable tostring')
+      throw new core.LibError('unexpected variable tostring')
   }
   return str
 }
 
 export function valueToString (value: types.ValueResolved, strict = false): string {
   if (strict && value.type !== types.STRING) {
-    throw core.DataTypeError
+    throw new core.TiError(core.TiErrorCode.DataType)
   }
   let str = ''
   switch (value.type) {
@@ -90,7 +90,7 @@ export function valueToString (value: types.ValueResolved, strict = false): stri
       str = '{' + value.elements.map(e => valueToString(e)).join(' ') + '}'
       break
     default:
-      throw core.libError('unexpected value tostring')
+      throw new core.LibError('unexpected value tostring')
   }
   return str
 }

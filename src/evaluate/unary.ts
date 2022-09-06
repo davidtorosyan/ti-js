@@ -25,7 +25,7 @@ function visitNumber (operator: string, argument: types.NumberResolved): types.N
 }
 
 function visitString (_operator: string, _argument: types.TiString): never {
-  throw core.DataTypeError
+  throw new core.TiError(core.TiErrorCode.DataType)
 }
 
 function visitList (operator: string, argument: types.ListResolved): types.ListResolved {
@@ -40,6 +40,6 @@ function visitList (operator: string, argument: types.ListResolved): types.ListR
 function applyUnaryOperation (operator: string, x: number): number {
   switch (operator) {
     case '&-': return x * -1
-    default: throw core.libError('unexpected unary operator')
+    default: throw new core.LibError('unexpected unary operator')
   }
 }

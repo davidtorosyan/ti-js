@@ -27,24 +27,24 @@ function visitVariable (variable: types.Variable, value: types.ValueResolved, me
     return
   }
   if (!value.resolved) {
-    throw core.libError('unexpected number not resolved')
+    throw new core.LibError('unexpected number not resolved')
   }
   mem.vars.set(variable.name, value)
 }
 
 function visitStringVariable (variable: types.StringVariable, value: types.ValueResolved, mem: core.Memory): void {
   if (value.type !== types.STRING) {
-    throw core.DataTypeError
+    throw new core.TiError(core.TiErrorCode.DataType)
   }
   mem.vars.set(variable.name, value)
 }
 
 function visitListVariable (variable: types.ListVariable, value: types.ValueResolved, mem: core.Memory): void {
   if (value.type !== types.LIST) {
-    throw core.DataTypeError
+    throw new core.TiError(core.TiErrorCode.DataType)
   }
   if (!value.resolved) {
-    throw core.libError('unexpected list not resolved')
+    throw new core.LibError('unexpected list not resolved')
   }
   mem.vars.set(variable.name, value)
 }
@@ -53,23 +53,23 @@ function visitListIndex (assignable: types.ListIndex, value: types.ValueResolved
   const list = expression.evaluate(assignable.list, mem)
   const index = expression.evaluate(assignable.index, mem)
   if (list.type !== types.LIST) {
-    throw core.libError('unexpected type for value, should be list')
+    throw new core.LibError('unexpected type for value, should be list')
   }
   if (index.type !== types.NUMBER) {
-    throw core.DataTypeError
+    throw new core.TiError(core.TiErrorCode.DataType)
   }
   if (index.float < 1 || index.float > list.elements.length) {
-    throw core.InvalidDimError
+    throw new core.TiError(core.TiErrorCode.InvalidDim)
   }
   const storedList = mem.vars.get(assignable.list.name)
   if (storedList?.type !== types.LIST) {
-    throw core.libError('unexpected type, should be list')
+    throw new core.LibError('unexpected type, should be list')
   }
   if (value.type !== types.NUMBER) {
-    throw core.DataTypeError
+    throw new core.TiError(core.TiErrorCode.DataType)
   }
   if (!value.resolved) {
-    throw core.libError('unexpected number not resolved, list index')
+    throw new core.LibError('unexpected number not resolved, list index')
   }
   storedList.elements[index.float - 1] = value
 }

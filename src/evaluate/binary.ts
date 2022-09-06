@@ -30,7 +30,7 @@ function visitNumber (
     if (right.type === types.LIST) {
       return applyBinaryOperationListAndNumber(operator, right, left)
     }
-    throw core.DataTypeError
+    throw new core.TiError(core.TiErrorCode.DataType)
   }
   return core.newFloat(applyBinaryOperation(operator, left.float, right.float))
 }
@@ -41,13 +41,13 @@ function visitString (
   right: types.ValueResolved,
 ): types.TiString | types.NumberResolved {
   if (right.type !== types.STRING) {
-    throw core.DataTypeError
+    throw new core.TiError(core.TiErrorCode.DataType)
   }
   switch (operator) {
     case '+': return { type: types.STRING, chars: left.chars + right.chars }
     case '=': return core.newFloat(left.chars === right.chars ? 1 : 0)
     case '!=': return core.newFloat(left.chars !== right.chars ? 1 : 0)
-    default: throw core.DataTypeError
+    default: throw new core.TiError(core.TiErrorCode.DataType)
   }
 }
 
@@ -60,17 +60,17 @@ function visitList (
     if (right.type === types.NUMBER) {
       return applyBinaryOperationListAndNumber(operator, left, right)
     }
-    throw core.DataTypeError
+    throw new core.TiError(core.TiErrorCode.DataType)
   }
   if (left.elements.length !== right.elements.length) {
-    throw core.DimMismatchError
+    throw new core.TiError(core.TiErrorCode.DimMismatch)
   }
   return {
     type: types.LIST,
     elements: left.elements.map((e, i) => {
       const num = right.elements[i]
       if (num === undefined) {
-        throw core.libError('Incorrect number of elements in list!')
+        throw new core.LibError('Incorrect number of elements in list!')
       }
       return core.newFloat(applyBinaryOperation(operator, e.float, num.float))
     }),
@@ -93,7 +93,7 @@ function applyBinaryOperationListAndNumber (
 
 function applyBinaryOperation (operator: string, x: number, y: number): number {
   if (operator === '/' && y === 0) {
-    throw core.DivideByZeroError
+    throw new core.TiError(core.TiErrorCode.DivideByZero)
   }
   switch (operator) {
     case '+': return x + y
@@ -109,6 +109,6 @@ function applyBinaryOperation (operator: string, x: number, y: number): number {
     case ' and ': return x && y ? 1 : 0
     case ' or ': return x || y ? 1 : 0
     case ' xor ': return (!x && y) || (x && !y) ? 1 : 0
-    default: throw core.libError('unexpected binary operator')
+    default: throw new core.LibError('unexpected binary operator')
   }
 }
