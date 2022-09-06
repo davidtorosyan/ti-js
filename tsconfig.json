@@ -3,7 +3,7 @@
     "compilerOptions": {
         "outDir": "./dist/ts",
         "module": "es2020",
-        "target": "es5",
+        "target": "es2015",
         "allowJs": false,
         "checkJs": false,
         "moduleResolution": "node",
