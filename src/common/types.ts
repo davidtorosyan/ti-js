@@ -15,7 +15,6 @@ export const TiSyntaxError = 'TiSyntaxError'
  */
 export interface TiSyntaxError {
     type: typeof TiSyntaxError
-    source?: string
 }
 
 // ----- Number -----
@@ -268,7 +267,6 @@ export const EmptyStatement = 'EmptyStatement'
  */
 export interface EmptyStatement {
     type: typeof EmptyStatement
-    source?: string
 }
 
 /**
@@ -282,7 +280,6 @@ export const ValueStatement = 'ValueStatement'
 export interface ValueStatement {
     type: typeof ValueStatement
     value: ValueExpression
-    source?: string
 }
 
 /**
@@ -295,7 +292,6 @@ export const AssignmentStatement = 'AssignmentStatement'
  */
 export interface AssignmentStatement {
     type: typeof AssignmentStatement
-    source?: string
     value: ValueExpression
     assignable: Assignable
 }
@@ -312,7 +308,6 @@ export const IfStatement = 'IfStatement'
  */
 export interface IfStatement {
     type: typeof IfStatement
-    source?: string
     value: ValueExpression | null
     extra: boolean | null
 }
@@ -327,7 +322,6 @@ export const ThenStatement = 'ThenStatement'
  */
 export interface ThenStatement {
     type: typeof ThenStatement
-    source?: string
     extra: boolean | null
 }
 
@@ -341,7 +335,6 @@ export const ElseStatement = 'ElseStatement'
  */
 export interface ElseStatement {
     type: typeof ElseStatement
-    source?: string
     extra: boolean | null
 }
 
@@ -355,7 +348,6 @@ export const ForLoop = 'ForLoop'
  */
 export interface ForLoop {
     type: typeof ForLoop
-    source?: string
     variable: Variable | null
     start: ValueExpression | null
     end: ValueExpression | null
@@ -374,7 +366,6 @@ export const WhileLoop = 'WhileLoop'
  */
 export interface WhileLoop {
     type: typeof WhileLoop
-    source?: string
     value: ValueExpression | null
     extra: boolean | null
 }
@@ -389,7 +380,6 @@ export const RepeatLoop = 'RepeatLoop'
  */
 export interface RepeatLoop {
     type: typeof RepeatLoop
-    source?: string
     value: ValueExpression | null
     extra: boolean | null
 }
@@ -404,7 +394,6 @@ export const EndStatement = 'EndStatement'
  */
 export interface EndStatement {
     type: typeof EndStatement
-    source?: string
     extra: boolean | null
 }
 
@@ -418,7 +407,6 @@ export const PauseStatement = 'PauseStatement'
  */
 export interface PauseStatement {
     type: typeof PauseStatement
-    source?: string
 }
 
 /**
@@ -431,7 +419,6 @@ export const LabelStatement = 'LabelStatement'
  */
 export interface LabelStatement {
     type: typeof LabelStatement
-    source?: string
     location: string
 }
 
@@ -445,7 +432,6 @@ export const GotoStatement = 'GotoStatement'
  */
 export interface GotoStatement {
     type: typeof GotoStatement
-    source?: string
     location: string
 }
 
@@ -459,7 +445,6 @@ export const IncrementSkip = 'IncrementSkip'
  */
 export interface IncrementSkip {
     type: typeof IncrementSkip
-    source?: string
     variable: Variable | null
     end: ValueExpression | null
 }
@@ -474,7 +459,6 @@ export const DecrementSkip = 'DecrementSkip'
  */
 export interface DecrementSkip {
     type: typeof DecrementSkip
-    source?: string
     variable: Variable | null
     end: ValueExpression | null
 }
@@ -497,7 +481,6 @@ export const MenuStatement = 'MenuStatement'
  */
 export interface MenuStatement {
     type: typeof MenuStatement
-    source?: string
     title: ValueExpression | null
     choices: MenuChoice[]
 }
@@ -512,7 +495,6 @@ export const ProgramStatement = 'ProgramStatement'
  */
 export interface ProgramStatement {
     type: typeof ProgramStatement
-    source?: string
     name: string
 }
 
@@ -526,7 +508,6 @@ export const ReturnStatement = 'ReturnStatement'
  */
 export interface ReturnStatement {
     type: typeof ReturnStatement
-    source?: string
 }
 
 /**
@@ -539,7 +520,6 @@ export const StopStatement = 'StopStatement'
  */
 export interface StopStatement {
     type: typeof StopStatement
-    source?: string
 }
 
 /**
@@ -552,7 +532,6 @@ export const DelVarStatement = 'DelVarStatement'
  */
 export interface DelVarStatement {
     type: typeof DelVarStatement
-    source?: string
     variable: Variable | null
 }
 
@@ -566,7 +545,6 @@ export const GraphStyleStatement = 'GraphStyleStatement'
  */
 export interface GraphStyleStatement {
     type: typeof GraphStyleStatement
-    source?: string
     equation: ValueExpression | null
     style: ValueExpression | null
 }
@@ -581,7 +559,6 @@ export const OpenLibStatement = 'OpenLibStatement'
  */
 export interface OpenLibStatement {
     type: typeof OpenLibStatement
-    source?: string
     name: string
 }
 
@@ -595,7 +572,6 @@ export const ExecLibStatement = 'ExecLibStatement'
  */
 export interface ExecLibStatement {
     type: typeof ExecLibStatement
-    source?: string
     name: string
 }
 
@@ -636,7 +612,6 @@ export const Input = 'Input'
  */
 export interface Input {
     type: typeof Input
-    source?: string
     text: ValueExpression | null
     variable: Variable | null
 }
@@ -651,7 +626,6 @@ export const Prompt = 'Prompt'
  */
 export interface Prompt {
     type: typeof Prompt
-    source?: string
     variable: Variable | null
 }
 
@@ -665,7 +639,6 @@ export const Display = 'Display'
  */
 export interface Display {
     type: typeof Display
-    source?: string
     value: ValueExpression | null
 }
 
@@ -679,7 +652,6 @@ export const DispGraph = 'DispGraph'
  */
 export interface DispGraph {
     type: typeof DispGraph
-    source?: string
 }
 
 /**
@@ -692,7 +664,6 @@ export const DispTable = 'DispTable'
  */
 export interface DispTable {
     type: typeof DispTable
-    source?: string
 }
 
 /**
@@ -705,7 +676,6 @@ export const Output = 'Output'
  */
 export interface Output {
     type: typeof Output
-    source?: string
     row: ValueExpression | null
     column: ValueExpression | null
     value: ValueExpression | null
@@ -721,7 +691,6 @@ export const ClrHome = 'ClrHome'
  */
 export interface ClrHome {
     type: typeof ClrHome
-    source?: string
 }
 
 /**
@@ -734,7 +703,6 @@ export const ClrTable = 'ClrTable'
  */
 export interface ClrTable {
     type: typeof ClrTable
-    source?: string
 }
 
 /**
@@ -747,7 +715,6 @@ export const GetCalc = 'GetCalc'
  */
 export interface GetCalc {
     type: typeof GetCalc
-    source?: string
     variable: Variable | null
     portflag: ValueExpression | null
 }
@@ -762,7 +729,6 @@ export const Get = 'Get'
  */
 export interface Get {
     type: typeof Get
-    source?: string
     variable: Variable | null
 }
 
@@ -776,7 +742,6 @@ export const Send = 'Send'
  */
 export interface Send {
     type: typeof Send
-    source?: string
     variable: Variable | null
 }
 
@@ -806,3 +771,11 @@ export type Statement
     | CtlStatement
     | IoStatement
     | ValueStatement
+
+/**
+ * @alpha
+ */
+export interface Line {
+    statement: Statement
+    source: string | undefined
+ }

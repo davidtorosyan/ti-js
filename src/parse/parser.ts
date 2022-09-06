@@ -17,13 +17,13 @@ export interface ParseOptions {
 /**
  * @alpha
  */
-export function parse (source: string, options: ParseOptions = {}): types.Statement[] {
+export function parse (source: string, options: ParseOptions = {}): types.Line[] {
   const sourceMap = options.sourceMap ?? 'inline'
 
   // TODO:
   // * Allow multiple statements per line with ':'
   const sourceLines = source.split(/\r?\n/)
-  const parsedLines = sourceLines.map(s => {
+  const parsedLines = sourceLines.map((s: string): types.Line => {
     let parsedLine: types.Statement
     try {
       parsedLine = peggyParse(s)
@@ -34,10 +34,10 @@ export function parse (source: string, options: ParseOptions = {}): types.Statem
         throw error
       }
     }
-    if (sourceMap === 'inline') {
-      parsedLine.source = s
+    return {
+      statement: parsedLine,
+      source: sourceMap === 'inline' ? s : undefined,
     }
-    return parsedLine
   })
 
   return parsedLines

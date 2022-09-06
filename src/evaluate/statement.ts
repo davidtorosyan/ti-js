@@ -25,7 +25,7 @@ export interface State {
   falsyStackHeight: number | undefined
   falsyBlockPreviousIf: boolean | undefined
   i: number
-  lines: types.Statement[]
+  lines: types.Line[]
   callback?: (status: string) => void
   frequencyMs: number
   status: string
@@ -157,7 +157,7 @@ function visitElseStatement (_line: types.ElseStatement, state: State): undefine
   if (previousBlockLine === undefined) {
     throw new core.LibError('Else blockstack led to missing line!')
   }
-  if (previousBlockLine.type === types.ThenStatement) {
+  if (previousBlockLine.statement.type === types.ThenStatement) {
     state.blockStack.push(state.i)
     state.falsyStackHeight = state.blockStack.length
   } else {
@@ -205,7 +205,7 @@ function visitEndStatement (_line: types.EndStatement, state: State): undefined 
   if (source === undefined) {
     throw new core.TiError(core.TiErrorCode.Syntax)
   }
-  const sourceLine = state.lines[source]
+  const sourceLine = state.lines[source]?.statement
   if (sourceLine === undefined) {
     throw new core.LibError('End blockstack led to missing line!')
   }

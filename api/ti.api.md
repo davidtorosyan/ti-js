@@ -26,8 +26,6 @@ interface AssignmentStatement {
     // (undocumented)
     assignable: Assignable;
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof AssignmentStatement;
     // (undocumented)
     value: ValueExpression;
@@ -54,8 +52,6 @@ const ClrHome = "ClrHome";
 // @alpha (undocumented)
 interface ClrHome {
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof ClrHome;
 }
 
@@ -64,8 +60,6 @@ const ClrTable = "ClrTable";
 
 // @alpha (undocumented)
 interface ClrTable {
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof ClrTable;
 }
@@ -81,8 +75,6 @@ interface DecrementSkip {
     // (undocumented)
     end: ValueExpression | null;
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof DecrementSkip;
     // (undocumented)
     variable: Variable | null;
@@ -93,8 +85,6 @@ const DelVarStatement = "DelVarStatement";
 
 // @alpha (undocumented)
 interface DelVarStatement {
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof DelVarStatement;
     // (undocumented)
@@ -107,8 +97,6 @@ const DispGraph = "DispGraph";
 // @alpha (undocumented)
 interface DispGraph {
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof DispGraph;
 }
 
@@ -117,8 +105,6 @@ const Display = "Display";
 
 // @alpha (undocumented)
 interface Display {
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof Display;
     // (undocumented)
@@ -131,8 +117,6 @@ const DispTable = "DispTable";
 // @alpha (undocumented)
 interface DispTable {
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof DispTable;
 }
 
@@ -144,8 +128,6 @@ interface ElseStatement {
     // (undocumented)
     extra: boolean | null;
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof ElseStatement;
 }
 
@@ -154,8 +136,6 @@ const EmptyStatement = "EmptyStatement";
 
 // @alpha (undocumented)
 interface EmptyStatement {
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof EmptyStatement;
 }
@@ -167,8 +147,6 @@ const EndStatement = "EndStatement";
 interface EndStatement {
     // (undocumented)
     extra: boolean | null;
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof EndStatement;
 }
@@ -183,8 +161,6 @@ const ExecLibStatement = "ExecLibStatement";
 interface ExecLibStatement {
     // (undocumented)
     name: string;
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof ExecLibStatement;
 }
@@ -201,8 +177,6 @@ interface ForLoop {
     // (undocumented)
     extra: boolean | null;
     // (undocumented)
-    source?: string;
-    // (undocumented)
     start: ValueExpression | null;
     // (undocumented)
     step: ValueExpression | null;
@@ -218,8 +192,6 @@ const Get = "Get";
 // @alpha (undocumented)
 interface Get {
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof Get;
     // (undocumented)
     variable: Variable | null;
@@ -232,8 +204,6 @@ const GetCalc = "GetCalc";
 interface GetCalc {
     // (undocumented)
     portflag: ValueExpression | null;
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof GetCalc;
     // (undocumented)
@@ -257,8 +227,6 @@ interface GotoStatement {
     // (undocumented)
     location: string;
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof GotoStatement;
 }
 
@@ -269,8 +237,6 @@ const GraphStyleStatement = "GraphStyleStatement";
 interface GraphStyleStatement {
     // (undocumented)
     equation: ValueExpression | null;
-    // (undocumented)
-    source?: string;
     // (undocumented)
     style: ValueExpression | null;
     // (undocumented)
@@ -285,8 +251,6 @@ interface IfStatement {
     // (undocumented)
     extra: boolean | null;
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof IfStatement;
     // (undocumented)
     value: ValueExpression | null;
@@ -300,8 +264,6 @@ interface IncrementSkip {
     // (undocumented)
     end: ValueExpression | null;
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof IncrementSkip;
     // (undocumented)
     variable: Variable | null;
@@ -312,8 +274,6 @@ const Input = "Input";
 
 // @alpha (undocumented)
 interface Input {
-    // (undocumented)
-    source?: string;
     // (undocumented)
     text: ValueExpression | null;
     // (undocumented)
@@ -333,9 +293,15 @@ interface LabelStatement {
     // (undocumented)
     location: string;
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof LabelStatement;
+}
+
+// @alpha (undocumented)
+interface Line {
+    // (undocumented)
+    source: string | undefined;
+    // (undocumented)
+    statement: Statement;
 }
 
 // @alpha (undocumented)
@@ -403,8 +369,6 @@ interface MenuStatement {
     // (undocumented)
     choices: MenuChoice[];
     // (undocumented)
-    source?: string;
-    // (undocumented)
     title: ValueExpression | null;
     // (undocumented)
     type: typeof MenuStatement;
@@ -456,8 +420,6 @@ interface OpenLibStatement {
     // (undocumented)
     name: string;
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof OpenLibStatement;
 }
 
@@ -471,15 +433,13 @@ interface Output {
     // (undocumented)
     row: ValueExpression | null;
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof Output;
     // (undocumented)
     value: ValueExpression | null;
 }
 
 // @alpha (undocumented)
-export function parse(source: string, options?: ParseOptions): types.Statement[];
+export function parse(source: string, options?: ParseOptions): types.Line[];
 
 // @alpha (undocumented)
 export interface ParseOptions {
@@ -492,8 +452,6 @@ const PauseStatement = "PauseStatement";
 
 // @alpha (undocumented)
 interface PauseStatement {
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof PauseStatement;
 }
@@ -516,8 +474,6 @@ interface ProgramStatement {
     // (undocumented)
     name: string;
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof ProgramStatement;
 }
 
@@ -526,8 +482,6 @@ const Prompt = "Prompt";
 
 // @alpha (undocumented)
 interface Prompt {
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof Prompt;
     // (undocumented)
@@ -542,8 +496,6 @@ interface RepeatLoop {
     // (undocumented)
     extra: boolean | null;
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof RepeatLoop;
     // (undocumented)
     value: ValueExpression | null;
@@ -555,13 +507,11 @@ const ReturnStatement = "ReturnStatement";
 // @alpha (undocumented)
 interface ReturnStatement {
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof ReturnStatement;
 }
 
 // @alpha (undocumented)
-export function run(lines: types.Statement[], options?: RunOptions): ProgramHandle;
+export function run(lines: types.Line[], options?: RunOptions): ProgramHandle;
 
 // @alpha (undocumented)
 export interface RunOptions {
@@ -597,8 +547,6 @@ const Send = "Send";
 // @alpha (undocumented)
 interface Send {
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof Send;
     // (undocumented)
     variable: Variable | null;
@@ -612,8 +560,6 @@ const StopStatement = "StopStatement";
 
 // @alpha (undocumented)
 interface StopStatement {
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof StopStatement;
 }
@@ -636,8 +582,6 @@ const ThenStatement = "ThenStatement";
 interface ThenStatement {
     // (undocumented)
     extra: boolean | null;
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof ThenStatement;
 }
@@ -670,8 +614,6 @@ const TiSyntaxError = "TiSyntaxError";
 
 // @alpha (undocumented)
 interface TiSyntaxError {
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof TiSyntaxError;
 }
@@ -737,7 +679,8 @@ declare namespace types {
         Get,
         Send,
         IoStatement,
-        Statement
+        Statement,
+        Line
     }
 }
 export { types }
@@ -767,8 +710,6 @@ const ValueStatement = "ValueStatement";
 // @alpha (undocumented)
 interface ValueStatement {
     // (undocumented)
-    source?: string;
-    // (undocumented)
     type: typeof ValueStatement;
     // (undocumented)
     value: ValueExpression;
@@ -784,8 +725,6 @@ const WhileLoop = "WhileLoop";
 interface WhileLoop {
     // (undocumented)
     extra: boolean | null;
-    // (undocumented)
-    source?: string;
     // (undocumented)
     type: typeof WhileLoop;
     // (undocumented)

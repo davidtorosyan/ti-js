@@ -38,7 +38,7 @@ export interface ProgramHandle {
 /**
  * @alpha
  */
-export function run (lines: types.Statement[], options: RunOptions = {}): ProgramHandle {
+export function run (lines: types.Line[], options: RunOptions = {}): ProgramHandle {
   let sourceLines: string[] | undefined
   if (options.source !== undefined) {
     if (Array.isArray(options.source)) {
@@ -203,7 +203,7 @@ function runLine (state: statement.State): string | undefined {
     state.resumeCallback = undefined
   }
 
-  const line = state.lines[state.i]
+  const line = state.lines[state.i]?.statement
 
   if (line === undefined) {
     if (state.searchLabel !== undefined) {
@@ -236,7 +236,7 @@ function runLine (state: statement.State): string | undefined {
     if (lastBlockIndex === undefined) {
       throw new core.LibError('falsy stack lead to missing line index')
     }
-    const lastBlock = state.lines[lastBlockIndex]
+    const lastBlock = state.lines[lastBlockIndex]?.statement
     if (lastBlock === undefined) {
       throw new core.LibError('falsy stack lead to missing line')
     }
