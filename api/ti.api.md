@@ -605,7 +605,7 @@ interface Send {
 }
 
 // @alpha (undocumented)
-type Statement = EmptyStatement | SyntaxError_2 | AssignmentStatement | CtlStatement | IoStatement | ValueStatement;
+type Statement = EmptyStatement | TiSyntaxError | AssignmentStatement | CtlStatement | IoStatement | ValueStatement;
 
 // @alpha (undocumented)
 const StopStatement = "StopStatement";
@@ -627,17 +627,6 @@ interface StringVariable {
     name: string;
     // (undocumented)
     type: typeof StringVariable;
-}
-
-// @alpha (undocumented)
-const SyntaxError_2 = "SyntaxError";
-
-// @alpha (undocumented)
-interface SyntaxError_2 {
-    // (undocumented)
-    source?: string;
-    // (undocumented)
-    type: typeof SyntaxError_2;
 }
 
 // @alpha (undocumented)
@@ -676,9 +665,20 @@ interface TiString {
     type: typeof TiString;
 }
 
+// @alpha (undocumented)
+const TiSyntaxError = "TiSyntaxError";
+
+// @alpha (undocumented)
+interface TiSyntaxError {
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof TiSyntaxError;
+}
+
 declare namespace types {
     export {
-        SyntaxError_2 as SyntaxError,
+        TiSyntaxError,
         TiNumber,
         NumberLiteral,
         NumberResolved,
@@ -756,7 +756,7 @@ interface UnaryExpression {
 }
 
 // @alpha (undocumented)
-type ValueExpression = TiNumber | TiString | TiList | Assignable | BinaryExpression | UnaryExpression | SyntaxError_2 | Ans | GetKey;
+type ValueExpression = TiNumber | TiString | TiList | Assignable | BinaryExpression | UnaryExpression | TiSyntaxError | Ans | GetKey;
 
 // @alpha (undocumented)
 type ValueResolved = NumberResolved | TiString | ListResolved;

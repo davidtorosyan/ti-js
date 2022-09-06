@@ -9,7 +9,7 @@ import * as binary from './binary'
 
 export function evaluate (value: types.ValueExpression, mem: core.Memory): types.ValueResolved {
   switch (value.type) {
-    case types.SyntaxError:
+    case types.TiSyntaxError:
       return visitSyntaxError(value, mem)
     case types.TiNumber:
       return visitNumber(value, mem)

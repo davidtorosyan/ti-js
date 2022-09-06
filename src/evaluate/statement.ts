@@ -42,7 +42,7 @@ export function evaluate (line: types.Statement, state: State): string | undefin
       return visitAssignmentStatement(line, state)
     case types.ValueStatement:
       return visitValueStatement(line, state)
-    case types.SyntaxError:
+    case types.TiSyntaxError:
       return visitSyntaxError(line, state)
     case types.IfStatement:
       return visitIfStatement(line, state)
@@ -130,7 +130,7 @@ function visitValueStatement (line: types.ValueStatement, state: State): undefin
   return undefined
 }
 
-function visitSyntaxError (_line: types.SyntaxError, _state: State): never {
+function visitSyntaxError (_line: types.TiSyntaxError, _state: State): never {
   throw new core.TiError(core.TiErrorCode.Syntax)
 }
 

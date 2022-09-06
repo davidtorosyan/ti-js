@@ -3,8 +3,8 @@
 
 import * as types from '../common/types'
 import {
-  parse as parseTiBasic,
-  SyntaxError,
+  parse as peggyParse,
+  SyntaxError as peggySyntaxError,
 } from './tibasic.peggy'
 
 /**
@@ -26,10 +26,10 @@ export function parse (source: string, options: ParseOptions = {}): types.Statem
   const parsedLines = sourceLines.map(s => {
     let parsedLine: types.Statement
     try {
-      parsedLine = parseTiBasic(s)
+      parsedLine = peggyParse(s)
     } catch (error: unknown) {
-      if (error instanceof SyntaxError) {
-        parsedLine = { type: 'SyntaxError' }
+      if (error instanceof peggySyntaxError) {
+        parsedLine = { type: types.TiSyntaxError }
       } else {
         throw error
       }
@@ -54,14 +54,14 @@ export function parseExpression (source: string): types.ValueExpression {
   }
   let parsedLine: types.Statement
   try {
-    parsedLine = parseTiBasic(sourceLine)
+    parsedLine = peggyParse(sourceLine)
   } catch (error: unknown) {
-    if (error instanceof SyntaxError) {
-      parsedLine = { type: 'SyntaxError' }
+    if (error instanceof peggySyntaxError) {
+      parsedLine = { type: types.TiSyntaxError }
     } else {
       throw error
     }
   }
 
-  return parsedLine.type === types.ValueStatement ? parsedLine.value : { type: 'SyntaxError' }
+  return parsedLine.type === types.ValueStatement ? parsedLine.value : { type: types.TiSyntaxError }
 }

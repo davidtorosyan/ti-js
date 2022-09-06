@@ -8,13 +8,13 @@
 /**
  * @alpha
  */
-export const SyntaxError = 'SyntaxError'
+export const TiSyntaxError = 'TiSyntaxError'
 
 /**
  * @alpha
  */
-export interface SyntaxError {
-    type: typeof SyntaxError
+export interface TiSyntaxError {
+    type: typeof TiSyntaxError
     source?: string
 }
 
@@ -252,7 +252,7 @@ export type ValueExpression =
     | Assignable
     | BinaryExpression
     | UnaryExpression
-    | SyntaxError
+    | TiSyntaxError
     | Ans
     | GetKey
 
@@ -801,7 +801,7 @@ export type IoStatement
  */
 export type Statement
     = EmptyStatement
-    | SyntaxError
+    | TiSyntaxError
     | AssignmentStatement
     | CtlStatement
     | IoStatement
