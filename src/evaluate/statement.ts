@@ -11,21 +11,21 @@ import * as assignment from './assignment'
 import * as iolib from './helper/iolib'
 
 export interface State {
-  mem: core.Memory,
-  resume: ((callback?: () => void) => void) | undefined,
-  resumeCallback: (() => void) | undefined,
-  debug: boolean,
-  sourceLines: string[] | undefined,
-  searchLabel: string | undefined,
-  ifResult: boolean | undefined,
-  incrementDecrementResult: boolean | undefined,
-  maximumLines: number,
-  linesRun: number,
-  blockStack: number[],
-  falsyStackHeight: number | undefined,
-  falsyBlockPreviousIf: boolean | undefined,
-  i: number,
-  lines: types.Statement[],
+  mem: core.Memory
+  resume: ((callback?: () => void) => void) | undefined
+  resumeCallback: (() => void) | undefined
+  debug: boolean
+  sourceLines: string[] | undefined
+  searchLabel: string | undefined
+  ifResult: boolean | undefined
+  incrementDecrementResult: boolean | undefined
+  maximumLines: number
+  linesRun: number
+  blockStack: number[]
+  falsyStackHeight: number | undefined
+  falsyBlockPreviousIf: boolean | undefined
+  i: number
+  lines: types.Statement[]
   callback?: (status: string) => void
   frequencyMs: number
   status: string

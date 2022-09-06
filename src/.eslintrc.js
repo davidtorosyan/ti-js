@@ -48,5 +48,10 @@ module.exports = {
     'max-len': ['error', { code: 120 }],
     '@typescript-eslint/explicit-function-return-type': 'warn',
     '@typescript-eslint/type-annotation-spacing': 'warn',
+    '@typescript-eslint/member-delimiter-style': ['warn', {
+      multiline: {
+        delimiter: 'none',
+      },
+    }],
   },
 }

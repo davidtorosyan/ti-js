@@ -9,13 +9,13 @@ interface CreateTaskOptions {
 }
 
 interface Task {
-  func: () => string | undefined,
-  delay: number,
-  lastRun: number | undefined,
-  runOnce: boolean,
-  stopOnException: boolean,
-  suspended: boolean,
-  debug: boolean,
+  func: () => string | undefined
+  delay: number
+  lastRun: number | undefined
+  runOnce: boolean
+  stopOnException: boolean
+  suspended: boolean
+  debug: boolean
 }
 
 const loopMessageName = 'daemon-loop'
