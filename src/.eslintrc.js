@@ -53,5 +53,8 @@ module.exports = {
         delimiter: 'none',
       },
     }],
+    'padding-line-between-statements': ['warn',
+      { blankLine: 'always', prev: '*', next: 'export' },
+    ],
   },
 }

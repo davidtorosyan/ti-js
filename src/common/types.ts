@@ -9,10 +9,12 @@
  * @alpha
  */
 export const ti = 'ti'
+
 /**
  * @alpha
  */
 export const lib = 'lib'
+
 /**
  * @alpha
  */
@@ -32,10 +34,12 @@ export interface SyntaxError {
  * @alpha
  */
 export const NUMBER = 'number'
+
 /**
  * @alpha
  */
 export const LIST = 'list'
+
 /**
  * @alpha
  */
@@ -120,6 +124,7 @@ export type ValueResolved =
  * @alpha
  */
 export const ANS = 'ans'
+
 /**
  * @alpha
  */
@@ -145,14 +150,17 @@ export interface GetKey {
  * @alpha
  */
 export const VARIABLE = 'variable'
+
 /**
  * @alpha
  */
 export const STRINGVARIABLE = 'stringVariable'
+
 /**
  * @alpha
  */
 export const LISTVARIABLE = 'listVariable'
+
 /**
  * @alpha
  */
@@ -213,6 +221,7 @@ export type Assignable =
  * @alpha
  */
 export const BINARY = 'binary'
+
 /**
  * @alpha
  */
@@ -257,10 +266,12 @@ export type ValueExpression =
  * @alpha
  */
 export const EmptyStatement = 'empty'
+
 /**
  * @alpha
  */
 export const ValueStatement = 'value'
+
 /**
  * @alpha
  */
@@ -299,78 +310,97 @@ export interface AssignmentStatement {
  * @alpha
  */
 export const IfStatement = 'IfStatement'
+
 /**
  * @alpha
  */
 export const ThenStatement = 'ThenStatement'
+
 /**
  * @alpha
  */
 export const ElseStatement = 'ElseStatement'
+
 /**
  * @alpha
  */
 export const ForLoop = 'ForLoop'
+
 /**
  * @alpha
  */
 export const WhileLoop = 'WhileLoop'
+
 /**
  * @alpha
  */
 export const RepeatLoop = 'RepeatLoop'
+
 /**
  * @alpha
  */
 export const EndStatement = 'EndStatement'
+
 /**
  * @alpha
  */
 export const PauseStatement = 'PauseStatement'
+
 /**
  * @alpha
  */
 export const LabelStatement = 'LabelStatement'
+
 /**
  * @alpha
  */
 export const GotoStatement = 'GotoStatement'
+
 /**
  * @alpha
  */
 export const IncrementSkip = 'IncrementSkip'
+
 /**
  * @alpha
  */
 export const DecrementSkip = 'DecrementSkip'
+
 /**
  * @alpha
  */
 export const MenuStatement = 'MenuStatement'
+
 /**
  * @alpha
  */
 export const ProgramStatement = 'ProgramStatement'
+
 /**
  * @alpha
  */
 export const ReturnStatement = 'ReturnStatement'
+
 /**
  * @alpha
  */
 export const StopStatement = 'StopStatement'
+
 /**
  * @alpha
  */
 export const DelVarStatement = 'DelVarStatement'
+
 /**
  * @alpha
  */
 export const GraphStyleStatement = 'GraphStyleStatement'
+
 /**
  * @alpha
  */
 export const OpenLibStatement = 'OpenLibStatement'
+
 /**
  * @alpha
  */
@@ -604,42 +634,52 @@ export type CtlStatement
  * @alpha
  */
 export const Input = 'Input'
+
 /**
  * @alpha
  */
 export const Prompt = 'Prompt'
+
 /**
  * @alpha
  */
 export const Display = 'display'
+
 /**
  * @alpha
  */
 export const DispGraph = 'DispGraph'
+
 /**
  * @alpha
  */
 export const DispTable = 'DispTable'
+
 /**
  * @alpha
  */
 export const Output = 'Output'
+
 /**
  * @alpha
  */
 export const ClrHome = 'ClrHome'
+
 /**
  * @alpha
  */
 export const ClrTable = 'ClrTable'
+
 /**
  * @alpha
  */
 export const GetCalc = 'GetCalc'
+
 /**
  * @alpha
  */
 export const Get = 'Get'
+
 /**
  * @alpha
  */
