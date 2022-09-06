@@ -25,7 +25,7 @@ function visitNumber (
   operator: string,
   left: types.NumberResolved,
   right: types.ValueResolved,
-) : types.NumberResolved | types.ListResolved {
+): types.NumberResolved | types.ListResolved {
   if (right.type !== types.NUMBER) {
     if (right.type === types.LIST) {
       return applyBinaryOperationListAndNumber(operator, right, left)
@@ -39,7 +39,7 @@ function visitString (
   operator: string,
   left: types.TiString,
   right: types.ValueResolved,
-) : types.TiString | types.NumberResolved {
+): types.TiString | types.NumberResolved {
   if (right.type !== types.STRING) {
     throw core.DataTypeError
   }
@@ -55,7 +55,7 @@ function visitList (
   operator: string,
   left: types.ListResolved,
   right: types.ValueResolved,
-) : types.ListResolved {
+): types.ListResolved {
   if (right.type !== types.LIST) {
     if (right.type === types.NUMBER) {
       return applyBinaryOperationListAndNumber(operator, left, right)

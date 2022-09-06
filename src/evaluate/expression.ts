@@ -57,7 +57,7 @@ function visitString (value: types.TiString, _mem: core.Memory): types.TiString 
   return value
 }
 
-function visitList (value: types.TiList, mem: core.Memory) : types.ListResolved {
+function visitList (value: types.TiList, mem: core.Memory): types.ListResolved {
   if (value.resolved === true) {
     return value
   }
@@ -96,7 +96,7 @@ function visitStringVariable (value: types.StringVariable, mem: core.Memory): ty
   return result
 }
 
-function visitListVariable (value: types.ListVariable, mem: core.Memory) : types.ValueResolved {
+function visitListVariable (value: types.ListVariable, mem: core.Memory): types.ValueResolved {
   const result = mem.vars.get(value.name)
   if (result === undefined) {
     throw core.UndefinedError
@@ -132,7 +132,7 @@ function visitAns (_value: types.Ans, mem: core.Memory): types.ValueResolved {
   return mem.ans
 }
 
-function visitGetKey (_value: types.GetKey, _mem: core.Memory) : never {
+function visitGetKey (_value: types.GetKey, _mem: core.Memory): never {
   throw core.UnimplementedError
 }
 

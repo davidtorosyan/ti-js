@@ -47,7 +47,7 @@ export function parse (source: string, options: ParseOptions = {}): types.Statem
   return parsedLines
 }
 
-export function parseExpression (source: string) : types.ValueExpression {
+export function parseExpression (source: string): types.ValueExpression {
   if (source === undefined) {
     throw new Error('Undefined source!')
   }
