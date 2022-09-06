@@ -5,7 +5,6 @@ module.exports = {
   },
   extends: [
     'standard',
-    'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
   plugins: [
@@ -20,6 +19,17 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      extends: [
+        'plugin:@typescript-eslint/strict',
+      ],
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
+    },
+  ],
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
     'no-unused-vars': 'off',
