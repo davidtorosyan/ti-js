@@ -58,7 +58,7 @@ function visitString (value: types.TiString, _mem: core.Memory): types.TiString 
 }
 
 function visitList (value: types.TiList, mem: core.Memory): types.ListResolved {
-  if (value.resolved === true) {
+  if (value.resolved) {
     return value
   }
   return {

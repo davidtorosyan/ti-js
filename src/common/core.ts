@@ -3,7 +3,7 @@
 
 import * as types from './types'
 
-export type TiJsSource = {
+export interface TiJsSource {
   index: number
   line: string | undefined
 }
@@ -46,7 +46,7 @@ export function libError (code: string, hideSource = false): TiJsError {
 
 export const UnimplementedError = libError('unimplemented')
 
-export type Memory = {
+export interface Memory {
   vars: Map<string, types.ValueResolved>
   ans: types.ValueResolved
 }

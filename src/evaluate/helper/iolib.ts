@@ -6,18 +6,18 @@ import * as types from '../../common/types'
 
 const enterkey = 13
 
-export type IoOptions = {
+export interface IoOptions {
   output?: (value: string, newline: boolean) => void
-  input?: JQuery<HTMLElement>
+  input?: JQuery
   stdin?: string
-  stdinQueue?: Array<string>
+  stdinQueue?: string[]
   includeErrors: boolean
   includeLibErrors: boolean
   includeLineNumbers: boolean
   includeSource: boolean
 }
 
-export function elemOutput (elem: JQuery<HTMLElement>) {
+export function elemOutput (elem: JQuery) {
   return (value: string, newline: boolean): void => {
     setTimeout(() => {
       let result = elem.val() + value
@@ -69,7 +69,7 @@ export function onStdin (callback: (text: string | null | undefined) => boolean,
   if (queue !== undefined) {
     setTimeout(() => {
       const result = queue.pop()
-      if (callback(result) === true) {
+      if (callback(result)) {
         onStdin(callback, options)
       }
     }, 0)
@@ -78,7 +78,7 @@ export function onStdin (callback: (text: string | null | undefined) => boolean,
   const input = options.input
   if (input === undefined) {
     setTimeout(() => {
-      if (callback(prompt('Input?')) === true) {
+      if (callback(prompt('Input?'))) {
         onStdin(callback, options)
       }
     }, 100)
@@ -89,7 +89,7 @@ export function onStdin (callback: (text: string | null | undefined) => boolean,
     if (e.keyCode === enterkey) {
       const result = input.val()?.toString()
       setTimeout(() => input.val(''), 0)
-      if (callback(result) !== true) {
+      if (!callback(result)) {
         input.off('keypress')
       }
     }

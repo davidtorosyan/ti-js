@@ -10,22 +10,22 @@ import * as expression from './expression'
 import * as assignment from './assignment'
 import * as iolib from './helper/iolib'
 
-export type State = {
+export interface State {
   mem: core.Memory,
   resume: ((callback?: () => void) => void) | undefined,
   resumeCallback: (() => void) | undefined,
   debug: boolean,
-  sourceLines: Array<string>,
+  sourceLines: string[],
   searchLabel: string | undefined,
   ifResult: boolean | undefined,
   incrementDecrementResult: boolean | undefined,
   maximumLines: number,
   linesRun: number,
-  blockStack: Array<number>,
+  blockStack: number[],
   falsyStackHeight: number | undefined,
   falsyBlockPreviousIf: boolean | undefined,
   i: number,
-  lines: Array<types.Statement>,
+  lines: types.Statement[],
   callback?: (status: string) => void
   frequencyMs: number
   status: string
@@ -210,7 +210,7 @@ function visitEndStatement (_line: types.EndStatement, state: State): undefined 
     throw core.libError('End blockstack led to missing line!')
   }
 
-  switch (sourceLine?.type) {
+  switch (sourceLine.type) {
     case types.ForLoop:
       if (sourceLine.end === null) {
         throw core.libError('End blockstack led to invalid For!')

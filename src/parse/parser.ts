@@ -10,7 +10,7 @@ import {
 /**
  * @alpha
  */
-export type ParseOptions = {
+export interface ParseOptions {
   sourceMap?: string
 }
 

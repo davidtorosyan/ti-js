@@ -21,7 +21,7 @@ export const SyntaxError = 'SyntaxError'
 /**
  * @alpha
  */
-export type SyntaxError = {
+export interface SyntaxError {
     type: typeof SyntaxError
     source?: string
 }
@@ -49,7 +49,7 @@ export const ListVariablePrefix = 'List'
 /**
  * @alpha
  */
-export type NumberLiteral = {
+export interface NumberLiteral {
     type: typeof NUMBER
     resolved: false
     integer?: number
@@ -60,7 +60,7 @@ export type NumberLiteral = {
 /**
  * @alpha
  */
-export type NumberResolved = {
+export interface NumberResolved {
     type: typeof NUMBER
     resolved: true
     float: number
@@ -76,7 +76,7 @@ export type TiNumber =
 /**
  * @alpha
  */
-export type TiString = {
+export interface TiString {
     type: typeof STRING
     chars: string
 }
@@ -84,19 +84,19 @@ export type TiString = {
 /**
  * @alpha
  */
-export type ListLiteral = {
+export interface ListLiteral {
     type: typeof LIST
     resolved: false
-    elements: Array<ValueExpression>
+    elements: ValueExpression[]
 }
 
 /**
  * @alpha
  */
-export type ListResolved = {
+export interface ListResolved {
     type: typeof LIST
     resolved: true
-    elements: Array<NumberResolved>
+    elements: NumberResolved[]
 }
 
 /**
@@ -128,14 +128,14 @@ export const GetKey = 'GetKey'
 /**
  * @alpha
  */
-export type Ans = {
+export interface Ans {
     type: typeof ANS
 }
 
 /**
  * @alpha
  */
-export type GetKey = {
+export interface GetKey {
     type: typeof GetKey
 }
 
@@ -161,7 +161,7 @@ export const LISTINDEX = 'listIndex'
 /**
  * @alpha
  */
-export type NumericVariable = {
+export interface NumericVariable {
     type: 'variable'
     name: string
 }
@@ -169,7 +169,7 @@ export type NumericVariable = {
 /**
  * @alpha
  */
-export type StringVariable = {
+export interface StringVariable {
     type: 'stringVariable'
     name: string
 }
@@ -177,7 +177,7 @@ export type StringVariable = {
 /**
  * @alpha
  */
-export type ListVariable = {
+export interface ListVariable {
     type: 'listVariable'
     name: string
     custom: boolean
@@ -186,7 +186,7 @@ export type ListVariable = {
 /**
  * @alpha
  */
-export type ListIndex = {
+export interface ListIndex {
     type: 'listIndex'
     list: ListVariable
     index: ValueExpression
@@ -221,7 +221,7 @@ export const UNARY = 'unary'
 /**
  * @alpha
  */
-export type BinaryExpression = {
+export interface BinaryExpression {
     type: typeof BINARY
     operator: string
     left: ValueExpression
@@ -231,7 +231,7 @@ export type BinaryExpression = {
 /**
  * @alpha
  */
-export type UnaryExpression = {
+export interface UnaryExpression {
     type: typeof UNARY
     operator: string
     argument: ValueExpression
@@ -269,7 +269,7 @@ export const AssignmentStatement = 'assign'
 /**
  * @alpha
  */
-export type EmptyStatement = {
+export interface EmptyStatement {
     type: typeof EmptyStatement
     source?: string
 }
@@ -277,7 +277,7 @@ export type EmptyStatement = {
 /**
  * @alpha
  */
-export type ValueStatement = {
+export interface ValueStatement {
     type: typeof ValueStatement
     value: ValueExpression
     source?: string
@@ -286,7 +286,7 @@ export type ValueStatement = {
 /**
  * @alpha
  */
-export type AssignmentStatement = {
+export interface AssignmentStatement {
     type: typeof AssignmentStatement
     source?: string
     value: ValueExpression
@@ -379,7 +379,7 @@ export const ExecLibStatement = 'ExecLibStatement'
 /**
  * @alpha
  */
-export type IfStatement = {
+export interface IfStatement {
     type: typeof IfStatement
     source?: string
     value: ValueExpression | null
@@ -389,7 +389,7 @@ export type IfStatement = {
 /**
  * @alpha
  */
-export type ThenStatement = {
+export interface ThenStatement {
     type: typeof ThenStatement
     source?: string
     extra: boolean | null
@@ -398,7 +398,7 @@ export type ThenStatement = {
 /**
  * @alpha
  */
-export type ElseStatement = {
+export interface ElseStatement {
     type: typeof ElseStatement
     source?: string
     extra: boolean | null
@@ -407,7 +407,7 @@ export type ElseStatement = {
 /**
  * @alpha
  */
-export type ForLoop = {
+export interface ForLoop {
     type: typeof ForLoop
     source?: string
     variable: Variable
@@ -421,7 +421,7 @@ export type ForLoop = {
 /**
  * @alpha
  */
-export type WhileLoop = {
+export interface WhileLoop {
     type: typeof WhileLoop
     source?: string
     value: ValueExpression | null
@@ -431,7 +431,7 @@ export type WhileLoop = {
 /**
  * @alpha
  */
-export type RepeatLoop = {
+export interface RepeatLoop {
     type: typeof RepeatLoop
     source?: string
     value: ValueExpression | null
@@ -441,7 +441,7 @@ export type RepeatLoop = {
 /**
  * @alpha
  */
-export type EndStatement = {
+export interface EndStatement {
     type: typeof EndStatement
     source?: string
     extra: boolean | null
@@ -450,7 +450,7 @@ export type EndStatement = {
 /**
  * @alpha
  */
-export type PauseStatement = {
+export interface PauseStatement {
     type: typeof PauseStatement
     source?: string
 }
@@ -458,7 +458,7 @@ export type PauseStatement = {
 /**
  * @alpha
  */
-export type LabelStatement = {
+export interface LabelStatement {
     type: typeof LabelStatement
     source?: string
     location: string
@@ -467,7 +467,7 @@ export type LabelStatement = {
 /**
  * @alpha
  */
-export type GotoStatement = {
+export interface GotoStatement {
     type: typeof GotoStatement
     source?: string
     location: string
@@ -476,7 +476,7 @@ export type GotoStatement = {
 /**
  * @alpha
  */
-export type IncrementSkip = {
+export interface IncrementSkip {
     type: typeof IncrementSkip
     source?: string
     variable: Variable | null
@@ -486,7 +486,7 @@ export type IncrementSkip = {
 /**
  * @alpha
  */
-export type DecrementSkip = {
+export interface DecrementSkip {
     type: typeof DecrementSkip
     source?: string
     variable: Variable | null
@@ -496,7 +496,7 @@ export type DecrementSkip = {
 /**
  * @alpha
  */
-export type MenuChoice = {
+export interface MenuChoice {
     option: TiString
     location: string
 }
@@ -504,17 +504,17 @@ export type MenuChoice = {
 /**
  * @alpha
  */
-export type MenuStatement = {
+export interface MenuStatement {
     type: typeof MenuStatement
     source?: string
     title: ValueExpression | null
-    choices: Array<MenuChoice>
+    choices: MenuChoice[]
 }
 
 /**
  * @alpha
  */
-export type ProgramStatement = {
+export interface ProgramStatement {
     type: typeof ProgramStatement
     source?: string
     name: string
@@ -523,7 +523,7 @@ export type ProgramStatement = {
 /**
  * @alpha
  */
-export type ReturnStatement = {
+export interface ReturnStatement {
     type: typeof ReturnStatement
     source?: string
 }
@@ -531,7 +531,7 @@ export type ReturnStatement = {
 /**
  * @alpha
  */
-export type StopStatement = {
+export interface StopStatement {
     type: typeof StopStatement
     source?: string
 }
@@ -539,7 +539,7 @@ export type StopStatement = {
 /**
  * @alpha
  */
-export type DelVarStatement = {
+export interface DelVarStatement {
     type: typeof DelVarStatement
     source?: string
     variable: Variable | null
@@ -548,7 +548,7 @@ export type DelVarStatement = {
 /**
  * @alpha
  */
-export type GraphStyleStatement = {
+export interface GraphStyleStatement {
     type: typeof GraphStyleStatement
     source?: string
     equation: ValueExpression | null
@@ -558,7 +558,7 @@ export type GraphStyleStatement = {
 /**
  * @alpha
  */
-export type OpenLibStatement = {
+export interface OpenLibStatement {
     type: typeof OpenLibStatement
     source?: string
     name: string
@@ -567,7 +567,7 @@ export type OpenLibStatement = {
 /**
  * @alpha
  */
-export type ExecLibStatement = {
+export interface ExecLibStatement {
     type: typeof ExecLibStatement
     source?: string
     name: string
@@ -648,7 +648,7 @@ export const Send = 'Send'
 /**
  * @alpha
  */
-export type Input = {
+export interface Input {
     type: typeof Input
     source?: string
     text: ValueExpression | null
@@ -658,7 +658,7 @@ export type Input = {
 /**
  * @alpha
  */
-export type Prompt = {
+export interface Prompt {
     type: typeof Prompt
     source?: string
     variable: Variable | null
@@ -667,7 +667,7 @@ export type Prompt = {
 /**
  * @alpha
  */
-export type Display = {
+export interface Display {
     type: typeof Display
     source?: string
     value: ValueExpression | null
@@ -676,7 +676,7 @@ export type Display = {
 /**
  * @alpha
  */
-export type DispGraph = {
+export interface DispGraph {
     type: typeof DispGraph
     source?: string
 }
@@ -684,7 +684,7 @@ export type DispGraph = {
 /**
  * @alpha
  */
-export type DispTable = {
+export interface DispTable {
     type: typeof DispTable
     source?: string
 }
@@ -692,7 +692,7 @@ export type DispTable = {
 /**
  * @alpha
  */
-export type Output = {
+export interface Output {
     type: typeof Output
     source?: string
     row: ValueExpression | null
@@ -703,7 +703,7 @@ export type Output = {
 /**
  * @alpha
  */
-export type ClrHome = {
+export interface ClrHome {
     type: typeof ClrHome
     source?: string
 }
@@ -711,7 +711,7 @@ export type ClrHome = {
 /**
  * @alpha
  */
-export type ClrTable = {
+export interface ClrTable {
     type: typeof ClrTable
     source?: string
 }
@@ -719,7 +719,7 @@ export type ClrTable = {
 /**
  * @alpha
  */
-export type GetCalc = {
+export interface GetCalc {
     type: typeof GetCalc
     source?: string
     variable: Variable | null
@@ -729,7 +729,7 @@ export type GetCalc = {
 /**
  * @alpha
  */
-export type Get = {
+export interface Get {
     type: typeof Get
     source?: string
     variable: Variable | null
@@ -738,7 +738,7 @@ export type Get = {
 /**
  * @alpha
  */
-export type Send = {
+export interface Send {
     type: typeof Send
     source?: string
     variable: Variable | null

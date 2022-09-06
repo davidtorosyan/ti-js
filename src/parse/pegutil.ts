@@ -17,14 +17,14 @@ function toBinary (
 
 export function buildBinaryExpression (
   head: types.ValueExpression,
-  tail: Array<[string, types.ValueExpression]>,
+  tail: [string, types.ValueExpression][],
 ): types.ValueExpression {
   return tail.reduce(toBinary, head)
 }
 
 export function buildImplicitBinaryExpression (
   head: types.ValueExpression,
-  tail: Array<[types.ValueExpression, types.ValueExpression]>,
+  tail: [types.ValueExpression, types.ValueExpression][],
   end: types.ValueExpression,
 ): types.ValueExpression {
   const list = tail.flat()
@@ -45,7 +45,7 @@ function toMenuChoice (
 
 export function buildMenuStatement (
   title: types.TiString,
-  options: Array<[string, types.TiString, string, string]>,
+  options: [string, types.TiString, string, string][],
 ): types.MenuStatement {
   const choices = options.map(toMenuChoice)
   return {
@@ -57,7 +57,7 @@ export function buildMenuStatement (
 
 export function buildList (
   head: types.ValueExpression,
-  tail: Array<types.ValueExpression>,
+  tail: types.ValueExpression[],
 ): types.ListLiteral {
   return {
     type: types.LIST,

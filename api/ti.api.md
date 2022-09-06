@@ -10,9 +10,10 @@
 const ANS = "ans";
 
 // @alpha (undocumented)
-type Ans = {
+interface Ans {
+    // (undocumented)
     type: typeof ANS;
-};
+}
 
 // @alpha (undocumented)
 type Assignable = Variable | ListIndex;
@@ -21,41 +22,53 @@ type Assignable = Variable | ListIndex;
 const AssignmentStatement = "assign";
 
 // @alpha (undocumented)
-type AssignmentStatement = {
-    type: typeof AssignmentStatement;
-    source?: string;
-    value: ValueExpression;
+interface AssignmentStatement {
+    // (undocumented)
     assignable: Assignable;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof AssignmentStatement;
+    // (undocumented)
+    value: ValueExpression;
+}
 
 // @alpha (undocumented)
 const BINARY = "binary";
 
 // @alpha (undocumented)
-type BinaryExpression = {
-    type: typeof BINARY;
-    operator: string;
+interface BinaryExpression {
+    // (undocumented)
     left: ValueExpression;
+    // (undocumented)
+    operator: string;
+    // (undocumented)
     right: ValueExpression;
-};
+    // (undocumented)
+    type: typeof BINARY;
+}
 
 // @alpha (undocumented)
 const ClrHome = "ClrHome";
 
 // @alpha (undocumented)
-type ClrHome = {
-    type: typeof ClrHome;
+interface ClrHome {
+    // (undocumented)
     source?: string;
-};
+    // (undocumented)
+    type: typeof ClrHome;
+}
 
 // @alpha (undocumented)
 const ClrTable = "ClrTable";
 
 // @alpha (undocumented)
-type ClrTable = {
-    type: typeof ClrTable;
+interface ClrTable {
+    // (undocumented)
     source?: string;
-};
+    // (undocumented)
+    type: typeof ClrTable;
+}
 
 // @alpha (undocumented)
 type CtlStatement = IfStatement | ThenStatement | ElseStatement | ForLoop | WhileLoop | RepeatLoop | EndStatement | PauseStatement | LabelStatement | GotoStatement | IncrementSkip | DecrementSkip | MenuStatement | ProgramStatement | ReturnStatement | StopStatement | DelVarStatement | GraphStyleStatement | OpenLibStatement | ExecLibStatement;
@@ -64,79 +77,101 @@ type CtlStatement = IfStatement | ThenStatement | ElseStatement | ForLoop | Whil
 const DecrementSkip = "DecrementSkip";
 
 // @alpha (undocumented)
-type DecrementSkip = {
-    type: typeof DecrementSkip;
-    source?: string;
-    variable: Variable | null;
+interface DecrementSkip {
+    // (undocumented)
     end: ValueExpression | null;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof DecrementSkip;
+    // (undocumented)
+    variable: Variable | null;
+}
 
 // @alpha (undocumented)
 const DelVarStatement = "DelVarStatement";
 
 // @alpha (undocumented)
-type DelVarStatement = {
-    type: typeof DelVarStatement;
+interface DelVarStatement {
+    // (undocumented)
     source?: string;
+    // (undocumented)
+    type: typeof DelVarStatement;
+    // (undocumented)
     variable: Variable | null;
-};
+}
 
 // @alpha (undocumented)
 const DispGraph = "DispGraph";
 
 // @alpha (undocumented)
-type DispGraph = {
-    type: typeof DispGraph;
+interface DispGraph {
+    // (undocumented)
     source?: string;
-};
+    // (undocumented)
+    type: typeof DispGraph;
+}
 
 // @alpha (undocumented)
 const Display = "display";
 
 // @alpha (undocumented)
-type Display = {
-    type: typeof Display;
+interface Display {
+    // (undocumented)
     source?: string;
+    // (undocumented)
+    type: typeof Display;
+    // (undocumented)
     value: ValueExpression | null;
-};
+}
 
 // @alpha (undocumented)
 const DispTable = "DispTable";
 
 // @alpha (undocumented)
-type DispTable = {
-    type: typeof DispTable;
+interface DispTable {
+    // (undocumented)
     source?: string;
-};
+    // (undocumented)
+    type: typeof DispTable;
+}
 
 // @alpha (undocumented)
 const ElseStatement = "ElseStatement";
 
 // @alpha (undocumented)
-type ElseStatement = {
-    type: typeof ElseStatement;
-    source?: string;
+interface ElseStatement {
+    // (undocumented)
     extra: boolean | null;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof ElseStatement;
+}
 
 // @alpha (undocumented)
 const EmptyStatement = "empty";
 
 // @alpha (undocumented)
-type EmptyStatement = {
-    type: typeof EmptyStatement;
+interface EmptyStatement {
+    // (undocumented)
     source?: string;
-};
+    // (undocumented)
+    type: typeof EmptyStatement;
+}
 
 // @alpha (undocumented)
 const EndStatement = "EndStatement";
 
 // @alpha (undocumented)
-type EndStatement = {
-    type: typeof EndStatement;
-    source?: string;
+interface EndStatement {
+    // (undocumented)
     extra: boolean | null;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof EndStatement;
+}
 
 // @alpha (undocumented)
 export function exec(source: string, callback: (output: string) => void): void;
@@ -145,109 +180,147 @@ export function exec(source: string, callback: (output: string) => void): void;
 const ExecLibStatement = "ExecLibStatement";
 
 // @alpha (undocumented)
-type ExecLibStatement = {
-    type: typeof ExecLibStatement;
-    source?: string;
+interface ExecLibStatement {
+    // (undocumented)
     name: string;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof ExecLibStatement;
+}
 
 // @alpha (undocumented)
 const ForLoop = "ForLoop";
 
 // @alpha (undocumented)
-type ForLoop = {
-    type: typeof ForLoop;
-    source?: string;
-    variable: Variable;
-    start: ValueExpression | null;
-    end: ValueExpression | null;
-    step: ValueExpression | null;
+interface ForLoop {
+    // (undocumented)
     args: boolean;
+    // (undocumented)
+    end: ValueExpression | null;
+    // (undocumented)
     extra: boolean | null;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    start: ValueExpression | null;
+    // (undocumented)
+    step: ValueExpression | null;
+    // (undocumented)
+    type: typeof ForLoop;
+    // (undocumented)
+    variable: Variable;
+}
 
 // @alpha (undocumented)
 const Get = "Get";
 
 // @alpha (undocumented)
-type Get = {
-    type: typeof Get;
+interface Get {
+    // (undocumented)
     source?: string;
+    // (undocumented)
+    type: typeof Get;
+    // (undocumented)
     variable: Variable | null;
-};
+}
 
 // @alpha (undocumented)
 const GetCalc = "GetCalc";
 
 // @alpha (undocumented)
-type GetCalc = {
-    type: typeof GetCalc;
-    source?: string;
-    variable: Variable | null;
+interface GetCalc {
+    // (undocumented)
     portflag: ValueExpression | null;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof GetCalc;
+    // (undocumented)
+    variable: Variable | null;
+}
 
 // @alpha (undocumented)
 const GetKey = "GetKey";
 
 // @alpha (undocumented)
-type GetKey = {
+interface GetKey {
+    // (undocumented)
     type: typeof GetKey;
-};
+}
 
 // @alpha (undocumented)
 const GotoStatement = "GotoStatement";
 
 // @alpha (undocumented)
-type GotoStatement = {
-    type: typeof GotoStatement;
-    source?: string;
+interface GotoStatement {
+    // (undocumented)
     location: string;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof GotoStatement;
+}
 
 // @alpha (undocumented)
 const GraphStyleStatement = "GraphStyleStatement";
 
 // @alpha (undocumented)
-type GraphStyleStatement = {
-    type: typeof GraphStyleStatement;
-    source?: string;
+interface GraphStyleStatement {
+    // (undocumented)
     equation: ValueExpression | null;
+    // (undocumented)
+    source?: string;
+    // (undocumented)
     style: ValueExpression | null;
-};
+    // (undocumented)
+    type: typeof GraphStyleStatement;
+}
 
 // @alpha (undocumented)
 const IfStatement = "IfStatement";
 
 // @alpha (undocumented)
-type IfStatement = {
-    type: typeof IfStatement;
-    source?: string;
-    value: ValueExpression | null;
+interface IfStatement {
+    // (undocumented)
     extra: boolean | null;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof IfStatement;
+    // (undocumented)
+    value: ValueExpression | null;
+}
 
 // @alpha (undocumented)
 const IncrementSkip = "IncrementSkip";
 
 // @alpha (undocumented)
-type IncrementSkip = {
-    type: typeof IncrementSkip;
-    source?: string;
-    variable: Variable | null;
+interface IncrementSkip {
+    // (undocumented)
     end: ValueExpression | null;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof IncrementSkip;
+    // (undocumented)
+    variable: Variable | null;
+}
 
 // @alpha (undocumented)
 const Input = "Input";
 
 // @alpha (undocumented)
-type Input = {
-    type: typeof Input;
+interface Input {
+    // (undocumented)
     source?: string;
+    // (undocumented)
     text: ValueExpression | null;
+    // (undocumented)
+    type: typeof Input;
+    // (undocumented)
     variable: Variable | null;
-};
+}
 
 // @alpha (undocumented)
 type IoStatement = Input | Prompt | Display | DispGraph | DispTable | Output | ClrHome | ClrTable | GetCalc | Get | Send;
@@ -256,11 +329,14 @@ type IoStatement = Input | Prompt | Display | DispGraph | DispTable | Output | C
 const LabelStatement = "LabelStatement";
 
 // @alpha (undocumented)
-type LabelStatement = {
-    type: typeof LabelStatement;
-    source?: string;
+interface LabelStatement {
+    // (undocumented)
     location: string;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof LabelStatement;
+}
 
 // @alpha (undocumented)
 const lib = "lib";
@@ -272,80 +348,108 @@ const LIST = "list";
 const LISTINDEX = "listIndex";
 
 // @alpha (undocumented)
-type ListIndex = {
-    type: 'listIndex';
-    list: ListVariable;
+interface ListIndex {
+    // (undocumented)
     index: ValueExpression;
-};
+    // (undocumented)
+    list: ListVariable;
+    // (undocumented)
+    type: 'listIndex';
+}
 
 // @alpha (undocumented)
-type ListLiteral = {
-    type: typeof LIST;
+interface ListLiteral {
+    // (undocumented)
+    elements: ValueExpression[];
+    // (undocumented)
     resolved: false;
-    elements: Array<ValueExpression>;
-};
+    // (undocumented)
+    type: typeof LIST;
+}
 
 // @alpha (undocumented)
-type ListResolved = {
-    type: typeof LIST;
+interface ListResolved {
+    // (undocumented)
+    elements: NumberResolved[];
+    // (undocumented)
     resolved: true;
-    elements: Array<NumberResolved>;
-};
+    // (undocumented)
+    type: typeof LIST;
+}
 
 // @alpha (undocumented)
 const LISTVARIABLE = "listVariable";
 
 // @alpha (undocumented)
-type ListVariable = {
-    type: 'listVariable';
-    name: string;
+interface ListVariable {
+    // (undocumented)
     custom: boolean;
-};
+    // (undocumented)
+    name: string;
+    // (undocumented)
+    type: 'listVariable';
+}
 
 // @alpha (undocumented)
 const ListVariablePrefix = "List";
 
 // @alpha (undocumented)
-type MenuChoice = {
-    option: TiString;
+interface MenuChoice {
+    // (undocumented)
     location: string;
-};
+    // (undocumented)
+    option: TiString;
+}
 
 // @alpha (undocumented)
 const MenuStatement = "MenuStatement";
 
 // @alpha (undocumented)
-type MenuStatement = {
-    type: typeof MenuStatement;
+interface MenuStatement {
+    // (undocumented)
+    choices: MenuChoice[];
+    // (undocumented)
     source?: string;
+    // (undocumented)
     title: ValueExpression | null;
-    choices: Array<MenuChoice>;
-};
+    // (undocumented)
+    type: typeof MenuStatement;
+}
 
 // @alpha (undocumented)
 const NUMBER = "number";
 
 // @alpha (undocumented)
-type NumberLiteral = {
-    type: typeof NUMBER;
-    resolved: false;
-    integer?: number;
-    fraction?: number | null;
+interface NumberLiteral {
+    // (undocumented)
     exponent?: number | null;
-};
-
-// @alpha (undocumented)
-type NumberResolved = {
+    // (undocumented)
+    fraction?: number | null;
+    // (undocumented)
+    integer?: number;
+    // (undocumented)
+    resolved: false;
+    // (undocumented)
     type: typeof NUMBER;
-    resolved: true;
-    float: number;
-};
+}
 
 // @alpha (undocumented)
-type NumericVariable = {
-    type: 'variable';
+interface NumberResolved {
+    // (undocumented)
+    float: number;
+    // (undocumented)
+    resolved: true;
+    // (undocumented)
+    type: typeof NUMBER;
+}
+
+// @alpha (undocumented)
+interface NumericVariable {
+    // (undocumented)
     name: string;
-};
+    // (undocumented)
+    type: 'variable';
+}
 
 // @alpha (undocumented)
 export function on(type: string, listener: () => void): void;
@@ -354,116 +458,157 @@ export function on(type: string, listener: () => void): void;
 const OpenLibStatement = "OpenLibStatement";
 
 // @alpha (undocumented)
-type OpenLibStatement = {
-    type: typeof OpenLibStatement;
-    source?: string;
+interface OpenLibStatement {
+    // (undocumented)
     name: string;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof OpenLibStatement;
+}
 
 // @alpha (undocumented)
 const Output = "Output";
 
 // @alpha (undocumented)
-type Output = {
-    type: typeof Output;
-    source?: string;
-    row: ValueExpression | null;
+interface Output {
+    // (undocumented)
     column: ValueExpression | null;
+    // (undocumented)
+    row: ValueExpression | null;
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof Output;
+    // (undocumented)
     value: ValueExpression | null;
-};
+}
 
 // @alpha (undocumented)
 export function parse(source: string, options?: ParseOptions): types.Statement[];
 
 // @alpha (undocumented)
-export type ParseOptions = {
+export interface ParseOptions {
+    // (undocumented)
     sourceMap?: string;
-};
+}
 
 // @alpha (undocumented)
 const PauseStatement = "PauseStatement";
 
 // @alpha (undocumented)
-type PauseStatement = {
-    type: typeof PauseStatement;
+interface PauseStatement {
+    // (undocumented)
     source?: string;
-};
+    // (undocumented)
+    type: typeof PauseStatement;
+}
 
 // @alpha (undocumented)
-export type ProgramHandle = {
+export interface ProgramHandle {
+    // (undocumented)
     getStatus(): string;
+    // (undocumented)
     isActive(): boolean;
+    // (undocumented)
     stop(): void;
-};
+}
 
 // @alpha (undocumented)
 const ProgramStatement = "ProgramStatement";
 
 // @alpha (undocumented)
-type ProgramStatement = {
-    type: typeof ProgramStatement;
-    source?: string;
+interface ProgramStatement {
+    // (undocumented)
     name: string;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof ProgramStatement;
+}
 
 // @alpha (undocumented)
 const Prompt = "Prompt";
 
 // @alpha (undocumented)
-type Prompt = {
-    type: typeof Prompt;
+interface Prompt {
+    // (undocumented)
     source?: string;
+    // (undocumented)
+    type: typeof Prompt;
+    // (undocumented)
     variable: Variable | null;
-};
+}
 
 // @alpha (undocumented)
 const RepeatLoop = "RepeatLoop";
 
 // @alpha (undocumented)
-type RepeatLoop = {
-    type: typeof RepeatLoop;
-    source?: string;
-    value: ValueExpression | null;
+interface RepeatLoop {
+    // (undocumented)
     extra: boolean | null;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof RepeatLoop;
+    // (undocumented)
+    value: ValueExpression | null;
+}
 
 // @alpha (undocumented)
 const ReturnStatement = "ReturnStatement";
 
 // @alpha (undocumented)
-type ReturnStatement = {
-    type: typeof ReturnStatement;
+interface ReturnStatement {
+    // (undocumented)
     source?: string;
-};
+    // (undocumented)
+    type: typeof ReturnStatement;
+}
 
 // @alpha (undocumented)
-export function run(lines: Array<types.Statement>, options?: RunOptions): ProgramHandle;
+export function run(lines: types.Statement[], options?: RunOptions): ProgramHandle;
 
 // @alpha (undocumented)
-export type RunOptions = {
-    source?: string | Array<string>;
-    frequencyMs?: number;
-    outputCallback?: (value: string, newline: boolean) => void;
-    elem?: JQuery<HTMLElement>;
-    debug?: boolean;
+export interface RunOptions {
+    // (undocumented)
     callback?: (status: string) => void;
-    input?: JQuery<HTMLElement>;
-    stdin?: string;
+    // (undocumented)
+    debug?: boolean;
+    // (undocumented)
+    elem?: JQuery;
+    // (undocumented)
+    frequencyMs?: number;
+    // (undocumented)
     includeErrors?: boolean;
+    // (undocumented)
     includeLibErrors?: boolean;
+    // (undocumented)
     includeLineNumbers?: boolean;
+    // (undocumented)
     includeSource?: boolean;
-};
+    // (undocumented)
+    input?: JQuery;
+    // (undocumented)
+    outputCallback?: (value: string, newline: boolean) => void;
+    // (undocumented)
+    source?: string | string[];
+    // (undocumented)
+    stdin?: string;
+}
 
 // @alpha (undocumented)
 const Send = "Send";
 
 // @alpha (undocumented)
-type Send = {
-    type: typeof Send;
+interface Send {
+    // (undocumented)
     source?: string;
+    // (undocumented)
+    type: typeof Send;
+    // (undocumented)
     variable: Variable | null;
-};
+}
 
 // @alpha (undocumented)
 type Statement = EmptyStatement | SyntaxError_2 | AssignmentStatement | CtlStatement | IoStatement | ValueStatement;
@@ -472,10 +617,12 @@ type Statement = EmptyStatement | SyntaxError_2 | AssignmentStatement | CtlState
 const StopStatement = "StopStatement";
 
 // @alpha (undocumented)
-type StopStatement = {
-    type: typeof StopStatement;
+interface StopStatement {
+    // (undocumented)
     source?: string;
-};
+    // (undocumented)
+    type: typeof StopStatement;
+}
 
 // @alpha (undocumented)
 const STRING = "string";
@@ -484,29 +631,36 @@ const STRING = "string";
 const STRINGVARIABLE = "stringVariable";
 
 // @alpha (undocumented)
-type StringVariable = {
-    type: 'stringVariable';
+interface StringVariable {
+    // (undocumented)
     name: string;
-};
+    // (undocumented)
+    type: 'stringVariable';
+}
 
 // @alpha (undocumented)
 const SyntaxError_2 = "SyntaxError";
 
 // @alpha (undocumented)
-type SyntaxError_2 = {
-    type: typeof SyntaxError_2;
+interface SyntaxError_2 {
+    // (undocumented)
     source?: string;
-};
+    // (undocumented)
+    type: typeof SyntaxError_2;
+}
 
 // @alpha (undocumented)
 const ThenStatement = "ThenStatement";
 
 // @alpha (undocumented)
-type ThenStatement = {
-    type: typeof ThenStatement;
-    source?: string;
+interface ThenStatement {
+    // (undocumented)
     extra: boolean | null;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof ThenStatement;
+}
 
 // @alpha (undocumented)
 const ti = "ti";
@@ -518,10 +672,12 @@ type TiList = ListLiteral | ListResolved;
 type TiNumber = NumberLiteral | NumberResolved;
 
 // @alpha (undocumented)
-type TiString = {
-    type: typeof STRING;
+interface TiString {
+    // (undocumented)
     chars: string;
-};
+    // (undocumented)
+    type: typeof STRING;
+}
 
 declare namespace types {
     export {
@@ -604,11 +760,14 @@ export { types }
 const UNARY = "unary";
 
 // @alpha (undocumented)
-type UnaryExpression = {
-    type: typeof UNARY;
-    operator: string;
+interface UnaryExpression {
+    // (undocumented)
     argument: ValueExpression;
-};
+    // (undocumented)
+    operator: string;
+    // (undocumented)
+    type: typeof UNARY;
+}
 
 // @alpha (undocumented)
 type ValueExpression = TiNumber | TiString | TiList | Assignable | BinaryExpression | UnaryExpression | SyntaxError_2 | Ans | GetKey;
@@ -620,11 +779,14 @@ type ValueResolved = NumberResolved | TiString | ListResolved;
 const ValueStatement = "value";
 
 // @alpha (undocumented)
-type ValueStatement = {
-    type: typeof ValueStatement;
-    value: ValueExpression;
+interface ValueStatement {
+    // (undocumented)
     source?: string;
-};
+    // (undocumented)
+    type: typeof ValueStatement;
+    // (undocumented)
+    value: ValueExpression;
+}
 
 // @alpha (undocumented)
 const VARIABLE = "variable";
@@ -636,11 +798,15 @@ type Variable = NumericVariable | StringVariable | ListVariable;
 const WhileLoop = "WhileLoop";
 
 // @alpha (undocumented)
-type WhileLoop = {
-    type: typeof WhileLoop;
-    source?: string;
-    value: ValueExpression | null;
+interface WhileLoop {
+    // (undocumented)
     extra: boolean | null;
-};
+    // (undocumented)
+    source?: string;
+    // (undocumented)
+    type: typeof WhileLoop;
+    // (undocumented)
+    value: ValueExpression | null;
+}
 
 ```

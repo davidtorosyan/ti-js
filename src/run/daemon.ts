@@ -4,11 +4,11 @@
 import * as signal from '../common/signal'
 import * as inject from '../inject/inject'
 
-type CreateTaskOptions = {
+interface CreateTaskOptions {
   debug: boolean
 }
 
-type Task = {
+interface Task {
   func: () => string | undefined,
   delay: number,
   lastRun: number | undefined,
@@ -22,7 +22,7 @@ const loopMessageName = 'daemon-loop'
 const exceptionName = 'daemon-exception'
 const minimumDelay = 0.001 // 1 microsecond
 const tasks = new Map<number, Task>()
-const exceptions: Array<unknown> = []
+const exceptions: unknown[] = []
 let running = false
 let nextTaskId = 0
 const maxExceptions = 1000
@@ -46,7 +46,7 @@ function fireEvent (name: string): void {
 }
 
 function startIfNeeded (): void {
-  if (running === false) {
+  if (!running) {
     running = true
     fireEvent('start')
     startLooper()
@@ -131,7 +131,7 @@ function handleMessage (): void {
 
   tasks.forEach((task, taskId) => {
     let runs
-    if (task.suspended === true) {
+    if (task.suspended) {
       runs = 0
       suspendedTaskCount += 1
     } else {

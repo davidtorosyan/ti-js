@@ -11,14 +11,14 @@ import * as daemon from './daemon'
 /**
  * @alpha
  */
-export type RunOptions = {
-  source?: string | Array<string>
+export interface RunOptions {
+  source?: string | string[]
   frequencyMs?: number
   outputCallback?: (value: string, newline: boolean) => void
-  elem?: JQuery<HTMLElement>
+  elem?: JQuery
   debug?: boolean
   callback?: (status: string) => void
-  input?: JQuery<HTMLElement>
+  input?: JQuery
   stdin?: string
   includeErrors?: boolean
   includeLibErrors?: boolean
@@ -29,7 +29,7 @@ export type RunOptions = {
 /**
  * @alpha
  */
-export type ProgramHandle = {
+export interface ProgramHandle {
   getStatus(): string
   isActive(): boolean
   stop(): void
@@ -38,8 +38,8 @@ export type ProgramHandle = {
 /**
  * @alpha
  */
-export function run (lines: Array<types.Statement>, options: RunOptions = {}): ProgramHandle {
-  let sourceLines: Array<string> = []
+export function run (lines: types.Statement[], options: RunOptions = {}): ProgramHandle {
+  let sourceLines: string[] = []
   if (options.source !== undefined) {
     if (Array.isArray(options.source)) {
       sourceLines = options.source
@@ -54,10 +54,10 @@ export function run (lines: Array<types.Statement>, options: RunOptions = {}): P
   }
 
   const ioOptions: iolib.IoOptions = {
-    includeErrors: options.includeErrors === undefined || options.includeErrors === true,
-    includeLibErrors: options.includeLibErrors === undefined || options.includeLibErrors === true,
-    includeLineNumbers: options.includeLineNumbers === undefined || options.includeLineNumbers === true,
-    includeSource: options.includeSource === undefined || options.includeSource === true,
+    includeErrors: options.includeErrors === undefined || options.includeErrors,
+    includeLibErrors: options.includeLibErrors === undefined || options.includeLibErrors,
+    includeLineNumbers: options.includeLineNumbers === undefined || options.includeLineNumbers,
+    includeSource: options.includeSource === undefined || options.includeSource,
   }
 
   if (options.outputCallback !== undefined) {
@@ -143,7 +143,7 @@ function runLoop (state: statement.State): string | undefined {
       exceptionToThrow = ex
     } else {
       state.status = 'err'
-      if (state.i < state.lines.length && ex.hideSource !== true) {
+      if (state.i < state.lines.length && !ex.hideSource) {
         const currentLine = state.lines[state.i]
         if (currentLine !== undefined) {
           let source = currentLine.source
@@ -276,7 +276,7 @@ function runLine (state: statement.State): string | undefined {
   // ----- check if result -----
 
   if (state.ifResult !== undefined) {
-    const ifResultFalse = state.ifResult !== true
+    const ifResultFalse = !state.ifResult
     state.ifResult = undefined
 
     if (type === types.ThenStatement) {
@@ -297,7 +297,7 @@ function runLine (state: statement.State): string | undefined {
   // ----- check incrementDecrementResult -----
 
   if (state.incrementDecrementResult !== undefined) {
-    const incrementDecrementResultFalse = state.incrementDecrementResult !== true
+    const incrementDecrementResultFalse = !state.incrementDecrementResult
     state.incrementDecrementResult = undefined
 
     if (incrementDecrementResultFalse) {
@@ -323,7 +323,7 @@ function runLine (state: statement.State): string | undefined {
   const couldHaveArgs =
     type === types.ForLoop
 
-  if (couldHaveArgs && line.args === true) {
+  if (couldHaveArgs && line.args) {
     throw core.ArgumentError
   }
 
