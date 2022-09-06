@@ -26,9 +26,6 @@ function visitVariable (variable: types.Variable, value: types.ValueResolved, me
   if (value.type !== types.NUMBER) {
     return
   }
-  if (!value.resolved) {
-    throw new core.LibError('unexpected number not resolved')
-  }
   mem.vars.set(variable.name, value)
 }
 
@@ -42,9 +39,6 @@ function visitStringVariable (variable: types.StringVariable, value: types.Value
 function visitListVariable (variable: types.ListVariable, value: types.ValueResolved, mem: core.Memory): void {
   if (value.type !== types.LIST) {
     throw new core.TiError(core.TiErrorCode.DataType)
-  }
-  if (!value.resolved) {
-    throw new core.LibError('unexpected list not resolved')
   }
   mem.vars.set(variable.name, value)
 }
@@ -67,9 +61,6 @@ function visitListIndex (assignable: types.ListIndex, value: types.ValueResolved
   }
   if (value.type !== types.NUMBER) {
     throw new core.TiError(core.TiErrorCode.DataType)
-  }
-  if (!value.resolved) {
-    throw new core.LibError('unexpected number not resolved, list index')
   }
   storedList.elements[index.float - 1] = value
 }

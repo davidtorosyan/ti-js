@@ -25,7 +25,7 @@ export function buildBinaryExpression (
 export function buildImplicitBinaryExpression (
   head: types.ValueExpression,
   tail: [types.ValueExpression, types.ValueExpression][],
-  end: types.ValueExpression,
+  end: types.ValueExpression | null,
 ): types.ValueExpression {
   const list = tail.flat()
   if (end !== null) {

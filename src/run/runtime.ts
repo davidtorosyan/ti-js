@@ -39,7 +39,7 @@ export interface ProgramHandle {
  * @alpha
  */
 export function run (lines: types.Statement[], options: RunOptions = {}): ProgramHandle {
-  let sourceLines: string[] = []
+  let sourceLines: string[] | undefined
   if (options.source !== undefined) {
     if (Array.isArray(options.source)) {
       sourceLines = options.source
@@ -54,10 +54,10 @@ export function run (lines: types.Statement[], options: RunOptions = {}): Progra
   }
 
   const ioOptions: iolib.IoOptions = {
-    includeErrors: options.includeErrors === undefined || options.includeErrors,
-    includeLibErrors: options.includeLibErrors === undefined || options.includeLibErrors,
-    includeLineNumbers: options.includeLineNumbers === undefined || options.includeLineNumbers,
-    includeSource: options.includeSource === undefined || options.includeSource,
+    includeErrors: options.includeErrors ?? true,
+    includeLibErrors: options.includeLibErrors ?? true,
+    includeLineNumbers: options.includeLineNumbers ?? false,
+    includeSource: options.includeSource ?? false,
   }
 
   if (options.outputCallback !== undefined) {
@@ -193,7 +193,7 @@ function runLine (state: statement.State): string | undefined {
       blockStack: state.blockStack,
       falsyStackHeight: state.falsyStackHeight,
       falsyBlockPreviousIf: state.falsyBlockPreviousIf,
-      source: state.sourceLines[state.i],
+      source: (state.sourceLines ?? [])[state.i],
       mem: state.mem,
     })
   }

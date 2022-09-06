@@ -56,7 +56,6 @@ tiJsTests.testCases.forEach(testCase => {
     outputCallback: (output, newline) => {
       totalOutput += output + (newline ? '\n' : '')
     },
-    includeLineNumbers: false,
     callback: status => handleTestResult(testCase, status, trimLastNewline(totalOutput)),
   })
 })

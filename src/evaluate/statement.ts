@@ -15,7 +15,7 @@ export interface State {
   resume: ((callback?: () => void) => void) | undefined,
   resumeCallback: (() => void) | undefined,
   debug: boolean,
-  sourceLines: string[],
+  sourceLines: string[] | undefined,
   searchLabel: string | undefined,
   ifResult: boolean | undefined,
   incrementDecrementResult: boolean | undefined,
@@ -212,7 +212,7 @@ function visitEndStatement (_line: types.EndStatement, state: State): undefined 
 
   switch (sourceLine.type) {
     case types.ForLoop:
-      if (sourceLine.end === null) {
+      if (sourceLine.variable === null || sourceLine.end === null) {
         throw new core.LibError('End blockstack led to invalid For!')
       }
       increment(state.mem, sourceLine.variable, sourceLine.step !== null ? sourceLine.step : core.ONE)
@@ -288,7 +288,7 @@ function visitMenuStatement (line: types.MenuStatement, state: State): string {
   line.choices.forEach((choice, idx) => {
     iolib.stdout(`${idx + 1}:${operation.valueToString(choice.option)}`, state.io)
   })
-  iolib.onStdin(input => {
+  iolib.onStdin((input: string | null | undefined) => {
     const digit = operation.parseDigit(input)
     if (digit === undefined) {
       return true
@@ -437,7 +437,7 @@ function increment (mem: core.Memory, variable: types.Variable, step: types.Valu
 
 function getInput (text: string, variable: types.Variable, state: State, allowStringLiterals: boolean): string {
   iolib.stdout(text, state.io, false)
-  iolib.onStdin(input => {
+  iolib.onStdin((input: string | null | undefined) => {
     if (input === null || input === undefined || input === '') {
       return true
     }

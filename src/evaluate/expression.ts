@@ -105,9 +105,6 @@ function visitListVariable (value: types.ListVariable, mem: core.Memory): types.
 }
 
 function visitListIndex (value: types.ListIndex, mem: core.Memory): types.NumberResolved {
-  if (value.type !== types.LISTINDEX) {
-    throw new core.LibError('unexpected expression type, list index')
-  }
   const list = evaluate(value.list, mem)
   const index = evaluate(value.index, mem)
   if (list.type !== types.LIST) {

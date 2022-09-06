@@ -18,11 +18,7 @@ export interface ParseOptions {
  * @alpha
  */
 export function parse (source: string, options: ParseOptions = {}): types.Statement[] {
-  if (source === undefined) {
-    throw new Error('Undefined source!')
-  }
-
-  const sourceMap = options.sourceMap || 'inline'
+  const sourceMap = options.sourceMap ?? 'inline'
 
   // TODO:
   // * Allow multiple statements per line with ':'
@@ -48,10 +44,6 @@ export function parse (source: string, options: ParseOptions = {}): types.Statem
 }
 
 export function parseExpression (source: string): types.ValueExpression {
-  if (source === undefined) {
-    throw new Error('Undefined source!')
-  }
-
   const sourceLines = source.split(/\r?\n/)
   if (sourceLines.length > 1) {
     throw new Error('Too many lines for an expression')

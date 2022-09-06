@@ -209,7 +209,7 @@ interface ForLoop {
     // (undocumented)
     type: typeof ForLoop;
     // (undocumented)
-    variable: Variable;
+    variable: Variable | null;
 }
 
 // @alpha (undocumented)

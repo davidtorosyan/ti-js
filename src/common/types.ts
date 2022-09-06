@@ -410,7 +410,7 @@ export interface ElseStatement {
 export interface ForLoop {
     type: typeof ForLoop
     source?: string
-    variable: Variable
+    variable: Variable | null
     start: ValueExpression | null
     end: ValueExpression | null
     step: ValueExpression | null
