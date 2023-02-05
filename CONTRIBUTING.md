@@ -1,27 +1,117 @@
-# TI-JS dev guide
+# TI-JS Development Guide
+
+If you're interested in getting involved (or even just learning more about TI-JS),
+you've come to the right place.
+
+## Table of contents
+
+- [Community](#community)
+- [Development](#development)
+- [Architecture](#architecture)
+- [Roadmap](#roadmap)
+
+## Community
+
+### Issues
+
+If you run into an issue, file it [here](https://github.com/davidtorosyan/ti-js/issues). Make sure to include tails about what you're trying to do, and why.
+
+### Pull Requests
+
+Before making pull requests, reach out to the [maintainer](https://github.com/davidtorosyan) via email.
+
+Once you've published a pull request, automatic checks will make sure tests pass and linting looks good. If there are any issues, fix them and update your PR.
+
+If you're making updates to the grammar or adding new functionality, make sure to update the [roadmap](#roadmap).
 
 ## Development
 
-To build, use node.
+### Commands
 
+Make sure you have [node](https://nodejs.org/en/) installed then run:
 ```sh
 npm install
-npm run build # production build
-npm start # dev build, experiment at localhost:9080/playground/
 ```
+
+You can now then run any of the scripts in [package.json](package.json).
+Here's a list of the more useful commands:
+
+| Command                | Description |
+| ---------------------- | ------------|
+| `npm run bt`           | Build and test. Also updates API documentation. Will fail if there are lint errors. |
+| `npm run lint:fix`     | Fixes simple lint errors. |
+| `npm run next`         | Creates a new version, pushes it to npm, and pushes to github. Will fail if there are lint warnings or unresolved API changes. If this happens, run `npm run bt`. |
+| `npm run start`        | Starts up a dev server at http://localhost:9080/playground/ |
+| `npm run cov`          | Print test coverage results. |
+
+You're unlikely to use the other commands directly, but here they are:
+
+| Command                | Description |
+| ---------------------- | ------------|
+| `npm run clean`        | Cleans build directory. |
+| `npm run build`        | Builds with webpack. |
+| `npm test`             | Runs tests. Note that you'll want to build first, so just use `npm run bt` instead. |
+| `npm run lint`         | Print lint warnings and errors. Fails if there lint errors. |
+| `npm run lint:prod`    | Same as above, fail even on warnings. |
+| `npm run api:extractor`| Runs the API extractor. |
+| `npm run api:post`     | Copy API output to build output. |
+| `npm run api:prod`     | Fails if there have been changes to the TypeScript API without corresponding updates to the API file. |
+| `npm run api`          | Updates the API file from the TypeScript API. |
+| `npm run bump`         | Increments the patch version. |
+| `npm run bt:prod`      | Build and test, but fail if there lint warnings or unconfirmed API changes. |
+| `npm run push`         | Builds and publishes to NPM. |
+
+*Note that unless you're the maintainer, you won't have permissions to push directly to npm or github.*
+
+### Code directory
+
+| File                                      | Category      | Description |
+| ------------------------------------------| ------------- | ------------|
+| [.github/](.github/)                      | 🏠 github     | CI, github actions |
+| [api/](api/)                              | 🔎 api        | latest API goes here |
+| [docs/](docs/)                            | 📚 docs       | hosts the [website](https://davidtorosyan.com/ti-js/) |
+| [sample/](sample/)                        | ☑ tests       | sample projects that use this library |
+| [src/](src/)                              | 📈 code       | the source code |
+| [tests/](tests/)                          | ☑ tests       | the test framework |
+| [web/](web/)                              | ☑ tests       | dev tools, plus the actual test cases |
+| [.eslintignore](.eslintignore)            | 🧹 lint       | files not to lint |
+| [.eslintrc.js](.eslintrc.js)              | 🧹 lint       | lint config and overrides |
+| [.gitignore](.gitignore)                  | 🏛 git         | files not to track |
+| [.taprc](.taprc)                          | ☑ tests       | code coverage config |
+| [api-extractor.json](api-extractor.json)  | 🔎 api        | API extraction config |
+| [CONTRIBUTING.md](CONTRIBUTING.md)        | 🏠 github     | how to contribute |
+| [LICENSE](LICENSE)                        | 🏠 github     | license information |
+| [package-lock.json](package-lock.json)    | 💻 node       | npm lock file |
+| [package.json](package.json)              | 💻 node       | node scripts and package dependencies |
+| [README.md](README.md)                    | 🏠 github     | the readme |
+| [tsconfig.json](tsconfig.json)            | 📜 typescript | typescript config and rules |
+| [tsdoc.json](tsdoc.json)                  | 🔎 api        | API extraction integration with typscript |
+| [webpack.config.js](webpack.config.js)    | 🏗 webpack     | common build config |
+| [webpack.dev.js](webpack.dev.js)          | 🏗 webpack     | dev build config |
+| [webpack.prod.js](webpack.prod.js)        | 🏗 webpack     | prod build config |
 
 ## Architecture
 
+### Diagram
+
+### Testing
+
 ### ASCII
 
-## Command progress
+### API Extractor
+
+### Versioning
+
+### Auxillary projects
+
+## Roadmap
 
 Below is a table of which commands have been implemented so far.
 
 **Legend**
 
 | Symbol          | Meaning                   |
-| ----------------- | ------------------------- |
+| --------------- | ------------------------- |
 | ✅ Complete     | No more to do!            |
 | ⚠ Partial       | In place, but not fully.  |
 | ⏱ Planned      | Not started, but planned. |
