@@ -110,6 +110,56 @@ Here's an overview of how the library works:
 
 ### Web vs Node
 
+The library is available for both web apps (client side) and node apps (server side).
+
+However, node and web don't have the same capabilities. For example, in a web app you can use `window.postMessage` to write a non-blocking loop, but there's no `window` in node.
+
+To solve this, we use **dependency injection**:
+
+![TI-JS Dependency injection diagram](https://docs.google.com/drawings/d/e/2PACX-1vQnO3nsjCkHAna9dLLTL2aJP4mk-umwcRqBfwmdtvcuVmyu9gBr25wWmiUcaJDdl0xSysLszUTOAr_p/pub?w=578&h=460)
+
+
+| Component                                          | Description |
+| ---------------------------------------------------| ----------- |
+| 🟪 [looper](src/inject/looper.ts)                  | this defines a `Looper` interface. |
+| 🟪 [inject](src/inject/inject.ts)                  | has `getLooper` and `setLooper` functions |
+| 🟦 [looper.web](src/inject/web/looper.web.ts)      | implements `Looper` using `window`. |
+| 🟧 [looper.node](src/inject/node/looper.node.ts)   | implements `Looper` using `Worker`. |
+| 🟦 [inject.web](src/inject/web/inject.web.ts)      | calls `setLooper` with the web implementation |
+| 🟧 [inject.node](src/inject/node/inject.node.ts)   | calls `setLooper` with the node implementation |
+| 🟦 [web.ts](src/web.ts)                            | calls `init` on `inject.web`, and exports `common.ts` |
+| 🟧 [node.ts](src/node.ts)                          | calls `init` on `inject.node`, and exports `common.ts` |
+| ⬜ [common.ts](src/common.ts)                      | defines the library, including... |
+| ⬜ [daemon.ts](src/run/daemon.ts)                  | calls `getLooper` on `inject` |
+
+If you're wondering we this isn't as simple as in `if` statement,
+the reason is that in some cases these are *build time* dependencies.
+
+That means we need two separate builds, defined in [webpack.config.js](webpack.config.js):
+```js
+const web = merge(common, {
+  target: 'web',
+  entry: './src/web.ts',
+  output: {
+    path: path.resolve(__dirname, 'dist/web'),
+    filename: 'ti.js',
+  },
+})
+
+const node = merge(common, {
+  target: 'node',
+  entry: './src/node.ts',
+  output: {
+    path: path.resolve(__dirname, 'dist/node'),
+    filename: 'ti.js',
+  },
+  externals: [nodeExternals()],
+})
+```
+
+Incidentially, that's why node can do `require('ti-js')`
+while web has to do `require('ti-js/dist/web/ti')` - we can only define one default output path.
+
 ### Testing
 
 ### ASCII
