@@ -27,9 +27,27 @@ Below is a table of which commands have been implemented so far.
 | ⏱ Planned      | Not started, but planned. |
 | ⛔ Out of scope | No plans to implement. Usually this is because it's not useful for programming. |
 
-Columns:
-* Grammar: whether or not the command is captured by the [grammar](src/parse/tibasic.peggy).
-* Behavior: whether or not the command is handled properly in [evaluate](src/evaluate).
+**Columns**
+* **Grammar**: whether or not the command is captured by the [grammar](src/parse/tibasic.peggy).
+* **Behavior**: whether or not the command is handled properly in [evaluate](src/evaluate).
+
+**Table of Contents**
+- [Keyboard](#keyboard)
+- [Test](#test)
+- [PRGM](#prgm)
+- [Lists](#lists)
+- [Stats](#stats)
+- [Math](#math)
+- [Angle](#angle)
+- [Draw](#draw)
+- [STO](#sto)
+- [Vars](#vars)
+- [Distr](#distr)
+- [Stat Plot](#stat-plot)
+- [Table Setup](#table-setup)
+- [Format](#format)
+- [Zoom](#zoom)
+- [Matrix](#matrix)
 
 ### Keyboard
 
@@ -215,7 +233,7 @@ Columns:
 | `LinRegTInt`   | ⛔ Out of scope | ⛔ Out of scope |       |
 | `ANOVA(`       | ⛔ Out of scope | ⛔ Out of scope |       |
 
-#### Math
+#### Stat Math
 
 | Command        | Grammar          | Behavior        | Notes |
 | -------------- | ---------------- | --------------- | ----- |
@@ -230,7 +248,7 @@ Columns:
 
 ### Math
 
-#### Math
+#### Core Math
 
 | Command        | Grammar          | Behavior        | Notes |
 | -------------- | ---------------- | --------------- | ----- |
@@ -298,7 +316,7 @@ Columns:
 
 ### Draw
 
-#### Draw
+#### Core Draw
 
 | Command        | Grammar          | Behavior        | Notes |
 | -------------- | ---------------- | --------------- | ----- |
@@ -387,7 +405,7 @@ Columns:
 | `PlotStep`     | ⏱ Planned      | ⏱ Planned      |       |
 
 
-#### Zoom
+#### Zoom Vars
 
 | Command        | Grammar          | Behavior        | Notes |
 | -------------- | ---------------- | --------------- | ----- |
