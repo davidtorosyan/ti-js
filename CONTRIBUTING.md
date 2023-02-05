@@ -7,7 +7,14 @@ you've come to the right place.
 
 - [Community](#community)
 - [Development](#development)
+  - [Commands](#commands)
+  - [Code directory](#code-directory)
+  - [Tooling](#tooling)
+  - [Testing](#testing)
+  - [Auxillary projects](#auxillary-projects)
 - [Architecture](#architecture)
+  - [Overview](#overview)
+  - [Dependency injection](#dependency-injection)
 - [Roadmap](#roadmap)
 
 ## Community
@@ -41,7 +48,7 @@ Here's a list of the more useful commands:
 | `npm run bt`           | Build and test. Also updates API documentation. Will fail if there are lint errors. |
 | `npm run lint:fix`     | Fixes simple lint errors. |
 | `npm run next`         | Creates a new version, pushes it to npm, and pushes to github. Will fail if there are lint warnings or unresolved API changes. If this happens, run `npm run bt`. |
-| `npm run start`        | Starts up a dev server at http://localhost:9080/playground/ |
+| `npm start`        | Starts up a dev server at http://localhost:9080/playground/ |
 | `npm run cov`          | Print test coverage results. |
 
 You're unlikely to use the other commands directly, but here they are:
@@ -90,9 +97,46 @@ You're unlikely to use the other commands directly, but here they are:
 | [webpack.dev.js](webpack.dev.js)          | 🏗 webpack     | dev build config |
 | [webpack.prod.js](webpack.prod.js)        | 🏗 webpack     | prod build config |
 
+### Tooling
+
+While developing, you can use the following dev tools:
+
+| Tool                                                             | Description |
+| -----------------------------------------------------------------| ------------|
+| [tests](https://www.davidtorosyan.com/ti-js/tests/)              | runs unit tests |
+| [playground](https://www.davidtorosyan.com/ti-js/playground/)    | debug programs and view the AST |
+
+The prod versions are linked above, but you can get dev builds with `npm start`.
+
+### Testing
+
+Test cases are stored as a JS object in [web/js/testCases.js](web/js/testCases.js).
+
+You can run them in two ways:
+* `npm run bt`: this will build and run tests using [Node-Tap](https://node-tap.org/). This is integrated using [tests/e2e.js](tests/e2e.js).
+* `npm run start`: this will build and run a devserver, which will let you view the test results at http://localhost:9080/tests/. You can view the production build of that site [here](https://www.davidtorosyan.com/ti-js/tests/).
+
+TAP also gives coverage information, which you can view using `npm run cov`.
+The [.taprc](.taprc) defines the minimum code coverage rules.
+
+### Auxillary projects
+
+In addition to the library, there are various directories with their own build processes:
+
+| Directory                            | Description |
+| -------------------------------------| ------------|
+| [docs/](docs/)                       | hosts the [website](https://davidtorosyan.com/ti-js/) |
+| [sample/node/](sample/node/)         | demos library usage with a node app |
+| [sample/node-ts/](sample/node-ts/)   | demos library usage with a node app, using typescript |
+| [sample/web/](sample/web/)           | demos library usage with a web app |
+| [sample/web-ts/](sample/web-ts/)     | demos library usage with a web app, using typescript |
+| [web/](web/)                         | website with dev tools |
+
+View their README files to learn more.
+
 ## Architecture
 
-### Diagram
+### Overview
 
 Here's an overview of how the library works:
 
@@ -108,7 +152,7 @@ Here's an overview of how the library works:
 | [daemon](src/run/daemon.ts)             | executes statements in a tight loop |
 | [inject](src/inject/inject.ts)          | provides different implementations for web and node |
 
-### Web vs Node
+### Dependency injection
 
 The library is available for both web apps (client side) and node apps (server side).
 
@@ -160,15 +204,11 @@ const node = merge(common, {
 Incidentially, that's why node can do `require('ti-js')`
 while web has to do `require('ti-js/dist/web/ti')` - we can only define one default output path.
 
-### Testing
-
 ### ASCII
 
 ### API Extractor
 
 ### Versioning
-
-### Auxillary projects
 
 ## Roadmap
 
