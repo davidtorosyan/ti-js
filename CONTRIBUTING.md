@@ -11,6 +11,8 @@ you've come to the right place.
   - [Code directory](#code-directory)
   - [Tooling](#tooling)
   - [Testing](#testing)
+  - [API](#api)
+  - [Versioning](#versioning)
   - [Auxillary projects](#auxillary-projects)
 - [Architecture](#architecture)
   - [Overview](#overview)
@@ -120,6 +122,51 @@ You can run them in two ways:
 TAP also gives coverage information, which you can view using `npm run cov`.
 The [.taprc](.taprc) defines the minimum code coverage rules.
 
+### API
+
+The library is typescript compatible, which means its types are exported in a `ti.d.ts` file.
+Normally this means handcrafting that file, but the [API Extractor](https://api-extractor.com/) helps automate that.
+
+For example, the `Variable` type in [types.ts](src/common/types.ts):
+```ts
+/**
+ * @alpha
+ */
+export type Variable =
+    NumberVariable
+    | StringVariable
+    | ListVariable
+```
+
+Compiles to this in the [ti.api.md](api/ti.api.md):
+```ts
+// @alpha (undocumented)
+type Variable = NumberVariable | StringVariable | ListVariable;
+```
+
+Which then becomes this in `ti.d.ts`:
+```ts
+/**
+ * @alpha
+ */
+declare type Variable = NumberVariable | StringVariable | ListVariable;
+```
+
+*Note that we're in prerelease, so everything is `@alpha` and undocumented.*
+
+See the [Commands](#commands) table for the commands relevant to API extraction.
+In general, double check that the API isn't updated unintentionally.
+
+### Versioning
+
+This project uses [semantic versioning](https://semver.org/).
+
+Since we're in prerelease, the major version is `0` and there's no changelog.
+Releases simply increment the patch version.
+
+The project will move into release once there's at least one interesting use case.
+This will probably be demonstrating a real program (written for the calculator) running in the browser.
+
 ### Auxillary projects
 
 In addition to the library, there are various directories with their own build processes:
@@ -216,10 +263,6 @@ For example, the `For(` token is 4 bytes in ASCII, but only a single byte in TI-
 To keep things simple, this library only deals with ASCII. This means characters like `θ` are represented as `&theta`. In some cases this means code that would ambiguously convert to TI-BASIC (for example, is `->` an arrow or a minus sign followed by a greater than sign?).
 
 At some point we might implement a strict version of the language which could be lossesly converted back and forth into TI-BASIC, something like what [tiopt](https://www.club.cc.cmu.edu/~ajo/ti/tiopt.html) does.
-
-### API Extractor
-
-### Versioning
 
 ## Roadmap
 
