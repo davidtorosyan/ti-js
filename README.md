@@ -67,7 +67,7 @@ This library doesn't support TI-BASIC exactly, but an ASCII-fied version of it.
 
 Furthermore, not all commands are implemented yet.
 
-To see which commands are available, refer to the table in [CONTRIBUTING.md](CONTRIBUTING.md).
+To see which commands are available, refer to the table in [ROADMAP.md](ROADMAP.md).
 
 ### API
 
