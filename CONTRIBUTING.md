@@ -15,6 +15,7 @@ you've come to the right place.
 - [Architecture](#architecture)
   - [Overview](#overview)
   - [Dependency injection](#dependency-injection)
+  - [Character encoding](#character-encoding)
 - [Roadmap](#roadmap)
 
 ## Community
@@ -204,7 +205,17 @@ const node = merge(common, {
 Incidentially, that's why node can do `require('ti-js')`
 while web has to do `require('ti-js/dist/web/ti')` - we can only define one default output path.
 
-### ASCII
+### I/O
+
+### Character encoding
+
+TI-BASIC does not use ASCII, of course. Instead, it its own encoding commonly exported to computers in .8XP (or .83P) format.
+
+For example, the `For(` token is 4 bytes in ASCII, but only a single byte in TI-BASIC encoding.
+
+To keep things simple, this library only deals with ASCII. This means characters like `θ` are represented as `&theta`. In some cases this means code that would ambiguously convert to TI-BASIC (for example, is `->` an arrow or a minus sign followed by a greater than sign?).
+
+At some point we might implement a strict version of the language which could be lossesly converted back and forth into TI-BASIC, something like what [tiopt](https://www.club.cc.cmu.edu/~ajo/ti/tiopt.html) does.
 
 ### API Extractor
 
