@@ -5,7 +5,7 @@ you've come to the right place.
 
 Other resources:
 * [README.md](README.md): project overview
-* [ROADMAP.md](ROAMDAP.md): planned work
+* [ROADMAP.md](ROADMAP.md): planned work
 
 ## Table of contents
 
