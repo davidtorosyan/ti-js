@@ -20,12 +20,12 @@ Below is a table of which commands have been implemented so far.
 
 **Legend**
 
-| `Symbol`          | Meaning                   |
-| `-----------------` | ------------------------- |
-| `✅ Complete`     | No more to do!            |
-| `⚠ Partial`       | In place, but not fully.  |
-| `⏱ Planned`      | Not started, but planned. |
-| `⛔ Out of scope` | No plans to implement. Usually this is because it's not useful for programming. |
+| Symbol          | Meaning                   |
+| ----------------- | ------------------------- |
+| ✅ Complete     | No more to do!            |
+| ⚠ Partial       | In place, but not fully.  |
+| ⏱ Planned      | Not started, but planned. |
+| ⛔ Out of scope | No plans to implement. Usually this is because it's not useful for programming. |
 
 Columns:
 * Grammar: whether or not the command is captured by the [grammar](src/parse/tibasic.peggy).
