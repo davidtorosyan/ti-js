@@ -17,6 +17,7 @@ you've come to the right place.
 - [Architecture](#architecture)
   - [Overview](#overview)
   - [Dependency injection](#dependency-injection)
+  - [I/O](#io)
   - [Character encoding](#character-encoding)
 - [Roadmap](#roadmap)
 
@@ -253,6 +254,11 @@ Incidentially, that's why node can do `require('ti-js')`
 while web has to do `require('ti-js/dist/web/ti')` - we can only define one default output path.
 
 ### I/O
+
+Input and output is mostly handled by [iolib.ts](src/evaluate/helper/iolib.ts).
+
+Currently this supports using DOM elements for IO, but not anything like a real calculator.
+This will need to be revamped in order to support real programs.
 
 ### Character encoding
 
