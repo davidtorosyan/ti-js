@@ -67,23 +67,23 @@ You're unlikely to use the other commands directly, but here they are:
 
 | File                                      | Category      | Description |
 | ------------------------------------------| ------------- | ------------|
-| [.github/](.github/)                      | 🏠 github     | CI, github actions |
+| [.github/](.github/)                      | 🔨 repo      | CI, github actions |
 | [api/](api/)                              | 🔎 api        | latest API goes here |
 | [docs/](docs/)                            | 📚 docs       | hosts the [website](https://davidtorosyan.com/ti-js/) |
-| [sample/](sample/)                        | ☑ tests       | sample projects that use this library |
-| [src/](src/)                              | 📈 code       | the source code |
-| [tests/](tests/)                          | ☑ tests       | the test framework |
-| [web/](web/)                              | ☑ tests       | dev tools, plus the actual test cases |
+| [sample/](sample/)                        | 💡 sample     | sample projects that use this library |
+| [src/](src/)                              | 💻 code       | the source code |
+| [tests/](tests/)                          | 🔬 tests      | the test framework |
+| [web/](web/)                              | 🔬 tests      | dev tools, plus the actual test cases |
 | [.eslintignore](.eslintignore)            | 🧹 lint       | files not to lint |
 | [.eslintrc.js](.eslintrc.js)              | 🧹 lint       | lint config and overrides |
-| [.gitignore](.gitignore)                  | 🏛 git         | files not to track |
-| [.taprc](.taprc)                          | ☑ tests       | code coverage config |
+| [.gitignore](.gitignore)                  | 🔨 repo       | files not to track |
+| [.taprc](.taprc)                          | 🔬 tests      | code coverage config |
 | [api-extractor.json](api-extractor.json)  | 🔎 api        | API extraction config |
-| [CONTRIBUTING.md](CONTRIBUTING.md)        | 🏠 github     | how to contribute |
-| [LICENSE](LICENSE)                        | 🏠 github     | license information |
-| [package-lock.json](package-lock.json)    | 💻 node       | npm lock file |
-| [package.json](package.json)              | 💻 node       | node scripts and package dependencies |
-| [README.md](README.md)                    | 🏠 github     | the readme |
+| [CONTRIBUTING.md](CONTRIBUTING.md)        | 📚 docs       | how to contribute |
+| [LICENSE](LICENSE)                        | 📚 docs       | license information |
+| [package-lock.json](package-lock.json)    | 📦 node       | npm lock file |
+| [package.json](package.json)              | 📦 node       | node scripts and package dependencies |
+| [README.md](README.md)                    | 📚 docs       | the readme |
 | [tsconfig.json](tsconfig.json)            | 📜 typescript | typescript config and rules |
 | [tsdoc.json](tsdoc.json)                  | 🔎 api        | API extraction integration with typscript |
 | [webpack.config.js](webpack.config.js)    | 🏗 webpack     | common build config |
