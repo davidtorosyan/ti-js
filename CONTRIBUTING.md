@@ -94,6 +94,22 @@ You're unlikely to use the other commands directly, but here they are:
 
 ### Diagram
 
+Here's an overview of how the library works:
+
+![TI-JS Architecture diagram](https://docs.google.com/drawings/d/e/2PACX-1vQmzmE56izHkLRbEP1tGw-Lgho7p9tJC1r4LPO8MvwFaUmjodRFKOqwpamql3Rt9WHBJoA7t3vhdI7F/pub?w=960&h=720)
+
+| Component                               | Description |
+| ----------------------------------------| ----------- |
+| [exec](src/common.ts)                   | top-level helper |
+| [parser](src/parse/parser.ts)           | converts strings to objects that represent the AST |
+| [runtime](src/run/runtime.ts)           | sets up device memory and executes the AST |
+| [statement](src/evaluate/statement.ts)  | evaluates individual statements |
+| [iolib](src/evaluate/helper/iolib.ts)   | helps manage input and output |
+| [daemon](src/run/daemon.ts)             | executes statements in a tight loop |
+| [inject](src/inject/inject.ts)          | provides different implementations for web and node |
+
+### Web vs Node
+
 ### Testing
 
 ### ASCII
