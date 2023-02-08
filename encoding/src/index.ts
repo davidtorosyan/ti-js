@@ -8,7 +8,8 @@ interface TiToken {
 }
 
 function main (): void {
-  readInput()
+  const input = readInput()
+  console.log(input)
 }
 
 function readInput (): TiToken[] {

@@ -1,14 +1,14 @@
 {
     "extends": "@tsconfig/strictest/tsconfig.json",
     "compilerOptions": {
-        "module": "es2020",
         "target": "es2015",
+        "module": "CommonJS",
         "allowJs": false,
         "checkJs": false,
         "moduleResolution": "node",
         "declaration": true,
         "sourceMap": true,
-        "declarationMap": true
+        "declarationMap": true,
     },
     "include": ["./src/**/*"]
 }
