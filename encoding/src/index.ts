@@ -20,6 +20,7 @@ function main (): void {
   const input = readInput()
   const output = transform(input)
   writeOutput(output)
+  writeMarkdown(output)
 }
 
 function transform (input: TiTokenInput[]): TiTokenOutput[] {
@@ -48,6 +49,18 @@ function createStrict (token: string): string {
   return token
 }
 
+function readInput (): TiTokenInput[] {
+  const inputFilePath = path.resolve(__dirname, '../data/input.csv')
+  const fileContent = fs.readFileSync(inputFilePath, { encoding: 'utf-8' })
+  const records: TiTokenInput[] = parse(fileContent, {
+    delimiter: ',',
+    columns: ['hex', 'token'],
+    fromLine: 2,
+    quote: false,
+  })
+  return records
+}
+
 function writeOutput (output: TiTokenOutput[]): void {
   const outputFilePath = path.resolve(__dirname, '../dist/output.csv')
   const outDir = path.dirname(outputFilePath)
@@ -61,16 +74,20 @@ function writeOutput (output: TiTokenOutput[]): void {
   fs.writeFileSync(outputFilePath, result, { encoding: 'utf-8' })
 }
 
-function readInput (): TiTokenInput[] {
-  const inputFilePath = path.resolve(__dirname, '../data/input.csv')
-  const fileContent = fs.readFileSync(inputFilePath, { encoding: 'utf-8' })
-  const records: TiTokenInput[] = parse(fileContent, {
-    delimiter: ',',
-    columns: ['hex', 'token'],
-    fromLine: 2,
-    quote: false,
+function writeMarkdown (output: TiTokenOutput[]): void {
+  const outputFilePath = path.resolve(__dirname, '../dist/ENCODING.md')
+  const outDir = path.dirname(outputFilePath)
+  const header = '| hex | name | strict |\n' + '| - | - | - |\n'
+  const result = header + stringify(output, {
+    delimiter: ' | ',
+    cast: {
+      string: x => '`' + x + '`',
+    },
   })
-  return records
+  if (!fs.existsSync(outDir)) {
+    fs.mkdirSync(outDir)
+  }
+  fs.writeFileSync(outputFilePath, result, { encoding: 'utf-8' })
 }
 
 main()
