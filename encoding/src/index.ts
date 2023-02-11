@@ -4,6 +4,7 @@ import { parse } from 'csv-parse/sync'
 import { stringify } from 'csv-stringify/sync'
 
 import { createName } from './name'
+import { createStrict } from './strict'
 
 interface TiTokenInput {
   hex: string
@@ -27,6 +28,9 @@ function transform (input: TiTokenInput[]): TiTokenOutput[] {
   const output: TiTokenOutput[] = []
 
   const names = new Set<string>()
+  const stricts = new Set<string>()
+
+  input.sort((a, b) => a.token.length - b.token.length)
 
   for (const record of input) {
     const name = createName(record.hex, record.token)
@@ -35,18 +39,19 @@ function transform (input: TiTokenInput[]): TiTokenOutput[] {
     }
     names.add(name)
 
+    const strict = createStrict(record.hex, record.token, stricts)
+    stricts.add(strict)
+
     output.push({
       hex: record.hex,
       name,
-      strict: createStrict(record.token),
+      strict,
     })
   }
 
-  return output
-}
+  output.sort((a, b) => a.hex.localeCompare(b.hex))
 
-function createStrict (token: string): string {
-  return token
+  return output
 }
 
 function readInput (): TiTokenInput[] {
