@@ -1,3 +1,4 @@
+import type { TiTokenInput } from './common'
 
 const escapeChar = '&'
 
@@ -15,7 +16,22 @@ const statsRange = [
   '0x623C',
 ]
 
-export function createStrict (hex: string, token: string, existing: ReadonlySet<string>): string {
+export function createStricts (input: readonly TiTokenInput[]): Map<TiTokenInput, string> {
+  const result = new Map<TiTokenInput, string>()
+  const stricts = new Set<string>()
+
+  const sorted = [...input].sort((a, b) => a.token.length - b.token.length)
+
+  for (const record of sorted) {
+    const strict = createStrict(record.hex, record.token, stricts)
+    stricts.add(strict)
+    result.set(record, strict)
+  }
+
+  return result
+}
+
+function createStrict (hex: string, token: string, existing: ReadonlySet<string>): string {
   const strict = createStrictInternal(hex, token, existing)
   if (prefixIn(strict, existing)) {
     // throw new Error(`Unable to escape! ${hex} ${token}`)

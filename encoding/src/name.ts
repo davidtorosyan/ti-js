@@ -1,4 +1,5 @@
 import { unicodeLookup } from './unicode'
+import type { TiTokenInput } from './common'
 
 const nameLookup = new Map([
   ['->', 'STORE'],
@@ -67,7 +68,24 @@ const statsRange = [
   '0x623C',
 ]
 
-export function createName (hex: string, token: string): string {
+export function createNames (input: readonly TiTokenInput[]): Map<TiTokenInput, string> {
+  const result = new Map<TiTokenInput, string>()
+  const names = new Set<string>()
+
+  for (const record of input) {
+    const name = createName(record.hex, record.token)
+    if (names.has(name)) {
+      throw new Error(`Duplicate name for hex! ${record.hex} ${name}`)
+    }
+    names.add(name)
+
+    result.set(record, name)
+  }
+
+  return result
+}
+
+function createName (hex: string, token: string): string {
   const hexLookup = nameHexLookup.get(hex)
   if (hexLookup) {
     return hexLookup
