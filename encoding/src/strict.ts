@@ -5,6 +5,7 @@ const escapeChar = '&'
 const transformTokenLookup = new Map([
   ['COMMA', ','],
   ['NEWLINE', 'newline'],
+  ['&', escapeChar + 'amp'],
 ])
 
 const strictHexLookup = new Map([
