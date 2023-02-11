@@ -56,22 +56,23 @@ function transform (hex: string, token: string): string {
 }
 
 function createStrict (hex: string, token: string, existing: ReadonlySet<string>): string {
-  if (prefixIn(token, existing)) {
-    if (token.startsWith(escapeChar)) {
-      // throw new Error(`Unable to escape! ${hex} ${token}`)
-      console.error(`Unable to escape, would need to double escape! ${hex} ${token}`)
-      return token
-    }
-
-    const escaped = escapeChar + token
-    if (prefixIn(escaped, existing)) {
-      // throw new Error(`Still ambiguous after escaping! ${hex} ${token}`)
-      console.error(`Still ambiguous after escaping! ${hex} ${token}`)
-      return escaped
-    }
+  if (!prefixIn(token, existing)) {
+    return token
   }
 
-  return token
+  if (token.startsWith(escapeChar)) {
+    // throw new Error(`Unable to escape! ${hex} ${token}`)
+    console.error(`Unable to escape, would need to double escape! ${hex} ${token}`)
+    return token
+  }
+
+  const escaped = escapeChar + token
+  if (prefixIn(escaped, existing)) {
+    // throw new Error(`Still ambiguous after escaping! ${hex} ${token}`)
+    console.error(`Still ambiguous after escaping! ${hex} ${token}`)
+  }
+
+  return escaped
 }
 
 function prefixIn (test: string, existing: ReadonlySet<string>): boolean {
