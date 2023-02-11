@@ -2,9 +2,9 @@ import type { TiTokenInput } from './common'
 
 const escapeChar = '&'
 
-const strictTokenLookup = new Map([
+const transformTokenLookup = new Map([
   ['COMMA', ','],
-  ['NEWLINE', escapeChar + 'newline'],
+  ['NEWLINE', 'newline'],
 ])
 
 const strictHexLookup = new Map([
@@ -20,10 +20,11 @@ export function createStricts (input: readonly TiTokenInput[]): Map<TiTokenInput
   const result = new Map<TiTokenInput, string>()
   const stricts = new Set<string>()
 
-  const sorted = [...input].sort((a, b) => a.token.length - b.token.length)
+  const transformed: [TiTokenInput, string][] = input.map(record => [record, transform(record.hex, record.token)])
+  transformed.sort((a, b) => a[1].length - b[1].length)
 
-  for (const record of sorted) {
-    const strict = createStrict(record.hex, record.token, stricts)
+  for (const [record, token] of transformed) {
+    const strict = createStrict(record.hex, token, stricts)
     stricts.add(strict)
     result.set(record, strict)
   }
@@ -31,39 +32,45 @@ export function createStricts (input: readonly TiTokenInput[]): Map<TiTokenInput
   return result
 }
 
-function createStrict (hex: string, token: string, existing: ReadonlySet<string>): string {
-  const strict = createStrictInternal(hex, token, existing)
-  if (prefixIn(strict, existing)) {
-    // throw new Error(`Unable to escape! ${hex} ${token}`)
-    console.error(`Unable to escape! ${hex} ${token}`)
-  }
-  return strict
-}
-
-function createStrictInternal (hex: string, token: string, existing: ReadonlySet<string>): string {
+function transform (hex: string, token: string): string {
   const hexLookup = strictHexLookup.get(hex)
   if (hexLookup) {
     return hexLookup
   }
 
-  const statsRelated = hex >= statsRange[0]! && hex <= statsRange[1]!
-
-  const tokenLookup = strictTokenLookup.get(token)
+  const tokenLookup = transformTokenLookup.get(token)
   if (tokenLookup) {
     return tokenLookup
   }
 
-  let strict = token
+  const statsRelated = hex >= statsRange[0]! && hex <= statsRange[1]!
+
+  let transformed = token
 
   if (statsRelated) {
-    strict = 'stats' + strict
+    transformed = 'stats' + transformed
   }
 
-  if (prefixIn(strict, existing)) {
-    strict = escapeChar + strict
+  return transformed
+}
+
+function createStrict (hex: string, token: string, existing: ReadonlySet<string>): string {
+  if (prefixIn(token, existing)) {
+    if (token.startsWith(escapeChar)) {
+      // throw new Error(`Unable to escape! ${hex} ${token}`)
+      console.error(`Unable to escape, would need to double escape! ${hex} ${token}`)
+      return token
+    }
+
+    const escaped = escapeChar + token
+    if (prefixIn(escaped, existing)) {
+      // throw new Error(`Still ambiguous after escaping! ${hex} ${token}`)
+      console.error(`Still ambiguous after escaping! ${hex} ${token}`)
+      return escaped
+    }
   }
 
-  return strict
+  return token
 }
 
 function prefixIn (test: string, existing: ReadonlySet<string>): boolean {
