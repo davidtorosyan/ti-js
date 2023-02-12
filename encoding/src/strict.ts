@@ -22,7 +22,7 @@ export function createStricts (input: readonly TiTokenInput[]): Map<TiTokenInput
   const stricts = new Set<string>()
 
   const transformed: [TiTokenInput, string][] = input.map(record => [record, transform(record.hex, record.token)])
-  transformed.sort((a, b) => a[1].length - b[1].length)
+  transformed.sort((a, b) => compareToken(a[1], b[1]))
 
   for (const [record, token] of transformed) {
     const strict = createStrict(record.hex, token, stricts)
@@ -31,6 +31,23 @@ export function createStricts (input: readonly TiTokenInput[]): Map<TiTokenInput
   }
 
   return result
+}
+
+function compareToken (a: string, b: string): number {
+  const compareLength = a.length - b.length
+  if (compareLength !== 0) {
+    return compareLength
+  }
+
+  if (a.startsWith(escapeChar) && !b.startsWith(escapeChar)) {
+    return -1
+  }
+
+  if (!a.startsWith(escapeChar) && b.startsWith(escapeChar)) {
+    return 1
+  }
+
+  return a.localeCompare(b)
 }
 
 function transform (hex: string, token: string): string {
