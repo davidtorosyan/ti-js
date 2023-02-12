@@ -3,10 +3,19 @@ import * as path from 'path'
 import { stringify } from 'csv-stringify/sync'
 import type { TiTokenOutput } from './common'
 
+export interface MarkdownOutput {
+    hex: string
+    name: string
+    strict: string
+    utf8: string | undefined
+    composite: string | undefined
+}
+
 export function writeMarkdown (output: TiTokenOutput[]): void {
   const outputFilePath = path.resolve(__dirname, '../../dist/ENCODING.md')
   const outDir = path.dirname(outputFilePath)
-  const result = stringify(output, {
+  const markdownOutputs = transformOutputs(output)
+  const result = stringify(markdownOutputs, {
     delimiter: ' | ',
     cast: {
       string: prepareMarkdown,
@@ -24,6 +33,23 @@ export function writeMarkdown (output: TiTokenOutput[]): void {
     fs.mkdirSync(outDir)
   }
   fs.writeFileSync(outputFilePath, markdown, { encoding: 'utf-8' })
+}
+
+function transformOutputs (outputs: TiTokenOutput[]): MarkdownOutput[] {
+  const strictMap = new Map(outputs.map(output => [output.hex, output.strict]))
+  return outputs.map(output => transformOutput(output, strictMap))
+}
+
+function transformOutput (output: TiTokenOutput, strictMap: Map<string, string>): MarkdownOutput {
+  const composite = strictMap.get(output.composite!)!
+
+  return {
+    hex: output.hex,
+    name: output.name,
+    strict: output.strict,
+    utf8: output.utf8,
+    composite,
+  }
 }
 
 function prepareMarkdown (input: string): string {
