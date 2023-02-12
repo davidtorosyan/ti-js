@@ -35,6 +35,7 @@ const strictHexLookup = new Map([
   ['0xBB9E', escape('!')],
   ['0xBBAF', escape('F')],
   ['0xBB9B', escape('`')],
+  ['0xBBDD', escape('Beta')],
 ])
 
 const statsRange = [
