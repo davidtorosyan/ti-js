@@ -25,6 +25,7 @@ function transform (input: TiTokenInput[]): TiTokenOutput[] {
       hex: record.hex,
       name: names.get(record)!,
       strict: stricts.get(record)!,
+      utf8: undefined,
     })
   }
 
@@ -59,18 +60,24 @@ function writeOutput (output: TiTokenOutput[]): void {
 function writeMarkdown (output: TiTokenOutput[]): void {
   const outputFilePath = path.resolve(__dirname, '../dist/ENCODING.md')
   const outDir = path.dirname(outputFilePath)
-  const header = '| hex | name | strict |\n' + '| - | - | - |\n'
-  const result = header + stringify(output, {
+  const result = stringify(output, {
     delimiter: ' | ',
     cast: {
       string: prepareMarkdown,
     },
     quote: false,
+    header: true,
   })
+
+  const index = result.indexOf('\n')
+  const header = '| ' + result.substring(0, index) + ' |'
+  const divider = header.replace(/`[^`]+`/g, '-')
+  const markdown = header + '\n' + divider + '\n' + result.substring(index + 1)
+
   if (!fs.existsSync(outDir)) {
     fs.mkdirSync(outDir)
   }
-  fs.writeFileSync(outputFilePath, result, { encoding: 'utf-8' })
+  fs.writeFileSync(outputFilePath, markdown, { encoding: 'utf-8' })
 }
 
 function prepareMarkdown (input: string): string {

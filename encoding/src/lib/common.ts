@@ -7,4 +7,5 @@ export interface TiTokenOutput {
     hex: string
     name: string
     strict: string
+    utf8: string | undefined
 }
