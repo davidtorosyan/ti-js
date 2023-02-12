@@ -84,7 +84,7 @@ const replacements = new Map([
   ['theta', 'θ'],
 ])
 
-export function createUtf8 (record: TiTokenInput, _strict: string): string | undefined {
+export function createUtf8 (record: TiTokenInput): string | undefined {
   const hex = record.hex
   const token = record.token
 

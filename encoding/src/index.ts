@@ -22,14 +22,11 @@ function transform (input: TiTokenInput[]): TiTokenOutput[] {
   const stricts = createStricts(input)
 
   for (const record of input) {
-    const strict = stricts.get(record)!
-
     output.push({
       hex: record.hex,
       name: names.get(record)!,
-      strict,
-      utf8: createUtf8(record, strict),
-      composite: undefined,
+      strict: stricts.get(record)!,
+      utf8: createUtf8(record),
     })
   }
 

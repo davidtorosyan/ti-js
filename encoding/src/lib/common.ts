@@ -8,5 +8,4 @@ export interface TiTokenOutput {
     name: string
     strict: string
     utf8: string | undefined
-    composite: string | undefined
 }
