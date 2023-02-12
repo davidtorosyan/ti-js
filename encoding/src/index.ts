@@ -5,6 +5,7 @@ import { stringify } from 'csv-stringify/sync'
 
 import { createNames } from './lib/name'
 import { createStricts } from './lib/strict'
+import { createComposites } from './lib/composite'
 import { createUtf8 } from './lib/utf8'
 import { writeMarkdown } from './lib/markdown'
 import type { TiTokenInput, TiTokenOutput } from './lib/common'
@@ -21,6 +22,7 @@ function transform (input: TiTokenInput[]): TiTokenOutput[] {
 
   const names = createNames(input)
   const stricts = createStricts(input)
+  const composites = createComposites(input)
 
   for (const record of input) {
     output.push({
@@ -28,6 +30,7 @@ function transform (input: TiTokenInput[]): TiTokenOutput[] {
       name: names.get(record)!,
       strict: stricts.get(record)!,
       utf8: createUtf8(record),
+      composite: composites.get(record),
     })
   }
 
