@@ -1,4 +1,5 @@
 import type { TiTokenInput } from './common'
+import { unicodeLookup } from './unicode'
 
 function escape (token: string): string {
   if (token.includes('}')) {
@@ -36,11 +37,18 @@ const strictHexLookup = new Map([
   ['0xBBAF', escape('F')],
   ['0xBB9B', escape('`')],
   ['0xBBDD', escape('Beta')],
+  ['0xBBCD', escape('I_ACUTE')],
+  ['0xBB9A', escape('ACCENT')],
 ])
 
 const statsRange = [
   '0x6200',
   '0x623C',
+]
+
+const accentRange = [
+  '0xBB6E',
+  '0xBB99',
 ]
 
 export function createStricts (input: readonly TiTokenInput[]): Map<TiTokenInput, string> {
@@ -54,13 +62,11 @@ export function createStricts (input: readonly TiTokenInput[]): Map<TiTokenInput
     const strict = createStrict(record.hex, token, stricts)
 
     if (!checkValidity(strict)) {
-      // throw new Error(`Strict token isn't valid! ${record.hex} ${strict}`)
-      console.error(`Strict token isn't valid! ${record.hex} ${strict}`)
+      throw new Error(`Strict token isn't valid! ${record.hex} ${strict}`)
     }
 
     if (stricts.has(strict)) {
-      // throw new Error(`Duplicate strict for hex! ${record.hex} ${strict}`)
-      console.error(`Duplicate strict for hex! ${record.hex} ${strict}`)
+      throw new Error(`Duplicate strict for hex! ${record.hex} ${strict}`)
     }
 
     stricts.add(strict)
@@ -99,6 +105,17 @@ function transform (hex: string, token: string): string {
   }
 
   const statsRelated = hex >= statsRange[0]! && hex <= statsRange[1]!
+  const accentRelated = hex >= accentRange[0]! && hex <= accentRange[1]!
+
+  if (accentRelated && token.length === 1) {
+    const unicodeHex = '00' + token.charCodeAt(0).toString(16).toUpperCase()
+    let mapped = unicodeLookup(unicodeHex)
+    if (mapped) {
+      mapped = mapped.replace(/LATIN |CAPITAL |LETTER |WITH /g, '')
+      mapped = mapped.replace(/[ -]/g, '_')
+      return mapped
+    }
+  }
 
   let transformed = token
 

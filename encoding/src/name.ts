@@ -105,8 +105,8 @@ function createName (hex: string, token: string): string {
   }
 
   if (token.length === 1) {
-    const hex = '00' + token.charCodeAt(0).toString(16).toUpperCase()
-    let mapped = unicodeLookup(hex)
+    const unicodeHex = '00' + token.charCodeAt(0).toString(16).toUpperCase()
+    let mapped = unicodeLookup(unicodeHex)
     if (mapped) {
       mapped = mapped.replace(/[ -]/g, '_')
       return mapped
