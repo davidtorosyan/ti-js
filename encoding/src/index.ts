@@ -63,13 +63,21 @@ function writeMarkdown (output: TiTokenOutput[]): void {
   const result = header + stringify(output, {
     delimiter: ' | ',
     cast: {
-      string: x => '`' + x + '`',
+      string: prepareMarkdown,
     },
+    quote: false,
   })
   if (!fs.existsSync(outDir)) {
     fs.mkdirSync(outDir)
   }
   fs.writeFileSync(outputFilePath, result, { encoding: 'utf-8' })
+}
+
+function prepareMarkdown (input: string): string {
+  if (input.includes('`')) {
+    return '`` ' + input + ' ``'
+  }
+  return '`' + input.replace(/\|/, '\\|') + '`'
 }
 
 main()
