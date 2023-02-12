@@ -5,6 +5,7 @@ import { stringify } from 'csv-stringify/sync'
 
 import { createNames } from './lib/name'
 import { createStricts } from './lib/strict'
+import { createUtf8 } from './lib/utf8'
 import type { TiTokenInput, TiTokenOutput } from './lib/common'
 
 function main (): void {
@@ -21,11 +22,13 @@ function transform (input: TiTokenInput[]): TiTokenOutput[] {
   const stricts = createStricts(input)
 
   for (const record of input) {
+    const strict = stricts.get(record)!
+
     output.push({
       hex: record.hex,
       name: names.get(record)!,
-      strict: stricts.get(record)!,
-      utf8: undefined,
+      strict,
+      utf8: createUtf8(record, strict),
     })
   }
 
