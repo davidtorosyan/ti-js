@@ -41,7 +41,11 @@ function transformOutputs (outputs: TiTokenOutput[]): MarkdownOutput[] {
 }
 
 function transformOutput (output: TiTokenOutput, strictMap: Map<string, string>): MarkdownOutput {
-  const composite = strictMap.get(output.composite!)!
+  let composite
+  if (output.composite) {
+    const chunked = chunkString(output.composite, output.hex.length)
+    composite = chunked.map(hex => strictMap.get(hex)).join('')
+  }
 
   return {
     hex: output.hex,
@@ -57,4 +61,12 @@ function prepareMarkdown (input: string): string {
     return '`` ' + input + ' ``'
   }
   return '`' + input.replace(/\|/, '\\|') + '`'
+}
+
+function chunkString (str: string, length: number): string[] {
+  const result = []
+  for (let i = 0; i < str.length; i += length) {
+    result.push(str.slice(i, i + length))
+  }
+  return result
 }
