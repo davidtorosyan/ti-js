@@ -1,24 +1,17 @@
 import type { TiTokenInput } from './common'
 
-const utf8TokenLookup = new Map([
-  ['->', '→'],
-])
+const excludeTokens = [
+  'IS>(',
+]
 
 const utf8HexLookup = new Map([
-  ['0x0001', '⏵DMS'],
-  ['0x0002', '⏵Dec'],
-  ['0x0003', '⏵Frac'],
+  ['0x0004', '→'],
   ['0x000A', 'ʳ'],
   ['0x000B', '°'],
   ['0x000C', '⁻¹'],
   ['0x000D', '²'],
   ['0x000E', 'ᵀ'],
   ['0x000F', '³'],
-  ['0x001B', 'R⏵Pr'],
-  ['0x001C', 'R⏵Pθ'],
-  ['0x001D', 'P⏵Px'],
-  ['0x001E', 'P⏵Py'],
-  ['0x005B', 'θ'],
   ['0x006D', '≤'],
   ['0x006E', '≥'],
   ['0x006F', '≠'],
@@ -29,9 +22,11 @@ const utf8HexLookup = new Map([
   ['0x00C1', '⏨^('],
   ['0x00EB', '∟'],
   ['0x00F1', '×√'],
+  ['0x00BC', '√('],
+  ['0x00BD', '∛('],
 ])
 
-const accentRange = [
+const accentRange: [string, string] = [
   '0xBB6E',
   '0xBB99',
 ]
@@ -41,24 +36,75 @@ const accents = [
   '0xBB9A',
 ]
 
+const subscriptRange: [string, string] = [
+  '0x5D00',
+  '0x5E45',
+]
+
+const subscriptMap = new Map([
+  ['0', '₀'],
+  ['1', '₁'],
+  ['2', '₂'],
+  ['3', '₃'],
+  ['4', '₄'],
+  ['5', '₅'],
+  ['6', '₆'],
+  ['7', '₇'],
+  ['8', '₈'],
+  ['9', '₉'],
+  ['T', '┬'],
+])
+
+const replacements = new Map([
+  ['>', '⏵'],
+  ['theta', 'θ'],
+])
+
 export function createUtf8 (record: TiTokenInput, _strict: string): string | undefined {
   const hex = record.hex
   const token = record.token
+
+  if (excludeTokens.includes(token)) {
+    return undefined
+  }
 
   const hexLookup = utf8HexLookup.get(hex)
   if (hexLookup) {
     return hexLookup
   }
 
-  const lookup = utf8TokenLookup.get(token)
-  if (lookup) {
-    return lookup
-  }
-
-  const accentRelated = (hex >= accentRange[0]! && hex <= accentRange[1]!) || accents.includes(hex)
+  const accentRelated = inRange(hex, accentRange) || accents.includes(hex)
   if (accentRelated) {
     return token
   }
 
+  const needsSubscript = inRange(hex, subscriptRange)
+  if (needsSubscript) {
+    return replaceSubscripts(token)
+  }
+
+  if (token.length > 1) {
+    let utf8 = token
+    for (const [key, value] of replacements) {
+      utf8 = utf8.replace(key, value)
+    }
+    if (utf8 !== token) {
+      console.log(`found ${utf8} from ${token}`)
+      return utf8
+    }
+  }
+
   return undefined
+}
+
+function inRange (hex: string, range: [string, string]): boolean {
+  return hex >= range[0]! && hex <= range[1]!
+}
+
+function replaceSubscripts (token: string): string {
+  let result = ''
+  for (const char of token) {
+    result += subscriptMap.get(char) ?? char
+  }
+  return result
 }
