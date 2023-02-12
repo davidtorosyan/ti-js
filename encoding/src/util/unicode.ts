@@ -8,7 +8,7 @@ interface Unicode {
   }
 
 function readUnicode (): Unicode[] {
-  const inputFilePath = path.resolve(__dirname, '../data/unicode.csv')
+  const inputFilePath = path.resolve(__dirname, '../../data/unicode.csv')
   const fileContent = fs.readFileSync(inputFilePath, { encoding: 'utf-8' })
   const records: Unicode[] = parse(fileContent, {
     delimiter: ';',

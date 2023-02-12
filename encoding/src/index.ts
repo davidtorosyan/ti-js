@@ -3,9 +3,9 @@ import * as path from 'path'
 import { parse } from 'csv-parse/sync'
 import { stringify } from 'csv-stringify/sync'
 
-import { createNames } from './name'
-import { createStricts } from './strict'
-import type { TiTokenInput, TiTokenOutput } from './common'
+import { createNames } from './lib/name'
+import { createStricts } from './lib/strict'
+import type { TiTokenInput, TiTokenOutput } from './lib/common'
 
 function main (): void {
   const input = readInput()

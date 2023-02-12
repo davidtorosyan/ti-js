@@ -1,4 +1,4 @@
-import { unicodeLookup } from './unicode'
+import { unicodeLookup } from '../util/unicode'
 import type { TiTokenInput } from './common'
 
 const nameLookup = new Map([

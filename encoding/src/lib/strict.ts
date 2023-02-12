@@ -1,5 +1,5 @@
 import type { TiTokenInput } from './common'
-import { unicodeLookup } from './unicode'
+import { unicodeLookup } from '../util/unicode'
 
 function escape (token: string): string {
   if (token.includes('}')) {
