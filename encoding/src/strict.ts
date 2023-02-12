@@ -2,6 +2,8 @@ import type { TiTokenInput } from './common'
 
 const escapeChar = '&'
 
+const printableASCIIRegex = /^[\x20-\x7E]+$/
+
 const transformTokenLookup = new Map([
   ['COMMA', ','],
   ['NEWLINE', 'newline'],
@@ -35,6 +37,12 @@ export function createStricts (input: readonly TiTokenInput[]): Map<TiTokenInput
 
   for (const [record, token] of transformed) {
     const strict = createStrict(record.hex, token, stricts)
+
+    if (!checkAscii(strict)) {
+      // throw new Error(`Strict mode isn't fully ascii! ${record.hex} ${strict}`)
+      console.error(`Strict mode isn't fully ascii! ${record.hex} ${strict}`)
+    }
+
     stricts.add(strict)
     result.set(record, strict)
   }
@@ -108,4 +116,8 @@ function prefixIn (test: string, existing: ReadonlySet<string>): boolean {
     }
   }
   return false
+}
+
+function checkAscii (test: string) {
+  return printableASCIIRegex.test(test)
 }
