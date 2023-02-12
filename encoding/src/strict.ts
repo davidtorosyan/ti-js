@@ -9,11 +9,19 @@ const transformTokenLookup = new Map([
 ])
 
 const strictHexLookup = new Map([
-  ['0x003B', escapeChar + 'E'],
+  ['0x002C', escapeChar + 'ii'],
+  ['0xBB31', escapeChar + 'ee'],
+  ['0x003B', escapeChar + 'EE'],
+  ['0x5E80', escapeChar + 'uu'],
+  ['0x5E81', escapeChar + 'vv'],
+  ['0x5E82', escapeChar + 'ww'],
+  ['0x00B0', escapeChar + '--'],
+  ['0xBB9E', escapeChar + '!!'],
+  ['0xBBAF', escapeChar + 'FF'],
 ])
 
 const statsRange = [
-  '0x6000',
+  '0x6200',
   '0x623C',
 ]
 

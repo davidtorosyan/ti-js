@@ -64,7 +64,7 @@ const numberedLookup = new Map([
 ])
 
 const statsRange = [
-  '0x6000',
+  '0x6200',
   '0x623C',
 ]
 
