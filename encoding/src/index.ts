@@ -29,6 +29,7 @@ function transform (input: TiTokenInput[]): TiTokenOutput[] {
       name: names.get(record)!,
       strict,
       utf8: createUtf8(record, strict),
+      composite: undefined,
     })
   }
 

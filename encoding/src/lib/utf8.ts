@@ -113,7 +113,6 @@ export function createUtf8 (record: TiTokenInput, _strict: string): string | und
       utf8 = utf8.replace(key, value)
     }
     if (utf8 !== token) {
-      console.log(`found ${utf8} from ${token}`)
       return utf8
     }
   }
