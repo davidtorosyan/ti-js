@@ -1,3 +1,4 @@
+import { inRanges } from '../util/hex'
 import type { TiTokenInput } from './common'
 
 const excludeTokens = [
@@ -45,6 +46,9 @@ const utf8HexLookup = new Map([
   ['0xBBCB', 'σ'],
   ['0xBBCC', 'ᵀ'],
   ['0xBBD4', '&'],
+  ['0xBBDB', '…'],
+  ['0xBBDC', '∠'],
+  ['0xBBDD', 'ß'],
   ['0xBBDE', 'ₓ'],
   ['0xBBDF', '┬'],
   ['0xBBF0', '∫'],
@@ -118,15 +122,6 @@ export function createUtf8 (record: TiTokenInput): string | undefined {
   }
 
   return undefined
-}
-
-function inRanges (hex: string, ranges: [string, string][]): boolean {
-  for (const range of ranges) {
-    if (hex >= range[0]! && hex <= range[1]!) {
-      return true
-    }
-  }
-  return false
 }
 
 function replaceSubscripts (token: string): string {
