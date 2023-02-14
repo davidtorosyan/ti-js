@@ -49,8 +49,6 @@ const simpleTokens = [
 // partial
 // 10^(
 // re^thetai
-
-// partial
 // X^2cdf(
 // X^2pdf(
 // X^2-Test(
@@ -58,6 +56,7 @@ const simpleTokens = [
 
 // special
 // e^(
+// >>
 
 const subscriptRanges: [string, string][] = [
   ['0x5D00', '0x5E45'],
