@@ -1,4 +1,8 @@
 
+export const ARROW = '0xFF00'
+
+export const ARROW_STRICT = '&{arrow}'
+
 export function inRanges (hex: string, ranges: [string, string][]): boolean {
   for (const range of ranges) {
     const low = range[0]

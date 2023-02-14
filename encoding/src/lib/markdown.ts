@@ -1,6 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { stringify } from 'csv-stringify/sync'
+import { ARROW, ARROW_STRICT } from '../util/hex'
 import type { TiTokenOutput } from './common'
 
 export interface MarkdownOutput {
@@ -37,6 +38,7 @@ export function writeMarkdown (output: TiTokenOutput[]): void {
 
 function transformOutputs (outputs: TiTokenOutput[]): MarkdownOutput[] {
   const strictMap = new Map(outputs.map(output => [output.hex, output.strict]))
+  strictMap.set(ARROW, ARROW_STRICT)
   return outputs.map(output => transformOutput(output, strictMap))
 }
 

@@ -1,4 +1,4 @@
-import { inRanges } from '../util/hex'
+import { ARROW, inRanges } from '../util/hex'
 import type { TiTokenInput } from './common'
 
 const alphaRanges: [string, string][] = [
@@ -51,10 +51,13 @@ const replacementLookup: [string, string][] = [
   ['theta', '0x005B'],
   ['10', '0xBBEA'],
   ['e^', '0xBB310x00F0'],
+  ['>', ARROW],
 ]
 
-// special
-// >>
+const noReplaceHex = [
+  '0x00DA',
+  '0x00DB',
+]
 
 const subscriptRanges: [string, string][] = [
   ['0x5D00', '0x5E45'],
@@ -146,6 +149,7 @@ function createComposite (hex: string, token: string, tokenMap: Map<string, stri
   }
 
   const needsSubscript = inRanges(hex, subscriptRanges)
+  const noReplace = noReplaceHex.includes(hex)
 
   let result = ''
   for (let i = 0; i < token.length; i++) {
@@ -157,7 +161,7 @@ function createComposite (hex: string, token: string, tokenMap: Map<string, stri
       if (subscript) {
         mapped = subscript
       }
-    } else {
+    } else if (!noReplace) {
       for (const [key, value] of replacementLookup) {
         if (token.substring(i).startsWith(key)) {
           mapped = value
