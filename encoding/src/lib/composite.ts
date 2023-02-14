@@ -48,10 +48,9 @@ const simpleTokens = [
 
 // partial
 // 10^(
-// L, Y, etc...
 // re^thetai
 
-// partial + needs utf8
+// partial
 // X^2cdf(
 // X^2pdf(
 // X^2-Test(
@@ -59,6 +58,25 @@ const simpleTokens = [
 
 // special
 // e^(
+
+const subscriptRanges: [string, string][] = [
+  ['0x5D00', '0x5E45'],
+  ['0xBBDE', '0xBBEA'],
+]
+
+const subscriptMap = new Map([
+  ['0', '0xBBE0'],
+  ['1', '0xBBE1'],
+  ['2', '0xBBE2'],
+  ['3', '0xBBE3'],
+  ['4', '0xBBE4'],
+  ['5', '0xBBE5'],
+  ['6', '0xBBE6'],
+  ['7', '0xBBE7'],
+  ['8', '0xBBE8'],
+  ['9', '0xBBE9'],
+  ['T', '0xBBDF'],
+])
 
 const statsRanges: [string, string][] = [
   ['0x6200', '0x623C'],
@@ -130,9 +148,20 @@ function createComposite (hex: string, token: string, tokenMap: Map<string, stri
     return undefined
   }
 
+  const needsSubscript = inRanges(hex, subscriptRanges)
+
   let result = ''
   for (const char of token) {
-    result += tokenMap.get(char)
+    let mapped = tokenMap.get(char)
+
+    if (needsSubscript) {
+      const subscript = subscriptMap.get(char)
+      if (subscript) {
+        mapped = subscript
+      }
+    }
+
+    result += mapped
   }
 
   return result
