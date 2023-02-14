@@ -46,16 +46,14 @@ const simpleTokens = [
   'smallT1',
 ]
 
-// partial
-// 10^(
-// re^thetai
-// X^2cdf(
-// X^2pdf(
-// X^2-Test(
-// X^2GOF-Test(
+const replacementLookup: [string, string][] = [
+  ['^2', '0x000D'],
+  ['theta', '0x005B'],
+  ['10', '0xBBEA'],
+  ['e^', '0xBB310x00F0'],
+]
 
 // special
-// e^(
 // >>
 
 const subscriptRanges: [string, string][] = [
@@ -150,13 +148,22 @@ function createComposite (hex: string, token: string, tokenMap: Map<string, stri
   const needsSubscript = inRanges(hex, subscriptRanges)
 
   let result = ''
-  for (const char of token) {
+  for (let i = 0; i < token.length; i++) {
+    const char = token[i]!
     let mapped = tokenMap.get(char)
 
     if (needsSubscript) {
       const subscript = subscriptMap.get(char)
       if (subscript) {
         mapped = subscript
+      }
+    } else {
+      for (const [key, value] of replacementLookup) {
+        if (token.substring(i).startsWith(key)) {
+          mapped = value
+          i += key.length - 1
+          break
+        }
       }
     }
 
