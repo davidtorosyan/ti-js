@@ -8,7 +8,7 @@ const alphaRanges: [string, string][] = [
 
 const simpleHexRanges: [string, string][] = [
   ['0xBB9F', '0xBBAE'], // greek
-  ['0xBBCB', ''], // sigma
+  ['0xBBCB', '0xBBCB'], // sigma
   ['0xBBDB', '0xBBF4'], // special
 ]
 

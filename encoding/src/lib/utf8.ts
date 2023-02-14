@@ -86,6 +86,7 @@ const subscriptMap = new Map([
 const replacements = new Map([
   ['>', '⏵'],
   ['theta', 'θ'],
+  ['X^2', 'X²'],
 ])
 
 export function createUtf8 (record: TiTokenInput): string | undefined {
