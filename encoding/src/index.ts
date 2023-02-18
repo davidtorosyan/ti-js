@@ -13,16 +13,15 @@ import type { TiTokenInput, TiTokenOutput } from './lib/common'
 
 function main (): void {
   const input = readInput()
-  const output = transform(input)
+  const glyphs = readGlyphs()
+  const output = transform(input, glyphs)
   writeOutput(output)
 
-  const glyphs = readGlyphs()
   const sprites = drawSprites(output, glyphs)
-
   writeMarkdown(output, sprites)
 }
 
-function transform (input: TiTokenInput[]): TiTokenOutput[] {
+function transform (input: TiTokenInput[], glpyhs: Map<string, string>): TiTokenOutput[] {
   const output: TiTokenOutput[] = []
 
   const names = createNames(input)
@@ -40,6 +39,7 @@ function transform (input: TiTokenInput[]): TiTokenOutput[] {
       utf8: createUtf8(record),
       composite,
       length,
+      glyph: glpyhs.get(record.hex),
     })
   }
 

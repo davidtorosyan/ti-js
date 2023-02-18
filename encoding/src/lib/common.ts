@@ -10,6 +10,7 @@ export interface TiTokenOutput {
     utf8: string | undefined
     composite: string | undefined
     length: number
+    glyph: string | undefined
 }
 
 export interface TiSprite {
