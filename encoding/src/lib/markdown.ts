@@ -90,6 +90,6 @@ function prepareMarkdown (input: string, context: CastingContext): string {
 }
 
 function formatSprite (hex: string, sprite: TiSprite): string {
-  const url = `../dist/sprites/token_${hex}.png`
+  const url = `./sprites/token_${hex}.png`
   return `<img src="${url}" alt="${hex}" width="${sprite.width}px" height="${sprite.height}px">`
 }
