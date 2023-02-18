@@ -12,6 +12,5 @@ export function write (name: string, data: string | Buffer): void {
   if (!fs.existsSync(outDir)) {
     fs.mkdirSync(outDir)
   }
-  const encoding = data instanceof String ? 'utf-8' : 'binary'
-  fs.writeFileSync(outputPath, data, { encoding })
+  fs.writeFileSync(outputPath, data, { encoding: 'utf-8' })
 }
