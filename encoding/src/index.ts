@@ -18,7 +18,7 @@ function main (): void {
   writeMarkdown(output)
 
   const glyphs = readGlyphs()
-  drawSprites(glyphs.get('0x0041'))
+  drawSprites(output, glyphs)
 }
 
 function transform (input: TiTokenInput[]): TiTokenOutput[] {
