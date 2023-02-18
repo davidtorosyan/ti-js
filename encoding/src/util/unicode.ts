@@ -1,5 +1,4 @@
-import * as fs from 'fs'
-import * as path from 'path'
+import { read } from '../util/file'
 import { parse } from 'csv-parse/sync'
 
 interface Unicode {
@@ -8,8 +7,7 @@ interface Unicode {
   }
 
 function readUnicode (): Unicode[] {
-  const inputFilePath = path.resolve(__dirname, '../../data/unicode.csv')
-  const fileContent = fs.readFileSync(inputFilePath, { encoding: 'utf-8' })
+  const fileContent = read('unicode.csv')
   const records: Unicode[] = parse(fileContent, {
     delimiter: ';',
     columns: ['hex', 'name'],

@@ -1,5 +1,3 @@
-import * as fs from 'fs'
-import * as path from 'path'
 import { parse } from 'csv-parse/sync'
 import { stringify } from 'csv-stringify/sync'
 
@@ -10,6 +8,7 @@ import { createUtf8 } from './lib/utf8'
 import { writeMarkdown } from './lib/markdown'
 import { readGlyphs } from './lib/pixels'
 import { drawTest } from './lib/draw'
+import { read, write } from './util/file'
 import type { TiTokenInput, TiTokenOutput } from './lib/common'
 
 function main (): void {
@@ -43,8 +42,7 @@ function transform (input: TiTokenInput[]): TiTokenOutput[] {
 }
 
 function readInput (): TiTokenInput[] {
-  const inputFilePath = path.resolve(__dirname, '../data/input.csv')
-  const fileContent = fs.readFileSync(inputFilePath, { encoding: 'utf-8' })
+  const fileContent = read('input.csv')
   const records: TiTokenInput[] = parse(fileContent, {
     delimiter: ',',
     columns: ['hex', 'token'],
@@ -55,16 +53,11 @@ function readInput (): TiTokenInput[] {
 }
 
 function writeOutput (output: TiTokenOutput[]): void {
-  const outputFilePath = path.resolve(__dirname, '../dist/output.csv')
-  const outDir = path.dirname(outputFilePath)
   const result = stringify(output, {
     delimiter: ',',
     header: true,
   })
-  if (!fs.existsSync(outDir)) {
-    fs.mkdirSync(outDir)
-  }
-  fs.writeFileSync(outputFilePath, result, { encoding: 'utf-8' })
+  write('output.csv', result)
 }
 
 main()

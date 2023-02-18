@@ -1,5 +1,4 @@
-import * as fs from 'fs'
-import * as path from 'path'
+import { write } from '../util/file'
 import { stringify } from 'csv-stringify/sync'
 import { ARROW, ARROW_STRICT } from '../util/hex'
 import { chunkString } from '../util/text'
@@ -14,8 +13,6 @@ export interface MarkdownOutput {
 }
 
 export function writeMarkdown (output: TiTokenOutput[]): void {
-  const outputFilePath = path.resolve(__dirname, '../../dist/ENCODING.md')
-  const outDir = path.dirname(outputFilePath)
   const markdownOutputs = transformOutputs(output)
   const result = stringify(markdownOutputs, {
     delimiter: ' | ',
@@ -31,10 +28,7 @@ export function writeMarkdown (output: TiTokenOutput[]): void {
   const divider = header.replace(/`[^`]+`/g, '-')
   const markdown = header + '\n' + divider + '\n' + result.substring(index + 1)
 
-  if (!fs.existsSync(outDir)) {
-    fs.mkdirSync(outDir)
-  }
-  fs.writeFileSync(outputFilePath, markdown, { encoding: 'utf-8' })
+  write('ENCODING.md', markdown)
 }
 
 function transformOutputs (outputs: TiTokenOutput[]): MarkdownOutput[] {

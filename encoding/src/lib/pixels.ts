@@ -1,5 +1,4 @@
-import * as fs from 'fs'
-import * as path from 'path'
+import { read } from '../util/file'
 import { isHex } from '../util/hex'
 import { encodeBits } from '../util/bits'
 
@@ -67,8 +66,7 @@ function encode (glyphs: string[]): boolean[] {
 }
 
 function readFile (): [string, string[]][] {
-  const inputFilePath = path.resolve(__dirname, '../../data/glyphs.txt')
-  const fileContent = fs.readFileSync(inputFilePath, { encoding: 'utf-8' })
+  const fileContent = read('glyphs.txt')
 
   const results: [string, string[]][] = []
 
