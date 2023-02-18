@@ -22,6 +22,7 @@ const forbiddenHex = [
 ]
 
 const simpleTokens = [
+  'null',
   '->',
   'rad',
   'deg',
