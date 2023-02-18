@@ -6,15 +6,23 @@ const FILLED_PIXEL = '🟦'
 
 const BASE = 'http://tibasicdev.wdfiles.com/local--files/83lgfont/'
 
+const skipList = [
+  'D6h_Lenter.png',
+]
+
 function main (): void {
-  mainAsync().catch(error => { throw new Error(error) })
+  mainAsync().catch(error => { console.error(error.message) })
 }
 
 async function mainAsync (): Promise<void> {
-  const input = read('web.txt').split('\n')
+  const input = read('web.txt').split('\n').map(line => line.trim())
 
   const result: string[] = []
   for (const path of input) {
+    if (skipList.includes(path)) {
+      continue
+    }
+
     const url = BASE + path
     const bits = await getBits(url)
     const glyph = getGlyph(bits)
