@@ -8,7 +8,9 @@
         "lint:fix": "eslint . --fix",
         "lint:prod": "eslint . --max-warnings 0",
         "start": "ts-node src/index.ts",
-        "dev": "ts-node --project tsconfig-dev.json src/index.ts"
+        "dev": "ts-node --project tsconfig-dev.json src/index.ts",
+        "web": "ts-node src/web.ts",
+        "webdev": "ts-node --project tsconfig-dev.json src/web.ts"
     },
     "repository": {
         "type": "git",

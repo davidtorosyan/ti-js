@@ -1,4 +1,3 @@
-http://tibasicdev.wdfiles.com/local--files/83lgfont/
 01h_LrecurN.png
 02h_LrecurU.png
 03h_LrecurV.png
