@@ -10,7 +10,8 @@
         "start": "ts-node src/index.ts",
         "dev": "ts-node --project tsconfig-dev.json src/index.ts",
         "web": "ts-node src/web.ts",
-        "webdev": "ts-node --project tsconfig-dev.json src/web.ts"
+        "webdev": "ts-node --project tsconfig-dev.json src/web.ts",
+        "pub": "copyfiles --flat ./dist/ENCODING.md ./dist/draw.png ./out"
     },
     "repository": {
         "type": "git",
@@ -42,6 +43,7 @@
     "dependencies": {
         "buffer": "^6.0.3",
         "canvas": "^2.11.0",
+        "copyfiles": "^2.4.1",
         "csv-parse": "^5.0.3",
         "csv-stringify": "^6.2.3"
     }
