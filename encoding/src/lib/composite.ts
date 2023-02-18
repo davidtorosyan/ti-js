@@ -1,4 +1,4 @@
-import { ARROW, inRanges } from '../util/hex'
+import { inRanges, ARROW, CUBER, SUPERX } from '../util/hex'
 import type { TiTokenInput } from './common'
 
 const alphaRanges: [string, string][] = [
@@ -41,9 +41,7 @@ const simpleTokens = [
   'dot',
   'pi',
   'squareroot(',
-  'cuberoot(',
   'list',
-  'root',
   'smallT1',
 ]
 
@@ -53,6 +51,9 @@ const replacementLookup: [string, string][] = [
   ['10', '0xBBEA'],
   ['e^', '0xBB310x00F0'],
   ['>', ARROW],
+  ['root', '0xBBF3'],
+  ['cube', CUBER],
+  ['xth', SUPERX],
 ]
 
 const noReplaceHex = [

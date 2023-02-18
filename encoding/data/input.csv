@@ -175,7 +175,7 @@ hex,token
 0x00B8,not(
 0x00B9,iPart(
 0x00BA,fPart(
-0x00BC,squareroot(
+0x00BC,root(
 0x00BD,cuberoot(
 0x00BE,ln(
 0x00BF,e^(
@@ -227,7 +227,7 @@ hex,token
 0x00ED,Plot2(
 0x00EE,Plot3(
 0x00F0,^
-0x00F1,root
+0x00F1,xthroot
 0x00F2,1-VarStats 
 0x00F3,2-VarStats 
 0x00F4,LinReg(a+bx) 
@@ -629,7 +629,7 @@ hex,token
 0xBBF0,integral
 0xBBF1,uparrow
 0xBBF2,downarrow
-0xBBF3,squareroot
+0xBBF3,root
 0xBBF4,highlightedequals
 0xEF00,setDate(
 0xEF01,setTime(

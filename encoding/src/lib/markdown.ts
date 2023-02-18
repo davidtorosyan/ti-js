@@ -1,6 +1,6 @@
 import { write } from '../util/file'
 import { stringify } from 'csv-stringify/sync'
-import { ARROW, ARROW_STRICT } from '../util/hex'
+import { strictMapExtra } from '../util/hex'
 import { chunkString } from '../util/text'
 import type { TiTokenOutput } from './common'
 
@@ -33,7 +33,9 @@ export function writeMarkdown (output: TiTokenOutput[]): void {
 
 function transformOutputs (outputs: TiTokenOutput[]): MarkdownOutput[] {
   const strictMap = new Map(outputs.map(output => [output.hex, output.strict]))
-  strictMap.set(ARROW, ARROW_STRICT)
+
+  strictMapExtra.forEach((value, key) => strictMap.set(key, value))
+
   return outputs.map(output => transformOutput(output, strictMap))
 }
 
@@ -41,7 +43,13 @@ function transformOutput (output: TiTokenOutput, strictMap: Map<string, string>)
   let composite
   if (output.composite) {
     const chunked = chunkString(output.composite, output.hex.length)
-    composite = chunked.map(hex => strictMap.get(hex)).join('')
+    composite = chunked.map(hex => {
+      const mapped = strictMap.get(hex)
+      if (mapped === undefined) {
+        throw new Error(`Missing strict map for ${hex} while trying to composite ${output.hex}`)
+      }
+      return mapped
+    }).join('')
   }
 
   return {

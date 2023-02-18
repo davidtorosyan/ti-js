@@ -1,9 +1,17 @@
 
 export const ARROW = '0xFF00'
 
-export const ARROW_STRICT = '&{arrow}'
-
 export const UNKNOWN = '0xFF01'
+
+export const CUBER = '0xFF02'
+
+export const SUPERX = '0xFF03'
+
+export const strictMapExtra = new Map([
+  [ARROW, '&{arrow}'],
+  [CUBER, '&{3}'],
+  [SUPERX, '&{x}'],
+])
 
 const hexPattern = /^0x[0-9a-fA-F]{4}$/
 

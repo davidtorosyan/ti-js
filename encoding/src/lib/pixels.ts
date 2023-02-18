@@ -98,6 +98,8 @@ function readFile (): [string, string[]][] {
     }
   }
 
+  flush()
+
   return results
 }
 

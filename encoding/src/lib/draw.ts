@@ -55,6 +55,8 @@ function drawToken (token: TiTokenOutput, glyphMap: ReadonlyMap<string, Canvas>)
       throw new Error(`Missing glyph for hex: ${token.hex}`)
     }
     return glyph
+  } else if (glyphMap.has(token.hex)) {
+    throw new Error(`Unexpected glyph for hex, is composite: ${token.hex}`)
   }
 
   const chunked = chunkString(token.composite, token.hex.length)
