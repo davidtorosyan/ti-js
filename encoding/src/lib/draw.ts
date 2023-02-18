@@ -6,8 +6,8 @@ import { chunkString } from '../util/text'
 import type { Canvas } from 'canvas'
 import type { TiTokenOutput } from './common'
 
-const PIXEL_WIDTH = 1
-const PIXEL_HEIGHT = 1
+const PIXEL_WIDTH = 5
+const PIXEL_HEIGHT = 5
 
 const WIDTH = 5
 const HEIGHT = 7
