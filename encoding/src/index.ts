@@ -29,12 +29,16 @@ function transform (input: TiTokenInput[]): TiTokenOutput[] {
   const composites = createComposites(input)
 
   for (const record of input) {
+    const composite = composites.get(record)
+    const length = composite === undefined ? 1 : composite.length / record.hex.length
+
     output.push({
       hex: record.hex,
       name: names.get(record)!,
       strict: stricts.get(record)!,
       utf8: createUtf8(record),
-      composite: composites.get(record),
+      composite,
+      length,
     })
   }
 
