@@ -7,7 +7,7 @@ import { createComposites } from './lib/composite'
 import { createUtf8 } from './lib/utf8'
 import { writeMarkdown } from './lib/markdown'
 import { readGlyphs } from './lib/pixels'
-import { drawTest } from './lib/draw'
+import { drawSprites } from './lib/draw'
 import { read, write } from './util/file'
 import type { TiTokenInput, TiTokenOutput } from './lib/common'
 
@@ -18,7 +18,7 @@ function main (): void {
   writeMarkdown(output)
 
   const glyphs = readGlyphs()
-  drawTest()
+  drawSprites(glyphs.get('0x0041'))
 }
 
 function transform (input: TiTokenInput[]): TiTokenOutput[] {
