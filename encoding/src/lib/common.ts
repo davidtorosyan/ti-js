@@ -11,3 +11,10 @@ export interface TiTokenOutput {
     composite: string | undefined
     length: number
 }
+
+export interface TiSprite {
+  width: number
+  height: number
+  x: number
+  y: number
+}

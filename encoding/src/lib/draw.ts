@@ -4,7 +4,7 @@ import { decodeBits } from '../util/bits'
 import { UNKNOWN } from '../util/hex'
 import { chunkString } from '../util/text'
 import type { Canvas } from 'canvas'
-import type { TiTokenOutput } from './common'
+import type { TiTokenOutput, TiSprite } from './common'
 
 const PIXEL_WIDTH = 5
 const PIXEL_HEIGHT = 5
@@ -21,9 +21,9 @@ const GLYPH_HEIGHT = HEIGHT * PIXEL_HEIGHT
 const MARGIN_WIDTH = MARGIN_HORIZ * PIXEL_WIDTH
 const MARGIN_HEIGHT = MARGIN_VERT * PIXEL_HEIGHT
 
-export function drawSprites (tokens: TiTokenOutput[], glyphs: Map<string, string>): void {
+export function drawSprites (tokens: TiTokenOutput[], glyphs: Map<string, string>): Map<string, TiSprite> {
   const sheetWidth = Math.max(...tokens.map(token => token.length)) * (GLYPH_WIDTH + MARGIN_WIDTH) + MARGIN_WIDTH
-  const sheetHeight = tokens.length * (GLYPH_HEIGHT + MARGIN_HEIGHT)
+  const sheetHeight = tokens.length * (GLYPH_HEIGHT + MARGIN_HEIGHT) + MARGIN_HEIGHT
 
   const canvas = createCanvas(sheetWidth, sheetHeight)
   const ctx = canvas.getContext('2d')
@@ -34,7 +34,7 @@ export function drawSprites (tokens: TiTokenOutput[], glyphs: Map<string, string
   const glyphMap = drawGlyphs(glyphs)
   const tokenMap = drawTokens(tokens, glyphMap)
 
-  ctx.translate(MARGIN_WIDTH, 0)
+  ctx.translate(MARGIN_WIDTH, MARGIN_HEIGHT)
   for (const token of tokenMap.values()) {
     ctx.drawImage(token, 0, 0)
     ctx.translate(0, GLYPH_HEIGHT + MARGIN_HEIGHT)
@@ -42,6 +42,15 @@ export function drawSprites (tokens: TiTokenOutput[], glyphs: Map<string, string
 
   const buf = canvas.toBuffer()
   write('draw.png', buf)
+
+  const result = new Map(tokens.map((token, index) => [token.hex, {
+    width: token.length * (GLYPH_WIDTH + MARGIN_WIDTH) + MARGIN_WIDTH,
+    height: GLYPH_HEIGHT + 2 * MARGIN_HEIGHT,
+    x: 0,
+    y: index * (GLYPH_HEIGHT + MARGIN_HEIGHT),
+  }]))
+
+  return result
 }
 
 function drawTokens (tokens: TiTokenOutput[], glyphMap: ReadonlyMap<string, Canvas>): ReadonlyMap<string, Canvas> {

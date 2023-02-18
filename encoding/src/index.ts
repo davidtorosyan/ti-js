@@ -15,10 +15,11 @@ function main (): void {
   const input = readInput()
   const output = transform(input)
   writeOutput(output)
-  writeMarkdown(output)
 
   const glyphs = readGlyphs()
-  drawSprites(output, glyphs)
+  const sprites = drawSprites(output, glyphs)
+
+  writeMarkdown(output, sprites)
 }
 
 function transform (input: TiTokenInput[]): TiTokenOutput[] {
