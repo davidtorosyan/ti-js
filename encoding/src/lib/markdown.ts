@@ -2,6 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { stringify } from 'csv-stringify/sync'
 import { ARROW, ARROW_STRICT } from '../util/hex'
+import { chunkString } from '../util/text'
 import type { TiTokenOutput } from './common'
 
 export interface MarkdownOutput {
@@ -63,12 +64,4 @@ function prepareMarkdown (input: string): string {
     return '`` ' + input + ' ``'
   }
   return '`' + input.replace(/\|/, '\\|') + '`'
-}
-
-function chunkString (str: string, length: number): string[] {
-  const result = []
-  for (let i = 0; i < str.length; i += length) {
-    result.push(str.slice(i, i + length))
-  }
-  return result
 }

@@ -7,7 +7,8 @@
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "lint:prod": "eslint . --max-warnings 0",
-        "start": "ts-node src/index.ts"
+        "start": "ts-node src/index.ts",
+        "dev": "ts-node --project tsconfig-dev.json src/index.ts"
     },
     "repository": {
         "type": "git",
@@ -37,6 +38,7 @@
         "eslint-plugin-tsdoc": "^0.2.16"
     },
     "dependencies": {
+        "buffer": "^6.0.3",
         "csv-parse": "^5.0.3",
         "csv-stringify": "^6.2.3"
     }

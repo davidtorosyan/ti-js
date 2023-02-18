@@ -1,6 +1,6 @@
 # comment like this
 
-0x00
+0x0000
 ?
 
 0x0041

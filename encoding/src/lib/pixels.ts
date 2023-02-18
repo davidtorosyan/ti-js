@@ -1,6 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { isHex } from '../util/hex'
+import { encodeBits } from '../util/bits'
 
 const COMMENT_MARKER = '#'
 const BLANK_PIXEL = '⬜'
@@ -9,7 +10,7 @@ const FILLED_PIXEL = '🟦'
 const WIDTH = 5
 const HEIGHT = 7
 
-function readGlyphs (): Map<string, string> {
+export function readGlyphs (): Map<string, string> {
   const results = new Map<string, string>()
   const input = readFile()
 
@@ -20,10 +21,13 @@ function readGlyphs (): Map<string, string> {
     if (isUnknownGlyph(glyphs)) {
       results.set(hex, '')
     } else {
-      const encoded = encode(glyphs)
-      if (encoded.length === 0) {
-        throw new Error(`Invalid glyphs for hex: ${hex}`)
+      let bits
+      try {
+        bits = encode(glyphs)
+      } catch (error: any) {
+        throw new Error(`Invalid glyphs for hex: ${hex} with message: ${error.message}`)
       }
+      const encoded = encodeBits(bits)
       results.set(hex, encoded)
     }
   }
@@ -35,42 +39,35 @@ function isUnknownGlyph (glyphs: string[]): boolean {
   return glyphs.length === 1 && glyphs[0] === '?'
 }
 
-function encode (glyphs: string[]): string {
+function encode (glyphs: string[]): boolean[] {
   if (glyphs.length !== HEIGHT) {
-    return ''
+    throw new Error(`Invalid height: ${glyphs.length}`)
   }
 
   const bits: boolean[] = []
 
-  for (const line in glyphs) {
-    if (line.length !== WIDTH) {
-      return ''
+  for (const line of glyphs) {
+    const chars = [...line]
+    if (chars.length !== WIDTH) {
+      throw new Error(`Invalid width: ${chars.length}`)
     }
 
-    for (const char of line) {
+    for (const char of chars) {
       if (char === BLANK_PIXEL) {
         bits.push(false)
       } else if (char === FILLED_PIXEL) {
         bits.push(true)
       } else {
-        return ''
+        throw new Error(`Unexpected character: ${char}`)
       }
     }
   }
 
-  return encodeBits(bits)
-}
-
-function encodeBits (bits: boolean[]): string {
-  return '' // TODO
-}
-
-function _decodeBits (encoded: string): boolean[] {
-  return [] // TODO
+  return bits
 }
 
 function readFile (): [string, string[]][] {
-  const inputFilePath = path.resolve(__dirname, '../data/glyphs.txt')
+  const inputFilePath = path.resolve(__dirname, '../../data/glyphs.txt')
   const fileContent = fs.readFileSync(inputFilePath, { encoding: 'utf-8' })
 
   const results: [string, string[]][] = []
@@ -86,7 +83,7 @@ function readFile (): [string, string[]][] {
     }
   }
 
-  for (const line in fileContent.split('\n')) {
+  for (const line of fileContent.split('\n')) {
     const trimmed = trimComments(line)
     if (trimmed.length === 0) {
       if (glyphs.length > 0) {
@@ -99,7 +96,7 @@ function readFile (): [string, string[]][] {
       if (!hex) {
         throw new Error(`Unexpected line while parsing glyphs.txt: ${line}`)
       }
-      glyphs.push(line)
+      glyphs.push(trimmed)
     }
   }
 

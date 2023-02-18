@@ -3,7 +3,7 @@ export const ARROW = '0xFF00'
 
 export const ARROW_STRICT = '&{arrow}'
 
-const hexPattern = /^0x[0-9a-fA-F]/
+const hexPattern = /^0x[0-9a-fA-F]{4}$/
 
 export function inRanges (hex: string, ranges: [string, string][]): boolean {
   for (const range of ranges) {
