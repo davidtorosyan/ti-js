@@ -41,7 +41,7 @@ export function drawSprites (tokens: TiTokenOutput[], glyphs: Map<string, string
   }
 
   const buf = canvas.toBuffer()
-  write('draw.png', buf)
+  write('sprites.png', buf)
 
   const result = new Map(tokens.map((token, index) => [token.hex, {
     width: token.length * (GLYPH_WIDTH + MARGIN_WIDTH) + MARGIN_WIDTH,
@@ -82,6 +82,9 @@ function drawToken (token: TiTokenOutput, glyphMap: ReadonlyMap<string, Canvas>)
     ctx.drawImage(glyph, 0, 0)
     ctx.translate(GLYPH_WIDTH + MARGIN_WIDTH, 0)
   }
+
+  const buf = canvas.toBuffer()
+  write(`sprites/token_${token.hex}.png`, buf)
 
   return canvas
 }

@@ -11,7 +11,9 @@
         "dev": "ts-node --project tsconfig-dev.json src/index.ts",
         "web": "ts-node src/web.ts",
         "webdev": "ts-node --project tsconfig-dev.json src/web.ts",
-        "pub": "copyfiles --flat ./dist/ENCODING.md ./dist/draw.png ./out"
+        "pub:sprites": "copyfiles --flat ./dist/sprites/* ./out/sprites",
+        "pub:table": "copyfiles --flat ./dist/ENCODING.md ./dist/sprites.png ./out",
+        "pub": "npm run pub:sprites && npm run pub:table"
     },
     "repository": {
         "type": "git",

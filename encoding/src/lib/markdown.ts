@@ -3,6 +3,7 @@ import { stringify } from 'csv-stringify/sync'
 import { strictMapExtra } from '../util/hex'
 import { chunkString } from '../util/text'
 import type { TiTokenOutput, TiSprite } from './common'
+import type { CastingContext } from 'csv-stringify/sync'
 
 export interface MarkdownOutput {
     hex: string
@@ -26,7 +27,7 @@ export function writeMarkdown (output: TiTokenOutput[], sprites: Map<string, TiS
 
   const index = result.indexOf('\n')
   const header = '| ' + result.substring(0, index) + ' |'
-  const divider = header.replace(/`[^`]+`/g, '-')
+  const divider = header.replace(/\s\S+\s/g, ' - ')
   const markdown = header + '\n' + divider + '\n' + result.substring(index + 1)
 
   write('ENCODING.md', markdown)
@@ -43,7 +44,7 @@ function transformOutputs (outputs: TiTokenOutput[], sprites: Map<string, TiSpri
 function transformOutput (
   output: TiTokenOutput,
   strictMap: Map<string, string>,
-  sprites: Map<string, TiSprite>,
+  _sprites: Map<string, TiSprite>,
 ): MarkdownOutput {
   const hex = output.hex
 
@@ -59,13 +60,7 @@ function transformOutput (
     }).join('')
   }
 
-  let sprite = ''
-  const spriteLookup = sprites.get(hex)
-  if (spriteLookup !== undefined) {
-    sprite = formatSprite(spriteLookup)
-  } else {
-    // throw new Error(`Missing sprite for hex: ${hex}`)
-  }
+  const sprite = formatImage(hex)
 
   return {
     hex,
@@ -77,8 +72,11 @@ function transformOutput (
   }
 }
 
-function prepareMarkdown (input: string): string {
-  if (input.startsWith('<img')) {
+function prepareMarkdown (input: string, context: CastingContext): string {
+  if (context.header) {
+    return input
+  }
+  if (context.column === 'sprite') {
     return input
   }
   if (input.includes('`')) {
@@ -87,12 +85,7 @@ function prepareMarkdown (input: string): string {
   return '`' + input.replace(/\|/, '\\|') + '`'
 }
 
-function formatSprite (sprite: TiSprite): string {
-  const url = '../dist/draw.png'
-  const style = [
-    `width: ${sprite.width}px;`,
-    `height: ${sprite.height}px;`,
-    `background: url(${url}) -${sprite.x}px -${sprite.y}px;`,
-  ].join('; ')
-  return `<img width="1" height="1" style="${style}" src="">`
+function formatImage (hex: string): string {
+  const url = `../dist/sprites/token_${hex}.png`
+  return `[${hex}](${url})`
 }
