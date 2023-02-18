@@ -52,8 +52,7 @@ function drawToken (token: TiTokenOutput, glyphMap: ReadonlyMap<string, Canvas>)
   if (token.composite === undefined) {
     const glyph = glyphMap.get(token.hex)
     if (glyph === undefined) {
-      return glyphMap.get(UNKNOWN)!
-      // throw new Error(`Missing glyph for hex: ${token.hex}`)
+      throw new Error(`Missing glyph for hex: ${token.hex}`)
     }
     return glyph
   }
@@ -65,10 +64,9 @@ function drawToken (token: TiTokenOutput, glyphMap: ReadonlyMap<string, Canvas>)
   const ctx = canvas.getContext('2d')
 
   for (const hex of chunked) {
-    let glyph = glyphMap.get(hex)
+    const glyph = glyphMap.get(hex)
     if (glyph === undefined) {
-      glyph = glyphMap.get(UNKNOWN)!
-      // throw new Error(`Missing glyph for hex: ${hex} while trying to render: ${token.hex}`)
+      throw new Error(`Missing glyph for hex: ${hex} while trying to render: ${token.hex}`)
     }
     ctx.drawImage(glyph, 0, 0)
     ctx.translate(GLYPH_WIDTH + MARGIN_WIDTH, 0)
