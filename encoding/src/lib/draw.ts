@@ -63,6 +63,8 @@ function drawToken (token: TiTokenOutput, glyphMap: ReadonlyMap<string, Canvas>)
     if (glyph === undefined) {
       throw new Error(`Missing glyph for hex: ${token.hex}`)
     }
+    const buf = glyph.toBuffer()
+    write(`sprites/token_${token.hex}.png`, buf)
     return glyph
   } else if (glyphMap.has(token.hex)) {
     throw new Error(`Unexpected glyph for hex, is composite: ${token.hex}`)

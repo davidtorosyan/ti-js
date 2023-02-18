@@ -44,7 +44,7 @@ function transformOutputs (outputs: TiTokenOutput[], sprites: Map<string, TiSpri
 function transformOutput (
   output: TiTokenOutput,
   strictMap: Map<string, string>,
-  _sprites: Map<string, TiSprite>,
+  sprites: Map<string, TiSprite>,
 ): MarkdownOutput {
   const hex = output.hex
 
@@ -60,7 +60,11 @@ function transformOutput (
     }).join('')
   }
 
-  const sprite = formatImage(hex)
+  const spriteInfo = sprites.get(hex)
+  if (spriteInfo === undefined) {
+    throw new Error(`Missing sprite info for hex: ${hex}`)
+  }
+  const sprite = formatSprite(hex, spriteInfo)
 
   return {
     hex,
@@ -85,7 +89,7 @@ function prepareMarkdown (input: string, context: CastingContext): string {
   return '`' + input.replace(/\|/, '\\|') + '`'
 }
 
-function formatImage (hex: string): string {
+function formatSprite (hex: string, sprite: TiSprite): string {
   const url = `../dist/sprites/token_${hex}.png`
-  return `[${hex}](${url})`
+  return `<img src="${url}" alt="${hex}" width="${sprite.width}px" height="${sprite.height}px">`
 }
