@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { isHex } from '../util/hex'
-import { encodeBits } from '../util/bits'
+import { encodeBits, decodeBits } from '../util/bits'
 
 const COMMENT_MARKER = '#'
 const BLANK_PIXEL = '⬜'
