@@ -64,32 +64,32 @@
 `0x003E` | `COLON` | `:` |  |  | <img src="./sprites/token_0x003E.png" alt="0x003E" width="35px" height="55px">
 `0x003F` | `NEWLINE` | `&{newline}` |  |  | <img src="./sprites/token_0x003F.png" alt="0x003F" width="35px" height="55px">
 `0x0040` | `AND` | `&{ and }` |  | ` and ` | <img src="./sprites/token_0x0040.png" alt="0x0040" width="155px" height="55px">
-`0x0041` | `LATIN_CAPITAL_LETTER_A` | `A` |  |  | <img src="./sprites/token_0x0041.png" alt="0x0041" width="35px" height="55px">
-`0x0042` | `LATIN_CAPITAL_LETTER_B` | `B` |  |  | <img src="./sprites/token_0x0042.png" alt="0x0042" width="35px" height="55px">
-`0x0043` | `LATIN_CAPITAL_LETTER_C` | `C` |  |  | <img src="./sprites/token_0x0043.png" alt="0x0043" width="35px" height="55px">
-`0x0044` | `LATIN_CAPITAL_LETTER_D` | `D` |  |  | <img src="./sprites/token_0x0044.png" alt="0x0044" width="35px" height="55px">
-`0x0045` | `LATIN_CAPITAL_LETTER_E` | `E` |  |  | <img src="./sprites/token_0x0045.png" alt="0x0045" width="35px" height="55px">
-`0x0046` | `LATIN_CAPITAL_LETTER_F` | `F` |  |  | <img src="./sprites/token_0x0046.png" alt="0x0046" width="35px" height="55px">
-`0x0047` | `LATIN_CAPITAL_LETTER_G` | `G` |  |  | <img src="./sprites/token_0x0047.png" alt="0x0047" width="35px" height="55px">
-`0x0048` | `LATIN_CAPITAL_LETTER_H` | `H` |  |  | <img src="./sprites/token_0x0048.png" alt="0x0048" width="35px" height="55px">
-`0x0049` | `LATIN_CAPITAL_LETTER_I` | `I` |  |  | <img src="./sprites/token_0x0049.png" alt="0x0049" width="35px" height="55px">
-`0x004A` | `LATIN_CAPITAL_LETTER_J` | `J` |  |  | <img src="./sprites/token_0x004A.png" alt="0x004A" width="35px" height="55px">
-`0x004B` | `LATIN_CAPITAL_LETTER_K` | `K` |  |  | <img src="./sprites/token_0x004B.png" alt="0x004B" width="35px" height="55px">
-`0x004C` | `LATIN_CAPITAL_LETTER_L` | `L` |  |  | <img src="./sprites/token_0x004C.png" alt="0x004C" width="35px" height="55px">
-`0x004D` | `LATIN_CAPITAL_LETTER_M` | `M` |  |  | <img src="./sprites/token_0x004D.png" alt="0x004D" width="35px" height="55px">
-`0x004E` | `LATIN_CAPITAL_LETTER_N` | `N` |  |  | <img src="./sprites/token_0x004E.png" alt="0x004E" width="35px" height="55px">
-`0x004F` | `LATIN_CAPITAL_LETTER_O` | `O` |  |  | <img src="./sprites/token_0x004F.png" alt="0x004F" width="35px" height="55px">
-`0x0050` | `LATIN_CAPITAL_LETTER_P` | `P` |  |  | <img src="./sprites/token_0x0050.png" alt="0x0050" width="35px" height="55px">
-`0x0051` | `LATIN_CAPITAL_LETTER_Q` | `Q` |  |  | <img src="./sprites/token_0x0051.png" alt="0x0051" width="35px" height="55px">
-`0x0052` | `LATIN_CAPITAL_LETTER_R` | `R` |  |  | <img src="./sprites/token_0x0052.png" alt="0x0052" width="35px" height="55px">
-`0x0053` | `LATIN_CAPITAL_LETTER_S` | `S` |  |  | <img src="./sprites/token_0x0053.png" alt="0x0053" width="35px" height="55px">
-`0x0054` | `LATIN_CAPITAL_LETTER_T` | `T` |  |  | <img src="./sprites/token_0x0054.png" alt="0x0054" width="35px" height="55px">
-`0x0055` | `LATIN_CAPITAL_LETTER_U` | `U` |  |  | <img src="./sprites/token_0x0055.png" alt="0x0055" width="35px" height="55px">
-`0x0056` | `LATIN_CAPITAL_LETTER_V` | `V` |  |  | <img src="./sprites/token_0x0056.png" alt="0x0056" width="35px" height="55px">
-`0x0057` | `LATIN_CAPITAL_LETTER_W` | `W` |  |  | <img src="./sprites/token_0x0057.png" alt="0x0057" width="35px" height="55px">
-`0x0058` | `LATIN_CAPITAL_LETTER_X` | `X` |  |  | <img src="./sprites/token_0x0058.png" alt="0x0058" width="35px" height="55px">
-`0x0059` | `LATIN_CAPITAL_LETTER_Y` | `Y` |  |  | <img src="./sprites/token_0x0059.png" alt="0x0059" width="35px" height="55px">
-`0x005A` | `LATIN_CAPITAL_LETTER_Z` | `Z` |  |  | <img src="./sprites/token_0x005A.png" alt="0x005A" width="35px" height="55px">
+`0x0041` | `CAPITAL_A` | `A` |  |  | <img src="./sprites/token_0x0041.png" alt="0x0041" width="35px" height="55px">
+`0x0042` | `CAPITAL_B` | `B` |  |  | <img src="./sprites/token_0x0042.png" alt="0x0042" width="35px" height="55px">
+`0x0043` | `CAPITAL_C` | `C` |  |  | <img src="./sprites/token_0x0043.png" alt="0x0043" width="35px" height="55px">
+`0x0044` | `CAPITAL_D` | `D` |  |  | <img src="./sprites/token_0x0044.png" alt="0x0044" width="35px" height="55px">
+`0x0045` | `CAPITAL_E` | `E` |  |  | <img src="./sprites/token_0x0045.png" alt="0x0045" width="35px" height="55px">
+`0x0046` | `CAPITAL_F` | `F` |  |  | <img src="./sprites/token_0x0046.png" alt="0x0046" width="35px" height="55px">
+`0x0047` | `CAPITAL_G` | `G` |  |  | <img src="./sprites/token_0x0047.png" alt="0x0047" width="35px" height="55px">
+`0x0048` | `CAPITAL_H` | `H` |  |  | <img src="./sprites/token_0x0048.png" alt="0x0048" width="35px" height="55px">
+`0x0049` | `CAPITAL_I` | `I` |  |  | <img src="./sprites/token_0x0049.png" alt="0x0049" width="35px" height="55px">
+`0x004A` | `CAPITAL_J` | `J` |  |  | <img src="./sprites/token_0x004A.png" alt="0x004A" width="35px" height="55px">
+`0x004B` | `CAPITAL_K` | `K` |  |  | <img src="./sprites/token_0x004B.png" alt="0x004B" width="35px" height="55px">
+`0x004C` | `CAPITAL_L` | `L` |  |  | <img src="./sprites/token_0x004C.png" alt="0x004C" width="35px" height="55px">
+`0x004D` | `CAPITAL_M` | `M` |  |  | <img src="./sprites/token_0x004D.png" alt="0x004D" width="35px" height="55px">
+`0x004E` | `CAPITAL_N` | `N` |  |  | <img src="./sprites/token_0x004E.png" alt="0x004E" width="35px" height="55px">
+`0x004F` | `CAPITAL_O` | `O` |  |  | <img src="./sprites/token_0x004F.png" alt="0x004F" width="35px" height="55px">
+`0x0050` | `CAPITAL_P` | `P` |  |  | <img src="./sprites/token_0x0050.png" alt="0x0050" width="35px" height="55px">
+`0x0051` | `CAPITAL_Q` | `Q` |  |  | <img src="./sprites/token_0x0051.png" alt="0x0051" width="35px" height="55px">
+`0x0052` | `CAPITAL_R` | `R` |  |  | <img src="./sprites/token_0x0052.png" alt="0x0052" width="35px" height="55px">
+`0x0053` | `CAPITAL_S` | `S` |  |  | <img src="./sprites/token_0x0053.png" alt="0x0053" width="35px" height="55px">
+`0x0054` | `CAPITAL_T` | `T` |  |  | <img src="./sprites/token_0x0054.png" alt="0x0054" width="35px" height="55px">
+`0x0055` | `CAPITAL_U` | `U` |  |  | <img src="./sprites/token_0x0055.png" alt="0x0055" width="35px" height="55px">
+`0x0056` | `CAPITAL_V` | `V` |  |  | <img src="./sprites/token_0x0056.png" alt="0x0056" width="35px" height="55px">
+`0x0057` | `CAPITAL_W` | `W` |  |  | <img src="./sprites/token_0x0057.png" alt="0x0057" width="35px" height="55px">
+`0x0058` | `CAPITAL_X` | `X` |  |  | <img src="./sprites/token_0x0058.png" alt="0x0058" width="35px" height="55px">
+`0x0059` | `CAPITAL_Y` | `Y` |  |  | <img src="./sprites/token_0x0059.png" alt="0x0059" width="35px" height="55px">
+`0x005A` | `CAPITAL_Z` | `Z` |  |  | <img src="./sprites/token_0x005A.png" alt="0x005A" width="35px" height="55px">
 `0x005B` | `THETA` | `&{theta}` | `θ` |  | <img src="./sprites/token_0x005B.png" alt="0x005B" width="35px" height="55px">
 `0x005F` | `PRGM` | `&{prgm}` |  | `prgm` | <img src="./sprites/token_0x005F.png" alt="0x005F" width="125px" height="55px">
 `0x0064` | `RADIAN` | `&{Radian}` |  | `Radian` | <img src="./sprites/token_0x0064.png" alt="0x0064" width="185px" height="55px">
@@ -501,49 +501,49 @@
 `0xBB6B` | `ASM_COMP` | `&{AsmComp(}` |  | `AsmComp(` | <img src="./sprites/token_0xBB6B.png" alt="0xBB6B" width="245px" height="55px">
 `0xBB6C` | `ASM_PRGM` | `&{AsmPrgm}` |  | `AsmPrgm` | <img src="./sprites/token_0xBB6C.png" alt="0xBB6C" width="215px" height="55px">
 `0xBB6D` | `COMPILED_ASM` | `&{compiled asm}` |  | `compiled asm` | <img src="./sprites/token_0xBB6D.png" alt="0xBB6D" width="365px" height="55px">
-`0xBB6E` | `LATIN_CAPITAL_LETTER_A_WITH_ACUTE` | `&{A_ACUTE}` | `Á` |  | <img src="./sprites/token_0xBB6E.png" alt="0xBB6E" width="35px" height="55px">
-`0xBB6F` | `LATIN_CAPITAL_LETTER_A_WITH_GRAVE` | `&{A_GRAVE}` | `À` |  | <img src="./sprites/token_0xBB6F.png" alt="0xBB6F" width="35px" height="55px">
-`0xBB70` | `LATIN_CAPITAL_LETTER_A_WITH_CIRCUMFLEX` | `&{A_CIRCUMFLEX}` | `Â` |  | <img src="./sprites/token_0xBB70.png" alt="0xBB70" width="35px" height="55px">
-`0xBB71` | `LATIN_CAPITAL_LETTER_A_WITH_DIAERESIS` | `&{A_DIAERESIS}` | `Ä` |  | <img src="./sprites/token_0xBB71.png" alt="0xBB71" width="35px" height="55px">
-`0xBB72` | `LATIN_SMALL_LETTER_A_WITH_ACUTE` | `&{SMALL_A_ACUTE}` | `á` |  | <img src="./sprites/token_0xBB72.png" alt="0xBB72" width="35px" height="55px">
-`0xBB73` | `LATIN_SMALL_LETTER_A_WITH_GRAVE` | `&{SMALL_A_GRAVE}` | `à` |  | <img src="./sprites/token_0xBB73.png" alt="0xBB73" width="35px" height="55px">
-`0xBB74` | `LATIN_SMALL_LETTER_A_WITH_CIRCUMFLEX` | `&{SMALL_A_CIRCUMFLEX}` | `â` |  | <img src="./sprites/token_0xBB74.png" alt="0xBB74" width="35px" height="55px">
-`0xBB75` | `LATIN_SMALL_LETTER_A_WITH_DIAERESIS` | `&{SMALL_A_DIAERESIS}` | `ä` |  | <img src="./sprites/token_0xBB75.png" alt="0xBB75" width="35px" height="55px">
-`0xBB76` | `LATIN_CAPITAL_LETTER_E_WITH_ACUTE` | `&{E_ACUTE}` | `É` |  | <img src="./sprites/token_0xBB76.png" alt="0xBB76" width="35px" height="55px">
-`0xBB77` | `LATIN_CAPITAL_LETTER_E_WITH_GRAVE` | `&{E_GRAVE}` | `È` |  | <img src="./sprites/token_0xBB77.png" alt="0xBB77" width="35px" height="55px">
-`0xBB78` | `LATIN_CAPITAL_LETTER_E_WITH_CIRCUMFLEX` | `&{E_CIRCUMFLEX}` | `Ê` |  | <img src="./sprites/token_0xBB78.png" alt="0xBB78" width="35px" height="55px">
-`0xBB79` | `LATIN_CAPITAL_LETTER_E_WITH_DIAERESIS` | `&{E_DIAERESIS}` | `Ë` |  | <img src="./sprites/token_0xBB79.png" alt="0xBB79" width="35px" height="55px">
-`0xBB7A` | `LATIN_SMALL_LETTER_E_WITH_ACUTE` | `&{SMALL_E_ACUTE}` | `é` |  | <img src="./sprites/token_0xBB7A.png" alt="0xBB7A" width="35px" height="55px">
-`0xBB7B` | `LATIN_SMALL_LETTER_E_WITH_GRAVE` | `&{SMALL_E_GRAVE}` | `è` |  | <img src="./sprites/token_0xBB7B.png" alt="0xBB7B" width="35px" height="55px">
-`0xBB7C` | `LATIN_SMALL_LETTER_E_WITH_CIRCUMFLEX` | `&{SMALL_E_CIRCUMFLEX}` | `ê` |  | <img src="./sprites/token_0xBB7C.png" alt="0xBB7C" width="35px" height="55px">
-`0xBB7D` | `LATIN_SMALL_LETTER_E_WITH_DIAERESIS` | `&{SMALL_E_DIAERESIS}` | `ë` |  | <img src="./sprites/token_0xBB7D.png" alt="0xBB7D" width="35px" height="55px">
-`0xBB7F` | `LATIN_CAPITAL_LETTER_I_WITH_GRAVE` | `&{I_GRAVE}` | `Ì` |  | <img src="./sprites/token_0xBB7F.png" alt="0xBB7F" width="35px" height="55px">
-`0xBB80` | `LATIN_CAPITAL_LETTER_I_WITH_CIRCUMFLEX` | `&{I_CIRCUMFLEX}` | `Î` |  | <img src="./sprites/token_0xBB80.png" alt="0xBB80" width="35px" height="55px">
-`0xBB81` | `LATIN_CAPITAL_LETTER_I_WITH_DIAERESIS` | `&{I_DIAERESIS}` | `Ï` |  | <img src="./sprites/token_0xBB81.png" alt="0xBB81" width="35px" height="55px">
-`0xBB82` | `LATIN_SMALL_LETTER_I_WITH_ACUTE` | `&{SMALL_I_ACUTE}` | `í` |  | <img src="./sprites/token_0xBB82.png" alt="0xBB82" width="35px" height="55px">
-`0xBB83` | `LATIN_SMALL_LETTER_I_WITH_GRAVE` | `&{SMALL_I_GRAVE}` | `ì` |  | <img src="./sprites/token_0xBB83.png" alt="0xBB83" width="35px" height="55px">
-`0xBB84` | `LATIN_SMALL_LETTER_I_WITH_CIRCUMFLEX` | `&{SMALL_I_CIRCUMFLEX}` | `î` |  | <img src="./sprites/token_0xBB84.png" alt="0xBB84" width="35px" height="55px">
-`0xBB85` | `LATIN_SMALL_LETTER_I_WITH_DIAERESIS` | `&{SMALL_I_DIAERESIS}` | `ï` |  | <img src="./sprites/token_0xBB85.png" alt="0xBB85" width="35px" height="55px">
-`0xBB86` | `LATIN_CAPITAL_LETTER_O_WITH_ACUTE` | `&{O_ACUTE}` | `Ó` |  | <img src="./sprites/token_0xBB86.png" alt="0xBB86" width="35px" height="55px">
-`0xBB87` | `LATIN_CAPITAL_LETTER_O_WITH_GRAVE` | `&{O_GRAVE}` | `Ò` |  | <img src="./sprites/token_0xBB87.png" alt="0xBB87" width="35px" height="55px">
-`0xBB88` | `LATIN_CAPITAL_LETTER_O_WITH_CIRCUMFLEX` | `&{O_CIRCUMFLEX}` | `Ô` |  | <img src="./sprites/token_0xBB88.png" alt="0xBB88" width="35px" height="55px">
-`0xBB89` | `LATIN_CAPITAL_LETTER_O_WITH_DIAERESIS` | `&{O_DIAERESIS}` | `Ö` |  | <img src="./sprites/token_0xBB89.png" alt="0xBB89" width="35px" height="55px">
-`0xBB8A` | `LATIN_SMALL_LETTER_O_WITH_ACUTE` | `&{SMALL_O_ACUTE}` | `ó` |  | <img src="./sprites/token_0xBB8A.png" alt="0xBB8A" width="35px" height="55px">
-`0xBB8B` | `LATIN_SMALL_LETTER_O_WITH_GRAVE` | `&{SMALL_O_GRAVE}` | `ò` |  | <img src="./sprites/token_0xBB8B.png" alt="0xBB8B" width="35px" height="55px">
-`0xBB8C` | `LATIN_SMALL_LETTER_O_WITH_CIRCUMFLEX` | `&{SMALL_O_CIRCUMFLEX}` | `ô` |  | <img src="./sprites/token_0xBB8C.png" alt="0xBB8C" width="35px" height="55px">
-`0xBB8D` | `LATIN_SMALL_LETTER_O_WITH_DIAERESIS` | `&{SMALL_O_DIAERESIS}` | `ö` |  | <img src="./sprites/token_0xBB8D.png" alt="0xBB8D" width="35px" height="55px">
-`0xBB8E` | `LATIN_CAPITAL_LETTER_U_WITH_ACUTE` | `&{U_ACUTE}` | `Ú` |  | <img src="./sprites/token_0xBB8E.png" alt="0xBB8E" width="35px" height="55px">
-`0xBB8F` | `LATIN_CAPITAL_LETTER_U_WITH_GRAVE` | `&{U_GRAVE}` | `Ù` |  | <img src="./sprites/token_0xBB8F.png" alt="0xBB8F" width="35px" height="55px">
-`0xBB90` | `LATIN_CAPITAL_LETTER_U_WITH_CIRCUMFLEX` | `&{U_CIRCUMFLEX}` | `Û` |  | <img src="./sprites/token_0xBB90.png" alt="0xBB90" width="35px" height="55px">
-`0xBB91` | `LATIN_CAPITAL_LETTER_U_WITH_DIAERESIS` | `&{U_DIAERESIS}` | `Ü` |  | <img src="./sprites/token_0xBB91.png" alt="0xBB91" width="35px" height="55px">
-`0xBB92` | `LATIN_SMALL_LETTER_U_WITH_ACUTE` | `&{SMALL_U_ACUTE}` | `ú` |  | <img src="./sprites/token_0xBB92.png" alt="0xBB92" width="35px" height="55px">
-`0xBB93` | `LATIN_SMALL_LETTER_U_WITH_GRAVE` | `&{SMALL_U_GRAVE}` | `ù` |  | <img src="./sprites/token_0xBB93.png" alt="0xBB93" width="35px" height="55px">
-`0xBB94` | `LATIN_SMALL_LETTER_U_WITH_CIRCUMFLEX` | `&{SMALL_U_CIRCUMFLEX}` | `û` |  | <img src="./sprites/token_0xBB94.png" alt="0xBB94" width="35px" height="55px">
-`0xBB95` | `LATIN_SMALL_LETTER_U_WITH_DIAERESIS` | `&{SMALL_U_DIAERESIS}` | `ü` |  | <img src="./sprites/token_0xBB95.png" alt="0xBB95" width="35px" height="55px">
-`0xBB96` | `LATIN_CAPITAL_LETTER_C_WITH_CEDILLA` | `&{C_CEDILLA}` | `Ç` |  | <img src="./sprites/token_0xBB96.png" alt="0xBB96" width="35px" height="55px">
-`0xBB97` | `LATIN_SMALL_LETTER_C_WITH_CEDILLA` | `&{SMALL_C_CEDILLA}` | `ç` |  | <img src="./sprites/token_0xBB97.png" alt="0xBB97" width="35px" height="55px">
-`0xBB98` | `LATIN_CAPITAL_LETTER_N_WITH_TILDE` | `&{N_TILDE}` | `Ñ` |  | <img src="./sprites/token_0xBB98.png" alt="0xBB98" width="35px" height="55px">
-`0xBB99` | `LATIN_SMALL_LETTER_N_WITH_TILDE` | `&{SMALL_N_TILDE}` | `ñ` |  | <img src="./sprites/token_0xBB99.png" alt="0xBB99" width="35px" height="55px">
+`0xBB6E` | `CAPITAL_A_ACUTE` | `&{A_ACUTE}` | `Á` |  | <img src="./sprites/token_0xBB6E.png" alt="0xBB6E" width="35px" height="55px">
+`0xBB6F` | `CAPITAL_A_GRAVE` | `&{A_GRAVE}` | `À` |  | <img src="./sprites/token_0xBB6F.png" alt="0xBB6F" width="35px" height="55px">
+`0xBB70` | `CAPITAL_A_CIRCUMFLEX` | `&{A_CIRCUMFLEX}` | `Â` |  | <img src="./sprites/token_0xBB70.png" alt="0xBB70" width="35px" height="55px">
+`0xBB71` | `CAPITAL_A_DIAERESIS` | `&{A_DIAERESIS}` | `Ä` |  | <img src="./sprites/token_0xBB71.png" alt="0xBB71" width="35px" height="55px">
+`0xBB72` | `SMALL_A_ACUTE` | `&{SMALL_A_ACUTE}` | `á` |  | <img src="./sprites/token_0xBB72.png" alt="0xBB72" width="35px" height="55px">
+`0xBB73` | `SMALL_A_GRAVE` | `&{SMALL_A_GRAVE}` | `à` |  | <img src="./sprites/token_0xBB73.png" alt="0xBB73" width="35px" height="55px">
+`0xBB74` | `SMALL_A_CIRCUMFLEX` | `&{SMALL_A_CIRCUMFLEX}` | `â` |  | <img src="./sprites/token_0xBB74.png" alt="0xBB74" width="35px" height="55px">
+`0xBB75` | `SMALL_A_DIAERESIS` | `&{SMALL_A_DIAERESIS}` | `ä` |  | <img src="./sprites/token_0xBB75.png" alt="0xBB75" width="35px" height="55px">
+`0xBB76` | `CAPITAL_E_ACUTE` | `&{E_ACUTE}` | `É` |  | <img src="./sprites/token_0xBB76.png" alt="0xBB76" width="35px" height="55px">
+`0xBB77` | `CAPITAL_E_GRAVE` | `&{E_GRAVE}` | `È` |  | <img src="./sprites/token_0xBB77.png" alt="0xBB77" width="35px" height="55px">
+`0xBB78` | `CAPITAL_E_CIRCUMFLEX` | `&{E_CIRCUMFLEX}` | `Ê` |  | <img src="./sprites/token_0xBB78.png" alt="0xBB78" width="35px" height="55px">
+`0xBB79` | `CAPITAL_E_DIAERESIS` | `&{E_DIAERESIS}` | `Ë` |  | <img src="./sprites/token_0xBB79.png" alt="0xBB79" width="35px" height="55px">
+`0xBB7A` | `SMALL_E_ACUTE` | `&{SMALL_E_ACUTE}` | `é` |  | <img src="./sprites/token_0xBB7A.png" alt="0xBB7A" width="35px" height="55px">
+`0xBB7B` | `SMALL_E_GRAVE` | `&{SMALL_E_GRAVE}` | `è` |  | <img src="./sprites/token_0xBB7B.png" alt="0xBB7B" width="35px" height="55px">
+`0xBB7C` | `SMALL_E_CIRCUMFLEX` | `&{SMALL_E_CIRCUMFLEX}` | `ê` |  | <img src="./sprites/token_0xBB7C.png" alt="0xBB7C" width="35px" height="55px">
+`0xBB7D` | `SMALL_E_DIAERESIS` | `&{SMALL_E_DIAERESIS}` | `ë` |  | <img src="./sprites/token_0xBB7D.png" alt="0xBB7D" width="35px" height="55px">
+`0xBB7F` | `CAPITAL_I_GRAVE` | `&{I_GRAVE}` | `Ì` |  | <img src="./sprites/token_0xBB7F.png" alt="0xBB7F" width="35px" height="55px">
+`0xBB80` | `CAPITAL_I_CIRCUMFLEX` | `&{I_CIRCUMFLEX}` | `Î` |  | <img src="./sprites/token_0xBB80.png" alt="0xBB80" width="35px" height="55px">
+`0xBB81` | `CAPITAL_I_DIAERESIS` | `&{I_DIAERESIS}` | `Ï` |  | <img src="./sprites/token_0xBB81.png" alt="0xBB81" width="35px" height="55px">
+`0xBB82` | `SMALL_I_ACUTE` | `&{SMALL_I_ACUTE}` | `í` |  | <img src="./sprites/token_0xBB82.png" alt="0xBB82" width="35px" height="55px">
+`0xBB83` | `SMALL_I_GRAVE` | `&{SMALL_I_GRAVE}` | `ì` |  | <img src="./sprites/token_0xBB83.png" alt="0xBB83" width="35px" height="55px">
+`0xBB84` | `SMALL_I_CIRCUMFLEX` | `&{SMALL_I_CIRCUMFLEX}` | `î` |  | <img src="./sprites/token_0xBB84.png" alt="0xBB84" width="35px" height="55px">
+`0xBB85` | `SMALL_I_DIAERESIS` | `&{SMALL_I_DIAERESIS}` | `ï` |  | <img src="./sprites/token_0xBB85.png" alt="0xBB85" width="35px" height="55px">
+`0xBB86` | `CAPITAL_O_ACUTE` | `&{O_ACUTE}` | `Ó` |  | <img src="./sprites/token_0xBB86.png" alt="0xBB86" width="35px" height="55px">
+`0xBB87` | `CAPITAL_O_GRAVE` | `&{O_GRAVE}` | `Ò` |  | <img src="./sprites/token_0xBB87.png" alt="0xBB87" width="35px" height="55px">
+`0xBB88` | `CAPITAL_O_CIRCUMFLEX` | `&{O_CIRCUMFLEX}` | `Ô` |  | <img src="./sprites/token_0xBB88.png" alt="0xBB88" width="35px" height="55px">
+`0xBB89` | `CAPITAL_O_DIAERESIS` | `&{O_DIAERESIS}` | `Ö` |  | <img src="./sprites/token_0xBB89.png" alt="0xBB89" width="35px" height="55px">
+`0xBB8A` | `SMALL_O_ACUTE` | `&{SMALL_O_ACUTE}` | `ó` |  | <img src="./sprites/token_0xBB8A.png" alt="0xBB8A" width="35px" height="55px">
+`0xBB8B` | `SMALL_O_GRAVE` | `&{SMALL_O_GRAVE}` | `ò` |  | <img src="./sprites/token_0xBB8B.png" alt="0xBB8B" width="35px" height="55px">
+`0xBB8C` | `SMALL_O_CIRCUMFLEX` | `&{SMALL_O_CIRCUMFLEX}` | `ô` |  | <img src="./sprites/token_0xBB8C.png" alt="0xBB8C" width="35px" height="55px">
+`0xBB8D` | `SMALL_O_DIAERESIS` | `&{SMALL_O_DIAERESIS}` | `ö` |  | <img src="./sprites/token_0xBB8D.png" alt="0xBB8D" width="35px" height="55px">
+`0xBB8E` | `CAPITAL_U_ACUTE` | `&{U_ACUTE}` | `Ú` |  | <img src="./sprites/token_0xBB8E.png" alt="0xBB8E" width="35px" height="55px">
+`0xBB8F` | `CAPITAL_U_GRAVE` | `&{U_GRAVE}` | `Ù` |  | <img src="./sprites/token_0xBB8F.png" alt="0xBB8F" width="35px" height="55px">
+`0xBB90` | `CAPITAL_U_CIRCUMFLEX` | `&{U_CIRCUMFLEX}` | `Û` |  | <img src="./sprites/token_0xBB90.png" alt="0xBB90" width="35px" height="55px">
+`0xBB91` | `CAPITAL_U_DIAERESIS` | `&{U_DIAERESIS}` | `Ü` |  | <img src="./sprites/token_0xBB91.png" alt="0xBB91" width="35px" height="55px">
+`0xBB92` | `SMALL_U_ACUTE` | `&{SMALL_U_ACUTE}` | `ú` |  | <img src="./sprites/token_0xBB92.png" alt="0xBB92" width="35px" height="55px">
+`0xBB93` | `SMALL_U_GRAVE` | `&{SMALL_U_GRAVE}` | `ù` |  | <img src="./sprites/token_0xBB93.png" alt="0xBB93" width="35px" height="55px">
+`0xBB94` | `SMALL_U_CIRCUMFLEX` | `&{SMALL_U_CIRCUMFLEX}` | `û` |  | <img src="./sprites/token_0xBB94.png" alt="0xBB94" width="35px" height="55px">
+`0xBB95` | `SMALL_U_DIAERESIS` | `&{SMALL_U_DIAERESIS}` | `ü` |  | <img src="./sprites/token_0xBB95.png" alt="0xBB95" width="35px" height="55px">
+`0xBB96` | `CAPITAL_C_CEDILLA` | `&{C_CEDILLA}` | `Ç` |  | <img src="./sprites/token_0xBB96.png" alt="0xBB96" width="35px" height="55px">
+`0xBB97` | `SMALL_C_CEDILLA` | `&{SMALL_C_CEDILLA}` | `ç` |  | <img src="./sprites/token_0xBB97.png" alt="0xBB97" width="35px" height="55px">
+`0xBB98` | `CAPITAL_N_TILDE` | `&{N_TILDE}` | `Ñ` |  | <img src="./sprites/token_0xBB98.png" alt="0xBB98" width="35px" height="55px">
+`0xBB99` | `SMALL_N_TILDE` | `&{SMALL_N_TILDE}` | `ñ` |  | <img src="./sprites/token_0xBB99.png" alt="0xBB99" width="35px" height="55px">
 `0xBB9A` | `ACUTE_ACCENT` | `&{ACCENT}` | `´` |  | <img src="./sprites/token_0xBB9A.png" alt="0xBB9A" width="35px" height="55px">
 `0xBB9B` | `GRAVE_ACCENT_2` | `` &{`} `` |  |  | <img src="./sprites/token_0xBB9B.png" alt="0xBB9B" width="35px" height="55px">
 `0xBB9C` | `UMLAUT` | `&{"}` | `¨` |  | <img src="./sprites/token_0xBB9C.png" alt="0xBB9C" width="35px" height="55px">
@@ -565,35 +565,35 @@
 `0xBBAD` | `P_HAT` | `&{^p}` | `p̂` |  | <img src="./sprites/token_0xBBAD.png" alt="0xBBAD" width="35px" height="55px">
 `0xBBAE` | `CHI` | `&{chi}` | `χ` |  | <img src="./sprites/token_0xBBAE.png" alt="0xBBAE" width="35px" height="55px">
 `0xBBAF` | `BIG_F` | `&{F}` |  |  | <img src="./sprites/token_0xBBAF.png" alt="0xBBAF" width="35px" height="55px">
-`0xBBB0` | `LATIN_SMALL_LETTER_A` | `a` |  |  | <img src="./sprites/token_0xBBB0.png" alt="0xBBB0" width="35px" height="55px">
-`0xBBB1` | `LATIN_SMALL_LETTER_B` | `b` |  |  | <img src="./sprites/token_0xBBB1.png" alt="0xBBB1" width="35px" height="55px">
-`0xBBB2` | `LATIN_SMALL_LETTER_C` | `c` |  |  | <img src="./sprites/token_0xBBB2.png" alt="0xBBB2" width="35px" height="55px">
-`0xBBB3` | `LATIN_SMALL_LETTER_D` | `d` |  |  | <img src="./sprites/token_0xBBB3.png" alt="0xBBB3" width="35px" height="55px">
-`0xBBB4` | `LATIN_SMALL_LETTER_E` | `e` |  |  | <img src="./sprites/token_0xBBB4.png" alt="0xBBB4" width="35px" height="55px">
-`0xBBB5` | `LATIN_SMALL_LETTER_F` | `f` |  |  | <img src="./sprites/token_0xBBB5.png" alt="0xBBB5" width="35px" height="55px">
-`0xBBB6` | `LATIN_SMALL_LETTER_G` | `g` |  |  | <img src="./sprites/token_0xBBB6.png" alt="0xBBB6" width="35px" height="55px">
-`0xBBB7` | `LATIN_SMALL_LETTER_H` | `h` |  |  | <img src="./sprites/token_0xBBB7.png" alt="0xBBB7" width="35px" height="55px">
-`0xBBB8` | `LATIN_SMALL_LETTER_I` | `i` |  |  | <img src="./sprites/token_0xBBB8.png" alt="0xBBB8" width="35px" height="55px">
-`0xBBB9` | `LATIN_SMALL_LETTER_J` | `j` |  |  | <img src="./sprites/token_0xBBB9.png" alt="0xBBB9" width="35px" height="55px">
-`0xBBBA` | `LATIN_SMALL_LETTER_K` | `k` |  |  | <img src="./sprites/token_0xBBBA.png" alt="0xBBBA" width="35px" height="55px">
-`0xBBBC` | `LATIN_SMALL_LETTER_L` | `l` |  |  | <img src="./sprites/token_0xBBBC.png" alt="0xBBBC" width="35px" height="55px">
-`0xBBBD` | `LATIN_SMALL_LETTER_M` | `m` |  |  | <img src="./sprites/token_0xBBBD.png" alt="0xBBBD" width="35px" height="55px">
-`0xBBBE` | `LATIN_SMALL_LETTER_N` | `n` |  |  | <img src="./sprites/token_0xBBBE.png" alt="0xBBBE" width="35px" height="55px">
-`0xBBBF` | `LATIN_SMALL_LETTER_O` | `o` |  |  | <img src="./sprites/token_0xBBBF.png" alt="0xBBBF" width="35px" height="55px">
-`0xBBC0` | `LATIN_SMALL_LETTER_P` | `p` |  |  | <img src="./sprites/token_0xBBC0.png" alt="0xBBC0" width="35px" height="55px">
-`0xBBC1` | `LATIN_SMALL_LETTER_Q` | `q` |  |  | <img src="./sprites/token_0xBBC1.png" alt="0xBBC1" width="35px" height="55px">
-`0xBBC2` | `LATIN_SMALL_LETTER_R` | `r` |  |  | <img src="./sprites/token_0xBBC2.png" alt="0xBBC2" width="35px" height="55px">
-`0xBBC3` | `LATIN_SMALL_LETTER_S` | `s` |  |  | <img src="./sprites/token_0xBBC3.png" alt="0xBBC3" width="35px" height="55px">
-`0xBBC4` | `LATIN_SMALL_LETTER_T` | `t` |  |  | <img src="./sprites/token_0xBBC4.png" alt="0xBBC4" width="35px" height="55px">
-`0xBBC5` | `LATIN_SMALL_LETTER_U` | `u` |  |  | <img src="./sprites/token_0xBBC5.png" alt="0xBBC5" width="35px" height="55px">
-`0xBBC6` | `LATIN_SMALL_LETTER_V` | `v` |  |  | <img src="./sprites/token_0xBBC6.png" alt="0xBBC6" width="35px" height="55px">
-`0xBBC7` | `LATIN_SMALL_LETTER_W` | `w` |  |  | <img src="./sprites/token_0xBBC7.png" alt="0xBBC7" width="35px" height="55px">
-`0xBBC8` | `LATIN_SMALL_LETTER_X` | `x` |  |  | <img src="./sprites/token_0xBBC8.png" alt="0xBBC8" width="35px" height="55px">
-`0xBBC9` | `LATIN_SMALL_LETTER_Y` | `y` |  |  | <img src="./sprites/token_0xBBC9.png" alt="0xBBC9" width="35px" height="55px">
-`0xBBCA` | `LATIN_SMALL_LETTER_Z` | `z` |  |  | <img src="./sprites/token_0xBBCA.png" alt="0xBBCA" width="35px" height="55px">
+`0xBBB0` | `SMALL_A` | `a` |  |  | <img src="./sprites/token_0xBBB0.png" alt="0xBBB0" width="35px" height="55px">
+`0xBBB1` | `SMALL_B` | `b` |  |  | <img src="./sprites/token_0xBBB1.png" alt="0xBBB1" width="35px" height="55px">
+`0xBBB2` | `SMALL_C` | `c` |  |  | <img src="./sprites/token_0xBBB2.png" alt="0xBBB2" width="35px" height="55px">
+`0xBBB3` | `SMALL_D` | `d` |  |  | <img src="./sprites/token_0xBBB3.png" alt="0xBBB3" width="35px" height="55px">
+`0xBBB4` | `SMALL_E` | `e` |  |  | <img src="./sprites/token_0xBBB4.png" alt="0xBBB4" width="35px" height="55px">
+`0xBBB5` | `SMALL_F` | `f` |  |  | <img src="./sprites/token_0xBBB5.png" alt="0xBBB5" width="35px" height="55px">
+`0xBBB6` | `SMALL_G` | `g` |  |  | <img src="./sprites/token_0xBBB6.png" alt="0xBBB6" width="35px" height="55px">
+`0xBBB7` | `SMALL_H` | `h` |  |  | <img src="./sprites/token_0xBBB7.png" alt="0xBBB7" width="35px" height="55px">
+`0xBBB8` | `SMALL_I` | `i` |  |  | <img src="./sprites/token_0xBBB8.png" alt="0xBBB8" width="35px" height="55px">
+`0xBBB9` | `SMALL_J` | `j` |  |  | <img src="./sprites/token_0xBBB9.png" alt="0xBBB9" width="35px" height="55px">
+`0xBBBA` | `SMALL_K` | `k` |  |  | <img src="./sprites/token_0xBBBA.png" alt="0xBBBA" width="35px" height="55px">
+`0xBBBC` | `SMALL_L` | `l` |  |  | <img src="./sprites/token_0xBBBC.png" alt="0xBBBC" width="35px" height="55px">
+`0xBBBD` | `SMALL_M` | `m` |  |  | <img src="./sprites/token_0xBBBD.png" alt="0xBBBD" width="35px" height="55px">
+`0xBBBE` | `SMALL_N` | `n` |  |  | <img src="./sprites/token_0xBBBE.png" alt="0xBBBE" width="35px" height="55px">
+`0xBBBF` | `SMALL_O` | `o` |  |  | <img src="./sprites/token_0xBBBF.png" alt="0xBBBF" width="35px" height="55px">
+`0xBBC0` | `SMALL_P` | `p` |  |  | <img src="./sprites/token_0xBBC0.png" alt="0xBBC0" width="35px" height="55px">
+`0xBBC1` | `SMALL_Q` | `q` |  |  | <img src="./sprites/token_0xBBC1.png" alt="0xBBC1" width="35px" height="55px">
+`0xBBC2` | `SMALL_R` | `r` |  |  | <img src="./sprites/token_0xBBC2.png" alt="0xBBC2" width="35px" height="55px">
+`0xBBC3` | `SMALL_S` | `s` |  |  | <img src="./sprites/token_0xBBC3.png" alt="0xBBC3" width="35px" height="55px">
+`0xBBC4` | `SMALL_T` | `t` |  |  | <img src="./sprites/token_0xBBC4.png" alt="0xBBC4" width="35px" height="55px">
+`0xBBC5` | `SMALL_U` | `u` |  |  | <img src="./sprites/token_0xBBC5.png" alt="0xBBC5" width="35px" height="55px">
+`0xBBC6` | `SMALL_V` | `v` |  |  | <img src="./sprites/token_0xBBC6.png" alt="0xBBC6" width="35px" height="55px">
+`0xBBC7` | `SMALL_W` | `w` |  |  | <img src="./sprites/token_0xBBC7.png" alt="0xBBC7" width="35px" height="55px">
+`0xBBC8` | `SMALL_X` | `x` |  |  | <img src="./sprites/token_0xBBC8.png" alt="0xBBC8" width="35px" height="55px">
+`0xBBC9` | `SMALL_Y` | `y` |  |  | <img src="./sprites/token_0xBBC9.png" alt="0xBBC9" width="35px" height="55px">
+`0xBBCA` | `SMALL_Z` | `z` |  |  | <img src="./sprites/token_0xBBCA.png" alt="0xBBCA" width="35px" height="55px">
 `0xBBCB` | `LSIGMA` | `&{lsigma}` | `σ` |  | <img src="./sprites/token_0xBBCB.png" alt="0xBBCB" width="35px" height="55px">
 `0xBBCC` | `SMALL_T1` | `&{smallT1}` | `ᵀ` |  | <img src="./sprites/token_0xBBCC.png" alt="0xBBCC" width="35px" height="55px">
-`0xBBCD` | `LATIN_CAPITAL_LETTER_I_WITH_ACUTE` | `&{I_ACUTE}` | `Í` |  | <img src="./sprites/token_0xBBCD.png" alt="0xBBCD" width="35px" height="55px">
+`0xBBCD` | `CAPITAL_I_ACUTE` | `&{I_ACUTE}` | `Í` |  | <img src="./sprites/token_0xBBCD.png" alt="0xBBCD" width="35px" height="55px">
 `0xBBCE` | `GARBAGE_COLLECT` | `&{GarbageCollect}` |  | `GarbageCollect` | <img src="./sprites/token_0xBBCE.png" alt="0xBBCE" width="425px" height="55px">
 `0xBBCF` | `TILDE` | `~` |  |  | <img src="./sprites/token_0xBBCF.png" alt="0xBBCF" width="35px" height="55px">
 `0xBBD1` | `COMMERCIAL_AT` | `@` |  |  | <img src="./sprites/token_0xBBD1.png" alt="0xBBD1" width="35px" height="55px">

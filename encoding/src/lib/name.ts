@@ -108,6 +108,7 @@ function createName (hex: string, token: string): string {
     const unicodeHex = '00' + token.charCodeAt(0).toString(16).toUpperCase()
     let mapped = unicodeLookup(unicodeHex)
     if (mapped) {
+      mapped = mapped.replace(/LATIN |LETTER |WITH /g, '')
       mapped = mapped.replace(/[ -]/g, '_')
       return mapped
     }
