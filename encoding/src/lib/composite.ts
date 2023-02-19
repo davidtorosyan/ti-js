@@ -77,7 +77,7 @@ const subscriptMap = new Map([
   ['7', '0xBBE7'],
   ['8', '0xBBE8'],
   ['9', '0xBBE9'],
-  ['T', '0xBBDF'],
+  ['T', '0xBBCC'],
 ])
 
 const statsRanges: [string, string][] = [
