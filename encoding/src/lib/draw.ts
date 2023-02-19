@@ -28,9 +28,6 @@ export function drawSprites (tokens: TiTokenOutput[], glyphs: Map<string, string
   const canvas = createCanvas(sheetWidth, sheetHeight)
   const ctx = canvas.getContext('2d')
 
-  ctx.fillStyle = 'white'
-  ctx.fillRect(0, 0, sheetWidth, sheetHeight)
-
   const glyphMap = drawGlyphs(glyphs)
   const tokenMap = drawTokens(tokens, glyphMap)
 
@@ -58,25 +55,28 @@ function drawTokens (tokens: TiTokenOutput[], glyphMap: ReadonlyMap<string, Canv
 }
 
 function drawToken (token: TiTokenOutput, glyphMap: ReadonlyMap<string, Canvas>): Canvas {
+  let glyphHexes: string[]
   if (token.composite === undefined) {
-    const glyph = glyphMap.get(token.hex)
-    if (glyph === undefined) {
-      throw new Error(`Missing glyph for hex: ${token.hex}`)
+    glyphHexes = [token.hex]
+  } else {
+    if (glyphMap.has(token.hex)) {
+      throw new Error(`Unexpected glyph for hex, is composite: ${token.hex}`)
     }
-    const buf = glyph.toBuffer()
-    write(`sprites/token_${token.hex}.png`, buf)
-    return glyph
-  } else if (glyphMap.has(token.hex)) {
-    throw new Error(`Unexpected glyph for hex, is composite: ${token.hex}`)
+
+    glyphHexes = chunkString(token.composite, token.hex.length)
   }
 
-  const chunked = chunkString(token.composite, token.hex.length)
-  const tokenWidth = (chunked.length * GLYPH_WIDTH) + ((chunked.length - 1) * MARGIN_WIDTH)
+  const tokenWidth = MARGIN_WIDTH + (GLYPH_WIDTH + MARGIN_WIDTH) * glyphHexes.length
+  const tokenHeight = MARGIN_HEIGHT + (GLYPH_HEIGHT + MARGIN_HEIGHT)
 
-  const canvas = createCanvas(tokenWidth, GLYPH_HEIGHT)
+  const canvas = createCanvas(tokenWidth, tokenHeight)
   const ctx = canvas.getContext('2d')
 
-  for (const hex of chunked) {
+  ctx.fillStyle = 'white'
+  ctx.fillRect(0, 0, tokenWidth, tokenHeight)
+
+  ctx.translate(MARGIN_WIDTH, MARGIN_HEIGHT)
+  for (const hex of glyphHexes) {
     const glyph = glyphMap.get(hex)
     if (glyph === undefined) {
       throw new Error(`Missing glyph for hex: ${hex} while trying to render: ${token.hex}`)
