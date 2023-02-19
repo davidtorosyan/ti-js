@@ -83,10 +83,10 @@ function prepareMarkdown (input: string, context: CastingContext): string {
   if (context.column === 'sprite') {
     return input
   }
-  if (input.includes('`')) {
-    return '`` ' + input + ' ``'
+  if (context.column === 'name') {
+    return '**' + input + '**'
   }
-  return '`' + input.replace(/\|/, '\\|') + '`'
+  return input.replace(/([|`])/g, '\\$1')
 }
 
 function formatSprite (hex: string, sprite: TiSprite): string {
