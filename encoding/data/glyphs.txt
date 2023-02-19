@@ -601,13 +601,31 @@
 ⬜⬜⬜⬜⬜
 
 0x007F # BOX_MARK
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+⬜🟦⬜🟦⬜
+⬜🟦🟦🟦⬜
+⬜⬜⬜⬜⬜
 
 0x0080 # PLUS_MARK
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜⬜⬜
 
 0x0081 # DOT_MARK
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
 
 0x0082 # ASTERISK
 ⬜⬜⬜⬜⬜
@@ -682,19 +700,43 @@
 ⬜⬜⬜⬜⬜
 
 0x5E80 # FUNC_U
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜🟦🟦
+⬜🟦🟦⬜🟦
 
 0x5E81 # FUNC_V
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦⬜🟦⬜
+⬜🟦⬜🟦⬜
+⬜⬜🟦⬜⬜
 
 0x5E82 # FUNC_W
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜🟦⬜🟦
+🟦⬜🟦⬜🟦
+⬜🟦⬜🟦⬜
 
 0x6201 # STATS_REG_EQ
 ?
 
 0x6202 # ITALIC_N
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+🟦⬜🟦🟦⬜
+⬜🟦⬜⬜🟦
+⬜🟦⬜⬜🟦
+🟦⬜⬜🟦⬜
+🟦⬜⬜🟦⬜
 
 0x6203 # STATS_XBAR
 ?
@@ -871,199 +913,577 @@
 ?
 
 0xBB31 # CONSTANT_E
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦🟦🟦🟦⬜
+🟦⬜⬜⬜⬜
+⬜🟦🟦⬜⬜
 
 0xBB6E # LATIN_CAPITAL_LETTER_A_WITH_ACUTE
-?
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜🟦
 
 0xBB6F # LATIN_CAPITAL_LETTER_A_WITH_GRAVE
-?
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜🟦
 
 0xBB70 # LATIN_CAPITAL_LETTER_A_WITH_CIRCUMFLEX
-?
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜🟦
 
 0xBB71 # LATIN_CAPITAL_LETTER_A_WITH_DIAERESIS
-?
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜🟦
 
 0xBB72 # LATIN_SMALL_LETTER_A_WITH_ACUTE
-?
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+⬜⬜⬜⬜🟦
+⬜🟦🟦🟦🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦🟦
 
 0xBB73 # LATIN_SMALL_LETTER_A_WITH_GRAVE
-?
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+⬜⬜⬜⬜🟦
+⬜🟦🟦🟦🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦🟦
 
 0xBB74 # LATIN_SMALL_LETTER_A_WITH_CIRCUMFLEX
-?
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+⬜🟦🟦🟦⬜
+⬜⬜⬜⬜🟦
+⬜🟦🟦🟦🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦🟦
 
 0xBB75 # LATIN_SMALL_LETTER_A_WITH_DIAERESIS
-?
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+⬜⬜⬜⬜🟦
+⬜🟦🟦🟦🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦🟦
 
 0xBB76 # LATIN_CAPITAL_LETTER_E_WITH_ACUTE
-?
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜⬜
+🟦🟦🟦🟦⬜
+🟦⬜⬜⬜⬜
+🟦🟦🟦🟦🟦
 
 0xBB77 # LATIN_CAPITAL_LETTER_E_WITH_GRAVE
-?
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜⬜
+🟦🟦🟦🟦⬜
+🟦⬜⬜⬜⬜
+🟦🟦🟦🟦🟦
 
 0xBB78 # LATIN_CAPITAL_LETTER_E_WITH_CIRCUMFLEX
-?
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜⬜
+🟦🟦🟦🟦⬜
+🟦⬜⬜⬜⬜
+🟦🟦🟦🟦🟦
 
 0xBB79 # LATIN_CAPITAL_LETTER_E_WITH_DIAERESIS
-?
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜⬜
+🟦🟦🟦🟦⬜
+🟦⬜⬜⬜⬜
+🟦🟦🟦🟦🟦
 
 0xBB7A # LATIN_SMALL_LETTER_E_WITH_ACUTE
-?
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBB7B # LATIN_SMALL_LETTER_E_WITH_GRAVE
-?
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBB7C # LATIN_SMALL_LETTER_E_WITH_CIRCUMFLEX
-?
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBB7D # LATIN_SMALL_LETTER_E_WITH_DIAERESIS
-?
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBB7F # LATIN_CAPITAL_LETTER_I_WITH_GRAVE
-?
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBB80 # LATIN_CAPITAL_LETTER_I_WITH_CIRCUMFLEX
-?
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+⬜🟦🟦🟦⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBB81 # LATIN_CAPITAL_LETTER_I_WITH_DIAERESIS
-?
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBB82 # LATIN_SMALL_LETTER_I_WITH_ACUTE
-?
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBB83 # LATIN_SMALL_LETTER_I_WITH_GRAVE
-?
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBB84 # LATIN_SMALL_LETTER_I_WITH_CIRCUMFLEX
-?
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBB85 # LATIN_SMALL_LETTER_I_WITH_DIAERESIS
-?
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBB86 # LATIN_CAPITAL_LETTER_O_WITH_ACUTE
-?
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB87 # LATIN_CAPITAL_LETTER_O_WITH_GRAVE
-?
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB88 # LATIN_CAPITAL_LETTER_O_WITH_CIRCUMFLEX
-?
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB89 # LATIN_CAPITAL_LETTER_O_WITH_DIAERESIS
-?
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB8A # LATIN_SMALL_LETTER_O_WITH_ACUTE
-?
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB8B # LATIN_SMALL_LETTER_O_WITH_GRAVE
-?
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB8C # LATIN_SMALL_LETTER_O_WITH_CIRCUMFLEX
-?
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB8D # LATIN_SMALL_LETTER_O_WITH_DIAERESIS
-?
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB8E # LATIN_CAPITAL_LETTER_U_WITH_ACUTE
-?
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB8F # LATIN_CAPITAL_LETTER_U_WITH_GRAVE
-?
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB90 # LATIN_CAPITAL_LETTER_U_WITH_CIRCUMFLEX
-?
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB91 # LATIN_CAPITAL_LETTER_U_WITH_DIAERESIS
-?
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB92 # LATIN_SMALL_LETTER_U_WITH_ACUTE
-?
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜🟦🟦
+⬜🟦🟦⬜🟦
 
 0xBB93 # LATIN_SMALL_LETTER_U_WITH_GRAVE
-?
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜🟦🟦
+⬜🟦🟦⬜🟦
 
 0xBB94 # LATIN_SMALL_LETTER_U_WITH_CIRCUMFLEX
-?
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜🟦🟦
+⬜🟦🟦⬜🟦
 
 0xBB95 # LATIN_SMALL_LETTER_U_WITH_DIAERESIS
-?
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜🟦🟦
+⬜🟦🟦⬜🟦
 
 0xBB96 # LATIN_CAPITAL_LETTER_C_WITH_CEDILLA
-?
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜⬜
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
+⬜⬜🟦⬜⬜
+🟦🟦🟦⬜⬜
 
 0xBB97 # LATIN_SMALL_LETTER_C_WITH_CEDILLA
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜⬜
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
+🟦🟦🟦⬜⬜
 
 0xBB98 # LATIN_CAPITAL_LETTER_N_WITH_TILDE
-?
+⬜⬜🟦⬜🟦
+⬜🟦⬜🟦⬜
+🟦⬜⬜⬜🟦
+🟦🟦⬜⬜🟦
+🟦⬜🟦⬜🟦
+🟦⬜⬜🟦🟦
+🟦⬜⬜⬜🟦
 
 0xBB99 # LATIN_SMALL_LETTER_N_WITH_TILDE
-?
+⬜⬜🟦⬜🟦
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+🟦⬜🟦🟦⬜
+🟦🟦⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
 
 0xBB9A # ACUTE_ACCENT
-?
+⬜⬜⬜⬜🟦
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
 
 0xBB9B # GRAVE_ACCENT_2
 ?
 
 0xBB9C # UMLAUT
-?
+⬜⬜⬜⬜⬜
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
 
 0xBB9D # UPSIDE_DOWN_QUESTION_MARK
-?
+⬜⬜🟦⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦⬜⬜⬜
+🟦⬜⬜⬜⬜
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBB9E # UPSIDE_DOWN_EXCLAMATION_MARK
-?
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
 
 0xBB9F # ALPHA
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦⬜🟦
+🟦⬜⬜🟦⬜
+🟦⬜⬜🟦⬜
+🟦⬜⬜🟦⬜
+⬜🟦🟦⬜🟦
 
 0xBBA0 # BETA
-?
+⬜⬜🟦🟦⬜
+⬜🟦⬜⬜🟦
+⬜🟦⬜⬜🟦
+⬜🟦🟦🟦⬜
+⬜🟦⬜⬜🟦
+⬜🟦⬜⬜🟦
+🟦⬜🟦🟦⬜
 
 0xBBA1 # GAMMA
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦⬜⬜🟦
+🟦⬜🟦⬜🟦
+⬜⬜⬜🟦⬜
+⬜⬜⬜🟦⬜
+⬜⬜⬜🟦⬜
 
 0xBBA2 # DELTA
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+🟦⬜⬜⬜🟦
+🟦🟦🟦🟦🟦
 
 0xBBA3 # LDELTA
-?
+⬜⬜🟦🟦⬜
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜🟦⬜
+⬜🟦🟦🟦🟦
+🟦⬜⬜⬜🟦
+⬜🟦🟦🟦⬜
 
 0xBBA4 # EPSILON
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜⬜
+🟦🟦🟦🟦⬜
+🟦⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBBA5 # LAMBDA
-?
+⬜⬜⬜⬜⬜
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜🟦⬜
+⬜⬜🟦🟦⬜
+⬜🟦⬜⬜🟦
+🟦⬜⬜⬜🟦
 
 0xBBA6 # MU
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+🟦⬜⬜🟦⬜
+🟦⬜⬜🟦⬜
+🟦⬜⬜🟦⬜
+🟦🟦🟦⬜🟦
+🟦⬜⬜⬜⬜
 
 0xBBA7 # XPI
 ?
 
 0xBBA8 # RHO
-?
+⬜⬜⬜⬜⬜
+⬜⬜🟦🟦⬜
+⬜🟦⬜⬜🟦
+⬜🟦⬜⬜🟦
+⬜🟦🟦🟦⬜
+⬜🟦⬜⬜⬜
+🟦⬜⬜⬜⬜
 
 0xBBA9 # SIGMA
-?
+🟦🟦🟦🟦🟦
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+⬜🟦⬜⬜⬜
+🟦🟦🟦🟦🟦
 
 0xBBAB # PHI
-?
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜🟦⬜🟦
+⬜🟦🟦🟦⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
 
 0xBBAC # OMEGA
-?
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+⬜🟦⬜🟦⬜
+⬜🟦⬜🟦⬜
+🟦🟦⬜🟦🟦
 
 0xBBAD # P_HAT
-?
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+🟦🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦🟦🟦🟦⬜
+🟦⬜⬜⬜⬜
+🟦⬜⬜⬜⬜
 
 0xBBAE # CHI
-?
+🟦⬜⬜⬜⬜
+⬜🟦⬜⬜🟦
+⬜🟦⬜🟦⬜
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+🟦⬜⬜🟦⬜
+⬜⬜⬜⬜🟦
 
 0xBBAF # BIG_F
-?
+🟦🟦🟦🟦🟦
+🟦⬜⬜⬜🟦
+🟦⬜🟦⬜⬜
+🟦🟦🟦⬜⬜
+🟦⬜🟦⬜⬜
+🟦⬜⬜⬜⬜
+🟦⬜⬜⬜⬜
 
 0xBBB0 # LATIN_SMALL_LETTER_A
 ⬜⬜⬜⬜⬜
@@ -1300,25 +1720,67 @@
 🟦🟦🟦🟦🟦
 
 0xBBCB # LSIGMA
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦🟦
+🟦⬜⬜🟦⬜
+🟦⬜⬜🟦⬜
+🟦⬜⬜🟦⬜
+⬜🟦🟦⬜⬜
 
 0xBBCC # SMALL_T1
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+🟦🟦🟦⬜⬜
+⬜🟦⬜⬜⬜
+⬜🟦⬜⬜⬜
+⬜🟦⬜⬜⬜
 
 0xBBCD # LATIN_CAPITAL_LETTER_I_WITH_ACUTE
-?
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
 
 0xBBCF # TILDE
-?
+⬜⬜⬜⬜⬜
+⬜🟦⬜⬜⬜
+🟦⬜🟦⬜🟦
+⬜⬜⬜🟦⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
 
 0xBBD1 # COMMERCIAL_AT
-?
+⬜🟦🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜🟦⬜🟦
+🟦⬜🟦🟦🟦
+🟦⬜🟦⬜⬜
+🟦⬜⬜⬜⬜
+⬜🟦🟦🟦🟦
 
 0xBBD2 # NUMBER_SIGN
-?
+⬜🟦⬜🟦⬜
+⬜🟦⬜🟦⬜
+🟦🟦🟦🟦🟦
+⬜🟦⬜🟦⬜
+🟦🟦🟦🟦🟦
+⬜🟦⬜🟦⬜
+⬜🟦⬜🟦⬜
 
 0xBBD3 # DOLLAR_SIGN
-?
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦🟦
+🟦⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+⬜⬜🟦⬜🟦
+🟦🟦🟦🟦⬜
+⬜⬜🟦⬜⬜
 
 0xBBD4 # AMPERSAND
 ⬜🟦⬜⬜⬜
@@ -1330,19 +1792,50 @@
 ⬜🟦🟦⬜🟦
 
 0xBBD5 # GRAVE_ACCENT
-?
+🟦⬜⬜⬜⬜
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
 
 0xBBD6 # SEMICOLON
-?
+⬜⬜⬜⬜⬜
+⬜🟦🟦⬜⬜
+⬜🟦🟦⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜🟦⬜⬜⬜
 
 0xBBD7 # REVERSE_SOLIDUS
-?
+⬜⬜⬜⬜⬜
+🟦⬜⬜⬜⬜
+⬜🟦⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜🟦⬜
+⬜⬜⬜⬜🟦
+⬜⬜⬜⬜⬜
+ 
 
 0xBBD8 # VERTICAL_LINE
-?
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
 
 0xBBD9 # LOW_LINE
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+🟦🟦🟦🟦🟦
 
 0xBBDA # PERCENT_SIGN
 🟦🟦⬜⬜⬜
@@ -1363,10 +1856,22 @@
 🟦⬜🟦⬜🟦
 
 0xBBDC # ANGLE_SIGN
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜🟦
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+⬜🟦⬜⬜⬜
+🟦🟦🟦🟦🟦
 
 0xBBDD # CAPS_BETA
-?
+⬜🟦🟦⬜⬜
+🟦⬜⬜🟦⬜
+🟦⬜⬜🟦⬜
+🟦⬜🟦🟦⬜
+🟦⬜⬜⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜🟦🟦⬜
 
 0xBBDE # SMALLX1
 ?
@@ -1480,22 +1985,52 @@
 ?
 
 0xBBED # UPARROWSMALL
-?
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜🟦⬜🟦
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
 
 0xBBEE # DOWNARROWSMALL
-?
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+🟦⬜🟦⬜🟦
+⬜🟦🟦🟦⬜
+⬜⬜🟦⬜⬜
 
 0xBBEF # SMALLX2
 ?
 
 0xBBF0 # INTEGRAL
-?
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜🟦
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+🟦⬜🟦⬜⬜
+⬜🟦⬜⬜⬜
 
 0xBBF1 # UPARROW
-?
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+🟦🟦🟦🟦🟦
+⬜🟦🟦🟦⬜
+⬜🟦🟦🟦⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
 
 0xBBF2 # DOWNARROW
-?
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜🟦🟦🟦⬜
+⬜🟦🟦🟦⬜
+🟦🟦🟦🟦🟦
+⬜🟦🟦🟦⬜
+⬜⬜🟦⬜⬜
 
 0xBBF3 # ROOT_SIGN
 ⬜⬜🟦🟦🟦
@@ -1544,3 +2079,75 @@
 ⬜⬜⬜⬜⬜
 ⬜⬜⬜⬜⬜
 ⬜⬜⬜⬜⬜
+
+0xFF04 # CURRENT
+🟦🟦🟦🟦🟦
+🟦🟦🟦🟦🟦
+🟦🟦🟦🟦🟦
+🟦🟦🟦🟦🟦
+🟦🟦🟦🟦🟦
+🟦🟦🟦🟦🟦
+🟦🟦🟦🟦🟦
+
+0xFF05 # CURRENT_ARROW
+🟦🟦🟦🟦🟦
+🟦🟦⬜🟦🟦
+🟦⬜⬜⬜🟦
+⬜🟦⬜🟦⬜
+🟦🟦⬜🟦🟦
+🟦🟦⬜🟦🟦
+🟦🟦⬜🟦🟦
+ 
+0xFF06 # CURRENT_CAPS
+🟦🟦🟦🟦🟦
+🟦🟦⬜🟦🟦
+🟦⬜🟦⬜🟦
+🟦⬜⬜⬜🟦
+🟦⬜🟦⬜🟦
+🟦⬜🟦⬜🟦
+🟦🟦🟦🟦🟦
+ 
+0xFF07 # CURRENT_LOWER
+🟦🟦🟦🟦🟦
+🟦🟦⬜🟦🟦
+🟦🟦🟦⬜🟦
+🟦🟦⬜⬜🟦
+🟦⬜🟦⬜🟦
+🟦🟦⬜⬜🟦
+🟦🟦🟦🟦🟦
+ 
+0xFF08 # CURRENT_UNDER
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+⬜⬜⬜⬜⬜
+🟦🟦🟦🟦🟦
+ 
+0xFF09 # CURRENT_UNDER_ARROW
+⬜⬜🟦⬜⬜
+⬜🟦🟦🟦⬜
+🟦⬜🟦⬜🟦
+⬜⬜🟦⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜⬜⬜
+🟦🟦🟦🟦🟦
+ 
+0xFF0A # CURRENT_UNDER_CAPS
+⬜⬜🟦⬜⬜
+⬜🟦⬜🟦⬜
+⬜🟦🟦🟦⬜
+⬜🟦⬜🟦⬜
+⬜🟦⬜🟦⬜
+⬜⬜⬜⬜⬜
+🟦🟦🟦🟦🟦
+ 
+0xFF0B # CURRENT_UNDER_LOWER
+⬜⬜🟦⬜⬜
+⬜⬜⬜🟦⬜
+⬜⬜🟦🟦⬜
+⬜🟦⬜🟦⬜
+⬜⬜🟦🟦⬜
+⬜⬜⬜⬜⬜
+🟦🟦🟦🟦🟦
