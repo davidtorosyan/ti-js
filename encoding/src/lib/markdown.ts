@@ -1,7 +1,6 @@
 import { write } from '../util/file'
 import { stringify } from 'csv-stringify/sync'
 import { strictMapExtra } from '../util/hex'
-import { chunkString } from '../util/text'
 import type { TiTokenOutput, TiSprite } from './common'
 import type { CastingContext } from 'csv-stringify/sync'
 
@@ -50,8 +49,7 @@ function transformOutput (
 
   let composite
   if (output.composite) {
-    const chunked = chunkString(output.composite, hex.length)
-    composite = chunked.map(glyphHex => {
+    composite = output.composite.map(glyphHex => {
       const mapped = strictMap.get(glyphHex)
       if (mapped === undefined) {
         throw new Error(`Missing strict map for ${glyphHex} while trying to composite ${hex}`)

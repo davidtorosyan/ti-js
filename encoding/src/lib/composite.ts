@@ -45,15 +45,15 @@ const simpleTokens = [
   'smallT1',
 ]
 
-const replacementLookup: [string, string][] = [
-  ['^2', '0x000D'],
-  ['theta', '0x005B'],
-  ['10', '0xBBEA'],
-  ['e^', '0xBB310x00F0'],
-  ['>', ARROW],
-  ['root', '0xBBF3'],
-  ['cube', CUBER],
-  ['xth', SUPERX],
+const replacementLookup: [string, string[]][] = [
+  ['^2', ['0x000D']],
+  ['theta', ['0x005B']],
+  ['10', ['0xBBEA']],
+  ['e^', ['0xBB31', '0x00F0']],
+  ['>', [ARROW]],
+  ['root', ['0xBBF3']],
+  ['cube', [CUBER]],
+  ['xth', [SUPERX]],
 ]
 
 const noReplaceHex = [
@@ -84,8 +84,8 @@ const statsRanges: [string, string][] = [
   ['0x6200', '0x623C'],
 ]
 
-export function createComposites (input: readonly TiTokenInput[]): Map<TiTokenInput, string> {
-  const result = new Map<TiTokenInput, string>()
+export function createComposites (input: readonly TiTokenInput[]): Map<TiTokenInput, string[]> {
+  const result = new Map<TiTokenInput, string[]>()
 
   const tokenMap = createTokenMap(input)
 
@@ -133,7 +133,7 @@ function createTokenMap (input: readonly TiTokenInput[]): Map<string, string> {
   return result
 }
 
-function createComposite (hex: string, token: string, tokenMap: Map<string, string>): string | undefined {
+function createComposite (hex: string, token: string, tokenMap: Map<string, string>): string[] | undefined {
   if (token.length === 1) {
     return undefined
   }
@@ -153,28 +153,47 @@ function createComposite (hex: string, token: string, tokenMap: Map<string, stri
   const needsSubscript = inRanges(hex, subscriptRanges)
   const noReplace = noReplaceHex.includes(hex)
 
-  let result = ''
+  const result: string[] = []
+
   for (let i = 0; i < token.length; i++) {
     const char = token[i]!
-    let mapped = tokenMap.get(char)
 
     if (needsSubscript) {
       const subscript = subscriptMap.get(char)
       if (subscript) {
-        mapped = subscript
-      }
-    } else if (!noReplace) {
-      for (const [key, value] of replacementLookup) {
-        if (token.substring(i).startsWith(key)) {
-          mapped = value
-          i += key.length - 1
-          break
-        }
+        result.push(subscript)
+        continue
       }
     }
 
-    result += mapped
+    if (!noReplace) {
+      const kv = mapGetPrefix(replacementLookup, token.substring(i))
+      if (kv !== undefined) {
+        const [key, value] = kv
+        result.push(...value)
+        i += key.length - 1
+        continue
+      }
+    }
+
+    const mapped = tokenMap.get(char)
+    if (mapped !== undefined) {
+      result.push(mapped)
+      continue
+    }
+
+    throw new Error(`Failed to mapping for char '${char}' at index ${i} in hex: ${hex}`)
   }
 
   return result
+}
+
+function mapGetPrefix<T> (map: [string, T][], keyText: string): [string, T] | undefined {
+  for (const [key, value] of map) {
+    if (keyText.startsWith(key)) {
+      return [key, value]
+    }
+  }
+
+  return undefined
 }

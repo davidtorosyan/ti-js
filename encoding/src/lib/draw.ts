@@ -2,7 +2,6 @@ import { write } from '../util/file'
 import { createCanvas } from 'canvas'
 import { decodeBits } from '../util/bits'
 import { UNKNOWN } from '../util/hex'
-import { chunkString } from '../util/text'
 import type { Canvas } from 'canvas'
 import type { TiTokenOutput, TiSprite } from './common'
 
@@ -63,7 +62,7 @@ function drawToken (token: TiTokenOutput, glyphMap: ReadonlyMap<string, Canvas>)
       throw new Error(`Unexpected glyph for hex, is composite: ${token.hex}`)
     }
 
-    glyphHexes = chunkString(token.composite, token.hex.length)
+    glyphHexes = token.composite
   }
 
   const tokenWidth = MARGIN_WIDTH + (GLYPH_WIDTH + MARGIN_WIDTH) * glyphHexes.length

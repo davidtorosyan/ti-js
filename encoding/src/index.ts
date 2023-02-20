@@ -1,5 +1,4 @@
 import { parse } from 'csv-parse/sync'
-import { stringify } from 'csv-stringify/sync'
 
 import { createNames } from './lib/name'
 import { createStricts } from './lib/strict'
@@ -30,7 +29,7 @@ function transform (input: TiTokenInput[], glpyhs: Map<string, string>): TiToken
 
   for (const record of input) {
     const composite = composites.get(record)
-    const length = composite === undefined ? 1 : composite.length / record.hex.length
+    const length = composite === undefined ? 1 : composite.length
 
     output.push({
       hex: record.hex,
@@ -58,11 +57,8 @@ function readInput (): TiTokenInput[] {
 }
 
 function writeOutput (output: TiTokenOutput[]): void {
-  const result = stringify(output, {
-    delimiter: ',',
-    header: true,
-  })
-  write('output.csv', result)
+  const result = JSON.stringify(output, null, 2)
+  write('output.json', result)
 }
 
 main()
