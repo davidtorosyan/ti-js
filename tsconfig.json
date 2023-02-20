@@ -9,7 +9,9 @@
         "moduleResolution": "node",
         "declaration": true,
         "sourceMap": true,
-        "declarationMap": true
+        "declarationMap": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true
     },
     "include": ["./src/**/*"]
 }
