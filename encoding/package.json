@@ -11,11 +11,14 @@
         "lint:prod": "eslint . --max-warnings 0",
         "b": "npm run clean && npm run build && npm run lint",
         "b:prod": "npm run clean && npm run build && npm run lint:prod",
-        "pub:clean": "rimraf ./out/*",
+        "pub:clean": "rimraf ./out/* ",
         "pub:sprites": "copyfiles --flat ./dist/sprites/* ./out/sprites",
         "pub:table": "copyfiles --flat ./dist/ENCODING.md ./dist/sprites.png ./dist/output.json ./out",
         "pub": "npm run pub:clean && npm run pub:sprites && npm run pub:table",
+        "pub:check": "git diff --quiet ./out",
+        "pub:prod": "npm run pub && npm run pub:check",
         "bp": "npm run b:prod && npm run pub",
+        "bp:prod": "npm run b:prod && npm run pub:prod",
         "web": "ts-node src/web.ts"
     },
     "repository": {
