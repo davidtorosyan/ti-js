@@ -618,7 +618,7 @@ const tiJsTests =
         Disp Str0
         `,
       expected: `\
-        Str0=?"Hey"
+        &{Str0}=?"Hey"
         Hey
         `,
       stdin: '"Hey"',
@@ -653,7 +653,7 @@ const tiJsTests =
       name: 'PromptStringNumber',
       input: 'Prompt Str0',
       expected: `\
-        Str0=?1
+        &{Str0}=?1
         ERR:DATA TYPE
       `,
       stdin: '1',

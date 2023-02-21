@@ -62,7 +62,7 @@ export function variableToString (variable: types.Variable): string {
     case types.ListVariable:
       str = str.substring(types.ListVariablePrefix.length)
       if (!variable.custom) {
-        str = `&L${str}`
+        str = `&{L${str}}`
       }
       break
     default:

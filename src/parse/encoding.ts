@@ -38,6 +38,7 @@ export function toStrict (line: string): string {
       }
     } else if (char === TOKEN_START[0]) {
       tokenStart = i
+      result += char
     } else {
       const longest = trie.search(line.substring(i))
       if (longest !== undefined) {

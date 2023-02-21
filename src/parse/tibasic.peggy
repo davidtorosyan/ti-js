@@ -72,7 +72,7 @@ ListVariableIdentifier
 
 CustomListVariableIdentifier
   = tok_ prefix:'list' _tok Alpha AlphaNum? AlphaNum? AlphaNum? AlphaNum?
-  { return types.ListVariablePrefix + text().substring(prefix.length); }
+  { return types.ListVariablePrefix + text().substring(prefix.length + 3); } // TODO fix hack
 
 NumericVariable
   = name:NumericVariableIdentifier { return { type: types.NumberVariable, name } }
@@ -90,7 +90,7 @@ Variable
   / ListVariable
 
 ListIndex
-  = list:ListVariable "(" index:ValueExpression OptionalEndParen 
+  = list:ListVariable '(' index:ValueExpression OptionalEndParen 
   { return { type: types.ListIndex, list, index } }
 
 Assignable
@@ -178,7 +178,7 @@ TokenExpression
   / ListExpression
 
 UnaryOperator
-  = tok_'-'_tok
+  = tok_'-'_tok { return '-' }
 
 TokenUnaryExpression
   = TokenExpression 
@@ -219,10 +219,10 @@ AdditiveExpression
 
 TestOperator
   = '='
-  / tok_'!='_tok
-  / tok_'>='_tok
+  / tok_'!='_tok { return '!=' }
+  / tok_'>='_tok { return '>=' }
   / '>'
-  / tok_'<='_tok
+  / tok_'<='_tok { return '<=' }
   / '<' 
 
 TestExpression
@@ -231,9 +231,9 @@ TestExpression
   { return util.buildBinaryExpression(head, tail); }
 
 LogicalOperator
-  = tok_' and '_tok
-  / tok_' or '_tok
-  / tok_' xor '_tok
+  = tok_' and '_tok { return ' and ' }
+  / tok_' or '_tok { return ' or ' }
+  / tok_' xor '_tok { return ' xor ' }
 
 ValueExpression // should be LogicalExpression, but suppress proxy rule warning
   = head:TestExpression

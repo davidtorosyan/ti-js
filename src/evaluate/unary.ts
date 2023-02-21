@@ -39,7 +39,7 @@ function visitList (operator: string, argument: types.ListResolved): types.ListR
 
 function applyUnaryOperation (operator: string, x: number): number {
   switch (operator) {
-    case '&-': return x * -1
+    case '-': return x * -1
     default: throw new core.LibError('unexpected unary operator')
   }
 }
