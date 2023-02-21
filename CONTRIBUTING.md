@@ -90,10 +90,12 @@ Finally, there are encoding related commands. Again, these shouldn't be needed d
 | `encoding:hash:dirty`          | Exit with an error code if the hash in ./src/gen has changed. |
 | `encoding:source:dirty`        | Exit with an error code if /encoding has changed. |
 | `encoding:dirty`               | Exit with an error code if either of the above have changed. |
+| `encoding:dirty:ci`            | Exit with an error code if hash has changed (for CI). |
 | `encoding:warn`                | Print a warning that the build will be slowed due to encoding build. |
 | `encoding:error`               | Print an error message that encoding changes need to be handled, then exit with an error code. |
 | `encoding:run`                 | If there are encoding changes, run the encoding build. |
 | `encoding:run:prod`            | If there are encoding changes, exit with an error code. |
+| `encoding:run:ci`              | If there are encoding changes, exit with an error code (for CI). |
 
 *Note that unless you're the maintainer, you won't have permissions to push directly to npm or github.*
 

@@ -28,7 +28,7 @@
     "push": "npm run bt:prod && npm run lint && npm publish",
     "cov": "tap --reporter=spec",
     "next": "npm run bump && npm run push && git push",
-    "ci:github": "npm run bt:prod",
+    "ci:github": "npm run encoding:run:ci && npm run clean && npm run build && npm test && npm run lint:prod && npm run api:prod",
     "encoding:install": "cd encoding && npm install",
     "encoding:build": "cd encoding && npm run bp:prod",
     "encoding:copy": "copyfiles --flat ./encoding/out/encoding.json ./src/gen/",
@@ -37,10 +37,12 @@
     "encoding:hash:dirty": "git diff --quiet ./src/gen/encoding.json.hash",
     "encoding:source:dirty": "git diff --quiet ./encoding",
     "encoding:dirty": "npm run encoding:hash:update && npm run encoding:hash:dirty && npm run encoding:source:dirty",
+    "encoding:dirty:ci": "npm run encoding:hash:update && npm run encoding:hash:dirty",
     "encoding:warn": "echo Building encoding, to speed this up commit your changes.",
     "encoding:error": "echo Encoding has changes, commit those first. && exit 1",
     "encoding:run": "npm run encoding:dirty || npm run encoding:warn && npm run encoding:bc",
-    "encoding:run:prod": "npm run encoding:dirty || npm run encoding:error"
+    "encoding:run:prod": "npm run encoding:dirty || npm run encoding:error",
+    "encoding:run:ci": "npm run encoding:dirty:ci || npm run encoding:error"
   },
   "repository": {
     "type": "git",
