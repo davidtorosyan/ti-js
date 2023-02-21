@@ -10,6 +10,8 @@
     "dist/web/"
   ],
   "scripts": {
+    "encoding:check:dirty": "git diff --quiet ./encoding || echo ERROR: Encoding has changes. Review, commit, and retry. && exit 1",
+    "encoding:hashup": "git rev-parse HEAD:encoding > ./src/gen/encoding.json.hash",
     "encoding:install": "cd encoding && npm install",
     "encoding:build": "cd encoding && npm run bp:prod",
     "encoding:copy": "copyfiles --flat ./encoding/out/encoding.json ./src/gen/",
