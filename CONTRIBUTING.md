@@ -77,6 +77,23 @@ You're unlikely to use the other commands directly, but here they are:
 | `npm run bt:prod`      | Build and test, but fail if there lint warnings or unconfirmed API changes. |
 | `npm run push`         | Builds and publishes to NPM. |
 
+Finally, there are encoding related commands. Again, these shouldn't be needed directly.
+
+| Command                        | Description |
+| ------------------------------ | ------------|
+| `encoding:install`             | Install the node packages needed for encoding. |
+| `encoding:build`               | Build the encoding table. |
+| `encoding:copy`                | Copy the encoding table to the ./src/gen folder. |
+| `encoding:bc`                  | Build and copy. |
+| `encoding:hash:update`         | Write the git hash of the encoding directory to ./src/gen. |
+| `encoding:hash:dirty`          | Exit with an error code if the hash in ./src/gen has changed. |
+| `encoding:source:dirty`        | Exit with an error code if /encoding has changed. |
+| `encoding:dirty`               | Exit with an error code if either of the above have changed. |
+| `encoding:warn`                | Print a warning that the build will be slowed due to encoding build. |
+| `encoding:error`               | Print an error message that encoding changes need to be handled, then exit with an error code. |
+| `encoding:run`                 | If there are encoding changes, run the encoding build. |
+| `encoding:run:prod`            | If there are encoding changes, exit with an error code. |
+
 *Note that unless you're the maintainer, you won't have permissions to push directly to npm or github.*
 
 ### Code directory
@@ -273,4 +290,4 @@ For example, the `For(` token is 4 bytes in ASCII, but only a single byte in TI-
 
 To keep things simple, this library only deals with ASCII. This means characters like `θ` are represented as `&theta`. In some cases this means code that would ambiguously convert to TI-BASIC (for example, is `->` an arrow or a minus sign followed by a greater than sign?).
 
-At some point we might implement a strict version of the language which could be lossesly converted back and forth into TI-BASIC, something like what [tiopt](https://www.club.cc.cmu.edu/~ajo/ti/tiopt.html) does.
+See the [encoding](./encoding/) subproject for creating a more strict character mapping.
