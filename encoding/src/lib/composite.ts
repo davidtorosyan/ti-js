@@ -32,6 +32,7 @@ const simpleTokens = [
   '^3',
   'COMMA',
   'NEWLINE',
+  'QUOTATION_MARK',
   'theta',
   '<=',
   '>=',

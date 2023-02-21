@@ -21,6 +21,7 @@ const printableASCIIRegex = /^[\x20-\x7E]+$/
 
 const transformTokenLookup = new Map([
   ['COMMA', ','],
+  ['QUOTATION_MARK', '"'],
   ['NEWLINE', 'newline'],
   ['&', escape('amp')],
 ])
