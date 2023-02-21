@@ -546,7 +546,7 @@
 0xBB99 | **SMALL_N_TILDE** | &{SMALL_N_TILDE} | ñ |  | <img src="./sprites/token_0xBB99.png" alt="0xBB99" width="35px" height="55px">
 0xBB9A | **ACUTE_ACCENT** | &{ACCENT} | ´ |  | <img src="./sprites/token_0xBB9A.png" alt="0xBB9A" width="35px" height="55px">
 0xBB9B | **GRAVE_ACCENT_2** | &{\`} |  |  | <img src="./sprites/token_0xBB9B.png" alt="0xBB9B" width="35px" height="55px">
-0xBB9C | **UMLAUT** | &{"} | ¨ |  | <img src="./sprites/token_0xBB9C.png" alt="0xBB9C" width="35px" height="55px">
+0xBB9C | **UMLAUT** | &{UMLAUT} | ¨ |  | <img src="./sprites/token_0xBB9C.png" alt="0xBB9C" width="35px" height="55px">
 0xBB9D | **UPSIDE_DOWN_QUESTION_MARK** | &{?} | ¿ |  | <img src="./sprites/token_0xBB9D.png" alt="0xBB9D" width="35px" height="55px">
 0xBB9E | **UPSIDE_DOWN_EXCLAMATION_MARK** | &{!} | ¡ |  | <img src="./sprites/token_0xBB9E.png" alt="0xBB9E" width="35px" height="55px">
 0xBB9F | **ALPHA** | &{alpha} | α |  | <img src="./sprites/token_0xBB9F.png" alt="0xBB9F" width="35px" height="55px">

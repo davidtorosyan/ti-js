@@ -6447,7 +6447,7 @@
   {
     "hex": "0xBB9C",
     "name": "UMLAUT",
-    "strict": "&{\"}",
+    "strict": "&{UMLAUT}",
     "utf8": "¨",
     "length": 1,
     "glyph": "IwAAAAKAAAAA"
