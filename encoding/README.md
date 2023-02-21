@@ -4,6 +4,8 @@ This is a code generation project for managing character encoding.
 
 If you're not sure what this is, refer first to the [README.md](../README.md) of the TI-JS project.
 
+(ignore)
+
 ## Table of contents
 
 - [Overview](#overview)
