@@ -242,7 +242,7 @@ Note that the rendered image has some margins, but that's not included in the bi
 
 **Note:** so far, only the large font is implemented. There's also the small font (used in the graphing screen) but that's not implmented.
 
-### Virtual
+### virtual
 _Required_
 
 This is true if this is not a real token per-se, but is used as part of composite tokens.
