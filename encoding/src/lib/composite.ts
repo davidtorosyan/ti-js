@@ -1,4 +1,4 @@
-import { inRanges, ARROW, CUBER, SUPERX } from '../util/hex'
+import { inRanges, isVirtualHex } from '../util/hex'
 import type { TiTokenInput } from './common'
 
 const alphaRanges: [string, string][] = [
@@ -52,10 +52,10 @@ const replacementLookup: [string, string[]][] = [
   ['theta', ['0x005B']],
   ['10', ['0xBBEA']],
   ['e^', ['0xBB31', '0x00F0']],
-  ['>', [ARROW]],
+  ['>', ['0xFF00']],
   ['root', ['0xBBF3']],
-  ['cube', [CUBER]],
-  ['xth', [SUPERX]],
+  ['cube', ['0xFF02']],
+  ['xth', ['0xFF03']],
 ]
 
 const noReplaceHex = [
@@ -149,6 +149,10 @@ function createComposite (hex: string, token: string, tokenMap: Map<string, stri
   }
 
   if (inRanges(hex, simpleHexRanges)) {
+    return undefined
+  }
+
+  if (isVirtualHex(hex)) {
     return undefined
   }
 

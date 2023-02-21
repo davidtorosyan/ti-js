@@ -4,7 +4,8 @@
     "name": "NULL",
     "strict": "&{null}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x0001",
@@ -17,7 +18,8 @@
       "0x004D",
       "0x0053"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x0002",
@@ -30,7 +32,8 @@
       "0x0045",
       "0x0043"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x0003",
@@ -44,7 +47,8 @@
       "0x0041",
       "0x0043"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0004",
@@ -52,7 +56,8 @@
     "strict": "&{->}",
     "utf8": "→",
     "length": 1,
-    "glyph": "IwAAAAEF8RAA"
+    "glyph": "IwAAAAEF8RAA",
+    "virtual": false
   },
   {
     "hex": "0x0005",
@@ -67,35 +72,40 @@
       "0xBBBF",
       "0xBBC4"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x0006",
     "name": "LEFT_SQUARE_BRACKET",
     "strict": "[",
     "length": 1,
-    "glyph": "IwAAADEIQhDA"
+    "glyph": "IwAAADEIQhDA",
+    "virtual": false
   },
   {
     "hex": "0x0007",
     "name": "RIGHT_SQUARE_BRACKET",
     "strict": "]",
     "length": 1,
-    "glyph": "IwAAAGEIQhGA"
+    "glyph": "IwAAAGEIQhGA",
+    "virtual": false
   },
   {
     "hex": "0x0008",
     "name": "LEFT_CURLY_BRACKET",
     "strict": "{",
     "length": 1,
-    "glyph": "IwAAABkIghBg"
+    "glyph": "IwAAABkIghBg",
+    "virtual": false
   },
   {
     "hex": "0x0009",
     "name": "RIGHT_CURLY_BRACKET",
     "strict": "}",
     "length": 1,
-    "glyph": "IwAAAMEIIhMA"
+    "glyph": "IwAAAMEIIhMA",
+    "virtual": false
   },
   {
     "hex": "0x000A",
@@ -103,7 +113,8 @@
     "strict": "&{rad}",
     "utf8": "ʳ",
     "length": 1,
-    "glyph": "IwAAALYhAAAA"
+    "glyph": "IwAAALYhAAAA",
+    "virtual": false
   },
   {
     "hex": "0x000B",
@@ -111,7 +122,8 @@
     "strict": "&{deg}",
     "utf8": "°",
     "length": 1,
-    "glyph": "IwAAAGSkwAAA"
+    "glyph": "IwAAAGSkwAAA",
+    "virtual": false
   },
   {
     "hex": "0x000C",
@@ -119,7 +131,8 @@
     "strict": "&{^-1}",
     "utf8": "⁻¹",
     "length": 1,
-    "glyph": "IwAAABhyEIAA"
+    "glyph": "IwAAABhyEIAA",
+    "virtual": false
   },
   {
     "hex": "0x000D",
@@ -127,7 +140,8 @@
     "strict": "&{^2}",
     "utf8": "²",
     "length": 1,
-    "glyph": "IwAAAGCIhwAA"
+    "glyph": "IwAAAGCIhwAA",
+    "virtual": false
   },
   {
     "hex": "0x000E",
@@ -135,7 +149,8 @@
     "strict": "&{transpose}",
     "utf8": "ᵀ",
     "length": 1,
-    "glyph": "IwAAAHEIQgAA"
+    "glyph": "IwAAAHEIQgAA",
+    "virtual": false
   },
   {
     "hex": "0x000F",
@@ -143,21 +158,24 @@
     "strict": "&{^3}",
     "utf8": "³",
     "length": 1,
-    "glyph": "IwAAAGCIJgAA"
+    "glyph": "IwAAAGCIJgAA",
+    "virtual": false
   },
   {
     "hex": "0x0010",
     "name": "LEFT_PARENTHESIS",
     "strict": "(",
     "length": 1,
-    "glyph": "IwAAABEQhBBA"
+    "glyph": "IwAAABEQhBBA",
+    "virtual": false
   },
   {
     "hex": "0x0011",
     "name": "RIGHT_PARENTHESIS",
     "strict": ")",
     "length": 1,
-    "glyph": "IwAAAEEEIREA"
+    "glyph": "IwAAAEEEIREA",
+    "virtual": false
   },
   {
     "hex": "0x0012",
@@ -171,7 +189,8 @@
       "0xBBB3",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x0013",
@@ -188,7 +207,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x0014",
@@ -204,7 +224,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x0015",
@@ -220,7 +241,8 @@
       "0xBBC0",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x0016",
@@ -233,7 +255,8 @@
       "0x0070",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0017",
@@ -246,7 +269,8 @@
       "0xBBC7",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0018",
@@ -260,7 +284,8 @@
       "0x0070",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x0019",
@@ -272,7 +297,8 @@
       "0xBBC8",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x001A",
@@ -284,7 +310,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x001B",
@@ -298,7 +325,8 @@
       "0xBBC2",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x001C",
@@ -311,7 +339,8 @@
       "0x0050",
       "0x005B"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x001D",
@@ -325,7 +354,8 @@
       "0xBBC8",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x001E",
@@ -338,7 +368,8 @@
       "0x0052",
       "0xBBC9"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x001F",
@@ -353,7 +384,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x0020",
@@ -367,7 +399,8 @@
       "0x004D",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x0021",
@@ -380,7 +413,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0022",
@@ -394,7 +428,8 @@
       "0xBBB4",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x0023",
@@ -406,7 +441,8 @@
       "0xBBC1",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x0024",
@@ -420,7 +456,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x0025",
@@ -435,7 +472,8 @@
       "0xBBC6",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x0027",
@@ -448,7 +486,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0028",
@@ -461,42 +500,48 @@
       "0xBBC8",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0029",
     "name": "SPACE",
     "strict": " ",
     "length": 1,
-    "glyph": "IwAAAAAAAAAA"
+    "glyph": "IwAAAAAAAAAA",
+    "virtual": false
   },
   {
     "hex": "0x002A",
     "name": "QUOTATION_MARK",
     "strict": "\"",
     "length": 1,
-    "glyph": "IwAAAFKUAAAA"
+    "glyph": "IwAAAFKUAAAA",
+    "virtual": false
   },
   {
     "hex": "0x002B",
     "name": "COMMA",
     "strict": ",",
     "length": 1,
-    "glyph": "IwAAAAAABhEA"
+    "glyph": "IwAAAAAABhEA",
+    "virtual": false
   },
   {
     "hex": "0x002C",
     "name": "CONSTANT_I",
     "strict": "&{i}",
     "length": 1,
-    "glyph": "IwAAAEAwhCiA"
+    "glyph": "IwAAAEAwhCiA",
+    "virtual": false
   },
   {
     "hex": "0x002D",
     "name": "EXCLAMATION_MARK",
     "strict": "!",
     "length": 1,
-    "glyph": "IwAAACEIQBCA"
+    "glyph": "IwAAACEIQBCA",
+    "virtual": false
   },
   {
     "hex": "0x002E",
@@ -512,7 +557,8 @@
       "0xBBB4",
       "0xBBB6"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x002F",
@@ -528,91 +574,104 @@
       "0xBBB4",
       "0xBBB6"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x0030",
     "name": "DIGIT_ZERO",
     "strict": "0",
     "length": 1,
-    "glyph": "IwAAAHRnXMXA"
+    "glyph": "IwAAAHRnXMXA",
+    "virtual": false
   },
   {
     "hex": "0x0031",
     "name": "DIGIT_ONE",
     "strict": "1",
     "length": 1,
-    "glyph": "IwAAACMIQhHA"
+    "glyph": "IwAAACMIQhHA",
+    "virtual": false
   },
   {
     "hex": "0x0032",
     "name": "DIGIT_TWO",
     "strict": "2",
     "length": 1,
-    "glyph": "IwAAAHRCIiPg"
+    "glyph": "IwAAAHRCIiPg",
+    "virtual": false
   },
   {
     "hex": "0x0033",
     "name": "DIGIT_THREE",
     "strict": "3",
     "length": 1,
-    "glyph": "IwAAAPiIIMXA"
+    "glyph": "IwAAAPiIIMXA",
+    "virtual": false
   },
   {
     "hex": "0x0034",
     "name": "DIGIT_FOUR",
     "strict": "4",
     "length": 1,
-    "glyph": "IwAAABGVL4hA"
+    "glyph": "IwAAABGVL4hA",
+    "virtual": false
   },
   {
     "hex": "0x0035",
     "name": "DIGIT_FIVE",
     "strict": "5",
     "length": 1,
-    "glyph": "IwAAAPw8EMXA"
+    "glyph": "IwAAAPw8EMXA",
+    "virtual": false
   },
   {
     "hex": "0x0036",
     "name": "DIGIT_SIX",
     "strict": "6",
     "length": 1,
-    "glyph": "IwAAADIh6MXA"
+    "glyph": "IwAAADIh6MXA",
+    "virtual": false
   },
   {
     "hex": "0x0037",
     "name": "DIGIT_SEVEN",
     "strict": "7",
     "length": 1,
-    "glyph": "IwAAAPhERCEA"
+    "glyph": "IwAAAPhERCEA",
+    "virtual": false
   },
   {
     "hex": "0x0038",
     "name": "DIGIT_EIGHT",
     "strict": "8",
     "length": 1,
-    "glyph": "IwAAAHRi6MXA"
+    "glyph": "IwAAAHRi6MXA",
+    "virtual": false
   },
   {
     "hex": "0x0039",
     "name": "DIGIT_NINE",
     "strict": "9",
     "length": 1,
-    "glyph": "IwAAAHRi8ImA"
+    "glyph": "IwAAAHRi8ImA",
+    "virtual": false
   },
   {
     "hex": "0x003A",
     "name": "FULL_STOP",
     "strict": ".",
     "length": 1,
-    "glyph": "IwAAAAAAADGA"
+    "glyph": "IwAAAAAAADGA",
+    "virtual": false
   },
   {
     "hex": "0x003B",
     "name": "E_TEN",
     "strict": "&{E}",
     "length": 1,
-    "glyph": "IwAAAAAehyHg"
+    "glyph": "IwAAAAAehyHg",
+    "virtual": false
   },
   {
     "hex": "0x003C",
@@ -624,7 +683,8 @@
       "0xBBC2",
       "0x0029"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x003D",
@@ -637,21 +697,24 @@
       "0xBBC2",
       "0x0029"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x003E",
     "name": "COLON",
     "strict": ":",
     "length": 1,
-    "glyph": "IwAAAAMYBjAA"
+    "glyph": "IwAAAAMYBjAA",
+    "virtual": false
   },
   {
     "hex": "0x003F",
     "name": "NEWLINE",
     "strict": "&{newline}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x0040",
@@ -664,189 +727,216 @@
       "0xBBB3",
       "0x0029"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0041",
     "name": "CAPITAL_A",
     "strict": "A",
     "length": 1,
-    "glyph": "IwAAAHRj+MYg"
+    "glyph": "IwAAAHRj+MYg",
+    "virtual": false
   },
   {
     "hex": "0x0042",
     "name": "CAPITAL_B",
     "strict": "B",
     "length": 1,
-    "glyph": "IwAAAPRj6MfA"
+    "glyph": "IwAAAPRj6MfA",
+    "virtual": false
   },
   {
     "hex": "0x0043",
     "name": "CAPITAL_C",
     "strict": "C",
     "length": 1,
-    "glyph": "IwAAAHRhCEXA"
+    "glyph": "IwAAAHRhCEXA",
+    "virtual": false
   },
   {
     "hex": "0x0044",
     "name": "CAPITAL_D",
     "strict": "D",
     "length": 1,
-    "glyph": "IwAAAPRjGMfA"
+    "glyph": "IwAAAPRjGMfA",
+    "virtual": false
   },
   {
     "hex": "0x0045",
     "name": "CAPITAL_E",
     "strict": "E",
     "length": 1,
-    "glyph": "IwAAAPwh6EPg"
+    "glyph": "IwAAAPwh6EPg",
+    "virtual": false
   },
   {
     "hex": "0x0046",
     "name": "CAPITAL_F",
     "strict": "F",
     "length": 1,
-    "glyph": "IwAAAPwh6EIA"
+    "glyph": "IwAAAPwh6EIA",
+    "virtual": false
   },
   {
     "hex": "0x0047",
     "name": "CAPITAL_G",
     "strict": "G",
     "length": 1,
-    "glyph": "IwAAAHRheMXg"
+    "glyph": "IwAAAHRheMXg",
+    "virtual": false
   },
   {
     "hex": "0x0048",
     "name": "CAPITAL_H",
     "strict": "H",
     "length": 1,
-    "glyph": "IwAAAIxj+MYg"
+    "glyph": "IwAAAIxj+MYg",
+    "virtual": false
   },
   {
     "hex": "0x0049",
     "name": "CAPITAL_I",
     "strict": "I",
     "length": 1,
-    "glyph": "IwAAAHEIQhHA"
+    "glyph": "IwAAAHEIQhHA",
+    "virtual": false
   },
   {
     "hex": "0x004A",
     "name": "CAPITAL_J",
     "strict": "J",
     "length": 1,
-    "glyph": "IwAAADiEIUmA"
+    "glyph": "IwAAADiEIUmA",
+    "virtual": false
   },
   {
     "hex": "0x004B",
     "name": "CAPITAL_K",
     "strict": "K",
     "length": 1,
-    "glyph": "IwAAAIypikog"
+    "glyph": "IwAAAIypikog",
+    "virtual": false
   },
   {
     "hex": "0x004C",
     "name": "CAPITAL_L",
     "strict": "L",
     "length": 1,
-    "glyph": "IwAAAIQhCEPg"
+    "glyph": "IwAAAIQhCEPg",
+    "virtual": false
   },
   {
     "hex": "0x004D",
     "name": "CAPITAL_M",
     "strict": "M",
     "length": 1,
-    "glyph": "IwAAAI7rWMYg"
+    "glyph": "IwAAAI7rWMYg",
+    "virtual": false
   },
   {
     "hex": "0x004E",
     "name": "CAPITAL_N",
     "strict": "N",
     "length": 1,
-    "glyph": "IwAAAIxzWcYg"
+    "glyph": "IwAAAIxzWcYg",
+    "virtual": false
   },
   {
     "hex": "0x004F",
     "name": "CAPITAL_O",
     "strict": "O",
     "length": 1,
-    "glyph": "IwAAAHRjGMXA"
+    "glyph": "IwAAAHRjGMXA",
+    "virtual": false
   },
   {
     "hex": "0x0050",
     "name": "CAPITAL_P",
     "strict": "P",
     "length": 1,
-    "glyph": "IwAAAPRj6EIA"
+    "glyph": "IwAAAPRj6EIA",
+    "virtual": false
   },
   {
     "hex": "0x0051",
     "name": "CAPITAL_Q",
     "strict": "Q",
     "length": 1,
-    "glyph": "IwAAAHRjGsmg"
+    "glyph": "IwAAAHRjGsmg",
+    "virtual": false
   },
   {
     "hex": "0x0052",
     "name": "CAPITAL_R",
     "strict": "R",
     "length": 1,
-    "glyph": "IwAAAPRj6kog"
+    "glyph": "IwAAAPRj6kog",
+    "virtual": false
   },
   {
     "hex": "0x0053",
     "name": "CAPITAL_S",
     "strict": "S",
     "length": 1,
-    "glyph": "IwAAAHwg4IfA"
+    "glyph": "IwAAAHwg4IfA",
+    "virtual": false
   },
   {
     "hex": "0x0054",
     "name": "CAPITAL_T",
     "strict": "T",
     "length": 1,
-    "glyph": "IwAAAPkIQhCA"
+    "glyph": "IwAAAPkIQhCA",
+    "virtual": false
   },
   {
     "hex": "0x0055",
     "name": "CAPITAL_U",
     "strict": "U",
     "length": 1,
-    "glyph": "IwAAAIxjGMXA"
+    "glyph": "IwAAAIxjGMXA",
+    "virtual": false
   },
   {
     "hex": "0x0056",
     "name": "CAPITAL_V",
     "strict": "V",
     "length": 1,
-    "glyph": "IwAAAIxjFSiA"
+    "glyph": "IwAAAIxjFSiA",
+    "virtual": false
   },
   {
     "hex": "0x0057",
     "name": "CAPITAL_W",
     "strict": "W",
     "length": 1,
-    "glyph": "IwAAAIxjWtVA"
+    "glyph": "IwAAAIxjWtVA",
+    "virtual": false
   },
   {
     "hex": "0x0058",
     "name": "CAPITAL_X",
     "strict": "X",
     "length": 1,
-    "glyph": "IwAAAIxURUYg"
+    "glyph": "IwAAAIxURUYg",
+    "virtual": false
   },
   {
     "hex": "0x0059",
     "name": "CAPITAL_Y",
     "strict": "Y",
     "length": 1,
-    "glyph": "IwAAAIxiohCA"
+    "glyph": "IwAAAIxiohCA",
+    "virtual": false
   },
   {
     "hex": "0x005A",
     "name": "CAPITAL_Z",
     "strict": "Z",
     "length": 1,
-    "glyph": "IwAAAPhEREPg"
+    "glyph": "IwAAAPhEREPg",
+    "virtual": false
   },
   {
     "hex": "0x005B",
@@ -854,7 +944,8 @@
     "strict": "&{theta}",
     "utf8": "θ",
     "length": 1,
-    "glyph": "IwAAADJj+MmA"
+    "glyph": "IwAAADJj+MmA",
+    "virtual": false
   },
   {
     "hex": "0x005F",
@@ -866,7 +957,8 @@
       "0xBBB6",
       "0xBBBD"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x0064",
@@ -880,7 +972,8 @@
       "0xBBB0",
       "0xBBBE"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x0065",
@@ -894,7 +987,8 @@
       "0xBBB4",
       "0xBBB4"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x0066",
@@ -908,7 +1002,8 @@
       "0xBBB0",
       "0xBBBC"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x0067",
@@ -919,7 +1014,8 @@
       "0xBBB2",
       "0xBBB8"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x0068",
@@ -930,7 +1026,8 @@
       "0xBBBE",
       "0xBBB6"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x0069",
@@ -943,28 +1040,32 @@
       "0xBBB0",
       "0xBBC4"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x006A",
     "name": "EQUALS_SIGN",
     "strict": "=",
     "length": 1,
-    "glyph": "IwAAAAA+D4AA"
+    "glyph": "IwAAAAA+D4AA",
+    "virtual": false
   },
   {
     "hex": "0x006B",
     "name": "LESS_THAN_SIGN",
     "strict": "<",
     "length": 1,
-    "glyph": "IwAAABERBBBA"
+    "glyph": "IwAAABERBBBA",
+    "virtual": false
   },
   {
     "hex": "0x006C",
     "name": "GREATER_THAN_SIGN",
     "strict": ">",
     "length": 1,
-    "glyph": "IwAAAEEEEREA"
+    "glyph": "IwAAAEEEEREA",
+    "virtual": false
   },
   {
     "hex": "0x006D",
@@ -972,7 +1073,8 @@
     "strict": "&{<=}",
     "utf8": "≤",
     "length": 1,
-    "glyph": "IwAAAAmwYIPg"
+    "glyph": "IwAAAAmwYIPg",
+    "virtual": false
   },
   {
     "hex": "0x006E",
@@ -980,7 +1082,8 @@
     "strict": "&{>=}",
     "utf8": "≥",
     "length": 1,
-    "glyph": "IwAAAIMGyAPg"
+    "glyph": "IwAAAIMGyAPg",
+    "virtual": false
   },
   {
     "hex": "0x006F",
@@ -988,21 +1091,24 @@
     "strict": "&{!=}",
     "utf8": "≠",
     "length": 1,
-    "glyph": "IwAAABC+T6EA"
+    "glyph": "IwAAABC+T6EA",
+    "virtual": false
   },
   {
     "hex": "0x0070",
     "name": "PLUS_SIGN",
     "strict": "+",
     "length": 1,
-    "glyph": "IwAAAAEJ8hAA"
+    "glyph": "IwAAAAEJ8hAA",
+    "virtual": false
   },
   {
     "hex": "0x0071",
     "name": "SUBTRACT",
     "strict": "-",
     "length": 1,
-    "glyph": "IwAAAAAB8AAA"
+    "glyph": "IwAAAAAB8AAA",
+    "virtual": false
   },
   {
     "hex": "0x0072",
@@ -1013,7 +1119,8 @@
       "0xBBBE",
       "0xBBC3"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x0073",
@@ -1024,7 +1131,8 @@
       "0xBBB8",
       "0xBBC8"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x0074",
@@ -1037,7 +1145,8 @@
       "0xBBB8",
       "0xBBCA"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0075",
@@ -1049,7 +1158,8 @@
       "0xBBBC",
       "0xBBBC"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x0076",
@@ -1061,7 +1171,8 @@
       "0xBBBE",
       "0xBBB2"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x0077",
@@ -1074,7 +1185,8 @@
       "0xBBB0",
       "0xBBBD"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0078",
@@ -1087,7 +1199,8 @@
       "0xBBB0",
       "0xBBC2"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0079",
@@ -1098,7 +1211,8 @@
       "0xBBB4",
       "0xBBC1"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x007A",
@@ -1116,7 +1230,8 @@
       "0xBBC4",
       "0xBBBF"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0x007B",
@@ -1133,7 +1248,8 @@
       "0xBBC3",
       "0xBBBA"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x007C",
@@ -1151,7 +1267,8 @@
       "0xBBC4",
       "0xBBBF"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0x007D",
@@ -1168,7 +1285,8 @@
       "0xBBC3",
       "0xBBBA"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x007F",
@@ -1176,7 +1294,8 @@
     "strict": "&{square}",
     "utf8": "□",
     "length": 1,
-    "glyph": "IwAAAAAA5TgA"
+    "glyph": "IwAAAAAA5TgA",
+    "virtual": false
   },
   {
     "hex": "0x0080",
@@ -1184,7 +1303,8 @@
     "strict": "&{plus}",
     "utf8": "﹢",
     "length": 1,
-    "glyph": "IwAAAAAARxAA"
+    "glyph": "IwAAAAAARxAA",
+    "virtual": false
   },
   {
     "hex": "0x0081",
@@ -1192,21 +1312,24 @@
     "strict": "&{dot}",
     "utf8": "·",
     "length": 1,
-    "glyph": "IwAAAAAAAgAA"
+    "glyph": "IwAAAAAAAgAA",
+    "virtual": false
   },
   {
     "hex": "0x0082",
     "name": "ASTERISK",
     "strict": "*",
     "length": 1,
-    "glyph": "IwAAAAEq6pAA"
+    "glyph": "IwAAAAEq6pAA",
+    "virtual": false
   },
   {
     "hex": "0x0083",
     "name": "SOLIDUS",
     "strict": "/",
     "length": 1,
-    "glyph": "IwAAAABEREAA"
+    "glyph": "IwAAAABEREAA",
+    "virtual": false
   },
   {
     "hex": "0x0084",
@@ -1219,7 +1342,8 @@
       "0xBBB2",
       "0xBBB4"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0085",
@@ -1234,7 +1358,8 @@
       "0xBBB0",
       "0xBBC7"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x0086",
@@ -1251,7 +1376,8 @@
       "0xBBC2",
       "0xBBB3"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x0087",
@@ -1264,7 +1390,8 @@
       "0xBBB8",
       "0xBBB6"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0088",
@@ -1276,7 +1403,8 @@
       "0xBBBF",
       "0xBBC8"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x0089",
@@ -1291,7 +1419,8 @@
       "0x0049",
       "0xBBBE"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x008A",
@@ -1307,7 +1436,8 @@
       "0xBBC5",
       "0xBBC4"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x008B",
@@ -1322,7 +1452,8 @@
       "0xBBC2",
       "0xBBB4"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x008C",
@@ -1338,7 +1469,8 @@
       "0xBBB4",
       "0xBBC2"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x008D",
@@ -1355,7 +1487,8 @@
       "0xBBC5",
       "0xBBC3"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x008E",
@@ -1371,7 +1504,8 @@
       "0xBBB0",
       "0xBBBC"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x008F",
@@ -1387,7 +1521,8 @@
       "0xBBB0",
       "0xBBC4"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x0090",
@@ -1402,7 +1537,8 @@
       "0xBBB2",
       "0xBBBC"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x0092",
@@ -1417,7 +1553,8 @@
       "0xBBC4",
       "0xBBBF"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x0093",
@@ -1430,7 +1567,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0094",
@@ -1443,7 +1581,8 @@
       "0xBBC2",
       "0x0029"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0095",
@@ -1456,7 +1595,8 @@
       "0xBBC2",
       "0x0029"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0096",
@@ -1469,7 +1609,8 @@
       "0xBBBE",
       "0x0029"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x0097",
@@ -1483,7 +1624,8 @@
       "0xBBB5",
       "0x0029"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x0098",
@@ -1500,7 +1642,8 @@
       "0xBBB2",
       "0x0029"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x0099",
@@ -1518,7 +1661,8 @@
       "0xBBB2",
       "0x0029"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0x009A",
@@ -1535,7 +1679,8 @@
       "0x0042",
       "0x0029"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x009B",
@@ -1553,7 +1698,8 @@
       "0x0042",
       "0x0029"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0x009C",
@@ -1566,7 +1712,8 @@
       "0xBBB4",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x009D",
@@ -1583,7 +1730,8 @@
       "0xBBBC",
       "0x0029"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x009E",
@@ -1597,7 +1745,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x009F",
@@ -1612,7 +1761,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00A0",
@@ -1630,7 +1780,8 @@
       "0xBBB4",
       "0x0010"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0x00A1",
@@ -1645,7 +1796,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00A2",
@@ -1661,7 +1813,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x00A3",
@@ -1680,7 +1833,8 @@
       "0xBBB4",
       "0x0010"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0x00A4",
@@ -1694,7 +1848,8 @@
       "0xBBB4",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00A5",
@@ -1709,7 +1864,8 @@
       "0xBBB4",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00A6",
@@ -1728,7 +1884,8 @@
       "0xBBBC",
       "0x0029"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0x00A7",
@@ -1744,7 +1901,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x00A8",
@@ -1760,7 +1918,8 @@
       "0xBBC6",
       "0x0029"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x00A9",
@@ -1774,7 +1933,8 @@
       "0x0046",
       "0x0029"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00AB",
@@ -1786,7 +1946,8 @@
       "0xBBBE",
       "0xBBB3"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00AC",
@@ -1794,7 +1955,8 @@
     "strict": "&{pi}",
     "utf8": "π",
     "length": 1,
-    "glyph": "IwAAAAA+pSpg"
+    "glyph": "IwAAAAA+pSpg",
+    "virtual": false
   },
   {
     "hex": "0x00AD",
@@ -1808,21 +1970,24 @@
       "0xBBB4",
       "0xBBC9"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00AE",
     "name": "APOSTROPHE",
     "strict": "'",
     "length": 1,
-    "glyph": "IwAAACEIAAAA"
+    "glyph": "IwAAACEIAAAA",
+    "virtual": false
   },
   {
     "hex": "0x00AF",
     "name": "QUESTION_MARK",
     "strict": "?",
     "length": 1,
-    "glyph": "IwAAAHRCIgCA"
+    "glyph": "IwAAAHRCIgCA",
+    "virtual": false
   },
   {
     "hex": "0x00B0",
@@ -1830,7 +1995,8 @@
     "strict": "&{-}",
     "utf8": "˗",
     "length": 1,
-    "glyph": "IwAAAAAOAAAA"
+    "glyph": "IwAAAAAOAAAA",
+    "virtual": false
   },
   {
     "hex": "0x00B1",
@@ -1842,7 +2008,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00B2",
@@ -1854,7 +2021,8 @@
       "0xBBC3",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00B3",
@@ -1866,7 +2034,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00B4",
@@ -1883,7 +2052,8 @@
       "0xBBC9",
       "0x0010"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x00B5",
@@ -1895,7 +2065,8 @@
       "0xBBBD",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00B6",
@@ -1907,7 +2078,8 @@
       "0xBBBD",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00B7",
@@ -1920,7 +2092,8 @@
       "0xBBB3",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x00B8",
@@ -1932,7 +2105,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00B9",
@@ -1946,7 +2120,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00BA",
@@ -1960,7 +2135,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00BC",
@@ -1971,7 +2147,8 @@
       "0xBBF3",
       "0x0010"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x00BD",
@@ -1983,7 +2160,8 @@
       "0xBBF3",
       "0x0010"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x00BE",
@@ -1994,7 +2172,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x00BF",
@@ -2005,7 +2184,8 @@
       "0x00F0",
       "0x0010"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x00C0",
@@ -2017,7 +2197,8 @@
       "0xBBB6",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00C1",
@@ -2029,7 +2210,8 @@
       "0x00F0",
       "0x0010"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x00C2",
@@ -2041,7 +2223,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00C3",
@@ -2056,7 +2239,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00C4",
@@ -2068,7 +2252,8 @@
       "0xBBC3",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00C5",
@@ -2083,7 +2268,8 @@
       "0xBBC3",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00C6",
@@ -2095,7 +2281,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00C7",
@@ -2110,7 +2297,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00C8",
@@ -2123,7 +2311,8 @@
       "0xBBB7",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x00C9",
@@ -2139,7 +2328,8 @@
       "0xBBB7",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x00CA",
@@ -2152,7 +2342,8 @@
       "0xBBB7",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x00CB",
@@ -2168,7 +2359,8 @@
       "0xBBB7",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x00CC",
@@ -2181,7 +2373,8 @@
       "0xBBB7",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x00CD",
@@ -2197,7 +2390,8 @@
       "0xBBB7",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x00CE",
@@ -2208,7 +2402,8 @@
       "0xBBB5",
       "0x0029"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x00CF",
@@ -2220,7 +2415,8 @@
       "0xBBB4",
       "0xBBBE"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00D0",
@@ -2232,7 +2428,8 @@
       "0xBBC3",
       "0xBBB4"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00D1",
@@ -2246,7 +2443,8 @@
       "0xBBB4",
       "0x0029"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00D2",
@@ -2261,7 +2459,8 @@
       "0xBBC4",
       "0x0029"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00D3",
@@ -2273,7 +2472,8 @@
       "0xBBC2",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00D4",
@@ -2284,7 +2484,8 @@
       "0xBBBE",
       "0xBBB3"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x00D5",
@@ -2298,7 +2499,8 @@
       "0xBBC2",
       "0xBBBE"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00D6",
@@ -2310,7 +2512,8 @@
       "0xBBBC",
       "0x0029"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00D7",
@@ -2323,7 +2526,8 @@
       "0xBBBF",
       "0x0029"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x00D8",
@@ -2337,7 +2541,8 @@
       "0xBBB4",
       "0x0029"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00D9",
@@ -2349,7 +2554,8 @@
       "0xBBBF",
       "0xBBC0"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00DA",
@@ -2361,7 +2567,8 @@
       "0x006C",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00DB",
@@ -2373,7 +2580,8 @@
       "0x006B",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00DC",
@@ -2387,7 +2595,8 @@
       "0xBBC4",
       "0x0029"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00DD",
@@ -2402,7 +2611,8 @@
       "0xBBC4",
       "0x0029"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00DE",
@@ -2415,7 +2625,8 @@
       "0xBBC0",
       "0x0029"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x00DF",
@@ -2432,7 +2643,8 @@
       "0xBBC0",
       "0xBBB7"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x00E0",
@@ -2447,7 +2659,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00E1",
@@ -2462,7 +2675,8 @@
       "0xBBBD",
       "0xBBB4"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00E2",
@@ -2475,7 +2689,8 @@
       "0xBBBC",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x00E3",
@@ -2489,7 +2704,8 @@
       "0x0041",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00E4",
@@ -2503,7 +2719,8 @@
       "0x0044",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00E5",
@@ -2520,7 +2737,8 @@
       "0xBBBC",
       "0xBBB4"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x00E6",
@@ -2533,7 +2751,8 @@
       "0xBBC5",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x00E7",
@@ -2546,7 +2765,8 @@
       "0xBBB3",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x00E8",
@@ -2558,7 +2778,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x00E9",
@@ -2574,7 +2795,8 @@
       "0xBBBE",
       "0x0029"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x00EA",
@@ -2591,7 +2813,8 @@
       "0xBBB5",
       "0x0029"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x00EB",
@@ -2599,7 +2822,8 @@
     "strict": "&{list}",
     "utf8": "∟",
     "length": 1,
-    "glyph": "IwAAAAAIQhDg"
+    "glyph": "IwAAAAAIQhDg",
+    "virtual": false
   },
   {
     "hex": "0x00EC",
@@ -2613,7 +2837,8 @@
       "0x0031",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00ED",
@@ -2627,7 +2852,8 @@
       "0x0032",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00EE",
@@ -2641,14 +2867,16 @@
       "0x0033",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00F0",
     "name": "RAISE",
     "strict": "^",
     "length": 1,
-    "glyph": "IwAAACKiAAAA"
+    "glyph": "IwAAACKiAAAA",
+    "virtual": false
   },
   {
     "hex": "0x00F1",
@@ -2659,7 +2887,8 @@
       "0xFF03",
       "0xBBF3"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x00F2",
@@ -2678,7 +2907,8 @@
       "0xBBC3",
       "0x0029"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0x00F3",
@@ -2697,7 +2927,8 @@
       "0xBBC3",
       "0x0029"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0x00F4",
@@ -2718,7 +2949,8 @@
       "0x0011",
       "0x0029"
     ],
-    "length": 13
+    "length": 13,
+    "virtual": false
   },
   {
     "hex": "0x00F5",
@@ -2733,7 +2965,8 @@
       "0xBBB6",
       "0x0029"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00F6",
@@ -2747,7 +2980,8 @@
       "0xBBB6",
       "0x0029"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00F7",
@@ -2762,7 +2996,8 @@
       "0xBBB6",
       "0x0029"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00F8",
@@ -2778,7 +3013,8 @@
       "0xBBB3",
       "0x0029"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x00F9",
@@ -2794,7 +3030,8 @@
       "0xBBB6",
       "0x0029"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x00FA",
@@ -2810,7 +3047,8 @@
       "0xBBC4",
       "0x0029"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x00FB",
@@ -2826,7 +3064,8 @@
       "0xBBBC",
       "0xBBB4"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x00FC",
@@ -2843,7 +3082,8 @@
       "0xBBB0",
       "0xBBBD"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x00FD",
@@ -2857,7 +3097,8 @@
       "0xBBBE",
       "0xBBB4"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x00FE",
@@ -2872,7 +3113,8 @@
       "0xBBB4",
       "0xBBC2"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x00FF",
@@ -2893,7 +3135,8 @@
       "0x0011",
       "0x0029"
     ],
-    "length": 13
+    "length": 13,
+    "virtual": false
   },
   {
     "hex": "0x5C00",
@@ -2904,7 +3147,8 @@
       "0x0041",
       "0x0007"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5C01",
@@ -2915,7 +3159,8 @@
       "0x0042",
       "0x0007"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5C02",
@@ -2926,7 +3171,8 @@
       "0x0043",
       "0x0007"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5C03",
@@ -2937,7 +3183,8 @@
       "0x0044",
       "0x0007"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5C04",
@@ -2948,7 +3195,8 @@
       "0x0045",
       "0x0007"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5C05",
@@ -2959,7 +3207,8 @@
       "0x0046",
       "0x0007"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5C06",
@@ -2970,7 +3219,8 @@
       "0x0047",
       "0x0007"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5C07",
@@ -2981,7 +3231,8 @@
       "0x0048",
       "0x0007"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5C08",
@@ -2992,7 +3243,8 @@
       "0x0049",
       "0x0007"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5C09",
@@ -3003,7 +3255,8 @@
       "0x004A",
       "0x0007"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5D00",
@@ -3014,7 +3267,8 @@
       "0x004C",
       "0xBBE1"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5D01",
@@ -3025,7 +3279,8 @@
       "0x004C",
       "0xBBE2"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5D02",
@@ -3036,7 +3291,8 @@
       "0x004C",
       "0xBBE3"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5D03",
@@ -3047,7 +3303,8 @@
       "0x004C",
       "0xBBE4"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5D04",
@@ -3058,7 +3315,8 @@
       "0x004C",
       "0xBBE5"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5D05",
@@ -3069,7 +3327,8 @@
       "0x004C",
       "0xBBE6"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E10",
@@ -3080,7 +3339,8 @@
       "0x0059",
       "0xBBE1"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E11",
@@ -3091,7 +3351,8 @@
       "0x0059",
       "0xBBE2"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E12",
@@ -3102,7 +3363,8 @@
       "0x0059",
       "0xBBE3"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E13",
@@ -3113,7 +3375,8 @@
       "0x0059",
       "0xBBE4"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E14",
@@ -3124,7 +3387,8 @@
       "0x0059",
       "0xBBE5"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E15",
@@ -3135,7 +3399,8 @@
       "0x0059",
       "0xBBE6"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E16",
@@ -3146,7 +3411,8 @@
       "0x0059",
       "0xBBE7"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E17",
@@ -3157,7 +3423,8 @@
       "0x0059",
       "0xBBE8"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E18",
@@ -3168,7 +3435,8 @@
       "0x0059",
       "0xBBE9"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E19",
@@ -3179,7 +3447,8 @@
       "0x0059",
       "0xBBE0"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E20",
@@ -3191,7 +3460,8 @@
       "0xBBE1",
       "0xBBCC"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5E21",
@@ -3203,7 +3473,8 @@
       "0xBBE1",
       "0xBBCC"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5E22",
@@ -3215,7 +3486,8 @@
       "0xBBE2",
       "0xBBCC"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5E23",
@@ -3227,7 +3499,8 @@
       "0xBBE2",
       "0xBBCC"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5E24",
@@ -3239,7 +3512,8 @@
       "0xBBE3",
       "0xBBCC"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5E25",
@@ -3251,7 +3525,8 @@
       "0xBBE3",
       "0xBBCC"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5E26",
@@ -3263,7 +3538,8 @@
       "0xBBE4",
       "0xBBCC"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5E27",
@@ -3275,7 +3551,8 @@
       "0xBBE4",
       "0xBBCC"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5E28",
@@ -3287,7 +3564,8 @@
       "0xBBE5",
       "0xBBCC"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5E29",
@@ -3299,7 +3577,8 @@
       "0xBBE5",
       "0xBBCC"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5E2A",
@@ -3311,7 +3590,8 @@
       "0xBBE6",
       "0xBBCC"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5E2B",
@@ -3323,7 +3603,8 @@
       "0xBBE6",
       "0xBBCC"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x5E40",
@@ -3334,7 +3615,8 @@
       "0xBBC2",
       "0xBBE1"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E41",
@@ -3345,7 +3627,8 @@
       "0xBBC2",
       "0xBBE2"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E42",
@@ -3356,7 +3639,8 @@
       "0xBBC2",
       "0xBBE3"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E43",
@@ -3367,7 +3651,8 @@
       "0xBBC2",
       "0xBBE4"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E44",
@@ -3378,7 +3663,8 @@
       "0xBBC2",
       "0xBBE5"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E45",
@@ -3389,28 +3675,32 @@
       "0xBBC2",
       "0xBBE6"
     ],
-    "length": 2
+    "length": 2,
+    "virtual": false
   },
   {
     "hex": "0x5E80",
     "name": "FUNC_U",
     "strict": "&{u}",
     "length": 1,
-    "glyph": "IwAAAAAjGM2g"
+    "glyph": "IwAAAAAjGM2g",
+    "virtual": false
   },
   {
     "hex": "0x5E81",
     "name": "FUNC_V",
     "strict": "&{v}",
     "length": 1,
-    "glyph": "IwAAAAAjFSiA"
+    "glyph": "IwAAAAAjFSiA",
+    "virtual": false
   },
   {
     "hex": "0x5E82",
     "name": "FUNC_W",
     "strict": "&{w}",
     "length": 1,
-    "glyph": "IwAAAAAjGtVA"
+    "glyph": "IwAAAAAjGtVA",
+    "virtual": false
   },
   {
     "hex": "0x6000",
@@ -3422,7 +3712,8 @@
       "0xBBB2",
       "0x0031"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6001",
@@ -3434,7 +3725,8 @@
       "0xBBB2",
       "0x0032"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6002",
@@ -3446,7 +3738,8 @@
       "0xBBB2",
       "0x0033"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6003",
@@ -3458,7 +3751,8 @@
       "0xBBB2",
       "0x0034"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6004",
@@ -3470,7 +3764,8 @@
       "0xBBB2",
       "0x0035"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6005",
@@ -3482,7 +3777,8 @@
       "0xBBB2",
       "0x0036"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6006",
@@ -3494,7 +3790,8 @@
       "0xBBB2",
       "0x0037"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6007",
@@ -3506,7 +3803,8 @@
       "0xBBB2",
       "0x0038"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6008",
@@ -3518,7 +3816,8 @@
       "0xBBB2",
       "0x0039"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6009",
@@ -3530,7 +3829,8 @@
       "0xBBB2",
       "0x0030"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6100",
@@ -3542,7 +3842,8 @@
       "0x0042",
       "0x0031"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6101",
@@ -3554,7 +3855,8 @@
       "0x0042",
       "0x0032"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6102",
@@ -3566,7 +3868,8 @@
       "0x0042",
       "0x0033"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6103",
@@ -3578,7 +3881,8 @@
       "0x0042",
       "0x0034"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6104",
@@ -3590,7 +3894,8 @@
       "0x0042",
       "0x0035"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6105",
@@ -3602,7 +3907,8 @@
       "0x0042",
       "0x0036"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6106",
@@ -3614,7 +3920,8 @@
       "0x0042",
       "0x0037"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6107",
@@ -3626,7 +3933,8 @@
       "0x0042",
       "0x0038"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6108",
@@ -3638,7 +3946,8 @@
       "0x0042",
       "0x0039"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6109",
@@ -3650,259 +3959,296 @@
       "0x0042",
       "0x0030"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x6201",
     "name": "STATS_REG_EQ",
     "strict": "&{statsRegEq}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6202",
     "name": "ITALIC_N",
     "strict": "&{statsn}",
     "length": 1,
-    "glyph": "IwAAAAAslMpA"
+    "glyph": "IwAAAAAslMpA",
+    "virtual": false
   },
   {
     "hex": "0x6203",
     "name": "STATS_XBAR",
     "strict": "&{statsxbar}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6204",
     "name": "STATS_SUMX",
     "strict": "&{statssumx}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6205",
     "name": "STATS_SUMX_SQUARED",
     "strict": "&{statssumx^2}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6206",
     "name": "STATS_SX",
     "strict": "&{statsSx}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6207",
     "name": "STATS_SIGMAX",
     "strict": "&{statssigmax}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6208",
     "name": "STATS_MIN_X",
     "strict": "&{statsminX}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6209",
     "name": "STATS_MAX_X",
     "strict": "&{statsmaxX}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x620A",
     "name": "STATS_MIN_Y",
     "strict": "&{statsminY}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x620B",
     "name": "STATS_MAX_Y",
     "strict": "&{statsmaxY}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x620C",
     "name": "STATS_YBAR",
     "strict": "&{statsybar}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x620D",
     "name": "STATS_SUMY",
     "strict": "&{statssumy}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x620E",
     "name": "STATS_SUMY_SQUARED",
     "strict": "&{statssumy^2}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x620F",
     "name": "STATS_SY",
     "strict": "&{statsSy}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6210",
     "name": "STATS_SIGMAY",
     "strict": "&{statssigmay}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6211",
     "name": "STATS_SUMXY",
     "strict": "&{statssumxy}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6212",
     "name": "STATS_R",
     "strict": "&{statsr}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6213",
     "name": "STATS_MED",
     "strict": "&{statsMed}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6214",
     "name": "STATS_Q1",
     "strict": "&{statsQ1}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6215",
     "name": "STATS_Q3",
     "strict": "&{statsQ3}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6216",
     "name": "STATS_A",
     "strict": "&{statsa}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6217",
     "name": "STATS_B",
     "strict": "&{statsb}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6218",
     "name": "STATS_C",
     "strict": "&{statsc}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6219",
     "name": "STATS_D",
     "strict": "&{statsd}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x621A",
     "name": "STATS_E",
     "strict": "&{statse}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x621B",
     "name": "STATS_X1",
     "strict": "&{statsx1}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x621C",
     "name": "STATS_X2",
     "strict": "&{statsx2}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x621D",
     "name": "STATS_X3",
     "strict": "&{statsx3}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x621E",
     "name": "STATS_Y1",
     "strict": "&{statsy1}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x621F",
     "name": "STATS_Y2",
     "strict": "&{statsy2}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6220",
     "name": "STATS_Y3",
     "strict": "&{statsy3}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6221",
     "name": "STATS_ETA",
     "strict": "&{statseta}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6222",
     "name": "STATS_P",
     "strict": "&{statsp}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6223",
     "name": "STATS_Z",
     "strict": "&{statsz}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6224",
     "name": "STATS_T",
     "strict": "&{statst}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6225",
@@ -3910,168 +4256,192 @@
     "strict": "&{statsX^2}",
     "utf8": "X²",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6226",
     "name": "STATS_F",
     "strict": "&{statsF}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6227",
     "name": "STATS_DF",
     "strict": "&{statsdf}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6228",
     "name": "STATS_PCARAT",
     "strict": "&{statspcarat}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6229",
     "name": "STATS_PCARAT1",
     "strict": "&{statspcarat1}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x622A",
     "name": "STATS_PCARAT2",
     "strict": "&{statspcarat2}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x622B",
     "name": "STATS_XBAR1",
     "strict": "&{statsxbar1}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x622C",
     "name": "STATS_SX1",
     "strict": "&{statsSx1}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x622D",
     "name": "STATS_N1",
     "strict": "&{statsn1}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x622E",
     "name": "STATS_XBAR2",
     "strict": "&{statsxbar2}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x622F",
     "name": "STATS_SX2",
     "strict": "&{statsSx2}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6230",
     "name": "STATS_N2",
     "strict": "&{statsn2}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6231",
     "name": "STATS_SXP",
     "strict": "&{statsSxp}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6232",
     "name": "STATS_LOWER",
     "strict": "&{statslower}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6233",
     "name": "STATS_UPPER",
     "strict": "&{statsupper}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6234",
     "name": "STATS_S",
     "strict": "&{statss}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6235",
     "name": "STATS_LOWER_R_SQUARED",
     "strict": "&{statsr^2}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6236",
     "name": "STATS_UPPER_R_SQUARED",
     "strict": "&{statsR^2}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6237",
     "name": "STATS_FACTORDF",
     "strict": "&{statsFactordf}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6238",
     "name": "STATS_FACTOR_SS",
     "strict": "&{statsFactorSS}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x6239",
     "name": "STATS_FACTOR_MS",
     "strict": "&{statsFactorMS}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x623A",
     "name": "STATS_ERRORDF",
     "strict": "&{statsErrordf}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x623B",
     "name": "STATS_ERROR_SS",
     "strict": "&{statsErrorSS}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x623C",
     "name": "STATS_ERROR_MS",
     "strict": "&{statsErrorMS}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0x7E00",
@@ -4089,7 +4459,8 @@
       "0xBBB0",
       "0xBBBC"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0x7E01",
@@ -4102,7 +4473,8 @@
       "0xBBC5",
       "0xBBBC"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0x7E02",
@@ -4117,7 +4489,8 @@
       "0x0047",
       "0x0043"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x7E03",
@@ -4131,7 +4504,8 @@
       "0x0047",
       "0x0043"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x7E04",
@@ -4146,7 +4520,8 @@
       "0x004F",
       "0xBBBE"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x7E05",
@@ -4162,7 +4537,8 @@
       "0xBBB5",
       "0xBBB5"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x7E06",
@@ -4179,7 +4555,8 @@
       "0xBBB4",
       "0xBBB3"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0x7E07",
@@ -4190,7 +4567,8 @@
       "0xBBBF",
       "0xBBC4"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x7E08",
@@ -4204,7 +4582,8 @@
       "0x004F",
       "0xBBBE"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x7E09",
@@ -4219,7 +4598,8 @@
       "0xBBB5",
       "0xBBB5"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x7E0A",
@@ -4233,7 +4613,8 @@
       "0x004F",
       "0xBBBE"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x7E0B",
@@ -4248,7 +4629,8 @@
       "0xBBB5",
       "0xBBB5"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x7E0C",
@@ -4263,7 +4645,8 @@
       "0x004F",
       "0xBBBE"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0x7E0D",
@@ -4279,7 +4662,8 @@
       "0xBBB5",
       "0xBBB5"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0x7E0E",
@@ -4290,7 +4674,8 @@
       "0xBBB4",
       "0xBBB1"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0x7E0F",
@@ -4302,7 +4687,8 @@
       "0xBBBD",
       "0xBBB4"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0x7E10",
@@ -4316,7 +4702,8 @@
       "0xBBB4",
       "0xBBC3"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x7E11",
@@ -4330,7 +4717,8 @@
       "0xBBB4",
       "0xBBC3"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0x7E12",
@@ -4344,7 +4732,8 @@
       "0xBBB4",
       "0xBBC3"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0xAA00",
@@ -4356,7 +4745,8 @@
       "0xBBC2",
       "0x0031"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xAA01",
@@ -4368,7 +4758,8 @@
       "0xBBC2",
       "0x0032"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xAA02",
@@ -4380,7 +4771,8 @@
       "0xBBC2",
       "0x0033"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xAA03",
@@ -4392,7 +4784,8 @@
       "0xBBC2",
       "0x0034"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xAA04",
@@ -4404,7 +4797,8 @@
       "0xBBC2",
       "0x0035"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xAA05",
@@ -4416,7 +4810,8 @@
       "0xBBC2",
       "0x0036"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xAA06",
@@ -4428,7 +4823,8 @@
       "0xBBC2",
       "0x0037"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xAA07",
@@ -4440,7 +4836,8 @@
       "0xBBC2",
       "0x0038"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xAA08",
@@ -4452,7 +4849,8 @@
       "0xBBC2",
       "0x0039"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xAA09",
@@ -4464,7 +4862,8 @@
       "0xBBC2",
       "0x0030"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xBB00",
@@ -4476,7 +4875,8 @@
       "0xBBC6",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xBB01",
@@ -4488,7 +4888,8 @@
       "0xBBC2",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xBB02",
@@ -4500,7 +4901,8 @@
       "0xBBBC",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xBB03",
@@ -4515,7 +4917,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB04",
@@ -4530,7 +4933,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB05",
@@ -4544,7 +4948,8 @@
       "0xBBBD",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB06",
@@ -4558,7 +4963,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB07",
@@ -4570,7 +4976,8 @@
       "0xBBB3",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xBB08",
@@ -4582,7 +4989,8 @@
       "0xBBBD",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xBB09",
@@ -4594,7 +5002,8 @@
       "0xBBB3",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xBB0A",
@@ -4610,7 +5019,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xBB0B",
@@ -4626,7 +5036,8 @@
       "0xBBBE",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xBB0C",
@@ -4638,7 +5049,8 @@
       "0xBBB1",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xBB0D",
@@ -4653,7 +5065,8 @@
       "0xBBC6",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB0E",
@@ -4670,7 +5083,8 @@
       "0xBBB4",
       "0x0010"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0xBB0F",
@@ -4687,7 +5101,8 @@
       "0xBBB6",
       "0x0010"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0xBB10",
@@ -4705,7 +5120,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xBB11",
@@ -4721,7 +5137,8 @@
       "0xBBBD",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xBB12",
@@ -4734,7 +5151,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB13",
@@ -4749,7 +5167,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0xBB14",
@@ -4762,7 +5181,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB15",
@@ -4779,7 +5199,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0xBB16",
@@ -4796,7 +5217,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0xBB17",
@@ -4815,7 +5237,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0xBB18",
@@ -4834,7 +5257,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0xBB19",
@@ -4852,7 +5276,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xBB1A",
@@ -4870,7 +5295,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xBB1B",
@@ -4888,7 +5314,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xBB1C",
@@ -4901,7 +5328,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB1D",
@@ -4916,7 +5344,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0xBB1E",
@@ -4929,7 +5358,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB1F",
@@ -4946,7 +5376,8 @@
       "0xBBBD",
       "0x0010"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0xBB20",
@@ -4961,7 +5392,8 @@
       "0xBBBD",
       "0xBBC4"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB21",
@@ -4975,7 +5407,8 @@
       "0x0049",
       "0xBBDA"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0xBB22",
@@ -4989,7 +5422,8 @@
       "0x0050",
       "0x0056"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0xBB23",
@@ -5002,7 +5436,8 @@
       "0xBBD9",
       "0x004E"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB24",
@@ -5016,7 +5451,8 @@
       "0x0046",
       "0x0056"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0xBB25",
@@ -5029,7 +5465,8 @@
       "0xBBB9",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB26",
@@ -5042,7 +5479,8 @@
       "0xBBBC",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB27",
@@ -5055,7 +5493,8 @@
       "0xBBB6",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB28",
@@ -5069,7 +5508,8 @@
       "0xBBB4",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0xBB29",
@@ -5084,7 +5524,8 @@
       "0xBBBD",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB2A",
@@ -5097,7 +5538,8 @@
       "0xBBC2",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB2B",
@@ -5112,7 +5554,8 @@
       "0xBBB7",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB2C",
@@ -5130,7 +5573,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xBB2D",
@@ -5142,7 +5586,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xBB2E",
@@ -5155,7 +5600,8 @@
       "0xBBB5",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB2F",
@@ -5169,7 +5615,8 @@
       "0xBBB2",
       "0xBBC4"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB30",
@@ -5184,14 +5631,16 @@
       "0xBBB0",
       "0xBBC2"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0xBB31",
     "name": "CONSTANT_E",
     "strict": "&{e}",
     "length": 1,
-    "glyph": "IwAAAAAdH0GA"
+    "glyph": "IwAAAAAdH0GA",
+    "virtual": false
   },
   {
     "hex": "0xBB32",
@@ -5206,7 +5655,8 @@
       "0xBBB6",
       "0x0029"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB33",
@@ -5223,7 +5673,8 @@
       "0xBBB2",
       "0x0029"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0xBB34",
@@ -5243,7 +5694,8 @@
       "0xBBC4",
       "0x0029"
     ],
-    "length": 12
+    "length": 12,
+    "virtual": false
   },
   {
     "hex": "0xBB35",
@@ -5261,7 +5713,8 @@
       "0xBBBD",
       "0x0010"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xBB36",
@@ -5277,7 +5730,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xBB37",
@@ -5293,7 +5747,8 @@
       "0x0058",
       "0x000D"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB38",
@@ -5308,7 +5763,8 @@
       "0x0046",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB39",
@@ -5327,7 +5783,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xBB3A",
@@ -5346,7 +5803,8 @@
       "0xBBC2",
       "0x0010"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xBB3B",
@@ -5361,7 +5819,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB3C",
@@ -5376,7 +5835,8 @@
       "0xBBC4",
       "0x0029"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB3D",
@@ -5396,7 +5856,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 12
+    "length": 12,
+    "virtual": false
   },
   {
     "hex": "0xBB3E",
@@ -5416,7 +5877,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 12
+    "length": 12,
+    "virtual": false
   },
   {
     "hex": "0xBB3F",
@@ -5436,7 +5898,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 12
+    "length": 12,
+    "virtual": false
   },
   {
     "hex": "0xBB40",
@@ -5453,7 +5916,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xBB41",
@@ -5471,7 +5935,8 @@
       "0xBBBC",
       "0x0029"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xBB42",
@@ -5490,7 +5955,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0xBB43",
@@ -5509,7 +5975,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0xBB44",
@@ -5528,7 +5995,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0xBB45",
@@ -5547,7 +6015,8 @@
       "0xBBB4",
       "0x0010"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0xBB46",
@@ -5567,7 +6036,8 @@
       "0xBBC4",
       "0x0029"
     ],
-    "length": 12
+    "length": 12,
+    "virtual": false
   },
   {
     "hex": "0xBB47",
@@ -5587,7 +6057,8 @@
       "0xBBC4",
       "0x0029"
     ],
-    "length": 12
+    "length": 12,
+    "virtual": false
   },
   {
     "hex": "0xBB48",
@@ -5605,7 +6076,8 @@
       "0xBBBC",
       "0x0029"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xBB49",
@@ -5624,7 +6096,8 @@
       "0xBBC4",
       "0x0029"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0xBB4A",
@@ -5644,7 +6117,8 @@
       "0xBBC2",
       "0x0029"
     ],
-    "length": 12
+    "length": 12,
+    "virtual": false
   },
   {
     "hex": "0xBB4B",
@@ -5659,7 +6133,8 @@
       "0xBBBE",
       "0xBBB3"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB4C",
@@ -5674,7 +6149,8 @@
       "0xBBB6",
       "0xBBBE"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB4D",
@@ -5686,7 +6162,8 @@
       "0xBBB0",
       "0xBBBC"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xBB4E",
@@ -5700,7 +6177,8 @@
       "0x005B",
       "0xBBB8"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xBB4F",
@@ -5712,7 +6190,8 @@
       "0xBBB1",
       "0xBBB8"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xBB50",
@@ -5726,7 +6205,8 @@
       "0x004F",
       "0xBBBE"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0xBB51",
@@ -5741,7 +6221,8 @@
       "0xBBB5",
       "0xBBB5"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB52",
@@ -5760,7 +6241,8 @@
       "0xBBC4",
       "0xBBC3"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0xBB53",
@@ -5776,7 +6258,8 @@
       "0xBBB2",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xBB54",
@@ -5791,7 +6274,8 @@
       "0xBBC2",
       "0x0029"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB55",
@@ -5811,7 +6295,8 @@
       "0xBBB6",
       "0x0010"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0xBB56",
@@ -5831,7 +6316,8 @@
       "0xBBC5",
       "0x0010"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0xBB57",
@@ -5852,7 +6338,8 @@
       "0xBBB4",
       "0xBBC3"
     ],
-    "length": 13
+    "length": 13,
+    "virtual": false
   },
   {
     "hex": "0xBB58",
@@ -5867,7 +6354,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB59",
@@ -5881,7 +6369,8 @@
       "0x0041",
       "0x0010"
     ],
-    "length": 6
+    "length": 6,
+    "virtual": false
   },
   {
     "hex": "0xBB5A",
@@ -5899,7 +6388,8 @@
       "0xBBBF",
       "0xBBC4"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xBB5B",
@@ -5919,7 +6409,8 @@
       "0xBBBF",
       "0xBBC4"
     ],
-    "length": 12
+    "length": 12,
+    "virtual": false
   },
   {
     "hex": "0xBB64",
@@ -5930,7 +6421,8 @@
       "0x0071",
       "0x0054"
     ],
-    "length": 3
+    "length": 3,
+    "virtual": false
   },
   {
     "hex": "0xBB65",
@@ -5945,7 +6437,8 @@
       "0xBBB8",
       "0xBBC4"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB66",
@@ -5965,7 +6458,8 @@
       "0x004F",
       "0xBBBE"
     ],
-    "length": 12
+    "length": 12,
+    "virtual": false
   },
   {
     "hex": "0xBB67",
@@ -5986,7 +6480,8 @@
       "0xBBB5",
       "0xBBB5"
     ],
-    "length": 13
+    "length": 13,
+    "virtual": false
   },
   {
     "hex": "0xBB68",
@@ -6002,7 +6497,8 @@
       "0xBBB4",
       "0x0029"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xBB69",
@@ -6020,7 +6516,8 @@
       "0xBBB4",
       "0x0029"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xBB6A",
@@ -6032,7 +6529,8 @@
       "0xBBBD",
       "0x0010"
     ],
-    "length": 4
+    "length": 4,
+    "virtual": false
   },
   {
     "hex": "0xBB6B",
@@ -6048,7 +6546,8 @@
       "0xBBC0",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xBB6C",
@@ -6063,7 +6562,8 @@
       "0xBBB6",
       "0xBBBD"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xBB6D",
@@ -6083,7 +6583,8 @@
       "0xBBC3",
       "0xBBBD"
     ],
-    "length": 12
+    "length": 12,
+    "virtual": false
   },
   {
     "hex": "0xBB6E",
@@ -6091,7 +6592,8 @@
     "strict": "&{A_ACUTE}",
     "utf8": "Á",
     "length": 1,
-    "glyph": "IwAAABEdGP4g"
+    "glyph": "IwAAABEdGP4g",
+    "virtual": false
   },
   {
     "hex": "0xBB6F",
@@ -6099,7 +6601,8 @@
     "strict": "&{A_GRAVE}",
     "utf8": "À",
     "length": 1,
-    "glyph": "IwAAAEEdGP4g"
+    "glyph": "IwAAAEEdGP4g",
+    "virtual": false
   },
   {
     "hex": "0xBB70",
@@ -6107,7 +6610,8 @@
     "strict": "&{A_CIRCUMFLEX}",
     "utf8": "Â",
     "length": 1,
-    "glyph": "IwAAACKA6P4g"
+    "glyph": "IwAAACKA6P4g",
+    "virtual": false
   },
   {
     "hex": "0xBB71",
@@ -6115,7 +6619,8 @@
     "strict": "&{A_DIAERESIS}",
     "utf8": "Ä",
     "length": 1,
-    "glyph": "IwAAAFAdGP4g"
+    "glyph": "IwAAAFAdGP4g",
+    "virtual": false
   },
   {
     "hex": "0xBB72",
@@ -6123,7 +6628,8 @@
     "strict": "&{SMALL_A_ACUTE}",
     "utf8": "á",
     "length": 1,
-    "glyph": "IwAAABEcF8Xg"
+    "glyph": "IwAAABEcF8Xg",
+    "virtual": false
   },
   {
     "hex": "0xBB73",
@@ -6131,7 +6637,8 @@
     "strict": "&{SMALL_A_GRAVE}",
     "utf8": "à",
     "length": 1,
-    "glyph": "IwAAAEEcF8Xg"
+    "glyph": "IwAAAEEcF8Xg",
+    "virtual": false
   },
   {
     "hex": "0xBB74",
@@ -6139,7 +6646,8 @@
     "strict": "&{SMALL_A_CIRCUMFLEX}",
     "utf8": "â",
     "length": 1,
-    "glyph": "IwAAACKcF8Xg"
+    "glyph": "IwAAACKcF8Xg",
+    "virtual": false
   },
   {
     "hex": "0xBB75",
@@ -6147,7 +6655,8 @@
     "strict": "&{SMALL_A_DIAERESIS}",
     "utf8": "ä",
     "length": 1,
-    "glyph": "IwAAAFAcF8Xg"
+    "glyph": "IwAAAFAcF8Xg",
+    "virtual": false
   },
   {
     "hex": "0xBB76",
@@ -6155,7 +6664,8 @@
     "strict": "&{E_ACUTE}",
     "utf8": "É",
     "length": 1,
-    "glyph": "IwAAABE/D0Pg"
+    "glyph": "IwAAABE/D0Pg",
+    "virtual": false
   },
   {
     "hex": "0xBB77",
@@ -6163,7 +6673,8 @@
     "strict": "&{E_GRAVE}",
     "utf8": "È",
     "length": 1,
-    "glyph": "IwAAAEE/D0Pg"
+    "glyph": "IwAAAEE/D0Pg",
+    "virtual": false
   },
   {
     "hex": "0xBB78",
@@ -6171,7 +6682,8 @@
     "strict": "&{E_CIRCUMFLEX}",
     "utf8": "Ê",
     "length": 1,
-    "glyph": "IwAAACK/D0Pg"
+    "glyph": "IwAAACK/D0Pg",
+    "virtual": false
   },
   {
     "hex": "0xBB79",
@@ -6179,7 +6691,8 @@
     "strict": "&{E_DIAERESIS}",
     "utf8": "Ë",
     "length": 1,
-    "glyph": "IwAAAFA/D0Pg"
+    "glyph": "IwAAAFA/D0Pg",
+    "virtual": false
   },
   {
     "hex": "0xBB7A",
@@ -6187,7 +6700,8 @@
     "strict": "&{SMALL_E_ACUTE}",
     "utf8": "é",
     "length": 1,
-    "glyph": "IwAAABEdH8HA"
+    "glyph": "IwAAABEdH8HA",
+    "virtual": false
   },
   {
     "hex": "0xBB7B",
@@ -6195,7 +6709,8 @@
     "strict": "&{SMALL_E_GRAVE}",
     "utf8": "è",
     "length": 1,
-    "glyph": "IwAAAEEdH8HA"
+    "glyph": "IwAAAEEdH8HA",
+    "virtual": false
   },
   {
     "hex": "0xBB7C",
@@ -6203,7 +6718,8 @@
     "strict": "&{SMALL_E_CIRCUMFLEX}",
     "utf8": "ê",
     "length": 1,
-    "glyph": "IwAAACKdH8HA"
+    "glyph": "IwAAACKdH8HA",
+    "virtual": false
   },
   {
     "hex": "0xBB7D",
@@ -6211,7 +6727,8 @@
     "strict": "&{SMALL_E_DIAERESIS}",
     "utf8": "ë",
     "length": 1,
-    "glyph": "IwAAAFAdH8HA"
+    "glyph": "IwAAAFAdH8HA",
+    "virtual": false
   },
   {
     "hex": "0xBB7F",
@@ -6219,7 +6736,8 @@
     "strict": "&{I_GRAVE}",
     "utf8": "Ì",
     "length": 1,
-    "glyph": "IwAAAEEcQhHA"
+    "glyph": "IwAAAEEcQhHA",
+    "virtual": false
   },
   {
     "hex": "0xBB80",
@@ -6227,7 +6745,8 @@
     "strict": "&{I_CIRCUMFLEX}",
     "utf8": "Î",
     "length": 1,
-    "glyph": "IwAAACKcQhHA"
+    "glyph": "IwAAACKcQhHA",
+    "virtual": false
   },
   {
     "hex": "0xBB81",
@@ -6235,7 +6754,8 @@
     "strict": "&{I_DIAERESIS}",
     "utf8": "Ï",
     "length": 1,
-    "glyph": "IwAAAFAcQhHA"
+    "glyph": "IwAAAFAcQhHA",
+    "virtual": false
   },
   {
     "hex": "0xBB82",
@@ -6243,7 +6763,8 @@
     "strict": "&{SMALL_I_ACUTE}",
     "utf8": "í",
     "length": 1,
-    "glyph": "IwAAABEAwhHA"
+    "glyph": "IwAAABEAwhHA",
+    "virtual": false
   },
   {
     "hex": "0xBB83",
@@ -6251,7 +6772,8 @@
     "strict": "&{SMALL_I_GRAVE}",
     "utf8": "ì",
     "length": 1,
-    "glyph": "IwAAAEEAwhHA"
+    "glyph": "IwAAAEEAwhHA",
+    "virtual": false
   },
   {
     "hex": "0xBB84",
@@ -6259,7 +6781,8 @@
     "strict": "&{SMALL_I_CIRCUMFLEX}",
     "utf8": "î",
     "length": 1,
-    "glyph": "IwAAACKAwhHA"
+    "glyph": "IwAAACKAwhHA",
+    "virtual": false
   },
   {
     "hex": "0xBB85",
@@ -6267,7 +6790,8 @@
     "strict": "&{SMALL_I_DIAERESIS}",
     "utf8": "ï",
     "length": 1,
-    "glyph": "IwAAAFAAwhHA"
+    "glyph": "IwAAAFAAwhHA",
+    "virtual": false
   },
   {
     "hex": "0xBB86",
@@ -6275,7 +6799,8 @@
     "strict": "&{O_ACUTE}",
     "utf8": "Ó",
     "length": 1,
-    "glyph": "IwAAABEdGMXA"
+    "glyph": "IwAAABEdGMXA",
+    "virtual": false
   },
   {
     "hex": "0xBB87",
@@ -6283,7 +6808,8 @@
     "strict": "&{O_GRAVE}",
     "utf8": "Ò",
     "length": 1,
-    "glyph": "IwAAAEEdGMXA"
+    "glyph": "IwAAAEEdGMXA",
+    "virtual": false
   },
   {
     "hex": "0xBB88",
@@ -6291,7 +6817,8 @@
     "strict": "&{O_CIRCUMFLEX}",
     "utf8": "Ô",
     "length": 1,
-    "glyph": "IwAAACKdGMXA"
+    "glyph": "IwAAACKdGMXA",
+    "virtual": false
   },
   {
     "hex": "0xBB89",
@@ -6299,7 +6826,8 @@
     "strict": "&{O_DIAERESIS}",
     "utf8": "Ö",
     "length": 1,
-    "glyph": "IwAAAFAdGMXA"
+    "glyph": "IwAAAFAdGMXA",
+    "virtual": false
   },
   {
     "hex": "0xBB8A",
@@ -6307,7 +6835,8 @@
     "strict": "&{SMALL_O_ACUTE}",
     "utf8": "ó",
     "length": 1,
-    "glyph": "IwAAABEA6MXA"
+    "glyph": "IwAAABEA6MXA",
+    "virtual": false
   },
   {
     "hex": "0xBB8B",
@@ -6315,7 +6844,8 @@
     "strict": "&{SMALL_O_GRAVE}",
     "utf8": "ò",
     "length": 1,
-    "glyph": "IwAAAEEA6MXA"
+    "glyph": "IwAAAEEA6MXA",
+    "virtual": false
   },
   {
     "hex": "0xBB8C",
@@ -6323,7 +6853,8 @@
     "strict": "&{SMALL_O_CIRCUMFLEX}",
     "utf8": "ô",
     "length": 1,
-    "glyph": "IwAAACKA6MXA"
+    "glyph": "IwAAACKA6MXA",
+    "virtual": false
   },
   {
     "hex": "0xBB8D",
@@ -6331,7 +6862,8 @@
     "strict": "&{SMALL_O_DIAERESIS}",
     "utf8": "ö",
     "length": 1,
-    "glyph": "IwAAAFAA6MXA"
+    "glyph": "IwAAAFAA6MXA",
+    "virtual": false
   },
   {
     "hex": "0xBB8E",
@@ -6339,7 +6871,8 @@
     "strict": "&{U_ACUTE}",
     "utf8": "Ú",
     "length": 1,
-    "glyph": "IwAAABEjGMXA"
+    "glyph": "IwAAABEjGMXA",
+    "virtual": false
   },
   {
     "hex": "0xBB8F",
@@ -6347,7 +6880,8 @@
     "strict": "&{U_GRAVE}",
     "utf8": "Ù",
     "length": 1,
-    "glyph": "IwAAAEEjGMXA"
+    "glyph": "IwAAAEEjGMXA",
+    "virtual": false
   },
   {
     "hex": "0xBB90",
@@ -6355,7 +6889,8 @@
     "strict": "&{U_CIRCUMFLEX}",
     "utf8": "Û",
     "length": 1,
-    "glyph": "IwAAACKBGMXA"
+    "glyph": "IwAAACKBGMXA",
+    "virtual": false
   },
   {
     "hex": "0xBB91",
@@ -6363,7 +6898,8 @@
     "strict": "&{U_DIAERESIS}",
     "utf8": "Ü",
     "length": 1,
-    "glyph": "IwAAAFAjGMXA"
+    "glyph": "IwAAAFAjGMXA",
+    "virtual": false
   },
   {
     "hex": "0xBB92",
@@ -6371,7 +6907,8 @@
     "strict": "&{SMALL_U_ACUTE}",
     "utf8": "ú",
     "length": 1,
-    "glyph": "IwAAABEjGM2g"
+    "glyph": "IwAAABEjGM2g",
+    "virtual": false
   },
   {
     "hex": "0xBB93",
@@ -6379,7 +6916,8 @@
     "strict": "&{SMALL_U_GRAVE}",
     "utf8": "ù",
     "length": 1,
-    "glyph": "IwAAAEEjGM2g"
+    "glyph": "IwAAAEEjGM2g",
+    "virtual": false
   },
   {
     "hex": "0xBB94",
@@ -6387,7 +6925,8 @@
     "strict": "&{SMALL_U_CIRCUMFLEX}",
     "utf8": "û",
     "length": 1,
-    "glyph": "IwAAACKBGM2g"
+    "glyph": "IwAAACKBGM2g",
+    "virtual": false
   },
   {
     "hex": "0xBB95",
@@ -6395,7 +6934,8 @@
     "strict": "&{SMALL_U_DIAERESIS}",
     "utf8": "ü",
     "length": 1,
-    "glyph": "IwAAAFAjGM2g"
+    "glyph": "IwAAAFAjGM2g",
+    "virtual": false
   },
   {
     "hex": "0xBB96",
@@ -6403,7 +6943,8 @@
     "strict": "&{C_CEDILLA}",
     "utf8": "Ç",
     "length": 1,
-    "glyph": "IwAAAHRhFxOA"
+    "glyph": "IwAAAHRhFxOA",
+    "virtual": false
   },
   {
     "hex": "0xBB97",
@@ -6411,7 +6952,8 @@
     "strict": "&{SMALL_C_CEDILLA}",
     "utf8": "ç",
     "length": 1,
-    "glyph": "IwAAAAAdCLuA"
+    "glyph": "IwAAAAAdCLuA",
+    "virtual": false
   },
   {
     "hex": "0xBB98",
@@ -6419,7 +6961,8 @@
     "strict": "&{N_TILDE}",
     "utf8": "Ñ",
     "length": 1,
-    "glyph": "IwAAACqjms4g"
+    "glyph": "IwAAACqjms4g",
+    "virtual": false
   },
   {
     "hex": "0xBB99",
@@ -6427,7 +6970,8 @@
     "strict": "&{SMALL_N_TILDE}",
     "utf8": "ñ",
     "length": 1,
-    "glyph": "IwAAACqBbMYg"
+    "glyph": "IwAAACqBbMYg",
+    "virtual": false
   },
   {
     "hex": "0xBB9A",
@@ -6435,14 +6979,16 @@
     "strict": "&{ACCENT}",
     "utf8": "´",
     "length": 1,
-    "glyph": "IwAAAAiIAAAA"
+    "glyph": "IwAAAAiIAAAA",
+    "virtual": false
   },
   {
     "hex": "0xBB9B",
     "name": "GRAVE_ACCENT_2",
     "strict": "&{`}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0xBB9C",
@@ -6450,7 +6996,8 @@
     "strict": "&{UMLAUT}",
     "utf8": "¨",
     "length": 1,
-    "glyph": "IwAAAAKAAAAA"
+    "glyph": "IwAAAAKAAAAA",
+    "virtual": false
   },
   {
     "hex": "0xBB9D",
@@ -6458,7 +7005,8 @@
     "strict": "&{?}",
     "utf8": "¿",
     "length": 1,
-    "glyph": "IwAAACAIiEXA"
+    "glyph": "IwAAACAIiEXA",
+    "virtual": false
   },
   {
     "hex": "0xBB9E",
@@ -6466,7 +7014,8 @@
     "strict": "&{!}",
     "utf8": "¡",
     "length": 1,
-    "glyph": "IwAAACEAQhCA"
+    "glyph": "IwAAACEAQhCA",
+    "virtual": false
   },
   {
     "hex": "0xBB9F",
@@ -6474,7 +7023,8 @@
     "strict": "&{alpha}",
     "utf8": "α",
     "length": 1,
-    "glyph": "IwAAAAAbKUmg"
+    "glyph": "IwAAAAAbKUmg",
+    "virtual": false
   },
   {
     "hex": "0xBBA0",
@@ -6482,7 +7032,8 @@
     "strict": "&{beta}",
     "utf8": "β",
     "length": 1,
-    "glyph": "IwAAADJS5KbA"
+    "glyph": "IwAAADJS5KbA",
+    "virtual": false
   },
   {
     "hex": "0xBBA1",
@@ -6490,7 +7041,8 @@
     "strict": "&{gamma}",
     "utf8": "γ",
     "length": 1,
-    "glyph": "IwAAAAATUQhA"
+    "glyph": "IwAAAAATUQhA",
+    "virtual": false
   },
   {
     "hex": "0xBBA2",
@@ -6498,7 +7050,8 @@
     "strict": "&{delta}",
     "utf8": "Δ",
     "length": 1,
-    "glyph": "IwAAAAAARUfg"
+    "glyph": "IwAAAAAARUfg",
+    "virtual": false
   },
   {
     "hex": "0xBBA3",
@@ -6506,7 +7059,8 @@
     "strict": "&{ldelta}",
     "utf8": "δ",
     "length": 1,
-    "glyph": "IwAAADIIJ8XA"
+    "glyph": "IwAAADIIJ8XA",
+    "virtual": false
   },
   {
     "hex": "0xBBA4",
@@ -6514,7 +7068,8 @@
     "strict": "&{epsilon}",
     "utf8": "ε",
     "length": 1,
-    "glyph": "IwAAAAAdD0HA"
+    "glyph": "IwAAAAAdD0HA",
+    "virtual": false
   },
   {
     "hex": "0xBBA5",
@@ -6522,7 +7077,8 @@
     "strict": "&{lambda}",
     "utf8": "λ",
     "length": 1,
-    "glyph": "IwAAAAIIIyYg"
+    "glyph": "IwAAAAIIIyYg",
+    "virtual": false
   },
   {
     "hex": "0xBBA6",
@@ -6530,7 +7086,8 @@
     "strict": "&{mu}",
     "utf8": "μ",
     "length": 1,
-    "glyph": "IwAAAAAlKXYA"
+    "glyph": "IwAAAAAlKXYA",
+    "virtual": false
   },
   {
     "hex": "0xBBA7",
@@ -6538,7 +7095,8 @@
     "strict": "&{xpi}",
     "utf8": "π",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0xBBA8",
@@ -6546,7 +7104,8 @@
     "strict": "&{rho}",
     "utf8": "ρ",
     "length": 1,
-    "glyph": "IwAAAAGSlyIA"
+    "glyph": "IwAAAAGSlyIA",
+    "virtual": false
   },
   {
     "hex": "0xBBA9",
@@ -6554,7 +7113,8 @@
     "strict": "&{sigma}",
     "utf8": "Σ",
     "length": 1,
-    "glyph": "IwAAAPoIIiPg"
+    "glyph": "IwAAAPoIIiPg",
+    "virtual": false
   },
   {
     "hex": "0xBBAB",
@@ -6562,7 +7122,8 @@
     "strict": "&{phi}",
     "utf8": "φ",
     "length": 1,
-    "glyph": "IwAAACEdVxCA"
+    "glyph": "IwAAACEdVxCA",
+    "virtual": false
   },
   {
     "hex": "0xBBAC",
@@ -6570,7 +7131,8 @@
     "strict": "&{omega}",
     "utf8": "Ω",
     "length": 1,
-    "glyph": "IwAAAHRjFStg"
+    "glyph": "IwAAAHRjFStg",
+    "virtual": false
   },
   {
     "hex": "0xBBAD",
@@ -6578,7 +7140,8 @@
     "strict": "&{^p}",
     "utf8": "p̂",
     "length": 1,
-    "glyph": "IwAAACK9H0IA"
+    "glyph": "IwAAACK9H0IA",
+    "virtual": false
   },
   {
     "hex": "0xBBAE",
@@ -6586,196 +7149,224 @@
     "strict": "&{chi}",
     "utf8": "χ",
     "length": 1,
-    "glyph": "IwAAAIJURUgg"
+    "glyph": "IwAAAIJURUgg",
+    "virtual": false
   },
   {
     "hex": "0xBBAF",
     "name": "BIG_F",
     "strict": "&{F}",
     "length": 1,
-    "glyph": "IwAAAPxpykIA"
+    "glyph": "IwAAAPxpykIA",
+    "virtual": false
   },
   {
     "hex": "0xBBB0",
     "name": "SMALL_A",
     "strict": "a",
     "length": 1,
-    "glyph": "IwAAAAAcF8Xg"
+    "glyph": "IwAAAAAcF8Xg",
+    "virtual": false
   },
   {
     "hex": "0xBBB1",
     "name": "SMALL_B",
     "strict": "b",
     "length": 1,
-    "glyph": "IwAAAIQtmMfA"
+    "glyph": "IwAAAIQtmMfA",
+    "virtual": false
   },
   {
     "hex": "0xBBB2",
     "name": "SMALL_C",
     "strict": "c",
     "length": 1,
-    "glyph": "IwAAAAAdCEXA"
+    "glyph": "IwAAAAAdCEXA",
+    "virtual": false
   },
   {
     "hex": "0xBBB3",
     "name": "SMALL_D",
     "strict": "d",
     "length": 1,
-    "glyph": "IwAAAAhbOMXg"
+    "glyph": "IwAAAAhbOMXg",
+    "virtual": false
   },
   {
     "hex": "0xBBB4",
     "name": "SMALL_E",
     "strict": "e",
     "length": 1,
-    "glyph": "IwAAAAAdH8HA"
+    "glyph": "IwAAAAAdH8HA",
+    "virtual": false
   },
   {
     "hex": "0xBBB5",
     "name": "SMALL_F",
     "strict": "f",
     "length": 1,
-    "glyph": "IwAAADJRxCEA"
+    "glyph": "IwAAADJRxCEA",
+    "virtual": false
   },
   {
     "hex": "0xBBB6",
     "name": "SMALL_G",
     "strict": "g",
     "length": 1,
-    "glyph": "IwAAAAPjF4XA"
+    "glyph": "IwAAAAPjF4XA",
+    "virtual": false
   },
   {
     "hex": "0xBBB7",
     "name": "SMALL_H",
     "strict": "h",
     "length": 1,
-    "glyph": "IwAAAIQtmMYg"
+    "glyph": "IwAAAIQtmMYg",
+    "virtual": false
   },
   {
     "hex": "0xBBB8",
     "name": "SMALL_I",
     "strict": "i",
     "length": 1,
-    "glyph": "IwAAACAYQhHA"
+    "glyph": "IwAAACAYQhHA",
+    "virtual": false
   },
   {
     "hex": "0xBBB9",
     "name": "SMALL_J",
     "strict": "j",
     "length": 1,
-    "glyph": "IwAAABAMIUmA"
+    "glyph": "IwAAABAMIUmA",
+    "virtual": false
   },
   {
     "hex": "0xBBBA",
     "name": "SMALL_K",
     "strict": "k",
     "length": 1,
-    "glyph": "IwAAAEISpikg"
+    "glyph": "IwAAAEISpikg",
+    "virtual": false
   },
   {
     "hex": "0xBBBC",
     "name": "SMALL_L",
     "strict": "l",
     "length": 1,
-    "glyph": "IwAAAGEIQhHA"
+    "glyph": "IwAAAGEIQhHA",
+    "virtual": false
   },
   {
     "hex": "0xBBBD",
     "name": "SMALL_M",
     "strict": "m",
     "length": 1,
-    "glyph": "IwAAAAA1WsYg"
+    "glyph": "IwAAAAA1WsYg",
+    "virtual": false
   },
   {
     "hex": "0xBBBE",
     "name": "SMALL_N",
     "strict": "n",
     "length": 1,
-    "glyph": "IwAAAAAtmMYg"
+    "glyph": "IwAAAAAtmMYg",
+    "virtual": false
   },
   {
     "hex": "0xBBBF",
     "name": "SMALL_O",
     "strict": "o",
     "length": 1,
-    "glyph": "IwAAAAAdGMXA"
+    "glyph": "IwAAAAAdGMXA",
+    "virtual": false
   },
   {
     "hex": "0xBBC0",
     "name": "SMALL_P",
     "strict": "p",
     "length": 1,
-    "glyph": "IwAAAAA9H0IA"
+    "glyph": "IwAAAAA9H0IA",
+    "virtual": false
   },
   {
     "hex": "0xBBC1",
     "name": "SMALL_Q",
     "strict": "q",
     "length": 1,
-    "glyph": "IwAAAAAbN4Qg"
+    "glyph": "IwAAAAAbN4Qg",
+    "virtual": false
   },
   {
     "hex": "0xBBC2",
     "name": "SMALL_R",
     "strict": "r",
     "length": 1,
-    "glyph": "IwAAAAAtmEIA"
+    "glyph": "IwAAAAAtmEIA",
+    "virtual": false
   },
   {
     "hex": "0xBBC3",
     "name": "SMALL_S",
     "strict": "s",
     "length": 1,
-    "glyph": "IwAAAAAdBwfA"
+    "glyph": "IwAAAAAdBwfA",
+    "virtual": false
   },
   {
     "hex": "0xBBC4",
     "name": "SMALL_T",
     "strict": "t",
     "length": 1,
-    "glyph": "IwAAAEI4hCTA"
+    "glyph": "IwAAAEI4hCTA",
+    "virtual": false
   },
   {
     "hex": "0xBBC5",
     "name": "SMALL_U",
     "strict": "u",
     "length": 1,
-    "glyph": "IwAAAAAjGM2g"
+    "glyph": "IwAAAAAjGM2g",
+    "virtual": false
   },
   {
     "hex": "0xBBC6",
     "name": "SMALL_V",
     "strict": "v",
     "length": 1,
-    "glyph": "IwAAAAAjGKiA"
+    "glyph": "IwAAAAAjGKiA",
+    "virtual": false
   },
   {
     "hex": "0xBBC7",
     "name": "SMALL_W",
     "strict": "w",
     "length": 1,
-    "glyph": "IwAAAAAjGtVA"
+    "glyph": "IwAAAAAjGtVA",
+    "virtual": false
   },
   {
     "hex": "0xBBC8",
     "name": "SMALL_X",
     "strict": "x",
     "length": 1,
-    "glyph": "IwAAAAAioiog"
+    "glyph": "IwAAAAAioiog",
+    "virtual": false
   },
   {
     "hex": "0xBBC9",
     "name": "SMALL_Y",
     "strict": "y",
     "length": 1,
-    "glyph": "IwAAAAAjF4XA"
+    "glyph": "IwAAAAAjF4XA",
+    "virtual": false
   },
   {
     "hex": "0xBBCA",
     "name": "SMALL_Z",
     "strict": "z",
     "length": 1,
-    "glyph": "IwAAAAA+IiPg"
+    "glyph": "IwAAAAA+IiPg",
+    "virtual": false
   },
   {
     "hex": "0xBBCB",
@@ -6783,7 +7374,8 @@
     "strict": "&{lsigma}",
     "utf8": "σ",
     "length": 1,
-    "glyph": "IwAAAAAfKUmA"
+    "glyph": "IwAAAAAfKUmA",
+    "virtual": false
   },
   {
     "hex": "0xBBCC",
@@ -6791,7 +7383,8 @@
     "strict": "&{smallT1}",
     "utf8": "ᵀ",
     "length": 1,
-    "glyph": "IwAAAAABxCEA"
+    "glyph": "IwAAAAABxCEA",
+    "virtual": false
   },
   {
     "hex": "0xBBCD",
@@ -6799,7 +7392,8 @@
     "strict": "&{I_ACUTE}",
     "utf8": "Í",
     "length": 1,
-    "glyph": "IwAAABEcQhHA"
+    "glyph": "IwAAABEcQhHA",
+    "virtual": false
   },
   {
     "hex": "0xBBCE",
@@ -6821,35 +7415,40 @@
       "0xBBB2",
       "0xBBC4"
     ],
-    "length": 14
+    "length": 14,
+    "virtual": false
   },
   {
     "hex": "0xBBCF",
     "name": "TILDE",
     "strict": "~",
     "length": 1,
-    "glyph": "IwAAAAIqIAAA"
+    "glyph": "IwAAAAIqIAAA",
+    "virtual": false
   },
   {
     "hex": "0xBBD1",
     "name": "COMMERCIAL_AT",
     "strict": "@",
     "length": 1,
-    "glyph": "IwAAAHRrekHg"
+    "glyph": "IwAAAHRrekHg",
+    "virtual": false
   },
   {
     "hex": "0xBBD2",
     "name": "NUMBER_SIGN",
     "strict": "#",
     "length": 1,
-    "glyph": "IwAAAFK+r6lA"
+    "glyph": "IwAAAFK+r6lA",
+    "virtual": false
   },
   {
     "hex": "0xBBD3",
     "name": "DOLLAR_SIGN",
     "strict": "$",
     "length": 1,
-    "glyph": "IwAAACPo4viA"
+    "glyph": "IwAAACPo4viA",
+    "virtual": false
   },
   {
     "hex": "0xBBD4",
@@ -6857,49 +7456,56 @@
     "strict": "&{amp}",
     "utf8": "&",
     "length": 1,
-    "glyph": "IwAAAEUoismg"
+    "glyph": "IwAAAEUoismg",
+    "virtual": false
   },
   {
     "hex": "0xBBD5",
     "name": "GRAVE_ACCENT",
     "strict": "`",
     "length": 1,
-    "glyph": "IwAAAIIIAAAA"
+    "glyph": "IwAAAIIIAAAA",
+    "virtual": false
   },
   {
     "hex": "0xBBD6",
     "name": "SEMICOLON",
     "strict": ";",
     "length": 1,
-    "glyph": "IwAAAAMYBhEA"
+    "glyph": "IwAAAAMYBhEA",
+    "virtual": false
   },
   {
     "hex": "0xBBD7",
     "name": "REVERSE_SOLIDUS",
     "strict": "\\",
     "length": 1,
-    "glyph": "IwAAAAQQQQQA"
+    "glyph": "IwAAAAQQQQQA",
+    "virtual": false
   },
   {
     "hex": "0xBBD8",
     "name": "VERTICAL_LINE",
     "strict": "|",
     "length": 1,
-    "glyph": "IwAAACEIQhCA"
+    "glyph": "IwAAACEIQhCA",
+    "virtual": false
   },
   {
     "hex": "0xBBD9",
     "name": "LOW_LINE",
     "strict": "_",
     "length": 1,
-    "glyph": "IwAAAAAAAAPg"
+    "glyph": "IwAAAAAAAAPg",
+    "virtual": false
   },
   {
     "hex": "0xBBDA",
     "name": "PERCENT_SIGN",
     "strict": "%",
     "length": 1,
-    "glyph": "IwAAAMZERExg"
+    "glyph": "IwAAAMZERExg",
+    "virtual": false
   },
   {
     "hex": "0xBBDB",
@@ -6907,7 +7513,8 @@
     "strict": "&{...}",
     "utf8": "…",
     "length": 1,
-    "glyph": "IwAAAAAAAAKg"
+    "glyph": "IwAAAAAAAAKg",
+    "virtual": false
   },
   {
     "hex": "0xBBDC",
@@ -6915,7 +7522,8 @@
     "strict": "&{angle}",
     "utf8": "∠",
     "length": 1,
-    "glyph": "IwAAAAACIiPg"
+    "glyph": "IwAAAAACIiPg",
+    "virtual": false
   },
   {
     "hex": "0xBBDD",
@@ -6923,7 +7531,8 @@
     "strict": "&{Beta}",
     "utf8": "ß",
     "length": 1,
-    "glyph": "IwAAAGSlaMbA"
+    "glyph": "IwAAAGSlaMbA",
+    "virtual": false
   },
   {
     "hex": "0xBBDE",
@@ -6931,7 +7540,8 @@
     "strict": "&{smallx1}",
     "utf8": "ₓ",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0xBBDF",
@@ -6939,7 +7549,8 @@
     "strict": "&{smallT2}",
     "utf8": "┬",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0xBBE0",
@@ -6947,7 +7558,8 @@
     "strict": "&{small0}",
     "utf8": "₀",
     "length": 1,
-    "glyph": "IwAAAAAcpSnA"
+    "glyph": "IwAAAAAcpSnA",
+    "virtual": false
   },
   {
     "hex": "0xBBE1",
@@ -6955,7 +7567,8 @@
     "strict": "&{small1}",
     "utf8": "₁",
     "length": 1,
-    "glyph": "IwAAAAAIwhCA"
+    "glyph": "IwAAAAAIwhCA",
+    "virtual": false
   },
   {
     "hex": "0xBBE2",
@@ -6963,7 +7576,8 @@
     "strict": "&{small2}",
     "utf8": "₂",
     "length": 1,
-    "glyph": "IwAAAAAYIiHA"
+    "glyph": "IwAAAAAYIiHA",
+    "virtual": false
   },
   {
     "hex": "0xBBE3",
@@ -6971,7 +7585,8 @@
     "strict": "&{small3}",
     "utf8": "₃",
     "length": 1,
-    "glyph": "IwAAAAAYIgmA"
+    "glyph": "IwAAAAAYIgmA",
+    "virtual": false
   },
   {
     "hex": "0xBBE4",
@@ -6979,7 +7594,8 @@
     "strict": "&{small4}",
     "utf8": "₄",
     "length": 1,
-    "glyph": "IwAAAAAQpwhA"
+    "glyph": "IwAAAAAQpwhA",
+    "virtual": false
   },
   {
     "hex": "0xBBE5",
@@ -6987,7 +7603,8 @@
     "strict": "&{small5}",
     "utf8": "₅",
     "length": 1,
-    "glyph": "IwAAAAAchgmA"
+    "glyph": "IwAAAAAchgmA",
+    "virtual": false
   },
   {
     "hex": "0xBBE6",
@@ -6995,7 +7612,8 @@
     "strict": "&{small6}",
     "utf8": "₆",
     "length": 1,
-    "glyph": "IwAAAAAMhynA"
+    "glyph": "IwAAAAAMhynA",
+    "virtual": false
   },
   {
     "hex": "0xBBE7",
@@ -7003,7 +7621,8 @@
     "strict": "&{small7}",
     "utf8": "₇",
     "length": 1,
-    "glyph": "IwAAAAAcIiEA"
+    "glyph": "IwAAAAAcIiEA",
+    "virtual": false
   },
   {
     "hex": "0xBBE8",
@@ -7011,7 +7630,8 @@
     "strict": "&{small8}",
     "utf8": "₈",
     "length": 1,
-    "glyph": "IwAAAAAcpynA"
+    "glyph": "IwAAAAAcpynA",
+    "virtual": false
   },
   {
     "hex": "0xBBE9",
@@ -7019,7 +7639,8 @@
     "strict": "&{small9}",
     "utf8": "₉",
     "length": 1,
-    "glyph": "IwAAAAAcpwmA"
+    "glyph": "IwAAAAAcpwmA",
+    "virtual": false
   },
   {
     "hex": "0xBBEA",
@@ -7027,42 +7648,48 @@
     "strict": "&{small10}",
     "utf8": "₁₀",
     "length": 1,
-    "glyph": "IwAAAAAvWtbg"
+    "glyph": "IwAAAAAvWtbg",
+    "virtual": false
   },
   {
     "hex": "0xBBEB",
     "name": "LEFTARROW",
     "strict": "&{leftarrow}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0xBBEC",
     "name": "RIGHTARROW",
     "strict": "&{rightarrow}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0xBBED",
     "name": "UPARROWSMALL",
     "strict": "&{uparrowsmall}",
     "length": 1,
-    "glyph": "IwAAACOqQhCA"
+    "glyph": "IwAAACOqQhCA",
+    "virtual": false
   },
   {
     "hex": "0xBBEE",
     "name": "DOWNARROWSMALL",
     "strict": "&{downarrowsmall}",
     "length": 1,
-    "glyph": "IwAAACEISriA"
+    "glyph": "IwAAACEISriA",
+    "virtual": false
   },
   {
     "hex": "0xBBEF",
     "name": "SMALLX2",
     "strict": "&{smallx2}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0xBBF0",
@@ -7070,7 +7697,8 @@
     "strict": "&{integral}",
     "utf8": "∫",
     "length": 1,
-    "glyph": "IwAAABFIQlEA"
+    "glyph": "IwAAABFIQlEA",
+    "virtual": false
   },
   {
     "hex": "0xBBF1",
@@ -7078,7 +7706,8 @@
     "strict": "&{uparrow}",
     "utf8": "↑",
     "length": 1,
-    "glyph": "IwAAACO+5wAA"
+    "glyph": "IwAAACO+5wAA",
+    "virtual": false
   },
   {
     "hex": "0xBBF2",
@@ -7086,7 +7715,8 @@
     "strict": "&{downarrow}",
     "utf8": "↓",
     "length": 1,
-    "glyph": "IwAAAAAc77iA"
+    "glyph": "IwAAAAAc77iA",
+    "virtual": false
   },
   {
     "hex": "0xBBF3",
@@ -7094,14 +7724,16 @@
     "strict": "&{root}",
     "utf8": "√",
     "length": 1,
-    "glyph": "IwAAADkISjCA"
+    "glyph": "IwAAADkISjCA",
+    "virtual": false
   },
   {
     "hex": "0xBBF4",
     "name": "HIGHLIGHTEDEQUALS",
     "strict": "&{highlightedequals}",
     "length": 1,
-    "glyph": ""
+    "glyph": "",
+    "virtual": false
   },
   {
     "hex": "0xEF00",
@@ -7117,7 +7749,8 @@
       "0xBBB4",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xEF01",
@@ -7133,7 +7766,8 @@
       "0xBBB4",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xEF02",
@@ -7150,7 +7784,8 @@
       "0xBBC2",
       "0x0010"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0xEF03",
@@ -7167,7 +7802,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0xEF04",
@@ -7184,7 +7820,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0xEF05",
@@ -7200,7 +7837,8 @@
       "0xBBC6",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xEF06",
@@ -7216,7 +7854,8 @@
       "0xBBBA",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xEF07",
@@ -7233,7 +7872,8 @@
       "0xBBC2",
       "0x0010"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0xEF08",
@@ -7250,7 +7890,8 @@
       "0xBBC2",
       "0x0010"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0xEF09",
@@ -7265,7 +7906,8 @@
       "0xBBC4",
       "0xBBB4"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xEF0A",
@@ -7280,7 +7922,8 @@
       "0xBBBD",
       "0xBBB4"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xEF0B",
@@ -7296,7 +7939,8 @@
       "0xBBBD",
       "0xBBC2"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xEF0C",
@@ -7312,7 +7956,8 @@
       "0xBBBD",
       "0xBBC4"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xEF0D",
@@ -7328,7 +7973,8 @@
       "0xBBBD",
       "0xBBC4"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xEF0E",
@@ -7345,7 +7991,8 @@
       "0x004F",
       "0xBBBE"
     ],
-    "length": 9
+    "length": 9,
+    "virtual": false
   },
   {
     "hex": "0xEF0F",
@@ -7361,7 +8008,8 @@
       "0xBBB5",
       "0xBBB5"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xEF10",
@@ -7376,7 +8024,8 @@
       "0x004F",
       "0xBBBE"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xEF11",
@@ -7392,7 +8041,8 @@
       "0xBBB1",
       "0x0010"
     ],
-    "length": 8
+    "length": 8,
+    "virtual": false
   },
   {
     "hex": "0xEF12",
@@ -7407,7 +8057,8 @@
       "0xBBB8",
       "0xBBB1"
     ],
-    "length": 7
+    "length": 7,
+    "virtual": false
   },
   {
     "hex": "0xEF13",
@@ -7420,7 +8071,8 @@
       "0x0054",
       "0x0010"
     ],
-    "length": 5
+    "length": 5,
+    "virtual": false
   },
   {
     "hex": "0xEF14",
@@ -7440,7 +8092,8 @@
       "0xBBC4",
       "0x0010"
     ],
-    "length": 11
+    "length": 11,
+    "virtual": false
   },
   {
     "hex": "0xEF15",
@@ -7458,7 +8111,8 @@
       "0xBBBE",
       "0xBBC4"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
   },
   {
     "hex": "0xEF16",
@@ -7476,6 +8130,103 @@
       "0xBBB8",
       "0xBBC4"
     ],
-    "length": 10
+    "length": 10,
+    "virtual": false
+  },
+  {
+    "hex": "0xFF00",
+    "name": "ARROW",
+    "strict": "&{arrow}",
+    "length": 1,
+    "glyph": "IwAAAAIY5iAA",
+    "virtual": true
+  },
+  {
+    "hex": "0xFF01",
+    "name": "UNKNOWN",
+    "strict": "&{unknown}",
+    "length": 1,
+    "glyph": "IwAAAAGSIAgA",
+    "virtual": true
+  },
+  {
+    "hex": "0xFF02",
+    "name": "CUBER",
+    "strict": "&{cuber}",
+    "length": 1,
+    "glyph": "IwAAAGCYJgAA",
+    "virtual": true
+  },
+  {
+    "hex": "0xFF03",
+    "name": "SUPERX",
+    "strict": "&{superx}",
+    "length": 1,
+    "glyph": "IwAAACiKAAAA",
+    "virtual": true
+  },
+  {
+    "hex": "0xFF04",
+    "name": "CURRENT",
+    "strict": "&{current}",
+    "length": 1,
+    "glyph": "IwAAAP/////g",
+    "virtual": true
+  },
+  {
+    "hex": "0xFF05",
+    "name": "CURR_ARROW",
+    "strict": "&{curr_arrow}",
+    "length": 1,
+    "glyph": "IwAAAP7ire9g",
+    "virtual": true
+  },
+  {
+    "hex": "0xFF06",
+    "name": "CURR_CAPS",
+    "strict": "&{curr_caps}",
+    "length": 1,
+    "glyph": "IwAAAP7rGtfg",
+    "virtual": true
+  },
+  {
+    "hex": "0xFF07",
+    "name": "CURR_LOWER",
+    "strict": "&{curr_lower}",
+    "length": 1,
+    "glyph": "IwAAAP77mufg",
+    "virtual": true
+  },
+  {
+    "hex": "0xFF08",
+    "name": "CURR_UNDER",
+    "strict": "&{curr_under}",
+    "length": 1,
+    "glyph": "IwAAAAAAAAPg",
+    "virtual": true
+  },
+  {
+    "hex": "0xFF09",
+    "name": "CURR_UNDER_ARROW",
+    "strict": "&{curr_under_arrow}",
+    "length": 1,
+    "glyph": "IwAAACOqQgPg",
+    "virtual": true
+  },
+  {
+    "hex": "0xFF0A",
+    "name": "CURR_UNDER_CAPS",
+    "strict": "&{curr_under_caps}",
+    "length": 1,
+    "glyph": "IwAAACKcpQPg",
+    "virtual": true
+  },
+  {
+    "hex": "0xFF0B",
+    "name": "CURR_UNDER_LOWER",
+    "strict": "&{curr_under_lower}",
+    "length": 1,
+    "glyph": "IwAAACCMowPg",
+    "virtual": true
   }
 ]

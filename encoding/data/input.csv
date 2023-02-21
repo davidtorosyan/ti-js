@@ -654,3 +654,15 @@ hex,token
 0xEF14,X^2GOF-Test(
 0xEF15,LinRegTInt
 0xEF16,Manual-Fit
+0xFF00,arrow
+0xFF01,unknown
+0xFF02,cuber
+0xFF03,superx
+0xFF04,current
+0xFF05,curr_arrow
+0xFF06,curr_caps
+0xFF07,curr_lower
+0xFF08,curr_under
+0xFF09,curr_under_arrow
+0xFF0A,curr_under_caps
+0xFF0B,curr_under_lower

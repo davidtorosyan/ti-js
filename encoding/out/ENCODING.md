@@ -177,7 +177,7 @@
 0x00B9 | **I_PART** | &{iPart(} |  | iPart( | <img src="./sprites/token_0x00B9.png" alt="0x00B9" width="185px" height="55px">
 0x00BA | **F_PART** | &{fPart(} |  | fPart( | <img src="./sprites/token_0x00BA.png" alt="0x00BA" width="185px" height="55px">
 0x00BC | **ROOT** | &{root(} | √( | &{root}( | <img src="./sprites/token_0x00BC.png" alt="0x00BC" width="65px" height="55px">
-0x00BD | **CUBEROOT** | &{cuberoot(} | ∛( | &{3}&{root}( | <img src="./sprites/token_0x00BD.png" alt="0x00BD" width="95px" height="55px">
+0x00BD | **CUBEROOT** | &{cuberoot(} | ∛( | &{cuber}&{root}( | <img src="./sprites/token_0x00BD.png" alt="0x00BD" width="95px" height="55px">
 0x00BE | **LN** | &{ln(} |  | ln( | <img src="./sprites/token_0x00BE.png" alt="0x00BE" width="95px" height="55px">
 0x00BF | **E_RAISE** | &{e^(} |  | &{e}^( | <img src="./sprites/token_0x00BF.png" alt="0x00BF" width="95px" height="55px">
 0x00C0 | **LOG** | &{log(} |  | log( | <img src="./sprites/token_0x00C0.png" alt="0x00C0" width="125px" height="55px">
@@ -228,7 +228,7 @@
 0x00ED | **PLOT2** | &{Plot2(} |  | Plot2( | <img src="./sprites/token_0x00ED.png" alt="0x00ED" width="185px" height="55px">
 0x00EE | **PLOT3** | &{Plot3(} |  | Plot3( | <img src="./sprites/token_0x00EE.png" alt="0x00EE" width="185px" height="55px">
 0x00F0 | **RAISE** | ^ |  |  | <img src="./sprites/token_0x00F0.png" alt="0x00F0" width="35px" height="55px">
-0x00F1 | **X_ROOT** | &{xthroot} | ×√ | &{x}&{root} | <img src="./sprites/token_0x00F1.png" alt="0x00F1" width="65px" height="55px">
+0x00F1 | **X_ROOT** | &{xthroot} | ×√ | &{superx}&{root} | <img src="./sprites/token_0x00F1.png" alt="0x00F1" width="65px" height="55px">
 0x00F2 | **VAR_1_STATS** | &{1-VarStats } |  | 1-VarStats  | <img src="./sprites/token_0x00F2.png" alt="0x00F2" width="335px" height="55px">
 0x00F3 | **VAR_2_STATS** | &{2-VarStats } |  | 2-VarStats  | <img src="./sprites/token_0x00F3.png" alt="0x00F3" width="335px" height="55px">
 0x00F4 | **LIN_REG_A_BX** | &{LinReg(a+bx) } |  | LinReg(a+bx)  | <img src="./sprites/token_0x00F4.png" alt="0x00F4" width="395px" height="55px">
@@ -655,3 +655,15 @@
 0xEF14 | **X_SQUARED_GOF_TEST** | &{X^2GOF-Test(} | X²GOF-Test( | X&{^2}GOF-Test( | <img src="./sprites/token_0xEF14.png" alt="0xEF14" width="335px" height="55px">
 0xEF15 | **LIN_REG_TINT** | &{LinRegTInt} |  | LinRegTInt | <img src="./sprites/token_0xEF15.png" alt="0xEF15" width="305px" height="55px">
 0xEF16 | **MANUAL_FIT** | &{Manual-Fit} |  | Manual-Fit | <img src="./sprites/token_0xEF16.png" alt="0xEF16" width="305px" height="55px">
+0xFF00 | **ARROW** | &{arrow} |  |  | <img src="./sprites/token_0xFF00.png" alt="0xFF00" width="35px" height="55px">
+0xFF01 | **UNKNOWN** | &{unknown} |  |  | <img src="./sprites/token_0xFF01.png" alt="0xFF01" width="35px" height="55px">
+0xFF02 | **CUBER** | &{cuber} |  |  | <img src="./sprites/token_0xFF02.png" alt="0xFF02" width="35px" height="55px">
+0xFF03 | **SUPERX** | &{superx} |  |  | <img src="./sprites/token_0xFF03.png" alt="0xFF03" width="35px" height="55px">
+0xFF04 | **CURRENT** | &{current} |  |  | <img src="./sprites/token_0xFF04.png" alt="0xFF04" width="35px" height="55px">
+0xFF05 | **CURR_ARROW** | &{curr_arrow} |  |  | <img src="./sprites/token_0xFF05.png" alt="0xFF05" width="35px" height="55px">
+0xFF06 | **CURR_CAPS** | &{curr_caps} |  |  | <img src="./sprites/token_0xFF06.png" alt="0xFF06" width="35px" height="55px">
+0xFF07 | **CURR_LOWER** | &{curr_lower} |  |  | <img src="./sprites/token_0xFF07.png" alt="0xFF07" width="35px" height="55px">
+0xFF08 | **CURR_UNDER** | &{curr_under} |  |  | <img src="./sprites/token_0xFF08.png" alt="0xFF08" width="35px" height="55px">
+0xFF09 | **CURR_UNDER_ARROW** | &{curr_under_arrow} |  |  | <img src="./sprites/token_0xFF09.png" alt="0xFF09" width="35px" height="55px">
+0xFF0A | **CURR_UNDER_CAPS** | &{curr_under_caps} |  |  | <img src="./sprites/token_0xFF0A.png" alt="0xFF0A" width="35px" height="55px">
+0xFF0B | **CURR_UNDER_LOWER** | &{curr_under_lower} |  |  | <img src="./sprites/token_0xFF0B.png" alt="0xFF0B" width="35px" height="55px">

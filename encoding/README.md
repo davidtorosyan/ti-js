@@ -68,7 +68,8 @@ Each field of the output is useful in different ways, so let's use these two cha
   "strict": "&{->}",
   "utf8": "→",
   "length": 1,
-  "glyph": "IwAAAAEF8RAA"
+  "glyph": "IwAAAAEF8RAA",
+  "virtual": false
 },
 {
   "hex": "0x5D01",
@@ -79,7 +80,8 @@ Each field of the output is useful in different ways, so let's use these two cha
     "0x004C", // CAPITAL_L
     "0xBBE2"  // SMALL2
   ],
-  "length": 2
+  "length": 2,
+  "virtual": false
 },
 ```
 
@@ -99,10 +101,9 @@ This field represents the byte encoding in the calculator.
 The former is actually stored on the calculator as `0x04`, while the latter is really two bytes.
 
 For simplicity, all characters are treated as being two bytes.
+Keep in mind though that different calculators may have different encodings, and what's captured here might not be accurate even for TI-84.
 
-Two other things to keep in mind:
-1. Different calculators may have different encodings, and what's captured here might not be accurate even for TI-84.
-2. Any hexes that start with `0xFF` are not real tokens, but are instead used for referencing glyphs used in other tokens.
+See the `virtual` field for hexes that start with `0xFF`.
 
 ### name
 _Required_
@@ -176,7 +177,6 @@ When reconstructed, a token may look like:
 
 <img src="./out/sprites/token_0x5D01.png" alt="0x5D01" width="65px" height="55px">
 
-
 ### length
 _Required_
 
@@ -241,6 +241,23 @@ And then how it may be rendered:
 Note that the rendered image has some margins, but that's not included in the bits.
 
 **Note:** so far, only the large font is implemented. There's also the small font (used in the graphing screen) but that's not implmented.
+
+### Virtual
+_Required_
+
+This is true if this is not a real token per-se, but is used as part of composite tokens.
+
+For example, the first character in this token:
+
+<img src="./out/sprites/token_0x0001.png" alt="0x0001" width="125px" height="55px">
+
+Isn't representable as another token, so we create a "virtual" one with hex `0xFF00`:
+
+<img src="./out/sprites/token_0xFF00.png" alt="0xFF00" width="35px" height="55px">
+
+In the same vein, the `0xFF01` is extra special and represents glyphs we haven't figured out yet:
+
+<img src="./out/sprites/token_0xFF01.png" alt="0xFF01" width="35px" height="55px">
 
 ## Commands
 

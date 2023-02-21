@@ -9,6 +9,7 @@ import { readGlyphs } from './lib/pixels'
 import { drawSprites } from './lib/draw'
 import { read, write } from './util/file'
 import type { TiTokenInput, TiTokenOutput } from './lib/common'
+import { isVirtualHex } from './util/hex'
 
 function main (): void {
   const input = readInput()
@@ -39,6 +40,7 @@ function transform (input: TiTokenInput[], glpyhs: Map<string, string>): TiToken
       composite,
       length,
       glyph: glpyhs.get(record.hex),
+      virtual: isVirtualHex(record.hex),
     })
   }
 

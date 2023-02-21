@@ -11,6 +11,7 @@ export interface TiTokenOutput {
     composite: string[] | undefined
     length: number
     glyph: string | undefined
+    virtual: boolean
 }
 
 export interface TiSprite {

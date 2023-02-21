@@ -1,6 +1,6 @@
 import { write } from '../util/file'
 import { stringify } from 'csv-stringify/sync'
-import { strictMapExtra } from '../util/hex'
+// import { strictMapExtra } from '../util/hex'
 import type { TiTokenOutput, TiSprite } from './common'
 import type { CastingContext } from 'csv-stringify/sync'
 
@@ -35,7 +35,7 @@ export function writeMarkdown (output: TiTokenOutput[], sprites: Map<string, TiS
 function transformOutputs (outputs: TiTokenOutput[], sprites: Map<string, TiSprite>): MarkdownOutput[] {
   const strictMap = new Map(outputs.map(output => [output.hex, output.strict]))
 
-  strictMapExtra.forEach((value, key) => strictMap.set(key, value))
+  // strictMapExtra.forEach((value, key) => strictMap.set(key, value))
 
   return outputs.map(output => transformOutput(output, strictMap, sprites))
 }
