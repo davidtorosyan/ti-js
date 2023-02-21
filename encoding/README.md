@@ -8,6 +8,9 @@ If you're not sure what this is, refer first to the [README.md](../README.md) of
 
 - [Overview](#overview)
 - [Artifacts](#artifacts)
+    - [input](#input)
+    - [output](#output)
+- [Output format](#output-format)
 - [Commands](#commands)
 
 ## Overview
@@ -50,12 +53,194 @@ Resources:
 
 | File                                | Description |
 | ----------------------------------- | ------------|
-| [ENCODING.md](./out/ENCODING.md)    |  |
-| [output.json](./out/output.json)    |  |
-| [sprites.png](./out/sprites.png)    |  |
-| [sprites/](./out/)                  |  |
+| [ENCODING.md](./out/ENCODING.md)    | Human-friendly markdown table where you can see all the tokens. |
+| [output.json](./out/output.json)    | Computer-friendly JSON with all the tokens. |
+| [sprites.png](./out/sprites.png)    | Large image (425x29485 pixels, but only 167 KB) with all the tokens. Suitable for use as a spritesheet. |
+| [sprites/](./out/)                  | Individual images of each token, in png format. Referenced by the markdown table. |
 
-A note on image encoding:
+## Output format
+
+Each field of the output is useful in different ways, so let's use these two characters as examples:
+```json
+{
+  "hex": "0x0004",
+  "name": "STORE",
+  "strict": "&{->}",
+  "utf8": "→",
+  "length": 1,
+  "glyph": "IwAAAAEF8RAA"
+},
+{
+  "hex": "0x5D01",
+  "name": "LIST_2",
+  "strict": "&{L2}",
+  "utf8": "L₂",
+  "composite": [
+    "0x004C", // CAPITAL_L
+    "0xBBE2"  // SMALL2
+  ],
+  "length": 2
+},
+```
+
+### hex
+_Required_
+
+This field represents the byte encoding in the calculator.
+
+```json
+// STORE
+"hex": "0x0004",
+
+// LIST_2
+"hex": "0x5D01",
+```
+
+The former is actually stored on the calculator as `0x04`, while the latter is really two bytes.
+
+For simplicity, all characters are treated as being two bytes.
+
+Two other things to keep in mind:
+1. Different calculators may have different encodings, and what's captured here might not be accurate even for TI-84.
+2. Any hexes that start with `0xFF` are not real tokens, but are instead used for referencing glyphs used in other tokens.
+
+### name
+_Required_
+
+This field is just a friendly name, and follows these rules:
+1. Contains only uppercase letters, numbers, and underscore
+2. Starts with an uppercase letter
+
+### strict
+_Required_
+
+This field is how the token is represented in TI-JS.
+
+```json
+// STORE
+"strict": "&{->}",
+
+// LIST_2
+"strict": "&{L2}",
+```
+
+Each strict token is either:
+1. A single character, such as `A`
+2. Prefixed by `&{` and suffixed with `}`
+
+There's no way to escape, so here's how you'd translate TI-Basic:
+```
+Disp "Check out my emoji: &{"
+```
+
+To TI-JS:
+```
+&{Disp }"Check out my emoji: &{amp}{"
+```
+
+Note that "strict" implies the existance of "loose": that is, a token string like `->` could be transformed to `&{->}` in some cases, to make writing code easier.
+
+### utf8
+_Optional_
+
+This field holds the nearest unicode representation of a token.
+
+```json
+// STORE
+"utf8": "→",
+
+// LIST_2
+"utf8": "L₂",
+```
+
+Note that this token may or may not be the same number of characters as the original token.
+
+If this would be the same as strict mode, it's omitted.
+
+### composite
+_Optional_
+
+Some tokens are displayed as a string of other tokens. This field captures that as an array of hexes.
+
+```json
+// LIST_2
+"composite": [
+  "0x004C", // CAPITAL_L
+  "0xBBE2"  // SMALL2
+],
+```
+
+Each hex in the array necessarily refers to a single-character token.
+
+When reconstructed, a token may look like:
+
+<img src="./out/sprites/token_0x5D01.png" alt="0x5D01" width="65px" height="55px">
+
+
+### length
+_Required_
+
+This field is how much space on the screen the token takes up.
+
+```json
+// STORE
+"length": 1,
+
+// LIST_2
+"length": 2
+```
+
+For composite tokens, this is the length of their array.
+
+For tokens with glyphs, this is `1`.
+
+### glyph
+_Optional_
+
+This field is only for single-character tokens, and represents instructions for how to draw it.
+
+```json
+// STORE
+"glyph": "IwAAAAEF8RAA"
+```
+
+This is a base64 encoding of the image, done in the following way:
+1. The first three bytes is an unsigned integer representing the length of the following array.
+2. The remaining bits are a boolean array, where `1` means a filled-in pixel.
+
+For the dimensions of the glyphs (7 rows of 5 columns) that means 35 bits. The remaining bits are padding to fill out the last byte. Reconstructing the image requires knowledge of the column width.
+
+Find the algorithm in [src/util/bits.ts](src/util/bits.ts).
+
+Here's an example of how it was constructed:
+
+```sh
+# glyphs.txt
+⬜⬜⬜⬜⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜🟦⬜
+🟦🟦🟦🟦🟦
+⬜⬜⬜🟦⬜
+⬜⬜🟦⬜⬜
+⬜⬜⬜⬜⬜
+
+# flattened
+⬜⬜⬜⬜⬜⬜⬜🟦⬜⬜⬜⬜⬜🟦⬜🟦🟦🟦🟦🟦⬜⬜⬜🟦⬜⬜⬜🟦⬜⬜⬜⬜⬜⬜⬜
+
+# bits
+00000001000001011111000100010000000
+
+# encoded
+IwAAAAEF8RAA
+```
+
+And then how it may be rendered:
+
+<img src="./out/sprites/token_0x0004.png" alt="0x0004" width="35px" height="55px">
+
+Note that the rendered image has some margins, but that's not included in the bits.
+
+**Note:** so far, only the large font is implemented. There's also the small font (used in the graphing screen) but that's not implmented.
 
 ## Commands
 
