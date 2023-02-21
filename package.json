@@ -10,6 +10,11 @@
     "dist/web/"
   ],
   "scripts": {
+    "encoding:install": "cd encoding && npm install",
+    "encoding:build": "cd encoding && npm run bp:prod",
+    "encoding:copy": "copyfiles --flat ./encoding/out/encoding.json ./src/gen/",
+    "encoding:bc": "npm run encoding:build && npm run encoding:copy",
+    "postinstall": "npm run encoding:install",
     "clean": "rimraf ./dist/api/* ./dist/ts/*",
     "build": "webpack --config webpack.prod.js",
     "test": "tap --no-coverage-report",
