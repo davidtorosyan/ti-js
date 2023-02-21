@@ -9,6 +9,14 @@
 Start
   = Statement
 
+// ----- Meta -----
+
+tok_
+  = '&{'
+
+_tok
+  = '}'
+
 // ----- Components -----
 // TODO:
 // * List assignments (e.g dim)
@@ -52,18 +60,18 @@ ProgramName
 
 NumericVariableIdentifier
   = Alpha
-  / '&theta' { return 'THETA' }
+  / tok_'theta'_tok { return 'THETA' }
 
 StringVariableIdentifier
-  = 'Str' Digit
+  = tok_'Str' Digit _tok
   { return text(); }
 
 ListVariableIdentifier
-  = '&L' number:[1-6]
+  = tok_'L' number:[1-6] _tok
   { return types.ListVariablePrefix + number; }
 
 CustomListVariableIdentifier
-  = prefix:'&list' Alpha AlphaNum? AlphaNum? AlphaNum? AlphaNum?
+  = tok_ prefix:'list' _tok Alpha AlphaNum? AlphaNum? AlphaNum? AlphaNum?
   { return types.ListVariablePrefix + text().substring(prefix.length); }
 
 NumericVariable
@@ -98,7 +106,7 @@ SignedInteger
   = $([+-]? Integer)
 
 ExponentIndicator
-  = '&E'
+  = tok_'E'_tok
 
 ExponentPart
   = ExponentIndicator @$(SignedInteger)
@@ -129,11 +137,11 @@ StringLiteral
 // ----- Tokens -----
 
 Answer
-  = 'Ans'
+  = tok_'Ans'_tok
   { return { type: types.ANS } }
 
 GetKey
-  = 'getKey'
+  = tok_'getKey'_tok
   { return { type: types.GetKey } }
 
 Token
@@ -170,7 +178,7 @@ TokenExpression
   / ListExpression
 
 UnaryOperator
-  = '&-'
+  = tok_'-'_tok
 
 TokenUnaryExpression
   = TokenExpression 
@@ -211,10 +219,10 @@ AdditiveExpression
 
 TestOperator
   = '='
-  / '!='
-  / '>='
+  / tok_'!='_tok
+  / tok_'>='_tok
   / '>'
-  / '<='
+  / tok_'<='_tok
   / '<' 
 
 TestExpression
@@ -223,9 +231,9 @@ TestExpression
   { return util.buildBinaryExpression(head, tail); }
 
 LogicalOperator
-  = ' and ' 
-  / ' or '
-  / ' xor '
+  = tok_' and '_tok
+  / tok_' or '_tok
+  / tok_' xor '_tok
 
 ValueExpression // should be LogicalExpression, but suppress proxy rule warning
   = head:TestExpression
@@ -254,7 +262,7 @@ ValueStatement
   { return { type: types.ValueStatement, value }}
 
 Assignment
-  = value:ValueExpression '->' assignable:Assignable 
+  = value:ValueExpression tok_'->'_tok assignable:Assignable 
   { return { type: types.AssignmentStatement, value, assignable }}
 
 // ----- CTL -----
@@ -263,83 +271,83 @@ Assignment
 // * For( should accept expressions instead of a variable (with interesting behavior)
 
 IfStatement
-  = 'If ' value:ValueExpression? extra:ExtraCharacters?
+  = tok_'If '_tok value:ValueExpression? extra:ExtraCharacters?
   { return { type: types.IfStatement, value, extra }}
 
 Then 
-  = 'Then' extra:ExtraCharacters?
+  = tok_'Then'_tok extra:ExtraCharacters?
   { return { type: types.ThenStatement, extra }}
 
 Else 
-  = 'Else' extra:ExtraCharacters?
+  = tok_'Else'_tok extra:ExtraCharacters?
   { return { type: types.ElseStatement, extra }}
 
 For
-  = 'For(' variable:Variable? start:ArgumentExpression? end:ArgumentExpression? step:ArgumentExpression? args:ExtraArguments? OptionalEndParen extra:ExtraCharacters?
+  = tok_'For('_tok variable:Variable? start:ArgumentExpression? end:ArgumentExpression? step:ArgumentExpression? args:ExtraArguments? OptionalEndParen extra:ExtraCharacters?
   { return { type: types.ForLoop, variable, start, end, step, args, extra }}
 
 While
-  = 'While ' value:ValueExpression? extra:ExtraCharacters?
+  = tok_'While '_tok value:ValueExpression? extra:ExtraCharacters?
   { return { type: types.WhileLoop, value, extra }}
 
 Repeat
-  = 'Repeat ' value:ValueExpression? extra:ExtraCharacters?
+  = tok_'Repeat '_tok value:ValueExpression? extra:ExtraCharacters?
   { return { type: types.RepeatLoop, value, extra }}
 
 End 
-  = 'End' extra:ExtraCharacters?
+  = tok_'End'_tok extra:ExtraCharacters?
   { return { type: types.EndStatement, extra }}
 
 Pause 
-  = 'Pause' 
+  = tok_'Pause'_tok 
   { return { type: types.PauseStatement }}
 
 Label
-  = 'Lbl ' location:Location
+  = tok_'Lbl '_tok location:Location
   { return { type: types.LabelStatement, location }}
 
 Goto
-  = 'Goto ' location:Location 
+  = tok_'Goto '_tok location:Location 
   { return { type: types.GotoStatement, location }}
 
 IncrementSkip
-  = 'IS>(' variable:Variable? end:ArgumentExpression? OptionalEndParen
+  = tok_'IS>('_tok variable:Variable? end:ArgumentExpression? OptionalEndParen
   { return { type: types.IncrementSkip, variable, end }}
 
 DecrementSkip
-  = 'DS<(' variable:Variable? end:ArgumentExpression? OptionalEndParen
+  = tok_'DS<('_tok variable:Variable? end:ArgumentExpression? OptionalEndParen
   { return { type: types.DecrementSkip, variable, end }}
 
 Menu
-  = 'Menu(' title:ValueExpression? options:(',' StringLiteral ',' Location)* OptionalEndParen
+  = tok_'Menu('_tok title:ValueExpression? options:(',' StringLiteral ',' Location)* OptionalEndParen
   { return util.buildMenuStatement(title, options); }
 
 Program
-  = 'prgm' name:ProgramName
+  = tok_'prgm'_tok name:ProgramName
   { return { type: types.ProgramStatement, name }}
 
 Return 
-  = 'Return' 
+  = tok_'Return'_tok 
   { return { type: types.ReturnStatement }}
 
 Stop 
-  = 'Stop' 
+  = tok_'Stop'_tok 
   { return { type: types.StopStatement }}
 
 DelVar 
-  = 'DelVar ' variable:Variable?
+  = tok_'DelVar '_tok variable:Variable?
   { return { type: types.DelVarStatement, variable }}
 
 GraphStyle 
-  = 'GraphStyle(' equation:ValueExpression? style:ArgumentExpression? OptionalEndParen
+  = tok_'GraphStyle('_tok equation:ValueExpression? style:ArgumentExpression? OptionalEndParen
   { return { type: types.GraphStyleStatement, equation, style }}
 
 OpenLib 
-  = 'OpenLib(' name:ProgramName OptionalEndParen
+  = tok_'OpenLib('_tok name:ProgramName OptionalEndParen
   { return { type: types.OpenLibStatement, name }}
 
 ExecLib 
-  = 'ExecLib(' name:ProgramName OptionalEndParen
+  = tok_'ExecLib('_tok name:ProgramName OptionalEndParen
   { return { type: types.ExecLibStatement, name }}
 
 CtlStatement
@@ -370,47 +378,47 @@ CtlStatement
 // * Remaining commands
 
 Input
-  = 'Input ' text:PrefixArgumentExpression? variable:Variable?
+  = tok_'Input '_tok text:PrefixArgumentExpression? variable:Variable?
   { return { type: types.Input, text, variable } }
 
 Prompt
-  = 'Prompt ' variable:Variable?
+  = tok_'Prompt '_tok variable:Variable?
   { return { type: types.Prompt, variable } }
 
 Display
-  = 'Disp ' value:ValueExpression? 
+  = tok_'Disp '_tok value:ValueExpression? 
   { return { type: types.Display, value } }
 
 DispGraph
-  = 'DispGraph'
+  = tok_'DispGraph'_tok
   { return { type: types.DispGraph } }
 
 DispTable
-  = 'DispTable'
+  = tok_'DispTable'_tok
   { return { type: types.DispTable } }
 
 Output
-  = 'Output(' row:ValueExpression? column:ArgumentExpression? value:ArgumentExpression? OptionalEndParen
+  = tok_'Output('_tok row:ValueExpression? column:ArgumentExpression? value:ArgumentExpression? OptionalEndParen
   { return { type: types.Output, row, column, value } }
 
 ClrHome
-  = 'ClrHome'
+  = tok_'ClrHome'_tok
   { return { type: types.ClrHome } }
 
 ClrTable
-  = 'ClrTable'
+  = tok_'ClrTable'_tok
   { return { type: types.ClrTable } }
 
 GetCalc
-  = 'GetCalc(' variable:Variable? portflag:ArgumentExpression? OptionalEndParen
+  = tok_'GetCalc('_tok variable:Variable? portflag:ArgumentExpression? OptionalEndParen
   { return { type: types.GetCalc, variable, portflag } }
 
 Get
-  = 'Get('  variable:Variable? OptionalEndParen
+  = tok_'Get('_tok  variable:Variable? OptionalEndParen
   { return { type: types.Get, variable } }
 
 Send
-  = 'Send(' variable:Variable? OptionalEndParen
+  = tok_'Send('_tok variable:Variable? OptionalEndParen
   { return { type: types.Send, variable } }
 
 IoStatement

@@ -224,8 +224,8 @@ const tiJsTests =
     {
       name: 'Unary',
       input: `\
-        Disp &-1
-        Disp &-&-1
+        Disp &{-}1
+        Disp &{-}&{-}1
         `,
       expected: `\
         -1
@@ -377,12 +377,12 @@ const tiJsTests =
     },
     {
       name: 'OrderOfOperations',
-      input: 'Disp &-0+3*2-1',
+      input: 'Disp &{-}0+3*2-1',
       expected: '5',
     },
     {
       name: 'OrderOfParenthesis',
-      input: 'Disp &-(0+3)*(2-1)',
+      input: 'Disp &{-}(0+3)*(2-1)',
       expected: '-3',
     },
     {
@@ -462,12 +462,12 @@ const tiJsTests =
         Disp 1
         Disp 1.0
         Disp 1.2
-        Disp 1.2&E3
-        Disp 0.1&E2
-        Disp .1&E2
-        Disp 1&E2
-        Disp 1.&E2
-        Disp 100&E-2
+        Disp 1.2&{E}3
+        Disp 0.1&{E}2
+        Disp .1&{E}2
+        Disp 1&{E}2
+        Disp 1.&{E}2
+        Disp 100&{E}-2
         `,
       expected: `\
         1
@@ -484,8 +484,8 @@ const tiJsTests =
     {
       name: 'Theta',
       input: `\
-        1->&theta
-        Disp &theta
+        1->&{theta}
+        Disp &{theta}
         `,
       expected: '1',
     },
@@ -640,7 +640,7 @@ const tiJsTests =
       input: `\
         Prompt X
         Disp X
-        Disp &listX
+        Disp &{list}X
         `,
       expected: `\
         X=?{1,2}
@@ -661,11 +661,11 @@ const tiJsTests =
     {
       name: 'PromptList',
       input: `\
-        Prompt &L1
-        Disp &L1
+        Prompt &{L1}
+        Disp &{L1}
         `,
       expected: `\
-        &L1=?{1,2}
+        &{L1}=?{1,2}
         {1 2}
       `,
       stdin: '{1,2}',
@@ -673,8 +673,8 @@ const tiJsTests =
     {
       name: 'PromptCustomList',
       input: `\
-        Prompt &listX
-        Disp &listX
+        Prompt &{list}X
+        Disp &{list}X
         `,
       expected: `\
         X=?{1,2}
@@ -684,7 +684,7 @@ const tiJsTests =
     },
     {
       name: 'PromptListNumber',
-      input: 'Prompt &listX',
+      input: 'Prompt &{list}X',
       expected: `\
         X=?1
         ERR:DATA TYPE
@@ -706,7 +706,7 @@ const tiJsTests =
         2->X
         3->Y
         Disp XY
-        Disp X&-Y
+        Disp X&{-}Y
         Disp XYX
         `,
       expected: `\
@@ -733,12 +733,12 @@ const tiJsTests =
     },
     {
       name: 'MultiplyImplicitFail1',
-      input: 'Disp 1&-1',
+      input: 'Disp 1&{-}1',
       expected: 'ERR:SYNTAX',
     },
     {
       name: 'MultiplyImplicitFail2',
-      input: 'Disp X1&-1',
+      input: 'Disp X1&{-}1',
       expected: 'ERR:SYNTAX',
     },
     {
@@ -974,17 +974,17 @@ const tiJsTests =
     {
       name: 'ListListVariableFails',
       input: `\
-        {1}->&listA
-        Disp {&listA}
+        {1}->&{list}A
+        Disp {&{list}A}
         `,
       expected: 'ERR:DATA TYPE',
     },
     {
       name: 'ListUnary',
       input: `\
-        Disp &-{2}
-        Disp &-{2,&-3}
-        Disp &-&-{2,3}
+        Disp &{-}{2}
+        Disp &{-}{2,&{-}3}
+        Disp &{-}&{-}{2,3}
         `,
       expected: `\
         {-2}
@@ -1045,30 +1045,30 @@ const tiJsTests =
     {
       name: 'ListVariable',
       input: `\
-        {1}->&L1
-        Disp &L1
+        {1}->&{L1}
+        Disp &{L1}
       `,
       expected: '{1}',
     },
     {
       name: 'CustomListVariable',
       input: `\
-        {1}->&listA
-        Disp &listA
+        {1}->&{list}A
+        Disp &{list}A
       `,
       expected: '{1}',
     },
     {
       name: 'UndefinedListVariable',
-      input: 'Disp &L1',
+      input: 'Disp &{L1}',
       expected: 'ERR:UNDEFINED',
     },
     {
       name: 'ListAssignList',
       input: `\
-        {4,9}->&L1
-        &L1->&L2
-        Disp &L2
+        {4,9}->&{L1}
+        &{L1}->&{L2}
+        Disp &{L2}
       `,
       expected: '{4 9}',
     },
@@ -1113,11 +1113,11 @@ const tiJsTests =
       name: 'ListIndex',
       input: `\
         1->X
-        {4,9}->&L1
-        Disp &L1(1)
-        Disp &L1(2)
-        Disp &L1(X)
-        Disp &L1(X+1)
+        {4,9}->&{L1}
+        Disp &{L1}(1)
+        Disp &{L1}(2)
+        Disp &{L1}(X)
+        Disp &{L1}(X+1)
       `,
       expected: `\
         4
@@ -1129,41 +1129,41 @@ const tiJsTests =
     {
       name: 'ListIndexSmall',
       input: `\
-        {4,9}->&L1
-        Disp &L1(0)
+        {4,9}->&{L1}
+        Disp &{L1}(0)
       `,
       expected: 'ERR:INVALID DIM',
     },
     {
       name: 'ListIndexLarge',
       input: `\
-        {4,9}->&L1
-        Disp &L1(3)
+        {4,9}->&{L1}
+        Disp &{L1}(3)
       `,
       expected: 'ERR:INVALID DIM',
     },
     {
       name: 'ListIndexAssign',
       input: `\
-        {4,9}->&L1
-        5->&L1(1+1)
-        Disp &L1(2)
+        {4,9}->&{L1}
+        5->&{L1}(1+1)
+        Disp &{L1}(2)
       `,
       expected: '5',
     },
     {
       name: 'ListIndexAssignString',
       input: `\
-        {4}->&L1
-        "A"->&L1(1)
+        {4}->&{L1}
+        "A"->&{L1}(1)
       `,
       expected: 'ERR:DATA TYPE',
     },
     {
       name: 'ListIndexAssignList',
       input: `\
-        {4}->&L1
-        &L1->&L1(1)
+        {4}->&{L1}
+        &{L1}->&{L1}(1)
       `,
       expected: 'ERR:DATA TYPE',
     },
@@ -1230,7 +1230,7 @@ const tiJsTests =
       input: `\
         Input X
         Disp X
-        Disp &listX
+        Disp &{list}X
         `,
       expected: `\
         ?{1,2}
@@ -1266,8 +1266,8 @@ const tiJsTests =
     {
       name: 'InputList',
       input: `\
-        Input &L1
-        Disp &L1
+        Input &{L1}
+        Disp &{L1}
         `,
       expected: `\
         ?{1,2}
