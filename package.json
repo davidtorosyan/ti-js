@@ -10,12 +10,15 @@
     "dist/web/"
   ],
   "scripts": {
-    "encoding:check:dirty": "git diff --quiet ./encoding || echo ERROR: Encoding has changes. Review, commit, and retry. && exit 1",
-    "encoding:hashup": "git rev-parse HEAD:encoding > ./src/gen/encoding.json.hash",
+    "encoding:dirty": "git diff --quiet ./encoding",
+    "encoding:hash:update": "git rev-parse HEAD:encoding > ./src/gen/encoding.json.hash",
+    "encoding:hash:dirty": "git diff --quiet ./encoding",
     "encoding:install": "cd encoding && npm install",
     "encoding:build": "cd encoding && npm run bp:prod",
     "encoding:copy": "copyfiles --flat ./encoding/out/encoding.json ./src/gen/",
     "encoding:bc": "npm run encoding:build && npm run encoding:copy",
+    "encoding:warn": "echo Building encoding, to speed this up commit your changes.",
+    "encoding:run": "npm run encoding:hash:update && npm run encoding:hash:dirty && npm run encoding:dirty || npm run encoding:warn && npm run encoding:bc",
     "postinstall": "npm run encoding:install",
     "clean": "rimraf ./dist/api/* ./dist/ts/*",
     "build": "webpack --config webpack.prod.js",
