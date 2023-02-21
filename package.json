@@ -28,6 +28,7 @@
     "push": "npm run bt:prod && npm run lint && npm publish",
     "cov": "tap --reporter=spec",
     "next": "npm run bump && npm run push && git push",
+    "ci:github": "npm run bt:prod",
     "encoding:install": "cd encoding && npm install",
     "encoding:build": "cd encoding && npm run bp:prod",
     "encoding:copy": "copyfiles --flat ./encoding/out/encoding.json ./src/gen/",
