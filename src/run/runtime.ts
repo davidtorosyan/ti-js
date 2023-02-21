@@ -7,6 +7,7 @@ import * as types from '../common/types'
 import * as statement from '../evaluate/statement'
 import * as iolib from '../evaluate/helper/iolib'
 import * as daemon from './daemon'
+import { Memory } from '../device/memory'
 
 /**
  * @alpha
@@ -74,7 +75,7 @@ export function run (lines: types.Line[], options: RunOptions = {}): ProgramHand
   }
 
   const state: statement.State = {
-    mem: core.newMem(),
+    mem: new Memory(),
 
     resume: undefined,
     resumeCallback: undefined,

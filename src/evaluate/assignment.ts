@@ -4,8 +4,9 @@
 import * as core from '../common/core'
 import * as types from '../common/types'
 import * as expression from './expression'
+import type * as device from '../device/device'
 
-export function evaluate (assignable: types.Assignable, value: types.ValueResolved, mem: core.Memory): void {
+export function evaluate (assignable: types.Assignable, value: types.ValueResolved, mem: device.Memory): void {
   switch (assignable.type) {
     case types.NumberVariable:
       return visitVariable(assignable, value, mem)
@@ -22,28 +23,28 @@ export function evaluate (assignable: types.Assignable, value: types.ValueResolv
 
 // ----- Statements -----
 
-function visitVariable (variable: types.Variable, value: types.ValueResolved, mem: core.Memory): void {
+function visitVariable (variable: types.Variable, value: types.ValueResolved, mem: device.Memory): void {
   if (value.type !== types.TiNumber) {
     return
   }
-  mem.vars.set(variable.name, value)
+  mem.set(variable.name, value)
 }
 
-function visitStringVariable (variable: types.StringVariable, value: types.ValueResolved, mem: core.Memory): void {
+function visitStringVariable (variable: types.StringVariable, value: types.ValueResolved, mem: device.Memory): void {
   if (value.type !== types.TiString) {
     throw new core.TiError(core.TiErrorCode.DataType)
   }
-  mem.vars.set(variable.name, value)
+  mem.set(variable.name, value)
 }
 
-function visitListVariable (variable: types.ListVariable, value: types.ValueResolved, mem: core.Memory): void {
+function visitListVariable (variable: types.ListVariable, value: types.ValueResolved, mem: device.Memory): void {
   if (value.type !== types.TiList) {
     throw new core.TiError(core.TiErrorCode.DataType)
   }
-  mem.vars.set(variable.name, value)
+  mem.set(variable.name, value)
 }
 
-function visitListIndex (assignable: types.ListIndex, value: types.ValueResolved, mem: core.Memory): void {
+function visitListIndex (assignable: types.ListIndex, value: types.ValueResolved, mem: device.Memory): void {
   const list = expression.evaluate(assignable.list, mem)
   const index = expression.evaluate(assignable.index, mem)
   if (list.type !== types.TiList) {
@@ -55,7 +56,7 @@ function visitListIndex (assignable: types.ListIndex, value: types.ValueResolved
   if (index.float < 1 || index.float > list.elements.length) {
     throw new core.TiError(core.TiErrorCode.InvalidDim)
   }
-  const storedList = mem.vars.get(assignable.list.name)
+  const storedList = mem.get(assignable.list.name)
   if (storedList?.type !== types.TiList) {
     throw new core.LibError('unexpected type, should be list')
   }

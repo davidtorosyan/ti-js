@@ -6,8 +6,9 @@ import * as types from '../common/types'
 import * as operation from './helper/operation'
 import * as unary from './unary'
 import * as binary from './binary'
+import type * as device from '../device/device'
 
-export function evaluate (value: types.ValueExpression, mem: core.Memory): types.ValueResolved {
+export function evaluate (value: types.ValueExpression, mem: device.Memory): types.ValueResolved {
   switch (value.type) {
     case types.TiSyntaxError:
       return visitSyntaxError(value, mem)
@@ -40,24 +41,24 @@ export function evaluate (value: types.ValueExpression, mem: core.Memory): types
 
 // ----- Expressions -----
 
-function visitSyntaxError (_value: types.ValueExpression, _mem: core.Memory): never {
+function visitSyntaxError (_value: types.ValueExpression, _mem: device.Memory): never {
   throw new core.TiError(core.TiErrorCode.Syntax)
 }
 
 // ----- Values -----
 
-function visitNumber (value: types.TiNumber, _mem: core.Memory): types.NumberResolved {
+function visitNumber (value: types.TiNumber, _mem: device.Memory): types.NumberResolved {
   if (value.resolved) {
     return value
   }
   return core.newFloat(operation.resolveNumber(value))
 }
 
-function visitString (value: types.TiString, _mem: core.Memory): types.TiString {
+function visitString (value: types.TiString, _mem: device.Memory): types.TiString {
   return value
 }
 
-function visitList (value: types.TiList, mem: core.Memory): types.ListResolved {
+function visitList (value: types.TiList, mem: device.Memory): types.ListResolved {
   if (value.resolved) {
     return value
   }
@@ -79,32 +80,32 @@ function visitList (value: types.TiList, mem: core.Memory): types.ListResolved {
 
 // ----- Variables -----
 
-function visitVariable (value: types.Variable, mem: core.Memory): types.ValueResolved {
-  let result = mem.vars.get(value.name)
+function visitVariable (value: types.Variable, mem: device.Memory): types.ValueResolved {
+  let result = mem.get(value.name)
   if (result === undefined) {
     result = core.newFloat()
-    mem.vars.set(value.name, result)
+    mem.set(value.name, result)
   }
   return result
 }
 
-function visitStringVariable (value: types.StringVariable, mem: core.Memory): types.ValueResolved {
-  const result = mem.vars.get(value.name)
+function visitStringVariable (value: types.StringVariable, mem: device.Memory): types.ValueResolved {
+  const result = mem.get(value.name)
   if (result === undefined) {
     throw new core.TiError(core.TiErrorCode.Undefined)
   }
   return result
 }
 
-function visitListVariable (value: types.ListVariable, mem: core.Memory): types.ValueResolved {
-  const result = mem.vars.get(value.name)
+function visitListVariable (value: types.ListVariable, mem: device.Memory): types.ValueResolved {
+  const result = mem.get(value.name)
   if (result === undefined) {
     throw new core.TiError(core.TiErrorCode.Undefined)
   }
   return result
 }
 
-function visitListIndex (value: types.ListIndex, mem: core.Memory): types.NumberResolved {
+function visitListIndex (value: types.ListIndex, mem: device.Memory): types.NumberResolved {
   const list = evaluate(value.list, mem)
   const index = evaluate(value.index, mem)
   if (list.type !== types.TiList) {
@@ -125,22 +126,22 @@ function visitListIndex (value: types.ListIndex, mem: core.Memory): types.Number
 
 // ----- Tokens -----
 
-function visitAns (_value: types.Ans, mem: core.Memory): types.ValueResolved {
-  return mem.ans
+function visitAns (_value: types.Ans, mem: device.Memory): types.ValueResolved {
+  return mem.getAns()
 }
 
-function visitGetKey (_value: types.GetKey, _mem: core.Memory): never {
+function visitGetKey (_value: types.GetKey, _mem: device.Memory): never {
   throw new core.LibError(core.UNIMPLEMENTED_MESSAGE)
 }
 
 // ----- Operators -----
 
-function visitUnaryExpression (value: types.UnaryExpression, mem: core.Memory): types.ValueResolved {
+function visitUnaryExpression (value: types.UnaryExpression, mem: device.Memory): types.ValueResolved {
   const argument = evaluate(value.argument, mem)
   return unary.evaluate(value.operator, argument)
 }
 
-function visitBinaryExpression (value: types.BinaryExpression, mem: core.Memory): types.ValueResolved {
+function visitBinaryExpression (value: types.BinaryExpression, mem: device.Memory): types.ValueResolved {
   const left = evaluate(value.left, mem)
   const right = evaluate(value.right, mem)
   return binary.evaluate(value.operator, left, right)

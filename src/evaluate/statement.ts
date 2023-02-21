@@ -9,9 +9,10 @@ import * as operation from './helper/operation'
 import * as expression from './expression'
 import * as assignment from './assignment'
 import * as iolib from './helper/iolib'
+import type * as device from '../device/device'
 
 export interface State {
-  mem: core.Memory
+  mem: device.Memory
   resume: ((callback?: () => void) => void) | undefined
   resumeCallback: (() => void) | undefined
   debug: boolean
@@ -419,7 +420,7 @@ function visitSend (_line: types.Send, _state: State): never {
 
 // ----- Helpers -----
 
-function increment (mem: core.Memory, variable: types.Variable, step: types.ValueExpression): undefined {
+function increment (mem: device.Memory, variable: types.Variable, step: types.ValueExpression): undefined {
   if (!operation.hasVariable(mem, variable)) {
     throw new core.TiError(core.TiErrorCode.Undefined)
   }

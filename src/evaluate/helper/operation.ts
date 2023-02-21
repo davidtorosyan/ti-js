@@ -3,6 +3,7 @@
 
 import * as core from '../../common/core'
 import * as types from '../../common/types'
+import type * as device from '../../device/device'
 
 export function isTruthy (value: types.ValueResolved): boolean {
   if (value.type === types.TiNumber) {
@@ -11,16 +12,16 @@ export function isTruthy (value: types.ValueResolved): boolean {
   throw new core.TiError(core.TiErrorCode.DataType)
 }
 
-export function deleteVariable (mem: core.Memory, variable: types.Variable): void {
-  mem.vars.delete(variable.name)
+export function deleteVariable (mem: device.Memory, variable: types.Variable): void {
+  mem.del(variable.name)
 }
 
-export function hasVariable (mem: core.Memory, variable: types.Variable): boolean {
-  return mem.vars.has(variable.name)
+export function hasVariable (mem: device.Memory, variable: types.Variable): boolean {
+  return mem.has(variable.name)
 }
 
-export function assignAns (mem: core.Memory, value: types.ValueResolved): void {
-  mem.ans = value
+export function assignAns (mem: device.Memory, value: types.ValueResolved): void {
+  mem.setAns(value)
 }
 
 export function binaryOperation (

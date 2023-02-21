@@ -41,18 +41,6 @@ export class LibError extends TiJsError {
   }
 }
 
-export interface Memory {
-  vars: Map<string, types.ValueResolved>
-  ans: types.ValueResolved
-}
-
-export function newMem (): Memory {
-  return {
-    vars: new Map<string, types.ValueResolved>(),
-    ans: newFloat(),
-  }
-}
-
 export function newFloat (value = 0): types.NumberResolved {
   return {
     type: types.TiNumber,
