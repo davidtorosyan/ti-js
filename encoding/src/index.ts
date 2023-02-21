@@ -60,7 +60,7 @@ function readInput (): TiTokenInput[] {
 
 function writeOutput (output: TiTokenOutput[]): void {
   const result = JSON.stringify(output, null, 2)
-  write('output.json', result)
+  write('encoding.json', result)
 }
 
 main()

@@ -13,7 +13,7 @@
         "b:prod": "npm run clean && npm run build && npm run lint:prod",
         "pub:clean": "rimraf ./out/* ",
         "pub:sprites": "copyfiles --flat ./dist/sprites/* ./out/sprites",
-        "pub:table": "copyfiles --flat ./dist/ENCODING.md ./dist/sprites.png ./dist/output.json ./out",
+        "pub:table": "copyfiles --flat ./dist/ENCODING.md ./dist/sprites.png ./dist/encoding.json ./out",
         "pub": "npm run pub:clean && npm run pub:sprites && npm run pub:table",
         "pub:check": "git diff --quiet ./out || echo ERROR: Encoding output has changes. Review, commit, and retry. && exit 1",
         "pub:prod": "npm run pub && npm run pub:check",

@@ -51,12 +51,12 @@ Resources:
 
 ### Output
 
-| File                                | Description |
-| ----------------------------------- | ------------|
-| [ENCODING.md](./out/ENCODING.md)    | Human-friendly markdown table where you can see all the tokens. |
-| [output.json](./out/output.json)    | Computer-friendly JSON with all the tokens. |
-| [sprites.png](./out/sprites.png)    | Large image (425x29485 pixels, but only 167 KB) with all the tokens. Suitable for use as a spritesheet. |
-| [sprites/](./out/)                  | Individual images of each token, in png format. Referenced by the markdown table. |
+| File                                 | Description |
+| ------------------------------------ | ------------|
+| [ENCODING.md](./out/ENCODING.md)     | Human-friendly markdown table where you can see all the tokens. |
+| [encoding.json](./out/encoding.json) | Computer-friendly JSON with all the tokens. |
+| [sprites.png](./out/sprites.png)     | Large image (425x29485 pixels, but only 167 KB) with all the tokens. Suitable for use as a spritesheet. |
+| [sprites/](./out/)                   | Individual images of each token, in png format. Referenced by the markdown table. |
 
 ## Output format
 
