@@ -76,6 +76,7 @@ You're unlikely to use the other commands directly, but here they are:
 | `npm run bump`         | Increments the patch version. |
 | `npm run bt:prod`      | Build and test, but fail if there lint warnings or unconfirmed API changes. |
 | `npm run push`         | Builds and publishes to NPM. |
+| `npm run ci:github`    | Runs prod build for github CI. |
 
 Finally, there are encoding related commands. Again, these shouldn't be needed directly.
 
