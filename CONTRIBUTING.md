@@ -288,6 +288,8 @@ TI-BASIC does not use ASCII, of course. Instead, it its own encoding commonly ex
 
 For example, the `For(` token is 4 bytes in ASCII, but only a single byte in TI-BASIC encoding.
 
-To keep things simple, this library only deals with ASCII. This means characters like `θ` are represented as `&theta`. In some cases this means code that would ambiguously convert to TI-BASIC (for example, is `->` an arrow or a minus sign followed by a greater than sign?).
+To keep things simple, this library only deals with ASCII. This means characters like `θ` are represented as `&{theta}`.
+However, some strings will automatically be converted (for example, `->` will always be interpreted as `&{->}`.)
+There is not yet a way to opt out.
 
 See the [encoding](./encoding/) subproject for creating a more strict character mapping.

@@ -10,6 +10,8 @@ Other resources:
 
 This section has a table of which commands have been implemented, and which are planned.
 
+Note that the command table hasn't been updated to match the encoding format that looks like `&{pi}` (instead of `&pi`).
+
 ### Legend
 
 | Symbol          | Meaning                   |
