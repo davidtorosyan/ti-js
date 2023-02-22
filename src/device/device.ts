@@ -2,36 +2,35 @@
 // ====
 
 import { Memory } from './memory'
+import type * as types from '../common/types'
+import type * as iolib from '../evaluate/helper/iolib'
 
 export { Memory }
 
-export interface State {
+export interface RuntimeSettings {
   debug: boolean
   maximumLines: number
   frequencyMs: number
+}
+
+export interface IoSettings {
   rows: number
   columns: number
   io: iolib.IoOptions
 }
 
-export interface State {
-  rows: number
-  columns: number
-  io: iolib.IoOptions
-}
-
-export interface State {
+export interface Callbacks {
   resume: ((callback?: () => void) => void) | undefined
   resumeCallback: (() => void) | undefined
   callback?: (status: string) => void
 }
 
-export interface State {
-  sourceLines: string[] | undefined
+export interface Program {
   lines: types.Line[]
+  sourceLines: string[] | undefined
 }
 
-export interface State {
+export interface ProgramState {
   searchLabel: string | undefined
   ifResult: boolean | undefined
   incrementDecrementResult: boolean | undefined
@@ -40,7 +39,6 @@ export interface State {
   falsyStackHeight: number | undefined
   falsyBlockPreviousIf: boolean | undefined
   i: number
-  lines: types.Line[]
   status: string
 }
 
