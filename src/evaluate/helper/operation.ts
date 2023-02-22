@@ -2,7 +2,7 @@
 // =========
 
 import * as core from '../../common/core'
-import * as types from '../../common/types'
+import * as types from 'common/types'
 import type * as device from '../../device/device'
 
 export function isTruthy (value: types.ValueResolved): boolean {

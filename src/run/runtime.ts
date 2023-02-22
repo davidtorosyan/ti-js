@@ -3,11 +3,11 @@
 
 import * as core from '../common/core'
 import * as signal from '../common/signal'
-import * as types from '../common/types'
+import * as types from 'common/types'
 import * as statement from '../evaluate/statement'
 import * as iolib from '../evaluate/helper/iolib'
 import * as daemon from './daemon'
-import { Memory } from '../device/memory'
+import { Memory } from 'device/memory'
 
 /**
  * @alpha

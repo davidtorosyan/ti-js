@@ -1,6 +1,7 @@
 const path = require('path')
 const { merge } = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 const common = {
   mode: 'development',
@@ -25,6 +26,9 @@ const common = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    plugins: [new TsconfigPathsPlugin({
+      extensions: ['.tsx', '.ts', '.js'],
+    })],
   },
 }
 

@@ -1,7 +1,7 @@
 // pegutil
 // =======
 
-import * as types from '../common/types'
+import * as types from 'common/types'
 
 function toBinary (
   left: types.ValueExpression,

@@ -1,7 +1,7 @@
 // entry point (web)
 // ==================
 
-import * as webInject from './inject/web/inject.web'
+import * as webInject from 'inject/web/inject.web'
 webInject.init()
 
 /**
@@ -9,4 +9,4 @@ webInject.init()
  *
  * @packageDocumentation
  */
-export * from './common'
+export * from 'common'

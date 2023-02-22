@@ -2,7 +2,7 @@
 // ==========
 
 import * as core from '../common/core'
-import * as types from '../common/types'
+import * as types from 'common/types'
 import * as operation from './helper/operation'
 import * as unary from './unary'
 import * as binary from './binary'

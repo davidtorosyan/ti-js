@@ -1,7 +1,7 @@
 // parser
 // ======
 
-import * as types from '../common/types'
+import * as types from 'common/types'
 import { toStrict } from './encoding'
 import {
   parse as peggyParse,

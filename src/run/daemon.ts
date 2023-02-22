@@ -1,8 +1,8 @@
 // daemon
 // ======
 
-import * as signal from '../common/signal'
-import * as inject from '../inject/inject'
+import * as signal from 'common/signal'
+import * as inject from 'inject/inject'
 
 interface CreateTaskOptions {
   debug: boolean

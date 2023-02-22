@@ -2,7 +2,7 @@
 // ==========
 
 import * as core from '../common/core'
-import * as types from '../common/types'
+import * as types from 'common/types'
 import * as expression from './expression'
 import type * as device from '../device/device'
 

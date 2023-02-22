@@ -1,7 +1,7 @@
 // core
 // ====
 
-import * as types from './types'
+import * as types from 'common/types'
 
 export enum TiErrorCode {
   DataType = 'DATA TYPE',
