@@ -1,6 +1,8 @@
 const path = require('path')
+const webpack = require('webpack')
 const { merge } = require('webpack-merge')
 const nodeExternals = require('webpack-node-externals')
+const packageJson = require('./package.json')
 
 const common = {
   mode: 'development',
@@ -11,6 +13,12 @@ const common = {
     },
     clean: true,
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.BUILD_TIME': JSON.stringify(new Date().toISOString()),
+      'process.env.PACKAGE_VERSION': JSON.stringify(packageJson.version),
+    }),
+  ],
   module: {
     rules: [
       {

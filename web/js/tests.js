@@ -20,6 +20,7 @@ $(() => {
   initButtons()
   configureTranspiler()
   restoreToggleClass()
+  detectLibraryVersion()
 });
 
 (function ($) {
@@ -75,6 +76,9 @@ function initFonts () {
 function initPage () {
   $('#content').append($(`\
 <h1><a href="../">TI-JS</a> TESTS</h1>
+<div id="versionInfo">
+    <p><strong>TI-JS Library:</strong> <span id="libraryVersion">Loading...</span> | <strong>Built:</strong> <span id="libraryBuildTime">Loading...</span></p>
+</div>
 <div>
     <h3>Results</h3>
     <div id="testSummary">
@@ -349,5 +353,36 @@ function saveToStorage (name, value, callback) {
   localStorage.setItem(name, JSON.stringify(value))
   if (callback !== undefined) {
     callback(value)
+  }
+}
+
+function detectLibraryVersion () {
+  try {
+    let libraryInfo = 'Unknown'
+    let buildInfo = 'Unknown'
+
+    if (typeof ti !== 'undefined') {
+      // Use the exported functions if available
+      if (typeof ti.getVersion === 'function') {
+        libraryInfo = ti.getVersion()
+      } else {
+        libraryInfo = 'TI-JS loaded'
+      }
+
+      if (typeof ti.getBuildTime === 'function') {
+        buildInfo = ti.getBuildTime()
+      } else {
+        buildInfo = 'Unknown'
+      }
+    } else {
+      libraryInfo = 'TI library not loaded'
+      buildInfo = 'N/A'
+    }
+
+    $('#libraryVersion').text(libraryInfo)
+    $('#libraryBuildTime').text(buildInfo)
+  } catch (ex) {
+    $('#libraryVersion').text(`Error: ${ex.message}`)
+    $('#libraryBuildTime').text('Error')
   }
 }

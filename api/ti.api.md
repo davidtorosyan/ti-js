@@ -198,6 +198,9 @@ interface Get {
 }
 
 // @alpha (undocumented)
+export function getBuildTime(): string;
+
+// @alpha (undocumented)
 const GetCalc = "GetCalc";
 
 // @alpha (undocumented)
@@ -218,6 +221,9 @@ interface GetKey {
     // (undocumented)
     type: typeof GetKey;
 }
+
+// @alpha (undocumented)
+export function getVersion(): string;
 
 // @alpha (undocumented)
 const GotoStatement = "GotoStatement";
