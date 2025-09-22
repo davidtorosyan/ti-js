@@ -35,16 +35,13 @@ function updateJekyllConfig (version) {
   return true
 }
 
-// Commit the changes
-function commitChanges (version) {
+// stage the changes
+function stageChanges (version) {
   try {
     console.log('Staging Jekyll config changes...')
     execSync('git add docs/_config.yml', { stdio: 'inherit' })
 
-    console.log('Amending the version commit...')
-    execSync('git commit --amend --no-edit', { stdio: 'inherit' })
-
-    console.log(`Successfully amended commit with Jekyll version update to ${version}`)
+    console.log(`Successfully staged Jekyll version update to ${version}`)
   } catch (error) {
     console.error('Error during git operations:', error.message)
     process.exit(1)
@@ -60,10 +57,10 @@ function main () {
   const updated = updateJekyllConfig(version)
 
   if (updated) {
-    commitChanges(version)
-    console.log('Version update and commit complete!')
+    stageChanges(version)
+    console.log('Version update and stage complete!')
   } else {
-    console.log('No changes made, skipping commit.')
+    console.log('No changes made, skipping stage.')
   }
 }
 
@@ -71,4 +68,4 @@ if (require.main === module) {
   main()
 }
 
-module.exports = { updateJekyllConfig, getCurrentVersion, commitChanges }
+module.exports = { updateJekyllConfig, getCurrentVersion, stageChanges }
