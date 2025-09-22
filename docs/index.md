@@ -3,7 +3,7 @@ title: TI-JS
 ---
 
 <script
-  src="https://cdn.jsdelivr.net/npm/ti-js@latest/dist/web/ti.min.js"
+  src="https://cdn.jsdelivr.net/npm/ti-js@{{ site.version }}/dist/web/ti.min.js"
   crossorigin="anonymous"></script>
 <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
