@@ -28,7 +28,7 @@
     "bt:prod": "npm run encoding:run:prod && npm run clean && npm run build && npm test && npm run lint:prod && npm run api:prod",
     "push": "npm run bt:prod && npm publish",
     "cov": "tap --reporter=spec",
-    "next": "npm run bt:prod && npm run bump && npm run push && git push",
+    "next": "npm run bt:prod && npm run bump && npm run push && git push && git push --tags",
     "ci:github": "npm run encoding:run:ci && npm run clean && npm run build && npm test && npm run lint:prod && npm run api:prod",
     "encoding:install": "cd encoding && npm install",
     "encoding:build": "cd encoding && npm run bp:prod",
