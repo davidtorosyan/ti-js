@@ -19,6 +19,7 @@ Other resources:
   - [Testing](#testing)
   - [API](#api)
   - [Versioning](#versioning)
+  - [Documentation site](#documentation-site)
   - [Auxillary projects](#auxillary-projects)
 - [Architecture](#architecture)
   - [Overview](#overview)
@@ -77,6 +78,11 @@ You're unlikely to use the other commands directly, but here they are:
 | `npm run bt:prod`      | Build and test, but fail if there lint warnings or unconfirmed API changes. |
 | `npm run push`         | Builds and publishes to NPM. |
 | `npm run ci:github`    | Runs prod build for github CI. |
+| `npm run update-version-refs` | Updates version in Jekyll config to match package.json |
+| `npm run bump-and-update` | Bumps version and updates Jekyll config |
+| `npm run docs:install` | Install Jekyll dependencies |
+| `npm run docs:serve`   | Start Jekyll dev server |
+| `npm run docs:update`  | Update Jekyll dependencies |
 
 Finally, there are encoding related commands. Again, these shouldn't be needed directly.
 
@@ -192,6 +198,27 @@ Releases simply increment the patch version.
 
 The project will move into release once there's at least one interesting use case.
 This will probably be demonstrating a real program (written for the calculator) running in the browser.
+
+### Documentation site
+
+The [docs/](docs/) directory contains a Jekyll site that hosts the [project website](https://davidtorosyan.com/ti-js/).
+
+#### Prerequisites
+
+1. Install `ruby` using your favorite package manager
+2. Install Bundler using `gem install bundler`
+
+#### Commands
+
+| Command | Description |
+| ------- | ----------- |
+| `npm run docs:install` | Install Jekyll dependencies (one-time setup) |
+| `npm run docs:serve` | Start Jekyll dev server at http://localhost:4002/ti-js/ |
+| `npm run docs:update` | Update Jekyll/Ruby dependencies |
+
+#### Version Management
+
+The docs site uses Jekyll templating to automatically reference the correct version of the library. When you bump the version using `npm run bump`, it will automatically update the version references in the Jekyll config.
 
 ### Auxillary projects
 
