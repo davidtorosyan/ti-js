@@ -334,12 +334,14 @@ function configureTranspiler () {
     })
   }
 
-  $('[data-type=testCases]').on(
-    'input selectionchange propertychange',
-    '[data-type=input]', e => transpile($(e.currentTarget)))
-
   $('[data-type=testCases] [data-type=input]').each(
     (i, input) => transpile($(input)))
+
+  setTimeout(() => {
+    $('[data-type=testCases]').on(
+      'input selectionchange propertychange',
+      '[data-type=input]', e => transpile($(e.currentTarget)))
+  }, 1000)
 }
 
 // ----- Helpers -----
