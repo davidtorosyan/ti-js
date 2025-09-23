@@ -6,6 +6,11 @@ const tiJsTests = require('../web/js/testCases')
 function trimInput (text) {
   const indent = tiJsTests.options.indent
 
+  // Handle arrays by joining them first
+  if (Array.isArray(text)) {
+    return text.join('\n')
+  }
+
   if (text === undefined || text.indexOf('\n') === -1) {
     return text
   }
