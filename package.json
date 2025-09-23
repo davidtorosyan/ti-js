@@ -45,10 +45,15 @@
     "encoding:run": "npm run encoding:dirty || npm run encoding:warn && npm run encoding:bc",
     "encoding:run:prod": "npm run encoding:dirty || npm run encoding:error",
     "encoding:run:ci": "npm run encoding:dirty:ci || npm run encoding:error",
+    "encoding:deps:update": "cd encoding && npm run deps:update",
+    "encoding:audit": "cd encoding && npm audit fix",
     "docs:install": "cd docs && bundle install --path vendor/bundle",
     "docs:serve": "cd docs && bundle exec jekyll serve --host=localhost",
     "docs:update": "cd docs && bundle update",
-    "deps:update": "ncu -u -x eslint* && npm install"
+    "deps:update": "ncu -u -x eslint* && npm install",
+    "deps:update:all": "npm run encoding:deps:update && npm run deps:update",
+    "deps:audit:all": "npm run encoding:audit && npm audit fix",
+    "deps:fix": "npm run deps:update:all && npm run deps:audit:all"
   },
   "repository": {
     "type": "git",
