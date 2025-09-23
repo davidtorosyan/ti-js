@@ -47,7 +47,8 @@
     "encoding:run:ci": "npm run encoding:dirty:ci || npm run encoding:error",
     "docs:install": "cd docs && bundle install --path vendor/bundle",
     "docs:serve": "cd docs && bundle exec jekyll serve --host=localhost",
-    "docs:update": "cd docs && bundle update"
+    "docs:update": "cd docs && bundle update",
+    "deps:update": "ncu -u -x eslint* && npm install"
   },
   "repository": {
     "type": "git",
@@ -78,6 +79,7 @@
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-tsdoc": "^0.2.16",
     "loader-utils": "^3.2.0",
+    "npm-check-updates": "^18.3.0",
     "peggy": "^5.0.6",
     "raw-loader": "^4.0.2",
     "rimraf": "^3.0.2",
