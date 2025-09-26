@@ -64,6 +64,7 @@ function initPage () {
                   <tr>
                       <th>Source</th>
                       <th>Output</th>
+                      <th>Screen</th>
                       <th>Input</th>
                   </tr>
               </thead>
@@ -75,6 +76,9 @@ function initPage () {
                       <td>
                           <textarea id="output" readonly rows="15" cols="20"></textarea>
                       </td>
+                      <td>
+                      <div id="screen-container" style="margin-top: 10px;"></div>
+                        </td>
                       <td>
                           <textarea id="input" rows="15" cols="20"></textarea>
                       </td>
@@ -119,6 +123,7 @@ function configureTranspiler () {
   const $ast = $('#transpiled')
   const $output = $('#output')
   const $input = $('#input')
+  const $screenContainer = $('#screen-container')
   const $daemonStatus = $('#daemonStatus')
 
   ti.on('start', () => $daemonStatus.attr('data-status', 'running'))
@@ -145,9 +150,12 @@ function configureTranspiler () {
     $ast.val(ast)
 
     $output.val('')
+    $screenContainer.empty()
+
     program = ti.run(lines, {
       debug: getFromStorage(DEBUG_SETTING),
       elem: $output,
+      screenElem: $screenContainer,
       input: $input,
       frequencyMs: getFromStorage(FREQUENCY_SETTING),
     })

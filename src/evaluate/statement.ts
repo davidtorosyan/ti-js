@@ -346,7 +346,9 @@ function visitExecLibStatement (_line: types.ExecLibStatement, _state: State): n
 
 function visitDisplay (line: types.Display, state: State): undefined {
   if (line.value !== null) {
-    iolib.stdout(operation.valueToString(expression.evaluate(line.value, state.mem)), state.io)
+    const evaluatedValue = expression.evaluate(line.value, state.mem)
+    const isNumeric = evaluatedValue.type === types.TiNumber
+    iolib.stdout(operation.valueToString(evaluatedValue), state.io, true, isNumeric)
   }
   return undefined
 }
@@ -394,7 +396,9 @@ function visitOutput (line: types.Output, state: State): undefined {
     throw new core.TiError(core.TiErrorCode.Domain)
   }
   // TODO: respect rows and columns
-  iolib.stdout(operation.valueToString(expression.evaluate(line.value, state.mem)), state.io)
+  const evaluatedValue = expression.evaluate(line.value, state.mem)
+  const isNumeric = evaluatedValue.type === types.TiNumber
+  iolib.stdout(operation.valueToString(evaluatedValue), state.io, true, isNumeric)
   return undefined
 }
 

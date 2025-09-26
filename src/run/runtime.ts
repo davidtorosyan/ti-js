@@ -17,6 +17,7 @@ export interface RunOptions {
   frequencyMs?: number
   outputCallback?: (value: string, newline: boolean) => void
   elem?: JQuery
+  screenElem?: JQuery
   debug?: boolean
   callback?: (status: string) => void
   input?: JQuery
@@ -63,9 +64,19 @@ export function run (lines: types.Line[], options: RunOptions = {}): ProgramHand
 
   if (options.outputCallback !== undefined) {
     ioOptions.output = options.outputCallback
-  }
-  if (options.elem !== undefined) {
-    ioOptions.output = iolib.elemOutput(options.elem)
+  } else if (options.elem !== undefined || options.screenElem !== undefined) {
+    // Build composite output from elem and screenElem
+    const outputs: Array<(value: string, newline: boolean) => void> = []
+
+    if (options.elem !== undefined) {
+      outputs.push(iolib.elemOutput(options.elem))
+    }
+
+    if (options.screenElem !== undefined) {
+      outputs.push(iolib.screenOutput(options.screenElem))
+    }
+
+    ioOptions.output = iolib.compositeOutput(outputs)
   }
   if (options.input !== undefined) {
     ioOptions.input = options.input
