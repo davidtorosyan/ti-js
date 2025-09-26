@@ -4,7 +4,7 @@
     "description": "TI-Basic encoding generator, for ti-js.",
     "main": "index.js",
     "scripts": {
-        "clean": "rimraf ./dist/*",
+        "clean": "rimraf ./dist",
         "build": "ts-node src/index.ts",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
