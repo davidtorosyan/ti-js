@@ -14,7 +14,8 @@ export class Trie {
       this.children = new Map<string, string | Trie>()
     }
 
-    const index = record[0]!
+    const index = record[0]
+    if (index === undefined) return // Safety check
     const value = record.substring(1)
     const child = this.children.get(index)
     if (child === undefined) {
@@ -31,7 +32,8 @@ export class Trie {
 
   search (text: string): string | undefined {
     if (text !== '' && this.children !== undefined) {
-      const index = text[0]!
+      const index = text[0]
+      if (index === undefined) return undefined
       const value = text.substring(1)
       const child = this.children.get(index)
       if (child !== undefined) {

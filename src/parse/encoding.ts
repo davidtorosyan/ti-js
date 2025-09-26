@@ -26,7 +26,8 @@ export function toStrict (line: string): string {
 
   let tokenStart: number | undefined
   for (let i = 0; i < line.length; i++) {
-    const char = line[i]!
+    const char = line[i]
+    if (char === undefined) continue
     if (tokenStart !== undefined) {
       result += char
       if (char === TOKEN_END) {
