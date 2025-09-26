@@ -9,14 +9,17 @@ import { getVersion, getBuildTime } from './common/version'
 
 export {
   run,
-  RunOptions,
-  ProgramHandle,
   on,
   parse,
-  ParseOptions,
   types,
   getVersion,
   getBuildTime,
+}
+
+export type {
+  RunOptions,
+  ProgramHandle,
+  ParseOptions,
 }
 
 /**
