@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "postinstall": "npm run encoding:install",
-    "clean": "rimraf ./dist/api/* ./dist/ts/*",
+    "clean": "rimraf ./dist/api ./dist/ts",
     "build": "webpack --config webpack.prod.js",
     "test": "tap --no-coverage-report",
     "start": "webpack-dev-server --host localhost --config webpack.dev.js",
