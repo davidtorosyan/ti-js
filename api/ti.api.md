@@ -4,8 +4,6 @@
 
 ```ts
 
-/// <reference types="jquery" />
-
 // @alpha (undocumented)
 const ANS = "ANS";
 
