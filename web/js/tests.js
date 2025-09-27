@@ -286,6 +286,11 @@ function configureTranspiler () {
     const $output = $testCase.find('[data-type=output]')
     const $result = $testCase.find('[data-type=result]')
 
+    const currentlyRunning = $result.text() === 'Running'
+    if (currentlyRunning) {
+      return
+    }
+
     $result.text('Transpiling')
     $result.removeAttr('data-result')
     if (getFromStorage(HIDE_SUCCESS_SETTING)) {
