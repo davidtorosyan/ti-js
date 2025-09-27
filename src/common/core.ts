@@ -56,3 +56,14 @@ export const MINUSONE = newFloat(-1)
 export function exhaustiveMatchingGuard (_: never): never {
   throw new Error('Should not have reached here')
 }
+
+export function isRightJustified (value: types.ValueResolved): boolean {
+  return value.type === types.TiNumber || value.type === types.TiList
+}
+
+export interface GlyphData {
+  hex: string
+  glyph?: string
+  composite?: string[]
+  strict?: string
+}

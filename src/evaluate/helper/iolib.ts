@@ -7,7 +7,7 @@ import { Screen } from './screen'
 const enterkey = 13
 
 export interface IoOptions {
-  output?: (value: string, newline: boolean, numeric?: boolean) => void
+  output?: (value: string, newline: boolean, rightJustify?: boolean) => void
   input?: JQuery
   stdin?: string
   stdinQueue?: string[]
@@ -18,7 +18,7 @@ export interface IoOptions {
 }
 
 export function elemOutput (elem: JQuery) {
-  return (value: string, newline: boolean, _numeric?: boolean): void => {
+  return (value: string, newline: boolean, _rightJustify?: boolean): void => {
     setTimeout(() => {
       let result = elem.val() + value
       if (newline) {
@@ -29,12 +29,12 @@ export function elemOutput (elem: JQuery) {
   }
 }
 
-export function stdout (value: string, options: IoOptions, newline = true, numeric = false): void {
+export function stdout (value: string, options: IoOptions, newline = true, rightJustify = false): void {
   if (options.output === undefined) {
     console.log(value)
     return
   }
-  options.output(value, newline, numeric)
+  options.output(value, newline, rightJustify)
 }
 
 export function stderr (ex: core.TiJsError, options: IoOptions, sourceLine: core.TiJsSource | undefined): void {
@@ -90,21 +90,17 @@ export function onStdin (callback: (text: string | null | undefined) => boolean,
 
 export function screenOutput (elem: JQuery) {
   const screen = new Screen(elem)
-  return (value: string, newline: boolean, numeric?: boolean): void => {
-    if (numeric) {
-      screen.displayTextRightJustified(value)
-      if (newline) {
-        screen.newLine()
-      }
-    } else {
-      screen.displayText(value, newline)
-    }
-  }
+  return screen.display.bind(screen)
 }
 
-export function compositeOutput (outputs: Array<(value: string, newline: boolean, numeric?: boolean) => void>) {
-  return (value: string, newline: boolean, numeric?: boolean): void => {
-    outputs.forEach(output => output(value, newline, numeric))
+export function canvasScreenOutput (canvas: HTMLCanvasElement | any) {
+  const screen = new Screen(canvas)
+  return screen.display.bind(screen)
+}
+
+export function compositeOutput (outputs: Array<(value: string, newline: boolean, rightJustify?: boolean) => void>) {
+  return (value: string, newline: boolean, rightJustify?: boolean): void => {
+    outputs.forEach(output => output(value, newline, rightJustify))
   }
 }
 

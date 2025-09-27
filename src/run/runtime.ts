@@ -18,6 +18,7 @@ export interface RunOptions {
   outputCallback?: (value: string, newline: boolean) => void
   elem?: JQuery
   screenElem?: JQuery
+  screenCanvas?: HTMLCanvasElement | any // Support both browser HTMLCanvasElement and Node.js canvas
   debug?: boolean
   callback?: (status: string) => void
   input?: JQuery
@@ -62,20 +63,26 @@ export function run (lines: types.Line[], options: RunOptions = {}): ProgramHand
     includeSource: options.includeSource ?? false,
   }
 
+  // Build composite output from all available output options
+  const outputs: Array<(value: string, newline: boolean) => void> = []
+
   if (options.outputCallback !== undefined) {
-    ioOptions.output = options.outputCallback
-  } else if (options.elem !== undefined || options.screenElem !== undefined) {
-    // Build composite output from elem and screenElem
-    const outputs: Array<(value: string, newline: boolean) => void> = []
+    outputs.push(options.outputCallback)
+  }
 
-    if (options.elem !== undefined) {
-      outputs.push(iolib.elemOutput(options.elem))
-    }
+  if (options.elem !== undefined) {
+    outputs.push(iolib.elemOutput(options.elem))
+  }
 
-    if (options.screenElem !== undefined) {
-      outputs.push(iolib.screenOutput(options.screenElem))
-    }
+  if (options.screenElem !== undefined) {
+    outputs.push(iolib.screenOutput(options.screenElem))
+  }
 
+  if (options.screenCanvas !== undefined) {
+    outputs.push(iolib.canvasScreenOutput(options.screenCanvas))
+  }
+
+  if (outputs.length > 0) {
     ioOptions.output = iolib.compositeOutput(outputs)
   }
   if (options.input !== undefined) {

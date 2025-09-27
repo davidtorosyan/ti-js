@@ -347,8 +347,8 @@ function visitExecLibStatement (_line: types.ExecLibStatement, _state: State): n
 function visitDisplay (line: types.Display, state: State): undefined {
   if (line.value !== null) {
     const evaluatedValue = expression.evaluate(line.value, state.mem)
-    const isNumeric = evaluatedValue.type === types.TiNumber
-    iolib.stdout(operation.valueToString(evaluatedValue), state.io, true, isNumeric)
+    const rightJustify = core.isRightJustified(evaluatedValue)
+    iolib.stdout(operation.valueToString(evaluatedValue), state.io, true, rightJustify)
   }
   return undefined
 }
@@ -397,8 +397,8 @@ function visitOutput (line: types.Output, state: State): undefined {
   }
   // TODO: respect rows and columns
   const evaluatedValue = expression.evaluate(line.value, state.mem)
-  const isNumeric = evaluatedValue.type === types.TiNumber
-  iolib.stdout(operation.valueToString(evaluatedValue), state.io, true, isNumeric)
+  const rightJustify = core.isRightJustified(evaluatedValue)
+  iolib.stdout(operation.valueToString(evaluatedValue), state.io, true, rightJustify)
   return undefined
 }
 
