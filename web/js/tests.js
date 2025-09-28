@@ -204,7 +204,12 @@ function initTests () {
     const file = `${testCase.name}.png`
     const $img = $('<img>')
     $img.attr('data-type', 'expected-screen')
-    $img.attr('src', '/img/' + file)
+    $img.attr('crossorigin', 'anonymous')
+    // console.log(document.currentScript.src)
+    console.log(import.meta.url)
+
+    const prefix = getCdnPrefix()
+    $img.attr('src', prefix + '/img/' + file)
     $img.attr('alt', file)
     $expectedCell.append($img)
     $row.append($expectedCell)
@@ -231,6 +236,16 @@ function initTests () {
       .persistToggleClass('collapse'))
 
   $('#testTable').append($tbody)
+}
+
+function getCdnPrefix () {
+  const currentUrl = import.meta.url
+
+  if (currentUrl.startsWith('https://cdn.jsdelivr.net')) {
+    return currentUrl.replace('/js/tests.js', '')
+  }
+
+  return ''
 }
 
 function initButtons () {
