@@ -114,5 +114,5 @@ tiJsTests.testCases.forEach(testCase => {
     },
   }
 
-  const program = ti.run(lines, runOptions)
+  ti.run(lines, runOptions)
 })

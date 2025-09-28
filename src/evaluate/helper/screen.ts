@@ -1,8 +1,28 @@
 // screen
 // ======
 
-import { GlyphData } from '../../common/core'
+import { Buffer } from 'buffer'
+import {
+  GlyphData,
+  isGlyphDataSingle,
+  isGlyphDataComposite,
+  GlyphDataSingle,
+  PrintOptions,
+  CanvasLike,
+  CanvasRenderingContext2DLike,
+} from '../../common/core'
 import encodingJson from '../../gen/encoding.json'
+
+const UINT32_BYTES = Uint32Array.BYTES_PER_ELEMENT // 3
+
+const MISSING_GLYPH: GlyphDataSingle = {
+  hex: '0x0000',
+  name: 'CAPITAL_H',
+  strict: 'H',
+  length: 1,
+  glyph: 'IwAAAIxj+MYg',
+  virtual: false,
+}
 
 export interface ScreenConfig {
   pixelWidth: number
@@ -38,35 +58,23 @@ interface Container {
   append(element: HTMLCanvasElement): void
 }
 
-interface CanvasLike {
-  width: number
-  height: number
-  style?: {
-    border?: string
-    backgroundColor?: string
-    imageRendering?: string
-  }
-  getContext(contextId: string, options?: { willReadFrequently?: boolean }): CanvasRenderingContext2D | null
-}
-
-interface CanvasRenderingContext2DLike {
-  fillStyle: string
-  fillRect(x: number, y: number, width: number, height: number): void
-  getImageData(x: number, y: number, width: number, height: number): ImageData
-  putImageData(imageData: ImageData, x: number, y: number): void
-}
-
 export class Screen {
   private canvas: CanvasLike
   private ctx: CanvasRenderingContext2DLike
   private cursorRow: number = 0
   private cursorCol: number = 0
-  private glyphMap: Map<string, string>
+  private glyphMap: Map<string, GlyphData>
+  private hexToGlyphMap: Map<string, GlyphData>
+  private ellipsisRecord: GlyphDataSingle
   private config: ScreenConfig
   private effectiveGlyphWidth: number
   private effectiveGlyphHeight: number
   private marginWidth: number
   private marginHeight: number
+  private screenWidth: number
+  private screenHeight: number
+  private rowHeight: number
+  private colWidth: number
 
   constructor (canvasOrContainer: CanvasLike | JQuery | Container, config: Partial<ScreenConfig> = {}) {
     this.config = createScreenConfig(config)
@@ -76,14 +84,16 @@ export class Screen {
     this.effectiveGlyphHeight = this.config.glyphHeight + this.config.glyphBuffer
     this.marginWidth = this.effectiveGlyphWidth * this.config.pixelWidth
     this.marginHeight = this.effectiveGlyphWidth * this.config.pixelWidth / 2
+    this.rowHeight = this.effectiveGlyphHeight * this.config.pixelHeight
+    this.colWidth = this.effectiveGlyphWidth * this.config.pixelWidth
+    this.screenWidth = this.config.screenCols * this.colWidth
+    this.screenHeight = this.config.screenRows * this.rowHeight
 
     this.canvas = this.initializeCanvas(canvasOrContainer)
 
     // Set canvas dimensions
-    this.canvas.width = this.config.screenCols * this.effectiveGlyphWidth * this.config.pixelWidth +
-      (this.marginWidth * 2)
-    this.canvas.height = this.config.screenRows * this.effectiveGlyphHeight * this.config.pixelHeight +
-      (this.marginHeight * 2)
+    this.canvas.width = this.screenWidth + (this.marginWidth * 2)
+    this.canvas.height = this.screenHeight + (this.marginHeight * 2)
 
     // Only set style properties in browser environment
     if (typeof document !== 'undefined' && this.canvas.style) {
@@ -99,9 +109,16 @@ export class Screen {
     this.ctx = ctx as CanvasRenderingContext2DLike
 
     this.glyphMap = new Map()
+    this.hexToGlyphMap = new Map()
+    this.ellipsisRecord = MISSING_GLYPH
+
     for (const record of encodingJson as GlyphData[]) {
-      if (record.glyph) {
-        this.glyphMap.set(record.hex, record.glyph)
+      this.glyphMap.set(record.strict, record)
+      this.hexToGlyphMap.set(record.hex, record)
+
+      // Preprocess ellipsis record
+      if (record.hex === '0xBBDB') {
+        this.ellipsisRecord = record as GlyphDataSingle
       }
     }
 
@@ -145,109 +162,139 @@ export class Screen {
     this.ctx.fillRect(
       this.marginWidth,
       this.marginHeight,
-      this.config.screenCols * this.effectiveGlyphWidth * this.config.pixelWidth,
-      this.config.screenRows * this.effectiveGlyphHeight * this.config.pixelHeight,
+      this.screenWidth,
+      this.screenHeight,
     )
 
     this.cursorRow = 0
     this.cursorCol = 0
   }
 
-  display (value: string, newline: boolean, rightJustify?: boolean): void {
-    if (rightJustify) {
-      this.displayTextRightJustified(value)
-      if (newline) {
-        this.newLine()
-      }
-    } else {
-      this.displayText(value, newline, rightJustify)
-    }
-  }
+  print (value: string, printOptions: PrintOptions): void {
+    const glyphs = this.toGlyphs(value)
+    const colOffset = this.calculateColumnOffset(glyphs.length, printOptions.rightJustify)
 
-  displayText (text: string, newline: boolean = true, originalValue?: unknown): void {
-    // Determine justification based on the actual type of the original value
-    const isNumber = originalValue !== undefined ? typeof originalValue === 'number' : false
-
-    if (isNumber) {
-      this.displayTextRightJustified(text)
-    } else {
-      this.displayTextLeftJustified(text)
-    }
-
-    if (newline) {
+    this.drawGlyphs(glyphs, this.cursorCol + colOffset, this.cursorRow, true, printOptions.overflow)
+    if (printOptions.newline) {
       this.newLine()
     }
   }
 
-  private displayTextLeftJustified (text: string): void {
-    const chars: string[] = Array.from(text)
+  private calculateColumnOffset (glyphCount: number, rightJustify: boolean): number {
+    if (!rightJustify) {
+      return 0
+    }
 
-    for (let i = 0; i < chars.length; i++) {
-      const char = chars[i]
+    // Calculate where the text should start to be right-justified
+    const rightJustifiedStartCol = this.config.screenCols - glyphCount
 
-      // Check if we're at the last column and there are more characters
-      if (this.cursorCol === this.config.screenCols - 1 && i < chars.length - 1) {
-        // Replace this character with ellipsis and stop
-        this.displayEllipsis()
+    // Calculate offset, but never go backwards (minimum offset is 0)
+    const offset = rightJustifiedStartCol - this.cursorCol
+    return Math.max(0, offset)
+  }
+
+  private toGlyphs (text: string): GlyphDataSingle[] {
+    const tokens = this.splitValueToStrictTokens(text)
+    const glyphs = tokens.map(token => this.glyphMap.get(token)).filter(Boolean) as GlyphData[]
+    return this.flattenGlyphs(glyphs)
+  }
+
+  private splitValueToStrictTokens (value: string): string[] {
+    const tokens: string[] = []
+    let currentToken = ''
+    let inStrictMode = false
+
+    for (let i = 0; i < value.length; i++) {
+      const char = value[i]
+      if (char === undefined) continue
+
+      currentToken += char
+
+      if (char === '&') {
+        inStrictMode = true
+      }
+
+      if (inStrictMode && char === '}') {
+        inStrictMode = false
+      }
+
+      if (!inStrictMode) {
+        tokens.push(currentToken)
+        currentToken = ''
+      }
+    }
+
+    // Handle any remaining characters
+    if (currentToken) {
+      if (inStrictMode) {
+        // Incomplete &{...} pattern, treat as regular characters
+        tokens.push(...currentToken.split(''))
+      } else {
+        // Regular characters
+        tokens.push(...currentToken.split(''))
+      }
+    }
+
+    return tokens
+  }
+
+  private flattenGlyphs (glyphs: GlyphData[]): GlyphDataSingle[] {
+    const result: GlyphDataSingle[] = []
+
+    for (const glyph of glyphs) {
+      if (isGlyphDataSingle(glyph)) {
+        result.push(glyph)
+      } else if (isGlyphDataComposite(glyph)) {
+        for (const hex of glyph.composite) {
+          const data = this.hexToGlyphMap.get(hex)
+          if (data && isGlyphDataSingle(data)) {
+            result.push(data)
+          }
+        }
+      }
+    }
+
+    return result
+  }
+
+  private drawGlyphs (
+    glpyhs: GlyphDataSingle[],
+    col: number,
+    row: number,
+    updateCursor: boolean,
+    overflow: boolean,
+  ): void {
+    for (const glyph of glpyhs) {
+      if (col >= this.config.screenCols) {
+        if (overflow) {
+          col = 0
+          row++
+        } else {
+          this.drawSingleGlyph(this.ellipsisRecord, col - 1, row)
+          break
+        }
+      }
+
+      if (row >= this.config.screenRows) {
         break
       }
 
-      if (char) {
-        this.displayChar(char)
-      }
+      this.drawSingleGlyph(glyph, col, row)
+      col++
+    }
+
+    if (updateCursor) {
+      this.cursorRow = row
+      this.cursorCol = col
     }
   }
 
-  displayTextRightJustified (text: string): void {
-    const chars: string[] = Array.from(text)
-
-    // Calculate how many characters we can fit
-    const availableSpace = this.config.screenCols - this.cursorCol
-    const textLength = chars.length
-
-    if (textLength > availableSpace) {
-      // Text is too long, truncate with ellipsis from the left
-      this.displayEllipsis()
-      const startIndex = textLength - availableSpace + 1
-      for (let i = startIndex; i < chars.length; i++) {
-        const char = chars[i]
-        if (char) {
-          this.displayChar(char)
-        }
-      }
-    } else {
-      // Text fits, right-justify it
-      const padding = availableSpace - textLength
-
-      // Move cursor to the right position
-      this.cursorCol += padding
-
-      // Display the text
-      for (const char of chars) {
-        if (char) {
-          this.displayChar(char)
-        }
-      }
-    }
-  }
-
-  private displayChar (char: string): void {
-    // Find the glyph for this character
-    const record = encodingJson.find((r: GlyphData) => r.strict === char)
-
-    if (!record || !record.glyph) {
-      // No glyph found - skip this character
-      console.warn(`No glyph found for character: "${char}"`)
-      this.advanceCursor()
+  private drawSingleGlyph (glyph: GlyphDataSingle, col: number, row: number): void {
+    if (glyph === undefined) {
       return
     }
 
-    this.drawGlyph(record.glyph, this.cursorCol, this.cursorRow)
-    this.advanceCursor()
-  }
-
-  private drawGlyph (glyphData: string, col: number, row: number): void {
-    const bits = this.decodeBits(glyphData)
+    const bits = this.decodeBits(glyph.glyph)
 
     if (bits.length !== this.config.glyphWidth * this.config.glyphHeight) {
       console.warn(`Glyph bits length mismatch: got ${bits.length}, ` +
@@ -255,12 +302,20 @@ export class Screen {
       return
     }
 
-    const startX = this.marginWidth + col * this.effectiveGlyphWidth * this.config.pixelWidth +
-      this.config.glyphBuffer * this.config.pixelWidth
-    const startY = this.marginHeight + row * this.effectiveGlyphHeight * this.config.pixelHeight
+    const startX = this.marginWidth + col * this.colWidth + this.config.glyphBuffer * this.config.pixelWidth
+    const startY = this.marginHeight + row * this.rowHeight
 
+    // Clear the background first
+    this.ctx.fillStyle = this.config.backgroundColor
+    this.ctx.fillRect(
+      startX,
+      startY,
+      this.config.glyphWidth * this.config.pixelWidth,
+      this.config.glyphHeight * this.config.pixelHeight,
+    )
+
+    // Draw the glyph
     this.ctx.fillStyle = this.config.textColor
-
     for (let y = 0; y < this.config.glyphHeight; y++) {
       for (let x = 0; x < this.config.glyphWidth; x++) {
         const bitIndex = y * this.config.glyphWidth + x
@@ -276,56 +331,25 @@ export class Screen {
     }
   }
 
-  private decodeBits (base64Data: string): boolean[] {
-    try {
-      const binaryString = atob(base64Data)
+  private decodeBits (encoded: string): boolean[] {
+    const buffer = Buffer.from(encoded, 'base64')
 
-      // First 4 bytes are the data length as little-endian uint32
-      if (binaryString.length < 4) {
-        console.warn('Glyph data too short for length prefix')
-        return new Array(this.config.glyphWidth * this.config.glyphHeight).fill(false)
-      }
+    const dataLength = buffer.readUint32LE()
 
-      const dataLength =
-        (binaryString.charCodeAt(0) & 0xFF) |
-        ((binaryString.charCodeAt(1) & 0xFF) << 8) |
-        ((binaryString.charCodeAt(2) & 0xFF) << 16) |
-        ((binaryString.charCodeAt(3) & 0xFF) << 24)
+    const bytes = Array.from(buffer.subarray(UINT32_BYTES))
+    const byteStrings = bytes.map(byte => byte.toString(2).padStart(8, '0'))
 
-      // Extract bits from remaining bytes
-      const bits: boolean[] = []
-      for (let i = 4; i < binaryString.length; i++) {
-        const byte = binaryString.charCodeAt(i)
-        for (let bit = 7; bit >= 0; bit--) {
-          bits.push((byte & (1 << bit)) !== 0)
-        }
-      }
+    const bitstring = byteStrings.join('')
+    const padded = Array.from(bitstring).map(bit => bit === '1')
 
-      // Return only the specified number of bits (removing padding)
-      return bits.slice(0, dataLength)
-    } catch (e) {
-      console.warn('Error decoding glyph bits:', e)
-      return new Array(this.config.glyphWidth * this.config.glyphHeight).fill(false)
-    }
-  }
+    const bits = padded.slice(0, dataLength)
 
-  private displayEllipsis (): void {
-    // Find the ellipsis glyph
-    const ellipsisRecord = encodingJson.find((r: GlyphData) => r.hex === '0xBBDB')
-    if (ellipsisRecord?.glyph) {
-      // Draw ellipsis at the last column of current row
-      this.drawGlyph(ellipsisRecord.glyph, this.config.screenCols - 1, this.cursorRow)
-    }
-  }
-
-  private advanceCursor (): void {
-    this.cursorCol++
-    // Normal advancement - don't auto-wrap, displayText handles overflow
+    return bits
   }
 
   private newLine (): void {
-    this.cursorCol = 0
     this.cursorRow++
+    this.cursorCol = 0
     if (this.cursorRow >= this.config.screenRows) {
       this.scrollUp()
     }
@@ -335,20 +359,12 @@ export class Screen {
     // Get image data from second row onwards (only the screen area, not margins)
     const imageData = this.ctx.getImageData(
       this.marginWidth,
-      this.marginHeight + this.effectiveGlyphHeight * this.config.pixelHeight,
-      this.config.screenCols * this.effectiveGlyphWidth * this.config.pixelWidth,
-      this.config.screenRows * this.effectiveGlyphHeight * this.config.pixelHeight -
-        this.effectiveGlyphHeight * this.config.pixelHeight,
+      this.marginHeight + this.rowHeight,
+      this.screenWidth,
+      this.screenHeight - this.rowHeight,
     )
 
-    // Clear screen area (not margins)
-    this.ctx.fillStyle = this.config.backgroundColor
-    this.ctx.fillRect(
-      this.marginWidth,
-      this.marginHeight,
-      this.config.screenCols * this.effectiveGlyphWidth * this.config.pixelWidth,
-      this.config.screenRows * this.effectiveGlyphHeight * this.config.pixelHeight,
-    )
+    this.clear()
 
     // Put scrolled content back
     this.ctx.putImageData(imageData, this.marginWidth, this.marginHeight)

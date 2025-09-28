@@ -15,7 +15,7 @@
     "build": "webpack --config webpack.prod.js",
     "test": "tap --disable-coverage",
     "test:gen": "node scripts/generate-test-images.js",
-    "test:update": "npm run build && npm run test:gen",
+    "test:fix": "npm run build && npm run test:gen",
     "start": "webpack-dev-server --host localhost --config webpack.dev.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

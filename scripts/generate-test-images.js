@@ -38,7 +38,7 @@ function generateImageForTest (testCase) {
 
       const canvas = createCanvas(800, 600) // Will be resized by Screen class
 
-      const program = ti.run(lines, {
+      ti.run(lines, {
         stdin: trimInput(testCase.stdin),
         screenCanvas: canvas,
         outputCallback: () => {}, // Ignore text output for image generation
@@ -56,7 +56,6 @@ function generateImageForTest (testCase) {
           // Add a small delay to ensure canvas rendering is complete
           setTimeout(() => {
             try {
-              // Canvas is already available, no need to get it from program
               // Save canvas as PNG
               const imgPath = path.join(__dirname, '..', 'web', 'img', testCase.name + '.png')
               const out = fs.createWriteStream(imgPath)

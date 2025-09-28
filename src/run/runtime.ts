@@ -2,6 +2,7 @@
 // =======
 
 import * as core from '../common/core'
+import { PrintOptions, CanvasLike } from '../common/core'
 import * as signal from '../common/signal'
 import * as types from '../common/types'
 import * as statement from '../evaluate/statement'
@@ -18,7 +19,7 @@ export interface RunOptions {
   outputCallback?: (value: string, newline: boolean) => void
   elem?: JQuery
   screenElem?: JQuery
-  screenCanvas?: HTMLCanvasElement | any // Support both browser HTMLCanvasElement and Node.js canvas
+  screenCanvas?: CanvasLike
   debug?: boolean
   callback?: (status: string) => void
   input?: JQuery
@@ -64,10 +65,10 @@ export function run (lines: types.Line[], options: RunOptions = {}): ProgramHand
   }
 
   // Build composite output from all available output options
-  const outputs: Array<(value: string, newline: boolean) => void> = []
+  const outputs: Array<(value: string, printOptions: PrintOptions) => void> = []
 
   if (options.outputCallback !== undefined) {
-    outputs.push(options.outputCallback)
+    outputs.push(iolib.simpleOutput(options.outputCallback))
   }
 
   if (options.elem !== undefined) {
