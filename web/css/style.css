@@ -27,8 +27,8 @@ body {
 }
 
 #content {
-    min-width: 1200px;
-    max-width: 1200px;
+    min-width: 1800px;
+    max-width: 1800px;
     background-color: var(--mid-frame);
     margin: 0 auto;
     padding-left: 20px;
@@ -93,6 +93,14 @@ thead {
     display: None;
 }
 
+[data-type=testCase].collapse img {
+    display: None;
+}
+
+[data-type=testCase].collapse canvas {
+    display: None;
+}
+
 [data-type=testCase].collapse {
     color: var(--dark-button);
 }
@@ -117,13 +125,25 @@ input {
     background-color: var(--green-border);
 }
 
+img {
+    display: block;
+    margin: 5px 0;
+    border: 2px solid #333;
+}
+
+[data-type=canvas-container] {
+    margin: 5px 0;
+    display: inline-block;
+}
+
 #testTable textarea {
     width: 157px;
     height: 47px;
 }
 
 #testTable td {
-    min-width: 170px;
+    min-width: 260px;
+    max-width: 260px;
 }
 
 #testTable th {

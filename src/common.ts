@@ -6,6 +6,7 @@ import { on } from './run/daemon'
 import { parse, ParseOptions } from './parse/parser'
 import * as types from './common/types'
 import { getVersion, getBuildTime } from './common/version'
+import { CanvasLike, CanvasRenderingContext2DLike } from './common/core'
 
 export {
   run,
@@ -20,6 +21,8 @@ export type {
   RunOptions,
   ProgramHandle,
   ParseOptions,
+  CanvasLike,
+  CanvasRenderingContext2DLike,
 }
 
 /**

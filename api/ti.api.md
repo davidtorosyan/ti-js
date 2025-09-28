@@ -45,6 +45,36 @@ interface BinaryExpression {
 }
 
 // @alpha (undocumented)
+export interface CanvasLike {
+    // (undocumented)
+    getContext(contextId: string, options?: {
+        willReadFrequently?: boolean;
+    }): CanvasRenderingContext2DLike | null;
+    // (undocumented)
+    height: number;
+    // (undocumented)
+    style?: {
+        border?: string;
+        backgroundColor?: string;
+        imageRendering?: string;
+    };
+    // (undocumented)
+    width: number;
+}
+
+// @alpha (undocumented)
+export interface CanvasRenderingContext2DLike {
+    // (undocumented)
+    fillRect(x: number, y: number, width: number, height: number): void;
+    // (undocumented)
+    fillStyle: string;
+    // (undocumented)
+    getImageData(x: number, y: number, width: number, height: number): ImageData;
+    // (undocumented)
+    putImageData(imageData: ImageData, x: number, y: number): void;
+}
+
+// @alpha (undocumented)
 const ClrHome = "ClrHome";
 
 // @alpha (undocumented)
@@ -539,6 +569,10 @@ export interface RunOptions {
     input?: JQuery;
     // (undocumented)
     outputCallback?: (value: string, newline: boolean) => void;
+    // (undocumented)
+    screenCanvas?: CanvasLike;
+    // (undocumented)
+    screenElem?: JQuery;
     // (undocumented)
     source?: string | string[];
     // (undocumented)

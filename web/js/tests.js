@@ -1,5 +1,7 @@
 /* global ti, $, jQuery, tiJsTests */
 
+import pixelmatch from 'https://cdn.jsdelivr.net/npm/pixelmatch/+esm'
+
 // ----- Constants -----
 
 const TOGGLECLASS_SETTING = 'toggleclass'
@@ -194,13 +196,29 @@ function initTests () {
     const $expected = $('<textarea>')
     $expected.attr('data-type', 'expected')
     $expected.attr('readonly', true)
+
     $expected.val(trimInput(testCase.expected))
-    $row.append($('<td>').append($expected))
+
+    const $expectedCell = $('<td>')
+    $expectedCell.append($expected)
+    const file = `${testCase.name}.png`
+    const $img = $('<img>')
+    $img.attr('data-type', 'expected-screen')
+    $img.attr('src', '/img/' + file)
+    $img.attr('alt', file)
+    $expectedCell.append($img)
+    $row.append($expectedCell)
 
     const $output = $('<textarea>')
     $output.attr('data-type', 'output')
     $output.attr('readonly', true)
-    $row.append($('<td>').append($output))
+
+    const $outputCell = $('<td>')
+    $outputCell.append($output)
+    const $canvasContainer = $('<div>')
+    $canvasContainer.attr('data-type', 'canvas-container')
+    $outputCell.append($canvasContainer)
+    $row.append($outputCell)
 
     $tbody.append($row)
   })
@@ -285,6 +303,8 @@ function configureTranspiler () {
     const $expected = $testCase.find('[data-type=expected]')
     const $output = $testCase.find('[data-type=output]')
     const $result = $testCase.find('[data-type=result]')
+    const $expectedScreen = $testCase.find('[data-type=expected-screen]')
+    const $canvasContainer = $testCase.find('[data-type=canvas-container]')
 
     const currentlyRunning = $result.text() === 'Running'
     if (currentlyRunning) {
@@ -312,36 +332,48 @@ function configureTranspiler () {
 
     $result.text('Running')
 
-    const callback = (status) => {
+    const callback = async (status) => {
       if (status === 'faulted') {
         $result.text('Faulted')
         $testCase.attr('data-result', 'failure')
-      } else {
-        const output = trimLastNewline($output.val())
-        if (output === $expected.val()) {
-          $result.text('Success')
-          $testCase.attr('data-result', 'success')
+        updateCount()
+        return
+      }
 
-          if (getFromStorage(HIDE_SUCCESS_SETTING)) {
-            $testCase.persistToggleClass('collapse', true)
-          }
-        } else {
-          $result.text('Failure')
-          $testCase.attr('data-result', 'failure')
-        }
+      // Check text output
+      const output = trimLastNewline($output.val())
+      const textMatches = output === $expected.val()
+
+      const $canvas = $canvasContainer.find('canvas')[0]
+      const screenMatches = await compareCanvasToImage($canvas, $expectedScreen)
+
+      const success = textMatches && screenMatches
+      const details = `${boolToEmoji(textMatches)} Text ${boolToEmoji(screenMatches)} Screen`
+
+      const resultText = success ? 'Success' : 'Failure'
+      const resultStatus = success ? 'success' : 'failure'
+
+      $result.html(`${resultText} <small>(${details})</small>`)
+      $testCase.attr('data-result', resultStatus)
+
+      if ($testCase.attr('data-result') === 'success' && getFromStorage(HIDE_SUCCESS_SETTING)) {
+        $testCase.persistToggleClass('collapse', true)
       }
 
       updateCount()
     }
 
-    ti.run(lines, {
+    const runOptions = {
       debug: false,
       elem: $output,
+      screenElem: $canvasContainer,
       includeLineNumbers: false,
       includeSource: false,
       stdin: $stdin.val(),
       callback,
-    })
+    }
+
+    ti.run(lines, runOptions)
   }
 
   $('[data-type=testCases] [data-type=input]').each(
@@ -355,6 +387,54 @@ function configureTranspiler () {
 }
 
 // ----- Helpers -----
+function boolToEmoji (status) {
+  return status ? '✅' : '❌'
+}
+
+async function compareCanvasToImage ($canvas, $expectedScreen) {
+  const width = $canvas.width
+  const height = $canvas.height
+  const actualData = canvasToImageData($canvas)
+
+  const expectedImg = await whenReady($expectedScreen)
+  const expectedCanvas = imageToCanvas(expectedImg)
+  const expectedData = canvasToImageData(expectedCanvas)
+
+  const numDiffPixels = pixelmatch(
+    expectedData.data,
+    actualData.data,
+    null,
+    width,
+    height,
+    { threshold: 0.1 },
+  )
+  return numDiffPixels === 0
+}
+
+function canvasToImageData (canvas) {
+  return canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height)
+}
+
+function imageToCanvas (img) {
+  const canvas = document.createElement('canvas')
+  canvas.width = img.width
+  canvas.height = img.height
+  const ctx = canvas.getContext('2d')
+  ctx.drawImage(img, 0, 0)
+  return canvas
+}
+
+async function whenReady ($el) {
+  const el = $el[0]
+  if (el.complete && el.naturalWidth > 0) {
+    return el
+  }
+
+  return new Promise((resolve, reject) => {
+    $el.one('load', () => resolve(el))
+    $el.one('error', (e) => reject(e))
+  })
+}
 
 function getFromStorage (name) {
   const value = JSON.parse(localStorage.getItem(name))

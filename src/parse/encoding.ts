@@ -24,35 +24,46 @@ function buildTrie (records: string[]): Trie {
 export function toStrict (line: string): string {
   let result = ''
 
+  // Track when we're inside an escaped token (e.g., &{If})
   let tokenStart: number | undefined
+
   for (let i = 0; i < line.length; i++) {
     const char = line[i]
     if (char === undefined) continue
+
     if (tokenStart !== undefined) {
+      // We're inside an escaped token - accumulate characters until we find the closing }
       result += char
       if (char === TOKEN_END) {
+        // Found the end of the escaped token - validate it's a known token
         const token = line.substring(tokenStart, i + 1)
         if (!strictTokens.has(token)) {
           throw new Error(`Unknown strict token found: ${token}`)
         }
-        tokenStart = undefined
+        tokenStart = undefined // Exit escaped token mode
       }
     } else if (char === TOKEN_START[0]) {
+      // Found start of an escaped token (&) - enter escaped token mode
       tokenStart = i
       result += char
     } else {
+      // Normal character processing - try to find multi-character tokens first
       const longest = trie.search(line.substring(i))
       if (longest !== undefined) {
+        // Found a multi-character token (like "If", "Then") - escape it
         result += escape(longest)
-        i += longest.length - 1
+        i += longest.length - 1 // Skip ahead past the token
       } else if (strictTokens.has(char)) {
+        // Single character that's already a valid strict token
         result += char
       } else {
+        // Unknown character
         throw new Error(`Unknown character found: ${char}`)
       }
     }
   }
 
+  // Ensure all escaped tokens were properly closed
   if (tokenStart) {
     throw new Error(`Unterminated token escape starting on index: ${tokenStart}`)
   }

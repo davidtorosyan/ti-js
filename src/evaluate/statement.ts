@@ -346,7 +346,9 @@ function visitExecLibStatement (_line: types.ExecLibStatement, _state: State): n
 
 function visitDisplay (line: types.Display, state: State): undefined {
   if (line.value !== null) {
-    iolib.stdout(operation.valueToString(expression.evaluate(line.value, state.mem)), state.io)
+    const evaluatedValue = expression.evaluate(line.value, state.mem)
+    const rightJustify = core.isRightJustified(evaluatedValue)
+    iolib.stdout(operation.valueToString(evaluatedValue), state.io, { newline: true, rightJustify })
   }
   return undefined
 }
@@ -394,7 +396,9 @@ function visitOutput (line: types.Output, state: State): undefined {
     throw new core.TiError(core.TiErrorCode.Domain)
   }
   // TODO: respect rows and columns
-  iolib.stdout(operation.valueToString(expression.evaluate(line.value, state.mem)), state.io)
+  const evaluatedValue = expression.evaluate(line.value, state.mem)
+  const rightJustify = core.isRightJustified(evaluatedValue)
+  iolib.stdout(operation.valueToString(evaluatedValue), state.io, { newline: true, rightJustify })
   return undefined
 }
 
@@ -437,7 +441,7 @@ function increment (mem: device.Memory, variable: types.Variable, step: types.Va
 }
 
 function getInput (text: string, variable: types.Variable, state: State, allowStringLiterals: boolean): string {
-  iolib.stdout(text, state.io, false)
+  iolib.stdout(text, state.io, { newline: false })
   iolib.onStdin((input: string | null | undefined) => {
     if (input === null || input === undefined || input === '') {
       return true
