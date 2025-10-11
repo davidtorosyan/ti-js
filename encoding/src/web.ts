@@ -69,8 +69,9 @@ async function getBits (imageUrl: string): Promise<readonly boolean[][]> {
       let filled
       try {
         filled = isFilled(pixel)
-      } catch (error: any) {
-        throw new Error(`Failed on ${imageUrl} at (${x}, ${y}) with error: ${error.message}`)
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : String(error)
+        throw new Error(`Failed on ${imageUrl} at (${x}, ${y}) with error: ${message}`)
       }
 
       line.push(filled)

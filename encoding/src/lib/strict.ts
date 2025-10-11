@@ -104,8 +104,14 @@ function transform (hex: string, token: string): string {
     return tokenLookup
   }
 
-  const statsRelated = hex >= statsRange[0]! && hex <= statsRange[1]!
-  const accentRelated = hex >= accentRange[0]! && hex <= accentRange[1]!
+  if (statsRange[0] === undefined || statsRange[1] === undefined) {
+    throw new Error('Stats range is not properly defined')
+  }
+  if (accentRange[0] === undefined || accentRange[1] === undefined) {
+    throw new Error('Accent range is not properly defined')
+  }
+  const statsRelated = hex >= statsRange[0] && hex <= statsRange[1]
+  const accentRelated = hex >= accentRange[0] && hex <= accentRange[1]
 
   if (accentRelated && token.length === 1) {
     const unicodeHex = '00' + token.charCodeAt(0).toString(16).toUpperCase()

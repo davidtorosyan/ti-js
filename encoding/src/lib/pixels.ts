@@ -23,8 +23,9 @@ export function readGlyphs (): Map<string, string> {
       let bits
       try {
         bits = encode(glyphs)
-      } catch (error: any) {
-        throw new Error(`Invalid glyphs for hex: ${hex} with message: ${error.message}`)
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : String(error)
+        throw new Error(`Invalid glyphs for hex: ${hex} with message: ${message}`)
       }
       const encoded = encodeBits(bits)
       results.set(hex, encoded)

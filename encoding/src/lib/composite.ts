@@ -162,7 +162,10 @@ function createComposite (hex: string, token: string, tokenMap: Map<string, stri
   const result: string[] = []
 
   for (let i = 0; i < token.length; i++) {
-    const char = token[i]!
+    const char = token[i]
+    if (char === undefined) {
+      throw new Error(`Unexpected undefined character at index ${i} in token: ${token}`)
+    }
 
     if (needsSubscript) {
       const subscript = subscriptMap.get(char)

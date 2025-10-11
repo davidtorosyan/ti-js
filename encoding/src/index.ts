@@ -31,11 +31,17 @@ function transform (input: TiTokenInput[], glpyhs: Map<string, string>): TiToken
   for (const record of input) {
     const composite = composites.get(record)
     const length = composite === undefined ? 1 : composite.length
+    const name = names.get(record)
+    const strict = stricts.get(record)
+
+    if (name === undefined || strict === undefined) {
+      throw new Error(`Missing name or strict for record: ${record.hex}`)
+    }
 
     output.push({
       hex: record.hex,
-      name: names.get(record)!,
-      strict: stricts.get(record)!,
+      name,
+      strict,
       utf8: createUtf8(record),
       composite,
       length,

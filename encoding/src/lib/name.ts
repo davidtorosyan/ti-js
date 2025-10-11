@@ -91,7 +91,10 @@ function createName (hex: string, token: string): string {
     return hexLookup
   }
 
-  const statsRelated = hex >= statsRange[0]! && hex <= statsRange[1]!
+  if (statsRange[0] === undefined || statsRange[1] === undefined) {
+    throw new Error('Stats range is not properly defined')
+  }
+  const statsRelated = hex >= statsRange[0] && hex <= statsRange[1]
   if (statsRelated) {
     const alphaMatch = token.match(/^[a-zA-Z]$/)
     if (alphaMatch) {
@@ -116,8 +119,11 @@ function createName (hex: string, token: string): string {
 
   const numberMatch = token.match(/^(.+)(\d)$/)
   if (numberMatch) {
-    const prefix = numberMatch[1]!
-    const digit = numberMatch[2]!
+    const prefix = numberMatch[1]
+    const digit = numberMatch[2]
+    if (prefix === undefined || digit === undefined) {
+      throw new Error(`Invalid number match for token: ${token}`)
+    }
     const prefixLookup = numberedLookup.get(prefix)
     if (prefixLookup) {
       return prefixLookup + '_' + digit
