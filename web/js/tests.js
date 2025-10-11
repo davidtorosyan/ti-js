@@ -205,8 +205,6 @@ function initTests () {
     const $img = $('<img>')
     $img.attr('data-type', 'expected-screen')
     $img.attr('crossorigin', 'anonymous')
-    // console.log(document.currentScript.src)
-    console.log(import.meta.url)
 
     const prefix = getCdnPrefix()
     $img.attr('src', prefix + '/img/' + file)
