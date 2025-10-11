@@ -651,6 +651,27 @@ const tiJsTests =
       input: ' ',
       expected: 'ERR:SYNTAX',
     },
+    {
+      name: 'OverflowLongString',
+      input: 'Disp "ThisIsAVeryLongStringThatExceedsTheScreenWidth"',
+      expected: 'ThisIsAVeryLongStringThatExceedsTheScreenWidth',
+    },
+    {
+      name: 'OverflowLongNumber',
+      input: 'Disp 1.2345678901234567',
+      expected: '1.2345678901234567',
+    },
+    {
+      name: 'OverflowLongList',
+      input: 'Disp {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20}',
+      expected: '{1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20}',
+    },
+    {
+      name: 'OverflowLongNumberInputPrompt',
+      input: ['Prompt X', 'Disp X'],
+      expected: ['X=?1.2345678901234567', '1.2345678901234567'],
+      stdin: '1.2345678901234567',
+    },
   ],
 }
 
