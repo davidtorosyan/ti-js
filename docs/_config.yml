@@ -5,4 +5,4 @@ sass_dir: assets/css
 hide_footer: true
 baseurl: /ti-js
 port: 4002
-version: "0.4.37"
+version: "0.4.38"
