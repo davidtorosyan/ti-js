@@ -441,7 +441,7 @@ function increment (mem: device.Memory, variable: types.Variable, step: types.Va
 }
 
 function getInput (text: string, variable: types.Variable, state: State, allowStringLiterals: boolean): string {
-  iolib.stdout(text, state.io, { newline: false })
+  iolib.stdout(text, state.io, { newline: false, overflow: true })
   iolib.onStdin((input: string | null | undefined) => {
     if (input === null || input === undefined || input === '') {
       return true
@@ -450,7 +450,7 @@ function getInput (text: string, variable: types.Variable, state: State, allowSt
       throw new core.LibError('resume not defined')
     }
     state.resume(() => {
-      iolib.stdout(input, state.io)
+      iolib.stdout(input, state.io, { overflow: true })
 
       let value: types.ValueResolved
       if (variable.type === types.StringVariable && allowStringLiterals) {
