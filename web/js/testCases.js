@@ -23,6 +23,11 @@ const tiJsTests =
       expected: ['1', '2'],
     },
     {
+      name: 'DispScroll',
+      input: ['Disp 1', 'Disp 2', 'Disp 3', 'Disp 4', 'Disp 5', 'Disp 6', 'Disp 7', 'Disp 8', 'Disp 9'],
+      expected: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+    },
+    {
       name: 'ForLoop',
       input: ['For(X,1,3,1)', 'Disp X', 'End'],
       expected: ['1', '2', '3'],
@@ -640,6 +645,11 @@ const tiJsTests =
       name: 'OutputOverflowNoScroll',
       input: 'Output(8,1,"ABCDEFGHIJKLMNOPQRSTUVWXYZ")',
       expected: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    },
+    {
+      name: 'OutputWithDisp',
+      input: ['Disp "AAAA"', 'Disp "BBBB"', 'Disp "CCCC"', 'Output(2,3,"X")', 'Disp "DDDD"'],
+      expected: ['AAAA', 'BBBB', 'CCCC', 'XDDDD'],
     },
     {
       name: 'OutputDomain',
