@@ -392,13 +392,21 @@ function visitOutput (line: types.Output, state: State): undefined {
   if (row.type !== types.TiNumber || column.type !== types.TiNumber) {
     throw new core.TiError(core.TiErrorCode.DataType)
   }
+  if (!Number.isInteger(row.float) || !Number.isInteger(column.float)) {
+    throw new core.TiError(core.TiErrorCode.Domain)
+  }
   if (row.float < 1 || row.float > state.rows || column.float < 1 || column.float > state.columns) {
     throw new core.TiError(core.TiErrorCode.Domain)
   }
-  // TODO: respect rows and columns
   const evaluatedValue = expression.evaluate(line.value, state.mem)
   const rightJustify = core.isRightJustified(evaluatedValue)
-  iolib.stdout(operation.valueToString(evaluatedValue), state.io, { newline: true, rightJustify })
+  iolib.stdout(operation.valueToString(evaluatedValue), state.io, {
+    newline: false,
+    rightJustify,
+    overflow: true,
+    row: row.float,
+    col: column.float,
+  })
   return undefined
 }
 

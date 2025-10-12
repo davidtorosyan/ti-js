@@ -618,8 +618,28 @@ const tiJsTests =
     },
     {
       name: 'Output',
+      input: 'Output(1,2,"X")',
+      expected: 'X',
+    },
+    {
+      name: 'OutputNumber',
       input: 'Output(1,2,3)',
       expected: '3',
+    },
+    {
+      name: 'OutputPosition',
+      input: ['Output(2,3,"A")', 'Output(4,5,"B")'],
+      expected: ['AB'],
+    },
+    {
+      name: 'OutputOverflow',
+      input: 'Output(1,1,"ABCDEFGHIJKLMNOPQRSTUVWXYZ")',
+      expected: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    },
+    {
+      name: 'OutputOverflowNoScroll',
+      input: 'Output(8,1,"ABCDEFGHIJKLMNOPQRSTUVWXYZ")',
+      expected: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
     },
     {
       name: 'OutputDomain',
@@ -629,6 +649,16 @@ const tiJsTests =
     {
       name: 'OutputDomainHigh',
       input: 'Output(9,2,3)',
+      expected: 'ERR:DOMAIN',
+    },
+    {
+      name: 'OutputDomainFloat',
+      input: 'Output(1.5,2,3)',
+      expected: 'ERR:DOMAIN',
+    },
+    {
+      name: 'OutputDomainColFloat',
+      input: 'Output(1,2.5,3)',
       expected: 'ERR:DOMAIN',
     },
     {

@@ -172,11 +172,38 @@ export class Screen {
 
   print (value: string, printOptions: PrintOptions): void {
     const glyphs = this.toGlyphs(value)
-    const colOffset = this.calculateColumnOffset(glyphs.length, printOptions.rightJustify)
+    const { row, col, updateCursor } = this.getPosition(glyphs.length, printOptions)
 
-    this.drawGlyphs(glyphs, this.cursorCol + colOffset, this.cursorRow, true, printOptions.overflow)
+    this.drawGlyphs(glyphs, col, row, updateCursor, printOptions.overflow)
     if (printOptions.newline) {
       this.newLine()
+    }
+  }
+
+  private getPosition (
+    glyphCount: number,
+    printOptions: PrintOptions,
+  ): { row: number, col: number, updateCursor: boolean } {
+    // Validate that both row and col are specified together, or neither
+    const hasRow = printOptions.row !== undefined
+    const hasCol = printOptions.col !== undefined
+    if (hasRow !== hasCol) {
+      throw new Error('Both row and col must be specified together, or neither')
+    }
+
+    if (printOptions.row !== undefined && printOptions.col !== undefined) {
+      return {
+        row: printOptions.row - 1,
+        col: printOptions.col - 1,
+        updateCursor: false,
+      }
+    } else {
+      const colOffset = this.calculateColumnOffset(glyphCount, printOptions.rightJustify)
+      return {
+        row: this.cursorRow,
+        col: this.cursorCol + colOffset,
+        updateCursor: true,
+      }
     }
   }
 
